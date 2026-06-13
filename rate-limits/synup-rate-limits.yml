@@ -1,0 +1,18 @@
+name: Synup API Rate Limits
+description: Rate limiting information for the Synup REST API v4. Synup does not publicly publish specific rate limit thresholds; limits are enforced per API key and may vary by plan tier. Contact Synup support or consult the developer portal for plan-specific limits.
+url: https://developer.synup.com/
+notes:
+  - Rate limits are enforced per API key and vary by plan tier.
+  - Synup does not publicly document specific request-per-minute or daily call limits.
+  - Exceeding limits typically results in HTTP 429 Too Many Requests responses.
+  - Enterprise and Scale plan customers may negotiate higher rate limits.
+  - MCP access (131 tools across 6 surfaces) is available on Scale and enterprise tiers.
+headers:
+  - name: Authorization
+    description: API key authentication header required on every request.
+    format: "API <your_api_key>"
+  - name: Content-Type
+    description: Must be set to application/json for all requests.
+    value: application/json
+api_version: v4
+base_path: /api/v4

@@ -1,0 +1,68 @@
+name: Synup FinOps
+description: Financial operations guidance for managing Synup API and platform costs, including plan selection, add-on optimization, and cost tracking for multi-location agency deployments.
+url: https://www.synup.com/en/pricing
+cost_drivers:
+  - name: Base Platform (Synup OS)
+    description: Monthly or annual subscription for the agency operating system. Annual billing saves 20%.
+    pricing_model: subscription
+    tiers:
+      - name: Startup
+        monthly: 99
+        annual_monthly: 79
+        currency: USD
+      - name: Agency
+        monthly: 249
+        annual_monthly: 199
+        currency: USD
+      - name: Scale
+        monthly: 999
+        annual_monthly: 799
+        currency: USD
+  - name: Listings Pro Add-On
+    description: Per-location monthly cost for full directory sync across 75+ platforms.
+    pricing_model: per_unit
+    unit: location/month
+    price: 35
+    currency: USD
+  - name: Reviews Add-On
+    description: Per-location monthly cost for reputation and review management.
+    pricing_model: per_unit
+    unit: location/month
+    price_pro: 20
+    price_gold: 50
+    currency: USD
+  - name: Social Pro Add-On
+    description: Per social connection monthly cost for social media management.
+    pricing_model: per_unit
+    unit: connection/month
+    price: 6
+    currency: USD
+  - name: SEO Pro Add-On
+    description: Per-location monthly cost for local SEO tracking and optimization.
+    pricing_model: per_unit
+    unit: location/month
+    price: 5
+    currency: USD
+  - name: Team Members
+    description: Additional team members beyond plan-included seats.
+    pricing_model: per_unit
+    unit: member/month
+    price: 5
+    currency: USD
+  - name: Client Accounts
+    description: Additional client accounts beyond plan-included quota.
+    pricing_model: per_unit
+    unit: account/month
+    price: 1.50
+    currency: USD
+optimization_tips:
+  - Use annual billing to save 20% across all Synup OS tiers.
+  - Only enable Listings Pro, Reviews Pro/Gold, and SEO Pro add-ons for active locations.
+  - Audit Social Pro connections monthly and disable unused connections.
+  - Right-size your OS tier: upgrade to Agency or Scale only when location or client account limits are hit.
+  - API and MCP access is included in all tiers; no additional cost for integration development.
+  - Use the 14-day free trial to validate integration requirements before committing to an annual plan.
+billing:
+  trial: 14-day free trial available on demand
+  annual_discount: 20 percent
+  no_hidden_fees: true

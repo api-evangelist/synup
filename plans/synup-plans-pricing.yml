@@ -1,0 +1,84 @@
+name: Synup Plans and Pricing
+description: Pricing plans for the Synup local marketing platform, including Synup OS agency tiers and add-on products for listings, reviews, social, and SEO management.
+url: https://www.synup.com/en/pricing
+plans:
+  - name: Synup OS Startup
+    description: For small agencies needing quick access to core local marketing capabilities.
+    url: https://www.synup.com/en/pricing
+    price: 79
+    unit: month
+    currency: USD
+    billing: annual
+    price_monthly: 99
+    features:
+      - Up to 5 team members
+      - 25 client accounts
+      - 50 client users
+      - Listings management up to 25 locations
+      - Review management up to 25 locations
+      - API access
+  - name: Synup OS Agency
+    description: For growth-stage agencies streamlining operations and scaling client services.
+    url: https://www.synup.com/en/pricing
+    price: 199
+    unit: month
+    currency: USD
+    billing: annual
+    price_monthly: 249
+    features:
+      - Up to 10 team members
+      - 100 client accounts
+      - Unlimited client users
+      - Listings management up to 100 locations
+      - Review management up to 100 locations
+      - API access
+  - name: Synup OS Scale
+    description: For large agencies requiring comprehensive platform functionality and high-volume client management.
+    url: https://www.synup.com/en/pricing
+    price: 799
+    unit: month
+    currency: USD
+    billing: annual
+    price_monthly: 999
+    features:
+      - Up to 50 team members
+      - 500 client accounts
+      - Unlimited client users
+      - Listings management up to 500 locations
+      - Review management up to 500 locations
+      - API access
+      - API and MCP access for custom workflows
+addons:
+  - name: Listings Pro
+    description: 75+ directory listings, bulk editing, automated indexing, AI local posting, duplicate suppression, and 10 keywords monthly search ranking tracking.
+    price: 35
+    unit: location/month
+    currency: USD
+  - name: Reviews Pro
+    description: Reputation management and review aggregation across major platforms.
+    price: 20
+    unit: location/month
+    currency: USD
+  - name: Reviews Gold
+    description: Enhanced review management with advanced reputation tools.
+    price: 50
+    unit: location/month
+    currency: USD
+  - name: Social Pro
+    description: Social media management and scheduling per connection.
+    price: 6
+    unit: connection/month
+    currency: USD
+  - name: SEO Pro
+    description: Local SEO performance tracking and optimization tools.
+    price: 5
+    unit: location/month
+    currency: USD
+  - name: Additional Team Member
+    price: 5
+    unit: member/month
+    currency: USD
+  - name: Additional Client Account
+    price: 1.50
+    unit: account/month
+    currency: USD
