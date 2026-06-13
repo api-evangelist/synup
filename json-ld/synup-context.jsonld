@@ -1,0 +1,48 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "synup": "https://www.synup.com/vocab#",
+    "aid": "synup:aid",
+    "baseURL": "synup:baseURL",
+    "Location": "synup:Location",
+    "Listing": "synup:Listing",
+    "Review": "synup:Review",
+    "ReviewCampaign": "synup:ReviewCampaign",
+    "Ranking": "synup:Ranking",
+    "Analytics": "synup:Analytics",
+    "SocialPost": "synup:SocialPost",
+    "locationId": {
+      "@id": "synup:locationId",
+      "@type": "@id"
+    },
+    "listingStatus": "synup:listingStatus",
+    "directoryName": "synup:directoryName",
+    "rankingScore": "synup:rankingScore",
+    "heatmapGrid": "synup:heatmapGrid",
+    "reviewSource": "synup:reviewSource",
+    "reviewRating": {
+      "@id": "synup:reviewRating",
+      "@type": "schema:Number"
+    },
+    "reviewResponse": "synup:reviewResponse",
+    "campaignType": "synup:campaignType",
+    "analyticsSource": "synup:analyticsSource",
+    "subCategory": "synup:subCategory",
+    "whiteLabel": "synup:whiteLabel",
+    "mcpTool": "synup:mcpTool",
+    "apiVersion": "synup:apiVersion",
+    "Organization": "schema:Organization",
+    "LocalBusiness": "schema:LocalBusiness",
+    "PostalAddress": "schema:PostalAddress",
+    "Rating": "schema:Rating",
+    "Review": "schema:Review",
+    "name": "schema:name",
+    "description": "schema:description",
+    "url": "schema:url",
+    "telephone": "schema:telephone",
+    "address": "schema:address",
+    "image": "schema:image",
+    "dateCreated": "schema:dateCreated",
+    "dateModified": "schema:dateModified"
+  }
+}

@@ -1,0 +1,75 @@
+aid: synup
+name: Synup API Vocabulary
+description: Domain vocabulary for the Synup Local SEO and Marketing API covering listings management, reputation, rankings, social media, and analytics.
+url: https://www.synup.com/
+created: '2026-06-13'
+modified: '2026-06-13'
+terms:
+  - term: Location
+    definition: A business location managed through Synup, including name, address, phone, hours, and category data.
+    type: Resource
+    example: A coffee shop at a specific address with unique locationId.
+  - term: Listing
+    definition: A business profile entry on an external directory such as Google, Apple Maps, Bing, or Facebook, syndicated by Synup.
+    type: Resource
+    example: A Google Business Profile listing for a location.
+  - term: ListingStatus
+    definition: The current synchronization state of a listing on a directory (synced, pending, claimed, suspended).
+    type: Property
+    example: synced, pending, claimed, suspended
+  - term: Interaction
+    definition: A review or Q&A item from a directory that Synup aggregates for monitoring and response.
+    type: Resource
+    example: A 4-star Google review for a restaurant location.
+  - term: ReviewCampaign
+    definition: An SMS or email campaign that solicits customer reviews for a business location.
+    type: Resource
+    example: A post-visit SMS campaign requesting a Google review.
+  - term: Ranking
+    definition: Local search rank data for a keyword at a geographic point, used for tracking local SEO performance.
+    type: Resource
+    example: Position 3 for "pizza near me" in Austin, TX.
+  - term: HeatmapGrid
+    definition: A geographic grid of ranking data points showing how a business ranks at different locations within a target area.
+    type: Resource
+    example: A 5x5 grid of rank scores centered on a business address.
+  - term: Analytics
+    definition: Performance metrics aggregated from Google Business Profile and other directories, including impressions, clicks, and calls.
+    type: Resource
+    example: Monthly Google Business Profile views for a location.
+  - term: SubCategory
+    definition: A specific business category supported by the Synup platform for directory classification.
+    type: Property
+    example: Italian Restaurant, Auto Repair, Hair Salon.
+  - term: WhiteLabel
+    definition: A branding configuration that allows agencies to present Synup tools under their own brand to clients.
+    type: Feature
+    example: An agency white-labeling the Synup dashboard for their clients.
+  - term: MCPTool
+    definition: A Model Context Protocol tool provided by Synup enabling AI agents to manage locations, listings, and reviews programmatically.
+    type: Feature
+    example: A Claude AI agent using MCP to respond to reviews via Synup.
+  - term: GridRank
+    definition: A local rank grid report showing keyword positions across a geographic grid for competitive local SEO analysis.
+    type: Resource
+    example: A 7x7 grid showing rank positions for "dentist" in a city.
+  - term: KeywordPerformance
+    definition: Aggregated ranking data for a keyword across multiple date ranges and grid points.
+    type: Resource
+    example: Trend data showing improvement in "plumber" keyword ranking over 30 days.
+  - term: SocialPost
+    definition: A post published or scheduled to social media platforms (Google, Facebook, Instagram) through Synup.
+    type: Resource
+    example: A promotional post scheduled for Google Business Profile and Facebook.
+  - term: Directory
+    definition: An external business directory or platform (e.g., Google, Apple Maps, Bing, Yelp) where Synup syndicates listings.
+    type: Resource
+    example: Google Business Profile, Yelp, Foursquare.
+  - term: PremiumListing
+    definition: Enhanced listings on high-value directories that require special handling or premium data submission.
+    type: Resource
+    example: Apple Maps Connect or Bing Places premium placement.
+  - term: DuplicateListing
+    definition: A duplicate business profile detected on a directory that may compete with the primary listing.
+    type: Resource
+    example: Two Google Business Profile entries for the same address.
