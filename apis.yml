@@ -1,7 +1,7 @@
 aid: synup
 name: Synup
 description: Synup is a local marketing platform providing a REST API for managing business listings, syndicating location data to 80+ directories, tracking and responding to reviews, and monitoring local search performance. The platform serves marketing agencies with white-label tools covering listings sync, reputation management, social media, SEO, and analytics.
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 url: https://raw.githubusercontent.com/api-evangelist/synup/refs/heads/main/apis.yml
 created: '2026-06-13'
 modified: '2026-06-13'
@@ -19,7 +19,7 @@ apis:
   - aid: synup:synup-api
     name: Synup API
     description: REST API v4 for managing business locations, syndicating listings to 80+ directories, aggregating and responding to reviews, tracking local search rankings with heatmaps, and retrieving unified analytics. Supports MCP integration for AI agent workflows.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://developer.synup.com/
     baseURL: https://app.synup.com/api/v4
     tags:
