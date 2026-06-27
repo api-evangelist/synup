@@ -9,13 +9,11 @@
   "repo": "synup",
   "feeds": [
     {
-      "source": "https://www.linkedin.com/company/synup",
-      "feed_url": "https://www.linkedin.com/company/synup",
-      "title": "",
+      "source": "https://www.synup.com/blog/",
       "saved": 0,
-      "method": "none"
+      "error": "HTTP 404 on listing page"
     }
   ],
   "post_count": 0,
-  "fetched": "2026-06-14T20:42:17Z"
+  "fetched": "2026-06-27T13:14:46Z"
 }
