@@ -35,6 +35,8 @@ apis:
       - type: OpenAPI
         url: https://www.synup.dev/
 common:
+  - type: DomainSecurity
+    url: security/synup-domain-security.yml
   - type: Website
     url: https://www.synup.com/
   - type: Documentation
