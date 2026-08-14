@@ -2,7 +2,7 @@
   "aid": "synup",
   "name": "Synup Blog",
   "description": "Blog covering local SEO, listings management, reputation management, social media, and local marketing strategies for agencies and multi-location businesses.",
-  "url": "https://www.synup.com/blog/",
+  "url": "https://www.synup.com/en/learn",
   "created": "2026-06-13",
   "modified": "2026-06-13",
   "blogs": [],
@@ -17,5 +17,6 @@
     }
   ],
   "post_count": 0,
-  "fetched": "2026-08-06T14:08:46Z"
+  "fetched": "2026-08-06T14:08:46Z",
+  "note": "2026-08-13: https://www.synup.com/blog/ now 404s; Synup moved its content library to /en/learn."
 }

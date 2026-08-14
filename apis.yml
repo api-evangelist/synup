@@ -1,6 +1,6 @@
 aid: synup
 name: Synup
-description: Synup is a local marketing platform providing a REST API for managing business listings, syndicating location data to 80+ directories, tracking and responding to reviews, and monitoring local search performance. The platform serves marketing agencies with white-label tools covering listings sync, reputation management, social media, SEO, and analytics.
+description: Synup is a local marketing platform for agencies and multi-location brands, providing a REST API (v4) for managing business locations, syndicating listing data to 80+ directories including Google, Apple, Bing and Facebook, aggregating and responding to reviews across every connected platform, running SMS and email review campaigns, tracking local search rankings with grid-rank heatmaps, publishing local and social posts, and pulling unified profile analytics. The platform serves marketing agencies with white-label tooling covering listings sync, reputation management, social media, local SEO and reporting, and ships a first-party remote MCP server so AI agents can drive the same surface as the dashboard.
 accessModel:
   pricing: paid
   onboarding: unknown
@@ -16,7 +16,7 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/synup.png
 url: https://raw.githubusercontent.com/api-evangelist/synup/refs/heads/main/apis.yml
 created: '2026-06-13'
-modified: '2026-06-13'
+modified: '2026-08-13'
 specificationVersion: '0.19'
 type: Index
 tags:
@@ -27,13 +27,16 @@ tags:
   - Reviews
   - Social Media
   - Analytics
+  - Business Listings
+  - Review Management
+  - Agency Software
 apis:
   - aid: synup:synup-api
     name: Synup API
-    description: REST API v4 for managing business locations, syndicating listings to 80+ directories, aggregating and responding to reviews, tracking local search rankings with heatmaps, and retrieving unified analytics. Supports MCP integration for AI agent workflows.
+    description: REST API v4 for managing business locations, syndicating listings to 80+ directories, aggregating and responding to reviews, running review campaigns, tracking local search rankings with grid-rank heatmaps, publishing local and social posts, and retrieving unified profile analytics. 210 operations across 208 paths with 222 component schemas, published one OpenAPI document per endpoint on developer.synup.com.
     image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://developer.synup.com/
-    baseURL: https://app.synup.com/api/v4
+    baseURL: https://api.synup.com/api/v4
     tags:
       - Locations
       - Listings
@@ -41,36 +44,141 @@ apis:
       - Rankings
       - Analytics
       - Review Campaigns
+      - Posts
+      - Connected Accounts
     properties:
+      - type: OpenAPI
+        url: openapi/synup-api-openapi.yml
       - type: Documentation
         url: https://developer.synup.com/
-      - type: OpenAPI
-        url: https://www.synup.dev/
+      - type: APIReference
+        url: https://developer.synup.com/
+      - type: GettingStarted
+        url: https://developer.synup.com/synup-local-seo-api-getting-started-doc-824500
+      - type: Overlay
+        url: overlays/synup-api-overlay.yaml
+      - type: Examples
+        url: examples/synup-examples.yml
+      - type: JSONSchema
+        url: json-schema/synup-schemas.json
+      - type: Webhooks
+        url: openapi/synup-webhooks-openapi.yml
+  - aid: synup:synup-mcp
+    name: Synup MCP Server
+    description: First-party remote Model Context Protocol server enumerating 126 tools in its published tool table across six surfaces (Locations, Listings, Reviews, Rankings, Posts & Social, Account & Insights). Tenant-routed — the canonical endpoint is your own Synup workspace domain with /mcp appended. Authenticates with OAuth 2.1 (PKCE, dynamic client registration) or the same Synup API key via X-api-key.
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+    humanURL: https://developer.synup.com/synup-mcp-getting-connected-doc-2070739
+    baseURL: https://mcp-agent.synup.com/mcp
+    tags:
+      - MCP
+      - AI Agents
+      - Local Marketing
+    properties:
+      - type: MCPServer
+        url: mcp/synup-mcp.yml
+      - type: ToolCrosswalk
+        url: mcp/synup-tool-crosswalk.yml
+      - type: OAuthScopes
+        url: scopes/synup-scopes.yml
+      - type: Documentation
+        url: https://developer.synup.com/synup-mcp-getting-connected-doc-2070739
+      - type: APIReference
+        url: https://synup.github.io/synup-mcp-agent/
 common:
-  - type: DomainSecurity
-    url: security/synup-domain-security.yml
   - type: Website
     url: https://www.synup.com/
+  - type: DeveloperPortal
+    url: https://www.synup.dev/
   - type: Documentation
     url: https://developer.synup.com/
-  - type: GitHubOrg
-    url: https://github.com/synup
-  - type: LinkedIn
-    url: https://www.linkedin.com/company/synup
-  - type: Blog
-    url: https://www.synup.com/blog/
-  - type: Pricing
-    url: https://www.synup.com/en/pricing
-  - type: StatusPage
-    url: https://status.synup.com/
-  - type: X
-    url: https://x.com/synupinc
+  - type: APIReference
+    url: https://developer.synup.com/
+  - type: GettingStarted
+    url: https://developer.synup.com/synup-local-seo-api-getting-started-doc-824500
+  - type: OpenAPI
+    url: openapi/synup-api-openapi.yml
+  - type: Webhooks
+    url: openapi/synup-webhooks-openapi.yml
+  - type: MCPServer
+    url: mcp/synup-mcp.yml
+  - type: ToolCrosswalk
+    url: mcp/synup-tool-crosswalk.yml
+  - type: AgentSkill
+    url: skills/_index.yml
+  - type: LLMsTxt
+    url: llms/synup-llms.txt
+  - type: WellKnown
+    url: well-known/synup-well-known.yml
+  - type: Authentication
+    url: authentication/synup-authentication.yml
+  - type: OAuthScopes
+    url: scopes/synup-scopes.yml
+  - type: ErrorCatalog
+    url: errors/synup-error-codes.yml
+  - type: Conventions
+    url: conventions/synup-conventions.yml
+  - type: DataModel
+    url: data-model/synup-data-model.yml
+  - type: Conformance
+    url: conformance/synup-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/synup-lifecycle.yml
+  - type: ChangeLog
+    url: https://www.synup.com/en/changelog
+  - type: ChangeLog
+    url: changelog/synup-changelog.yml
+  - type: Packages
+    url: packages/synup-packages.yml
+  - type: SDKs
+    url: packages/synup-packages.yml
+  - type: Components
+    url: components/synup-components.yml
+  - type: Overlay
+    url: overlays/synup-api-overlay.yaml
+  - type: Examples
+    url: examples/synup-examples.yml
+  - type: JSONSchema
+    url: json-schema/synup-schemas.json
+  - type: Vocabulary
+    url: vocabulary/synup-vocabulary.yml
+  - type: JSONLD
+    url: json-ld/synup-context.jsonld
+  - type: DomainSecurity
+    url: security/synup-domain-security.yml
   - type: Plans
     url: plans/synup-plans-pricing.yml
   - type: RateLimits
     url: rate-limits/synup-rate-limits.yml
   - type: FinOps
     url: finops/synup-finops.yml
+  - type: GitHubOrganization
+    url: https://github.com/synup
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/synup
+  - type: X
+    url: https://x.com/synupinc
+  - type: Blog
+    url: https://www.synup.com/en/learn
+  - type: Pricing
+    url: https://www.synup.com/en/pricing
+  - type: Support
+    url: https://help.synup.com/
+  - type: Login
+    url: https://local.synup.com/users/find_workspace
+  - type: TermsOfService
+    url: https://www.synup.com/en/terms-and-conditions
+  - type: PrivacyPolicy
+    url: https://www.synup.com/en/privacy-policy
+  - type: Integrations
+    url: https://www.synup.com/en/integrations
+  - type: HelpCenter
+    url: https://help.synup.com/
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
+
+x-enrichment:
+  date: '2026-08-13'
+  status: enriched
+  artifacts_added: 28
+  pass: local-v1
