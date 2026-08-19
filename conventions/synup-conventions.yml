@@ -1,0 +1,93 @@
+name: Synup API v4 conventions
+generated: '2026-08-13'
+method: derived
+source: openapi/synup-api-openapi.yml + https://developer.synup.com/
+description: Cross-cutting runtime semantics of the Synup REST API v4, derived from the 210 published
+  operations and the provider guides. The API is a REST facade over a GraphQL core — that shows up in
+  the pagination style, the response envelope and the error envelope.
+base_url: https://api.synup.com/api/v4
+base_url_variants:
+- https://<workspace>.synup.com/api/v4 — tenant workspace domain; the getting-started guide writes it
+  as <your_domain_url>/api/v4
+authentication:
+  style: api-key header
+  header: Authorization
+  format: API <key>
+  detail: authentication/synup-authentication.yml
+content_type:
+  request: application/json
+  response: application/json
+  required: 'Content-Type: application/json must be set on every request'
+versioning:
+  style: path
+  current: v4
+  path_prefix: /api/v4
+  last_updated_published: '2025-07-21'
+  detail: lifecycle/synup-lifecycle.yml
+pagination:
+  style: cursor (Relay connection)
+  request_params:
+  - first
+  - last
+  - after
+  - before
+  response_fields:
+  - edges[].cursor
+  - edges[].node
+  - pageInfo.hasNextPage
+  - pageInfo.hasPreviousPage
+  - pageInfo.startCursor
+  - pageInfo.endCursor
+  default_page_size: 50
+  cursor_format: opaque base64 (e.g. TG9jYXRpb246MTAw)
+  operations_using_it: 7
+  note: first defaults to 50 when omitted. Not every collection endpoint paginates; several list endpoints
+    return a plain array.
+response_envelope:
+  shape: '{"data": {...}, "errors": [...]}'
+  note: Success and error share one envelope. data may be partially populated while errors is non-empty
+    — always check errors, never rely on the HTTP status alone.
+errors:
+  style: proprietary SYxxxxx code registry
+  rfc9457: false
+  catalog: errors/synup-error-codes.yml
+  note: Some responses inline the code into the message string ("SY90005:Invalid token") rather than the
+    code field.
+idempotency:
+  supported: false
+  evidence: No Idempotency-Key header, no idempotency parameter and no idempotency language appear anywhere
+    in the 210 published operations or the developer guides.
+  note: The webhooks guide asks CONSUMERS to be duplicate-tolerant on inbound deliveries. That is at-least-once
+    delivery on Synup's side, not request idempotency on the API — retrying a POST /locations is not safe.
+request_tracing:
+  supported: false
+  evidence: No X-Request-Id, request-id or correlation header is documented or declared in the spec.
+rate_limiting:
+  documented: false
+  headers: []
+  detail: rate-limits/synup-rate-limits.yml
+expansion_and_sparse_fields:
+  supported: false
+  note: No expand/fields/include parameter is published; response shape is fixed per operation.
+metadata:
+  supported: partial
+  note: Locations carry storeCode, tags and folders as the customer-controlled organizational layer; there
+    is no generic metadata bag.
+bulk_operations:
+  supported: true
+  note: Several endpoints take arrays of location IDs (archive/activate multiple locations, bulk photo
+    upload with a status-check endpoint, get locations by store codes, mark listings as duplicates).
+async_jobs:
+  supported: true
+  note: 'Long-running work is job-shaped: bulk photo upload returns a job to poll, grid rank reports are
+    created then fetched by id, and AI idea generation completion arrives as a webhook.'
+webhooks:
+  supported: true
+  detail: asyncapi/synup-webhooks.yml
+  signature: X-Synup-Signature (HMAC-SHA256, base64)
+gaps:
+- No idempotency keys
+- No request-id/correlation header
+- No published rate limits or rate-limit response headers
+- No components.securitySchemes in the published spec
+- HTTP status and the errors[] array can disagree — clients must parse the envelope

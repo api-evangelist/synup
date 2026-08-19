@@ -1,0 +1,4473 @@
+openapi: 3.1.0
+info:
+  title: Synup Webhooks
+  version: 1.0.0
+  description: 'Synup account webhook events. A single account-level HTTPS Webhooks URL receives every
+    event; there is no per-event subscription. Every delivery is signed with X-Synup-Signature: sha256=base64(HMAC-SHA256(signing_secret,
+    raw_request_body)), and deliveries only start after the endpoint.verification challenge-response handshake
+    passes.
+
+
+    ASSEMBLED BY API EVANGELIST from the per-event OpenAPI 3.1 documents Synup publishes at developer.synup.com;
+    the webhook payload schemas are verbatim provider content. Guide: https://developer.synup.com/synup-webhooks-doc-2259000'
+  contact:
+    name: Synup Webhooks Guide
+    url: https://developer.synup.com/synup-webhooks-doc-2259000
+paths: {}
+webhooks:
+  social_connection.ad_account_status_changed:
+    post:
+      summary: Ad account status changed
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+
+        **Event name:** `social_connection.ad_account_status_changed`
+
+
+        A connected ad account''s status changed. Scope: brand-scoped (location_id is null). Delivered
+        as a signed HTTP POST to your Webhooks URL.
+
+
+        </span>'
+      tags:
+      - Webhooks/Webhooks
+      - Webhooks
+      parameters:
+      - name: X-Synup-Signature
+        in: header
+        description: sha256=base64(HMAC-SHA256(signing_secret, raw_request_body)). Verify with your signing
+          secret before processing; reject on mismatch.
+        required: true
+        example: sha256=Base64Signature==
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event:
+                  type: string
+                  description: Dotted event name.
+                timestamp:
+                  type: string
+                  description: ISO-8601 UTC time the event was emitted.
+                account_id:
+                  type: integer
+                  description: Synup account the event belongs to.
+                location_id:
+                  type: string
+                  description: Numeric string for location-scoped events; null for brand-scoped events.
+                data:
+                  type: object
+                  properties:
+                    ad_account_id:
+                      type: string
+                      description: Ad account UUID.
+                    previous_status:
+                      type: string
+                      description: Prior status.
+                    current_status:
+                      type: string
+                      description: New status.
+                    platform:
+                      type: string
+                      description: Ad platform.
+                    error_reason:
+                      type: string
+                      description: Error detail when the new status is an error state.
+                  x-apidog-orders:
+                  - ad_account_id
+                  - previous_status
+                  - current_status
+                  - platform
+                  - error_reason
+              x-apidog-orders:
+              - event
+              - timestamp
+              - account_id
+              - location_id
+              - data
+            example:
+              event: social_connection.ad_account_status_changed
+              timestamp: '2026-07-15T10:30:00Z'
+              account_id: 11073
+              location_id: null
+              data:
+                ad_account_id: ad-77
+                previous_status: active
+                current_status: disabled
+                platform: facebook
+                error_reason: Payment method failed
+      responses:
+        '200':
+          description: Your endpoint acknowledges receipt with any 2xx. A non-2xx response or a timeout
+            (>10s) is treated as a failed delivery.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Webhooks/Webhooks
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40143155-run
+  idea_image.generation_job_completed:
+    post:
+      summary: AI idea image generated
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+
+        **Event name:** `idea_image.generation_job_completed`
+
+
+        An AI image for an idea finished generating. Scope: local or social (see the top-level scope field).
+        Delivered as a signed HTTP POST to your Webhooks URL.
+
+
+        </span>'
+      tags:
+      - Webhooks/Webhooks
+      - Webhooks
+      parameters:
+      - name: X-Synup-Signature
+        in: header
+        description: sha256=base64(HMAC-SHA256(signing_secret, raw_request_body)). Verify with your signing
+          secret before processing; reject on mismatch.
+        required: true
+        example: sha256=Base64Signature==
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event:
+                  type: string
+                  description: Dotted event name.
+                timestamp:
+                  type: string
+                  description: ISO-8601 UTC time the event was emitted.
+                account_id:
+                  type: integer
+                  description: Synup account the event belongs to.
+                location_id:
+                  type: string
+                  description: Numeric string for location-scoped events; null for brand-scoped events.
+                scope:
+                  type: string
+                  description: 'AI post-idea events only: "local" or "social".'
+                data:
+                  type: object
+                  properties:
+                    idea_id:
+                      type: string
+                      description: Idea the image belongs to.
+                    image_url:
+                      type: string
+                      description: The generated image URL (completed only).
+                    flux_job_id:
+                      type: string
+                      description: Image-job id (null for the synchronous batch path).
+                    social_profile_id:
+                      type: string
+                      description: Brand id (scope:"social" only).
+                  x-apidog-orders:
+                  - idea_id
+                  - image_url
+                  - flux_job_id
+                  - social_profile_id
+              x-apidog-orders:
+              - event
+              - timestamp
+              - account_id
+              - location_id
+              - scope
+              - data
+            example:
+              event: idea_image.generation_job_completed
+              timestamp: '2026-07-15T07:10:00Z'
+              account_id: 19598
+              location_id: null
+              scope: social
+              data:
+                idea_id: idea-90211
+                image_url: https://cdn.example.com/i/90211.jpg
+                flux_job_id: flux-3321
+                social_profile_id: c81d4e2e-..
+      responses:
+        '200':
+          description: Your endpoint acknowledges receipt with any 2xx. A non-2xx response or a timeout
+            (>10s) is treated as a failed delivery.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Webhooks/Webhooks
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40515006-run
+  idea_image.generation_job_failed:
+    post:
+      summary: AI idea image generation failed
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+
+        **Event name:** `idea_image.generation_job_failed`
+
+
+        An AI image for an idea failed generating. Scope: local or social (see the top-level scope field).
+        Delivered as a signed HTTP POST to your Webhooks URL.
+
+
+        </span>'
+      tags:
+      - Webhooks/Webhooks
+      - Webhooks
+      parameters:
+      - name: X-Synup-Signature
+        in: header
+        description: sha256=base64(HMAC-SHA256(signing_secret, raw_request_body)). Verify with your signing
+          secret before processing; reject on mismatch.
+        required: true
+        example: sha256=Base64Signature==
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event:
+                  type: string
+                  description: Dotted event name.
+                timestamp:
+                  type: string
+                  description: ISO-8601 UTC time the event was emitted.
+                account_id:
+                  type: integer
+                  description: Synup account the event belongs to.
+                location_id:
+                  type: string
+                  description: Numeric string for location-scoped events; null for brand-scoped events.
+                scope:
+                  type: string
+                  description: 'AI post-idea events only: "local" or "social".'
+                data:
+                  type: object
+                  properties:
+                    idea_id:
+                      type: string
+                      description: Idea the image belongs to.
+                    error:
+                      type: string
+                      description: Customer-safe reason, bounded to <=200 chars (failed only).
+                    flux_job_id:
+                      type: string
+                      description: Image-job id (null for the synchronous batch path).
+                    social_profile_id:
+                      type: string
+                      description: Brand id (scope:"social" only).
+                  x-apidog-orders:
+                  - idea_id
+                  - error
+                  - flux_job_id
+                  - social_profile_id
+              x-apidog-orders:
+              - event
+              - timestamp
+              - account_id
+              - location_id
+              - scope
+              - data
+            example:
+              event: idea_image.generation_job_failed
+              timestamp: '2026-07-15T07:12:00Z'
+              account_id: 19598
+              location_id: null
+              scope: social
+              data:
+                idea_id: idea-90211
+                error: Image generation failed
+                flux_job_id: flux-3321
+                social_profile_id: c81d4e2e-..
+      responses:
+        '200':
+          description: Your endpoint acknowledges receipt with any 2xx. A non-2xx response or a timeout
+            (>10s) is treated as a failed delivery.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Webhooks/Webhooks
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40515007-run
+  idea.scheduled_as_post:
+    post:
+      summary: AI idea scheduled as post
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+
+        **Event name:** `idea.scheduled_as_post`
+
+
+        An idea was linked to a published social post (social only). Scope: social (see the top-level
+        scope field). Delivered as a signed HTTP POST to your Webhooks URL.
+
+
+        </span>'
+      tags:
+      - Webhooks/Webhooks
+      - Webhooks
+      parameters:
+      - name: X-Synup-Signature
+        in: header
+        description: sha256=base64(HMAC-SHA256(signing_secret, raw_request_body)). Verify with your signing
+          secret before processing; reject on mismatch.
+        required: true
+        example: sha256=Base64Signature==
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event:
+                  type: string
+                  description: Dotted event name.
+                timestamp:
+                  type: string
+                  description: ISO-8601 UTC time the event was emitted.
+                account_id:
+                  type: integer
+                  description: Synup account the event belongs to.
+                location_id:
+                  type: string
+                  description: Numeric string for location-scoped events; null for brand-scoped events.
+                scope:
+                  type: string
+                  description: 'AI post-idea events only: "local" or "social".'
+                data:
+                  type: object
+                  properties:
+                    idea_id:
+                      type: string
+                      description: Idea id.
+                    social_profile_id:
+                      type: string
+                      description: Brand/social-profile id.
+                    social_post_id:
+                      type: string
+                      description: The social post the idea was linked to.
+                    series_id:
+                      type: string
+                      description: Content series id, if any.
+                  x-apidog-orders:
+                  - idea_id
+                  - social_profile_id
+                  - social_post_id
+                  - series_id
+              x-apidog-orders:
+              - event
+              - timestamp
+              - account_id
+              - location_id
+              - scope
+              - data
+            example:
+              event: idea.scheduled_as_post
+              timestamp: '2026-07-15T07:30:00Z'
+              account_id: 19598
+              location_id: null
+              scope: social
+              data:
+                idea_id: idea-90211
+                social_profile_id: c81d4e2e-..
+                social_post_id: 7f3a1c9e-..
+                series_id: series-11
+      responses:
+        '200':
+          description: Your endpoint acknowledges receipt with any 2xx. A non-2xx response or a timeout
+            (>10s) is treated as a failed delivery.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Webhooks/Webhooks
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40143157-run
+  idea_pipeline.scrape_completed:
+    post:
+      summary: AI idea scrape completed
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+
+        **Event name:** `idea_pipeline.scrape_completed`
+
+
+        A website-analysis scrape job for idea generation completed. Scope: local or social (see the top-level
+        scope field). Delivered as a signed HTTP POST to your Webhooks URL.
+
+
+        </span>'
+      tags:
+      - Webhooks/Webhooks
+      - Webhooks
+      parameters:
+      - name: X-Synup-Signature
+        in: header
+        description: sha256=base64(HMAC-SHA256(signing_secret, raw_request_body)). Verify with your signing
+          secret before processing; reject on mismatch.
+        required: true
+        example: sha256=Base64Signature==
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event:
+                  type: string
+                  description: Dotted event name.
+                timestamp:
+                  type: string
+                  description: ISO-8601 UTC time the event was emitted.
+                account_id:
+                  type: integer
+                  description: Synup account the event belongs to.
+                location_id:
+                  type: string
+                  description: Numeric string for location-scoped events; null for brand-scoped events.
+                scope:
+                  type: string
+                  description: 'AI post-idea events only: "local" or "social".'
+                data:
+                  type: object
+                  properties:
+                    scrape_job_id:
+                      type: string
+                      description: Scrape job id.
+                    pipeline_status_id:
+                      type: string
+                      description: Associated pipeline-status id.
+                    site_url:
+                      type: string
+                      description: The scraped URL (completed only).
+                    social_profile_id:
+                      type: string
+                      description: Brand id (scope:"social" only).
+                  x-apidog-orders:
+                  - scrape_job_id
+                  - pipeline_status_id
+                  - site_url
+                  - social_profile_id
+              x-apidog-orders:
+              - event
+              - timestamp
+              - account_id
+              - location_id
+              - scope
+              - data
+            example:
+              event: idea_pipeline.scrape_completed
+              timestamp: '2026-07-15T06:45:00Z'
+              account_id: 19598
+              location_id: '279381'
+              scope: local
+              data:
+                scrape_job_id: scrape-441
+                pipeline_status_id: ps-77
+                site_url: https://acmecoffee.com
+      responses:
+        '200':
+          description: Your endpoint acknowledges receipt with any 2xx. A non-2xx response or a timeout
+            (>10s) is treated as a failed delivery.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Webhooks/Webhooks
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40143159-run
+  idea_pipeline.scrape_failed:
+    post:
+      summary: AI idea scrape failed
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+
+        **Event name:** `idea_pipeline.scrape_failed`
+
+
+        A website-analysis scrape job for idea generation failed terminally. Scope: local or social (see
+        the top-level scope field). Delivered as a signed HTTP POST to your Webhooks URL.
+
+
+        </span>'
+      tags:
+      - Webhooks/Webhooks
+      - Webhooks
+      parameters:
+      - name: X-Synup-Signature
+        in: header
+        description: sha256=base64(HMAC-SHA256(signing_secret, raw_request_body)). Verify with your signing
+          secret before processing; reject on mismatch.
+        required: true
+        example: sha256=Base64Signature==
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event:
+                  type: string
+                  description: Dotted event name.
+                timestamp:
+                  type: string
+                  description: ISO-8601 UTC time the event was emitted.
+                account_id:
+                  type: integer
+                  description: Synup account the event belongs to.
+                location_id:
+                  type: string
+                  description: Numeric string for location-scoped events; null for brand-scoped events.
+                scope:
+                  type: string
+                  description: 'AI post-idea events only: "local" or "social".'
+                data:
+                  type: object
+                  properties:
+                    scrape_job_id:
+                      type: string
+                      description: Scrape job id.
+                    pipeline_status_id:
+                      type: string
+                      description: Associated pipeline-status id.
+                    error_message:
+                      type: string
+                      description: Customer-safe reason, bounded to <=200 chars (failed only).
+                    social_profile_id:
+                      type: string
+                      description: Brand id (scope:"social" only).
+                  x-apidog-orders:
+                  - scrape_job_id
+                  - pipeline_status_id
+                  - error_message
+                  - social_profile_id
+              x-apidog-orders:
+              - event
+              - timestamp
+              - account_id
+              - location_id
+              - scope
+              - data
+            example:
+              event: idea_pipeline.scrape_failed
+              timestamp: '2026-07-15T06:50:00Z'
+              account_id: 19598
+              location_id: '279381'
+              scope: local
+              data:
+                scrape_job_id: scrape-441
+                pipeline_status_id: ps-77
+                error_message: Website could not be reached
+      responses:
+        '200':
+          description: Your endpoint acknowledges receipt with any 2xx. A non-2xx response or a timeout
+            (>10s) is treated as a failed delivery.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Webhooks/Webhooks
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40515005-run
+  idea_series.all_posts_generated:
+    post:
+      summary: AI idea series completed
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+
+        **Event name:** `idea_series.all_posts_generated`
+
+
+        All slots in a content series finished generating. Scope: local or social (see the top-level scope
+        field). Delivered as a signed HTTP POST to your Webhooks URL.
+
+
+        </span>'
+      tags:
+      - Webhooks/Webhooks
+      - Webhooks
+      parameters:
+      - name: X-Synup-Signature
+        in: header
+        description: sha256=base64(HMAC-SHA256(signing_secret, raw_request_body)). Verify with your signing
+          secret before processing; reject on mismatch.
+        required: true
+        example: sha256=Base64Signature==
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event:
+                  type: string
+                  description: Dotted event name.
+                timestamp:
+                  type: string
+                  description: ISO-8601 UTC time the event was emitted.
+                account_id:
+                  type: integer
+                  description: Synup account the event belongs to.
+                location_id:
+                  type: string
+                  description: Numeric string for location-scoped events; null for brand-scoped events.
+                scope:
+                  type: string
+                  description: 'AI post-idea events only: "local" or "social".'
+                data:
+                  type: object
+                  properties:
+                    series_id:
+                      type: string
+                      description: Content series id.
+                    generated_count:
+                      type: integer
+                      description: Slots that generated successfully.
+                    social_profile_id:
+                      type: string
+                      description: Brand id (scope:"social" only).
+                  x-apidog-orders:
+                  - series_id
+                  - generated_count
+                  - social_profile_id
+              x-apidog-orders:
+              - event
+              - timestamp
+              - account_id
+              - location_id
+              - scope
+              - data
+            example:
+              event: idea_series.all_posts_generated
+              timestamp: '2026-07-15T07:45:00Z'
+              account_id: 19598
+              location_id: '279381'
+              scope: local
+              data:
+                series_id: series-11
+                generated_count: 8
+      responses:
+        '200':
+          description: Your endpoint acknowledges receipt with any 2xx. A non-2xx response or a timeout
+            (>10s) is treated as a failed delivery.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Webhooks/Webhooks
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40143158-run
+  idea.generated:
+    post:
+      summary: AI post idea generated
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+
+        **Event name:** `idea.generated`
+
+
+        A new AI post idea was generated. Scope: local or social (see the top-level scope field). Delivered
+        as a signed HTTP POST to your Webhooks URL.
+
+
+        </span>'
+      tags:
+      - Webhooks/Webhooks
+      - Webhooks
+      parameters:
+      - name: X-Synup-Signature
+        in: header
+        description: sha256=base64(HMAC-SHA256(signing_secret, raw_request_body)). Verify with your signing
+          secret before processing; reject on mismatch.
+        required: true
+        example: sha256=Base64Signature==
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event:
+                  type: string
+                  description: Dotted event name.
+                timestamp:
+                  type: string
+                  description: ISO-8601 UTC time the event was emitted.
+                account_id:
+                  type: integer
+                  description: Synup account the event belongs to.
+                location_id:
+                  type: string
+                  description: Numeric string for location-scoped events; null for brand-scoped events.
+                scope:
+                  type: string
+                  description: 'AI post-idea events only: "local" or "social".'
+                data:
+                  type: object
+                  properties:
+                    idea_id:
+                      type: string
+                      description: Idea id.
+                    source:
+                      type: string
+                      description: How the idea was generated.
+                    idea_summary:
+                      type: object
+                      description: 'Summary: title, content_excerpt, image_url.'
+                      x-apidog-orders: []
+                    generation_batch_id:
+                      type: string
+                      description: Batch this idea belongs to.
+                    social_profile_id:
+                      type: string
+                      description: Brand/social-profile id (scope:"social" only).
+                  x-apidog-orders:
+                  - idea_id
+                  - source
+                  - idea_summary
+                  - generation_batch_id
+                  - social_profile_id
+              x-apidog-orders:
+              - event
+              - timestamp
+              - account_id
+              - location_id
+              - scope
+              - data
+            example:
+              event: idea.generated
+              timestamp: '2026-07-15T07:20:00Z'
+              account_id: 19598
+              location_id: '279381'
+              scope: local
+              data:
+                idea_id: idea-90211
+                source: scheduled
+                idea_summary:
+                  title: Weekend special
+                  content_excerpt: Try our new seasonal latte...
+                  image_url: https://cdn.example.com/i/90211.jpg
+                generation_batch_id: batch-9
+      responses:
+        '200':
+          description: Your endpoint acknowledges receipt with any 2xx. A non-2xx response or a timeout
+            (>10s) is treated as a failed delivery.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Webhooks/Webhooks
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40143156-run
+  social_post.boost_active:
+    post:
+      summary: Boost active
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+
+        **Event name:** `social_post.boost_active`
+
+
+        A boost went live and is actively spending. Scope: brand-scoped (location_id is null). Delivered
+        as a signed HTTP POST to your Webhooks URL.
+
+
+        </span>'
+      tags:
+      - Webhooks/Webhooks
+      - Webhooks
+      parameters:
+      - name: X-Synup-Signature
+        in: header
+        description: sha256=base64(HMAC-SHA256(signing_secret, raw_request_body)). Verify with your signing
+          secret before processing; reject on mismatch.
+        required: true
+        example: sha256=Base64Signature==
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event:
+                  type: string
+                  description: Dotted event name.
+                timestamp:
+                  type: string
+                  description: ISO-8601 UTC time the event was emitted.
+                account_id:
+                  type: integer
+                  description: Synup account the event belongs to.
+                location_id:
+                  type: string
+                  description: Numeric string for location-scoped events; null for brand-scoped events.
+                data:
+                  type: object
+                  properties:
+                    ad_run_id:
+                      type: string
+                      description: Ad-run UUID.
+                    is_boost:
+                      type: boolean
+                      description: Always true for boost events.
+                    boost_state:
+                      type: string
+                      description: Boost state ("active").
+                    post_id:
+                      type: string
+                      description: Boosted social post UUID.
+                    social_profile_id:
+                      type: string
+                      description: Brand UUID.
+                    platform:
+                      type: string
+                      description: Ad platform (e.g. facebook).
+                  x-apidog-orders:
+                  - ad_run_id
+                  - is_boost
+                  - boost_state
+                  - post_id
+                  - social_profile_id
+                  - platform
+              x-apidog-orders:
+              - event
+              - timestamp
+              - account_id
+              - location_id
+              - data
+            example:
+              event: social_post.boost_active
+              timestamp: '2026-07-15T13:00:00Z'
+              account_id: 11073
+              location_id: null
+              data:
+                ad_run_id: ar_101
+                is_boost: true
+                boost_state: active
+                post_id: 7a1c...
+                social_profile_id: b2d4...
+                platform: facebook
+      responses:
+        '200':
+          description: Your endpoint acknowledges receipt with any 2xx. A non-2xx response or a timeout
+            (>10s) is treated as a failed delivery.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Webhooks/Webhooks
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40143149-run
+  social_post.boost_created:
+    post:
+      summary: Boost created
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+
+        **Event name:** `social_post.boost_created`
+
+
+        A boost (paid promotion) was created for a social post. Scope: brand-scoped (location_id is null).
+        Delivered as a signed HTTP POST to your Webhooks URL.
+
+
+        </span>'
+      tags:
+      - Webhooks/Webhooks
+      - Webhooks
+      parameters:
+      - name: X-Synup-Signature
+        in: header
+        description: sha256=base64(HMAC-SHA256(signing_secret, raw_request_body)). Verify with your signing
+          secret before processing; reject on mismatch.
+        required: true
+        example: sha256=Base64Signature==
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event:
+                  type: string
+                  description: Dotted event name.
+                timestamp:
+                  type: string
+                  description: ISO-8601 UTC time the event was emitted.
+                account_id:
+                  type: integer
+                  description: Synup account the event belongs to.
+                location_id:
+                  type: string
+                  description: Numeric string for location-scoped events; null for brand-scoped events.
+                data:
+                  type: object
+                  properties:
+                    ad_run_id:
+                      type: string
+                      description: Ad-run UUID.
+                    is_boost:
+                      type: boolean
+                      description: Always true for boost events.
+                    boost_state:
+                      type: string
+                      description: Boost state ("created").
+                    post_id:
+                      type: string
+                      description: Boosted social post UUID.
+                    social_profile_id:
+                      type: string
+                      description: Brand UUID.
+                    platform:
+                      type: string
+                      description: Ad platform (e.g. facebook).
+                  x-apidog-orders:
+                  - ad_run_id
+                  - is_boost
+                  - boost_state
+                  - post_id
+                  - social_profile_id
+                  - platform
+              x-apidog-orders:
+              - event
+              - timestamp
+              - account_id
+              - location_id
+              - data
+            example:
+              event: social_post.boost_created
+              timestamp: '2026-07-15T13:00:00Z'
+              account_id: 11073
+              location_id: null
+              data:
+                ad_run_id: ar_101
+                is_boost: true
+                boost_state: created
+                post_id: 7a1c...
+                social_profile_id: b2d4...
+                platform: facebook
+      responses:
+        '200':
+          description: Your endpoint acknowledges receipt with any 2xx. A non-2xx response or a timeout
+            (>10s) is treated as a failed delivery.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Webhooks/Webhooks
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40143148-run
+  social_post.boost_rejected:
+    post:
+      summary: Boost rejected
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+
+        **Event name:** `social_post.boost_rejected`
+
+
+        A boost was rejected by the ad platform. Scope: brand-scoped (location_id is null). Delivered
+        as a signed HTTP POST to your Webhooks URL.
+
+
+        </span>'
+      tags:
+      - Webhooks/Webhooks
+      - Webhooks
+      parameters:
+      - name: X-Synup-Signature
+        in: header
+        description: sha256=base64(HMAC-SHA256(signing_secret, raw_request_body)). Verify with your signing
+          secret before processing; reject on mismatch.
+        required: true
+        example: sha256=Base64Signature==
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event:
+                  type: string
+                  description: Dotted event name.
+                timestamp:
+                  type: string
+                  description: ISO-8601 UTC time the event was emitted.
+                account_id:
+                  type: integer
+                  description: Synup account the event belongs to.
+                location_id:
+                  type: string
+                  description: Numeric string for location-scoped events; null for brand-scoped events.
+                data:
+                  type: object
+                  properties:
+                    ad_run_id:
+                      type: string
+                      description: Ad-run UUID.
+                    is_boost:
+                      type: boolean
+                      description: Always true.
+                    boost_state:
+                      type: string
+                      description: Boost state ("rejected").
+                    post_id:
+                      type: string
+                      description: Social post UUID.
+                    social_profile_id:
+                      type: string
+                      description: Brand UUID.
+                    platform:
+                      type: string
+                      description: Ad platform.
+                    rejection_reason:
+                      type: string
+                      description: Why the boost was rejected.
+                  x-apidog-orders:
+                  - ad_run_id
+                  - is_boost
+                  - boost_state
+                  - post_id
+                  - social_profile_id
+                  - platform
+                  - rejection_reason
+              x-apidog-orders:
+              - event
+              - timestamp
+              - account_id
+              - location_id
+              - data
+            example:
+              event: social_post.boost_rejected
+              timestamp: '2026-07-15T13:05:00Z'
+              account_id: 11073
+              location_id: null
+              data:
+                ad_run_id: ar_101
+                is_boost: true
+                boost_state: rejected
+                post_id: 7a1c...
+                social_profile_id: b2d4...
+                platform: facebook
+                rejection_reason: Ad policy violation
+      responses:
+        '200':
+          description: Your endpoint acknowledges receipt with any 2xx. A non-2xx response or a timeout
+            (>10s) is treated as a failed delivery.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Webhooks/Webhooks
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40143150-run
+  social_post.boost_stopped:
+    post:
+      summary: Boost stopped
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+
+        **Event name:** `social_post.boost_stopped`
+
+
+        A boost was stopped / completed. Scope: brand-scoped (location_id is null). Delivered as a signed
+        HTTP POST to your Webhooks URL.
+
+
+        </span>'
+      tags:
+      - Webhooks/Webhooks
+      - Webhooks
+      parameters:
+      - name: X-Synup-Signature
+        in: header
+        description: sha256=base64(HMAC-SHA256(signing_secret, raw_request_body)). Verify with your signing
+          secret before processing; reject on mismatch.
+        required: true
+        example: sha256=Base64Signature==
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event:
+                  type: string
+                  description: Dotted event name.
+                timestamp:
+                  type: string
+                  description: ISO-8601 UTC time the event was emitted.
+                account_id:
+                  type: integer
+                  description: Synup account the event belongs to.
+                location_id:
+                  type: string
+                  description: Numeric string for location-scoped events; null for brand-scoped events.
+                data:
+                  type: object
+                  properties:
+                    ad_run_id:
+                      type: string
+                      description: Ad-run UUID.
+                    is_boost:
+                      type: boolean
+                      description: Always true for boost events.
+                    boost_state:
+                      type: string
+                      description: Boost state ("stopped").
+                    post_id:
+                      type: string
+                      description: Boosted social post UUID.
+                    social_profile_id:
+                      type: string
+                      description: Brand UUID.
+                    platform:
+                      type: string
+                      description: Ad platform (e.g. facebook).
+                  x-apidog-orders:
+                  - ad_run_id
+                  - is_boost
+                  - boost_state
+                  - post_id
+                  - social_profile_id
+                  - platform
+              x-apidog-orders:
+              - event
+              - timestamp
+              - account_id
+              - location_id
+              - data
+            example:
+              event: social_post.boost_stopped
+              timestamp: '2026-07-15T13:00:00Z'
+              account_id: 11073
+              location_id: null
+              data:
+                ad_run_id: ar_101
+                is_boost: true
+                boost_state: stopped
+                post_id: 7a1c...
+                social_profile_id: b2d4...
+                platform: facebook
+      responses:
+        '200':
+          description: Your endpoint acknowledges receipt with any 2xx. A non-2xx response or a timeout
+            (>10s) is treated as a failed delivery.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Webhooks/Webhooks
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40143151-run
+  campaign.feedback_submitted:
+    post:
+      summary: Campaign feedback submitted
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+
+        **Event name:** `campaign.feedback_submitted`
+
+
+        A customer submitted a rating/feedback on the campaign''s review-funnel page. Scope: location-scoped.
+        Delivered as a signed HTTP POST to your Webhooks URL.
+
+
+        </span>'
+      tags:
+      - Webhooks/Webhooks
+      - Webhooks
+      parameters:
+      - name: X-Synup-Signature
+        in: header
+        description: sha256=base64(HMAC-SHA256(signing_secret, raw_request_body)). Verify with your signing
+          secret before processing; reject on mismatch.
+        required: true
+        example: sha256=Base64Signature==
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event:
+                  type: string
+                  description: Dotted event name.
+                timestamp:
+                  type: string
+                  description: ISO-8601 UTC time the event was emitted.
+                account_id:
+                  type: integer
+                  description: Synup account the event belongs to.
+                location_id:
+                  type: string
+                  description: Numeric string for location-scoped events; null for brand-scoped events.
+                data:
+                  type: object
+                  properties:
+                    campaign_id:
+                      type: string
+                      description: Campaign UUID.
+                    customer_id:
+                      type: string
+                      description: Customer UUID.
+                    rating:
+                      type: integer
+                      description: Star rating submitted (typically 1-5).
+                    feedback:
+                      type: string
+                      description: Free-text feedback (omitted if none).
+                    response_source:
+                      type: string
+                      description: Origin of the response (defaults to "review_funnel").
+                  x-apidog-orders:
+                  - campaign_id
+                  - customer_id
+                  - rating
+                  - feedback
+                  - response_source
+              x-apidog-orders:
+              - event
+              - timestamp
+              - account_id
+              - location_id
+              - data
+            example:
+              event: campaign.feedback_submitted
+              timestamp: '2026-07-15T09:45:00Z'
+              account_id: 11073
+              location_id: '279381'
+              data:
+                campaign_id: 8f3a1c72-..
+                customer_id: a9..
+                rating: 5
+                feedback: Loved the service!
+                response_source: review_funnel
+      responses:
+        '200':
+          description: Your endpoint acknowledges receipt with any 2xx. A non-2xx response or a timeout
+            (>10s) is treated as a failed delivery.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Webhooks/Webhooks
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40143140-run
+  campaign.send_rejected:
+    post:
+      summary: Campaign message send rejected
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+
+        **Event name:** `campaign.send_rejected`
+
+
+        A message could not be sent (insufficient credits, invalid contact, or provider rejection). Scope:
+        location-scoped. Delivered as a signed HTTP POST to your Webhooks URL.
+
+
+        </span>'
+      tags:
+      - Webhooks/Webhooks
+      - Webhooks
+      parameters:
+      - name: X-Synup-Signature
+        in: header
+        description: sha256=base64(HMAC-SHA256(signing_secret, raw_request_body)). Verify with your signing
+          secret before processing; reject on mismatch.
+        required: true
+        example: sha256=Base64Signature==
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event:
+                  type: string
+                  description: Dotted event name.
+                timestamp:
+                  type: string
+                  description: ISO-8601 UTC time the event was emitted.
+                account_id:
+                  type: integer
+                  description: Synup account the event belongs to.
+                location_id:
+                  type: string
+                  description: Numeric string for location-scoped events; null for brand-scoped events.
+                data:
+                  type: object
+                  properties:
+                    campaign_id:
+                      type: string
+                      description: Campaign UUID.
+                    customer_id:
+                      type: string
+                      description: Intended recipient UUID.
+                    message_id:
+                      type: string
+                      description: Rejected message UUID.
+                    channel:
+                      type: string
+                      description: '"sms" or "email".'
+                    message_type:
+                      type: string
+                      description: Message subtype (e.g. "SmsMessage", "OpeningEmailMessage").
+                    reason:
+                      type: string
+                      description: Rejection reason (omitted if none).
+                  x-apidog-orders:
+                  - campaign_id
+                  - customer_id
+                  - message_id
+                  - channel
+                  - message_type
+                  - reason
+              x-apidog-orders:
+              - event
+              - timestamp
+              - account_id
+              - location_id
+              - data
+            example:
+              event: campaign.send_rejected
+              timestamp: '2026-07-15T09:02:10Z'
+              account_id: 11073
+              location_id: '279381'
+              data:
+                campaign_id: 8f3a1c72-..
+                customer_id: a9..
+                message_id: e4..
+                channel: sms
+                message_type: SmsMessage
+                reason: Insufficient SMS credits
+      responses:
+        '200':
+          description: Your endpoint acknowledges receipt with any 2xx. A non-2xx response or a timeout
+            (>10s) is treated as a failed delivery.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Webhooks/Webhooks
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40143141-run
+  campaign.status_change:
+    post:
+      summary: Campaign message status changed
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+
+        **Event name:** `campaign.status_change`
+
+
+        A recipient''s message engagement changed (delivered / opened / clicked / bounced / dropped /
+        unsubscribed). Scope: location-scoped. Delivered as a signed HTTP POST to your Webhooks URL.
+
+
+        </span>'
+      tags:
+      - Webhooks/Webhooks
+      - Webhooks
+      parameters:
+      - name: X-Synup-Signature
+        in: header
+        description: sha256=base64(HMAC-SHA256(signing_secret, raw_request_body)). Verify with your signing
+          secret before processing; reject on mismatch.
+        required: true
+        example: sha256=Base64Signature==
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event:
+                  type: string
+                  description: Dotted event name.
+                timestamp:
+                  type: string
+                  description: ISO-8601 UTC time the event was emitted.
+                account_id:
+                  type: integer
+                  description: Synup account the event belongs to.
+                location_id:
+                  type: string
+                  description: Numeric string for location-scoped events; null for brand-scoped events.
+                data:
+                  type: object
+                  properties:
+                    campaign_id:
+                      type: string
+                      description: Campaign UUID.
+                    customer_id:
+                      type: string
+                      description: Recipient (LocationCustomer) UUID.
+                    message_id:
+                      type: string
+                      description: Message UUID.
+                    status:
+                      type: string
+                      description: delivered / opened / clicked / bounced / dropped / unsubscribed.
+                    channel:
+                      type: string
+                      description: '"email" or "sms" (omitted if unmapped).'
+                    occurred_at:
+                      type: string
+                      description: When it occurred (not present on unsubscribed).
+                    url:
+                      type: string
+                      description: Clicked URL (present only on click events).
+                  x-apidog-orders:
+                  - campaign_id
+                  - customer_id
+                  - message_id
+                  - status
+                  - channel
+                  - occurred_at
+                  - url
+              x-apidog-orders:
+              - event
+              - timestamp
+              - account_id
+              - location_id
+              - data
+            example:
+              event: campaign.status_change
+              timestamp: '2026-07-15T09:20:11Z'
+              account_id: 11073
+              location_id: '279381'
+              data:
+                campaign_id: 8f3a1c72-..
+                customer_id: a9..
+                message_id: d3..
+                status: clicked
+                channel: email
+                occurred_at: '2026-07-15T09:20:05Z'
+                url: https://funnel.example.com/r/abc
+      responses:
+        '200':
+          description: Your endpoint acknowledges receipt with any 2xx. A non-2xx response or a timeout
+            (>10s) is treated as a failed delivery.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Webhooks/Webhooks
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40143139-run
+  campaign.recipients_added:
+    post:
+      summary: Campaign recipients added
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+
+        **Event name:** `campaign.recipients_added`
+
+
+        A batch of customers was enrolled into a campaign. Scope: location-scoped. Delivered as a signed
+        HTTP POST to your Webhooks URL.
+
+
+        </span>'
+      tags:
+      - Webhooks/Webhooks
+      - Webhooks
+      parameters:
+      - name: X-Synup-Signature
+        in: header
+        description: sha256=base64(HMAC-SHA256(signing_secret, raw_request_body)). Verify with your signing
+          secret before processing; reject on mismatch.
+        required: true
+        example: sha256=Base64Signature==
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event:
+                  type: string
+                  description: Dotted event name.
+                timestamp:
+                  type: string
+                  description: ISO-8601 UTC time the event was emitted.
+                account_id:
+                  type: integer
+                  description: Synup account the event belongs to.
+                location_id:
+                  type: string
+                  description: Numeric string for location-scoped events; null for brand-scoped events.
+                data:
+                  type: object
+                  properties:
+                    campaign_id:
+                      type: string
+                      description: Campaign UUID.
+                    recipient_count:
+                      type: integer
+                      description: Number of recipients enrolled in this batch.
+                    review_campaign_customer_ids:
+                      type: array
+                      items:
+                        type: string
+                      description: Enrolled recipient UUIDs.
+                  x-apidog-orders:
+                  - campaign_id
+                  - recipient_count
+                  - review_campaign_customer_ids
+              x-apidog-orders:
+              - event
+              - timestamp
+              - account_id
+              - location_id
+              - data
+            example:
+              event: campaign.recipients_added
+              timestamp: '2026-07-15T09:01:30Z'
+              account_id: 11073
+              location_id: '279381'
+              data:
+                campaign_id: 8f3a1c72-1e4b-4d90-9a2e-6b1c0f7a4d21
+                recipient_count: 2
+                review_campaign_customer_ids:
+                - b1..
+                - c2..
+      responses:
+        '200':
+          description: Your endpoint acknowledges receipt with any 2xx. A non-2xx response or a timeout
+            (>10s) is treated as a failed delivery.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Webhooks/Webhooks
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40143138-run
+  review_analytics.daily_snapshot:
+    post:
+      summary: Daily review analytics snapshot
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+
+        **Event name:** `review_analytics.daily_snapshot`
+
+
+        The daily review-analytics roll-up for a location. Scope: location-scoped. Delivered as a signed
+        HTTP POST to your Webhooks URL.
+
+
+        </span>'
+      tags:
+      - Webhooks/Webhooks
+      - Webhooks
+      parameters:
+      - name: X-Synup-Signature
+        in: header
+        description: sha256=base64(HMAC-SHA256(signing_secret, raw_request_body)). Verify with your signing
+          secret before processing; reject on mismatch.
+        required: true
+        example: sha256=Base64Signature==
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event:
+                  type: string
+                  description: Dotted event name.
+                timestamp:
+                  type: string
+                  description: ISO-8601 UTC time the event was emitted.
+                account_id:
+                  type: integer
+                  description: Synup account the event belongs to.
+                location_id:
+                  type: string
+                  description: Numeric string for location-scoped events; null for brand-scoped events.
+                data:
+                  type: object
+                  properties:
+                    period:
+                      type: string
+                      description: Period start, YYYY-MM-DD.
+                    granularity:
+                      type: string
+                      description: '"daily" or "weekly".'
+                    total_reviews:
+                      type: integer
+                      description: All-time total review count for the location.
+                    new_reviews_in_period:
+                      type: integer
+                      description: New reviews received during this period.
+                    average_rating:
+                      type: number
+                      description: Average star rating this period (4-dp float; 0.0 if none).
+                    previous_average_rating:
+                      type: number
+                      description: Average rating for the preceding period.
+                  x-apidog-orders:
+                  - period
+                  - granularity
+                  - total_reviews
+                  - new_reviews_in_period
+                  - average_rating
+                  - previous_average_rating
+              x-apidog-orders:
+              - event
+              - timestamp
+              - account_id
+              - location_id
+              - data
+            example:
+              event: review_analytics.daily_snapshot
+              timestamp: '2026-07-15T02:00:00Z'
+              account_id: 11073
+              location_id: '279381'
+              data:
+                period: '2026-07-14'
+                granularity: daily
+                total_reviews: 1240
+                new_reviews_in_period: 18
+                average_rating: 4.6123
+                previous_average_rating: 4.5901
+      responses:
+        '200':
+          description: Your endpoint acknowledges receipt with any 2xx. A non-2xx response or a timeout
+            (>10s) is treated as a failed delivery.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Webhooks/Webhooks
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40143135-run
+  listing.submission:
+    post:
+      summary: Directory listing synced (success/incomplete)
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+
+        **Event name:** `listing.submission`
+
+
+        Sent when Synup finishes attempting to sync a business listing to a directory (Google, Facebook,
+        etc.), triggered by profile updates or new directory submissions. Delivered to your Webhooks URL
+        (Listings webhook). One delivery per status change — a move from incomplete to success sends two
+        separate calls. Note the compact envelope: there is no top-level timestamp or account_id, and
+        the location is identified by the Base64 id inside data.
+
+
+        </span>'
+      tags:
+      - Webhooks/Webhooks
+      - Webhooks
+      parameters:
+      - name: X-Synup-Signature
+        in: header
+        description: sha256=base64(HMAC-SHA256(signing_secret, raw_request_body)). Present when the account
+          has generated a signing secret; verify before processing.
+        required: true
+        example: sha256=Base64Signature==
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event:
+                  type: string
+                  description: Always "listing.submission".
+                status:
+                  type: string
+                  description: '"success" (listing is live on the directory) or "incomplete" (could not
+                    be completed).'
+                live_link:
+                  type: string
+                  description: Public URL of the live listing. Present only when status is "success".
+                error_message:
+                  type: string
+                  description: Why the submission could not be completed. Present only when status is
+                    "incomplete".
+                data:
+                  type: object
+                  description: ''
+                  properties:
+                    business_id:
+                      type: integer
+                      description: Synup's internal numeric ID for the location.
+                    v4_business_id:
+                      type: string
+                      description: Base64-encoded location identifier for the v4 API. Same value as data.location_id.
+                    location_id:
+                      type: string
+                      description: Base64-encoded location identifier. Same value as data.v4_business_id.
+                    site:
+                      type: object
+                      description: The directory the listing was synced to.
+                      properties:
+                        id:
+                          type: integer
+                          description: Synup's internal ID for the directory.
+                        name:
+                          type: string
+                          description: Directory name (e.g. "Google", "Yelp", "Infobel").
+                        url:
+                          type: string
+                          description: Root domain of the directory (e.g. "infobel.com").
+                      x-apidog-orders:
+                      - id
+                      - name
+                      - url
+                  x-apidog-orders:
+                  - business_id
+                  - v4_business_id
+                  - location_id
+                  - site
+              x-apidog-orders:
+              - event
+              - status
+              - live_link
+              - error_message
+              - data
+            example:
+              event: listing.submission
+              status: success
+              live_link: https://www.infobel.com/en/usa/example_business/portland/USOR000000-5550001000/businessdetails.aspx
+              data:
+                business_id: 1000001
+                v4_business_id: TG9jYXRpb246MTAwMDAwMQ==
+                location_id: TG9jYXRpb246MTAwMDAwMQ==
+                site:
+                  id: 314
+                  name: Infobel
+                  url: infobel.com
+      responses:
+        '200':
+          description: Acknowledge with any 2xx. A non-2xx (or timeout) is recorded as a failed delivery;
+            failures are logged but not automatically retried at this time.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Webhooks/Webhooks
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40143121-run
+  endpoint.verification:
+    post:
+      summary: Endpoint verification handshake
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+
+        **Event name:** `endpoint.verification`
+
+
+        Endpoint-verification handshake. Sent when a customer saves or clicks "Verify" on a Webhooks URL.
+        Your endpoint must reply HTTP 200 with the lowercase hex HMAC-SHA256 of the nonce, keyed by your
+        signing secret: hex(HMAC-SHA256(signing_secret, nonce)). Synup accepts the URL only if the returned
+        digest matches. This request carries no location_id and no data object.
+
+
+        </span>'
+      tags:
+      - Webhooks
+      - Webhooks
+      parameters:
+      - name: X-Synup-Signature
+        in: header
+        description: sha256=base64(HMAC-SHA256(signing_secret, raw_request_body)). Verify with your signing
+          secret before processing; reject on mismatch.
+        required: true
+        example: sha256=Base64Signature==
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event:
+                  type: string
+                  description: Always "endpoint.verification".
+                nonce:
+                  type: string
+                  description: Random challenge string. HMAC this (keyed by your signing secret) and return
+                    the hex digest.
+                timestamp:
+                  type: string
+                  description: ISO-8601 UTC emit time.
+              x-apidog-orders:
+              - event
+              - nonce
+              - timestamp
+            example:
+              event: endpoint.verification
+              nonce: a1b2c3d4e5f6a7b8c9d0
+              timestamp: '2026-07-15T14:00:00Z'
+      responses:
+        '200':
+          description: Reply with HTTP 200 and a body containing the lowercase hex HMAC-SHA256 of the
+            nonce keyed by your signing secret. Synup compares it to its own computation and marks the
+            endpoint verified on a match.
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: 9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Webhooks
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40142150-run
+  connection.google_verification_failed:
+    post:
+      summary: Google verification failed
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+
+        **Event name:** `connection.google_verification_failed`
+
+
+        A Google Business Profile verification reached a terminal failure (suspended, duplicate, or fetch
+        error). In-progress states do not fire. Scope: location-scoped. Delivered as a signed HTTP POST
+        to your Webhooks URL.
+
+
+        </span>'
+      tags:
+      - Webhooks/Webhooks
+      - Webhooks
+      parameters:
+      - name: X-Synup-Signature
+        in: header
+        description: sha256=base64(HMAC-SHA256(signing_secret, raw_request_body)). Verify with your signing
+          secret before processing; reject on mismatch.
+        required: true
+        example: sha256=Base64Signature==
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event:
+                  type: string
+                  description: Dotted event name.
+                timestamp:
+                  type: string
+                  description: ISO-8601 UTC time the event was emitted.
+                account_id:
+                  type: integer
+                  description: Synup account the event belongs to.
+                location_id:
+                  type: string
+                  description: Numeric string for location-scoped events; null for brand-scoped events.
+                data:
+                  type: object
+                  properties:
+                    platform:
+                      type: string
+                      description: Always "google".
+                    connected_account_id:
+                      type: string
+                      description: Always null for verification events.
+                    failure_type:
+                      type: string
+                      description: '"rejected" (suspended/duplicate) or "transient" (fetch error).'
+                    reason:
+                      type: string
+                      description: Failure message (may be omitted).
+                  x-apidog-orders:
+                  - platform
+                  - connected_account_id
+                  - failure_type
+                  - reason
+              x-apidog-orders:
+              - event
+              - timestamp
+              - account_id
+              - location_id
+              - data
+            example:
+              event: connection.google_verification_failed
+              timestamp: '2026-07-15T14:55:30Z'
+              account_id: 11073
+              location_id: '279381'
+              data:
+                platform: google
+                connected_account_id: null
+                failure_type: rejected
+                reason: This listing was suspended by Google.
+      responses:
+        '200':
+          description: Your endpoint acknowledges receipt with any 2xx. A non-2xx response or a timeout
+            (>10s) is treated as a failed delivery.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Webhooks/Webhooks
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40143129-run
+  connection.google_verification_verified:
+    post:
+      summary: Google verification passed
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+
+        **Event name:** `connection.google_verification_verified`
+
+
+        A location''s Google Business Profile passed verification. Scope: location-scoped. Delivered as
+        a signed HTTP POST to your Webhooks URL.
+
+
+        </span>'
+      tags:
+      - Webhooks/Webhooks
+      - Webhooks
+      parameters:
+      - name: X-Synup-Signature
+        in: header
+        description: sha256=base64(HMAC-SHA256(signing_secret, raw_request_body)). Verify with your signing
+          secret before processing; reject on mismatch.
+        required: true
+        example: sha256=Base64Signature==
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event:
+                  type: string
+                  description: Dotted event name.
+                timestamp:
+                  type: string
+                  description: ISO-8601 UTC time the event was emitted.
+                account_id:
+                  type: integer
+                  description: Synup account the event belongs to.
+                location_id:
+                  type: string
+                  description: Numeric string for location-scoped events; null for brand-scoped events.
+                data:
+                  type: object
+                  properties:
+                    platform:
+                      type: string
+                      description: Always "google".
+                    connected_account_id:
+                      type: string
+                      description: Always null for verification events.
+                  x-apidog-orders:
+                  - platform
+                  - connected_account_id
+              x-apidog-orders:
+              - event
+              - timestamp
+              - account_id
+              - location_id
+              - data
+            example:
+              event: connection.google_verification_verified
+              timestamp: '2026-07-15T14:50:00Z'
+              account_id: 11073
+              location_id: '279381'
+              data:
+                platform: google
+                connected_account_id: null
+      responses:
+        '200':
+          description: Your endpoint acknowledges receipt with any 2xx. A non-2xx response or a timeout
+            (>10s) is treated as a failed delivery.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Webhooks/Webhooks
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40143128-run
+  rankings.gridrank_report_ready:
+    post:
+      summary: Grid rank report ready
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+
+        **Event name:** `rankings.gridrank_report_ready`
+
+
+        A Grid (local-rank map) report finished generating. Scope: location-scoped. Delivered as a signed
+        HTTP POST to your Webhooks URL.
+
+
+        </span>'
+      tags:
+      - Webhooks/Webhooks
+      - Webhooks
+      parameters:
+      - name: X-Synup-Signature
+        in: header
+        description: sha256=base64(HMAC-SHA256(signing_secret, raw_request_body)). Verify with your signing
+          secret before processing; reject on mismatch.
+        required: true
+        example: sha256=Base64Signature==
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event:
+                  type: string
+                  description: Dotted event name.
+                timestamp:
+                  type: string
+                  description: ISO-8601 UTC time the event was emitted.
+                account_id:
+                  type: integer
+                  description: Synup account the event belongs to.
+                location_id:
+                  type: string
+                  description: Numeric string for location-scoped events; null for brand-scoped events.
+                data:
+                  type: object
+                  properties:
+                    report_id:
+                      type: string
+                      description: Report UUID.
+                    engine:
+                      type: string
+                      description: 'Grid vendor: "GEORANKER", "LOCALFALCON", or "AWS".'
+                    snapshot_date:
+                      type: string
+                      description: Completion date, YYYY-MM-DD.
+                    geo:
+                      type: object
+                      description: 'Grid geometry: latitude, longitude, grid_size, grid_distance, grid_distance_unit.'
+                      x-apidog-orders: []
+                    average_rank:
+                      type: number
+                      description: Average rank across all grid points.
+                    top_one_share:
+                      type: number
+                      description: 'Share of points ranked #1.'
+                    top_two_share:
+                      type: number
+                      description: Share of points ranked in the top two.
+                  x-apidog-orders:
+                  - report_id
+                  - engine
+                  - snapshot_date
+                  - geo
+                  - average_rank
+                  - top_one_share
+                  - top_two_share
+              x-apidog-orders:
+              - event
+              - timestamp
+              - account_id
+              - location_id
+              - data
+            example:
+              event: rankings.gridrank_report_ready
+              timestamp: '2026-07-15T05:02:00Z'
+              account_id: 11073
+              location_id: '279381'
+              data:
+                report_id: d4f1a2b3-1111-4c22-9d33-5e6f7a8b9c0d
+                engine: LOCALFALCON
+                snapshot_date: '2026-07-15'
+                geo:
+                  latitude: 37.7749
+                  longitude: -122.4194
+                  grid_size: 7
+                  grid_distance: 1
+                  grid_distance_unit: km
+                average_rank: 4.2
+                top_one_share: 0.18
+                top_two_share: 0.35
+      responses:
+        '200':
+          description: Your endpoint acknowledges receipt with any 2xx. A non-2xx response or a timeout
+            (>10s) is treated as a failed delivery.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Webhooks/Webhooks
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40143134-run
+  connection.listing_inaccessible:
+    post:
+      summary: Listing became inaccessible
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+
+        **Event name:** `connection.listing_inaccessible`
+
+
+        The connected account can no longer access the location''s listing (access lost even though credentials
+        may still be valid). Scope: location-scoped. Delivered as a signed HTTP POST to your Webhooks
+        URL.
+
+
+        </span>'
+      tags:
+      - Webhooks/Webhooks
+      - Webhooks
+      parameters:
+      - name: X-Synup-Signature
+        in: header
+        description: sha256=base64(HMAC-SHA256(signing_secret, raw_request_body)). Verify with your signing
+          secret before processing; reject on mismatch.
+        required: true
+        example: sha256=Base64Signature==
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event:
+                  type: string
+                  description: Dotted event name.
+                timestamp:
+                  type: string
+                  description: ISO-8601 UTC time the event was emitted.
+                account_id:
+                  type: integer
+                  description: Synup account the event belongs to.
+                location_id:
+                  type: string
+                  description: Numeric string for location-scoped events; null for brand-scoped events.
+                data:
+                  type: object
+                  properties:
+                    platform:
+                      type: string
+                      description: '"google" or "facebook".'
+                    connected_account_id:
+                      type: string
+                      description: UUID of the connected account that lost access.
+                    reason:
+                      type: string
+                      description: Human-readable description of the issue.
+                  x-apidog-orders:
+                  - platform
+                  - connected_account_id
+                  - reason
+              x-apidog-orders:
+              - event
+              - timestamp
+              - account_id
+              - location_id
+              - data
+            example:
+              event: connection.listing_inaccessible
+              timestamp: '2026-07-15T14:42:55Z'
+              account_id: 11073
+              location_id: '279381'
+              data:
+                platform: facebook
+                connected_account_id: cf12de77-2211-4a09-b7c1-0a6f3b2e91aa
+                reason: The connected Facebook account no longer has access to this listing.
+      responses:
+        '200':
+          description: Your endpoint acknowledges receipt with any 2xx. A non-2xx response or a timeout
+            (>10s) is treated as a failed delivery.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Webhooks/Webhooks
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40143127-run
+  connection.location_connected:
+    post:
+      summary: Listing connected
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+
+        **Event name:** `connection.location_connected`
+
+
+        A Google or Facebook listing is newly linked to a location. Scope: location-scoped. Delivered
+        as a signed HTTP POST to your Webhooks URL.
+
+
+        </span>'
+      tags:
+      - Webhooks/Webhooks
+      - Webhooks
+      parameters:
+      - name: X-Synup-Signature
+        in: header
+        description: sha256=base64(HMAC-SHA256(signing_secret, raw_request_body)). Verify with your signing
+          secret before processing; reject on mismatch.
+        required: true
+        example: sha256=Base64Signature==
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event:
+                  type: string
+                  description: Dotted event name.
+                timestamp:
+                  type: string
+                  description: ISO-8601 UTC time the event was emitted.
+                account_id:
+                  type: integer
+                  description: Synup account the event belongs to.
+                location_id:
+                  type: string
+                  description: Numeric string for location-scoped events; null for brand-scoped events.
+                data:
+                  type: object
+                  properties:
+                    platform:
+                      type: string
+                      description: '"google" or "facebook".'
+                    connected_account_id:
+                      type: string
+                      description: UUID of the connected account that was linked.
+                  x-apidog-orders:
+                  - platform
+                  - connected_account_id
+              x-apidog-orders:
+              - event
+              - timestamp
+              - account_id
+              - location_id
+              - data
+            example:
+              event: connection.location_connected
+              timestamp: '2026-07-15T14:32:10Z'
+              account_id: 11073
+              location_id: '279381'
+              data:
+                platform: google
+                connected_account_id: ba03bc4b-9f8c-4d3b-8e93-9628034c63cc
+      responses:
+        '200':
+          description: Your endpoint acknowledges receipt with any 2xx. A non-2xx response or a timeout
+            (>10s) is treated as a failed delivery.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Webhooks/Webhooks
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40143124-run
+  connection.location_disconnected:
+    post:
+      summary: Listing disconnected
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+
+        **Event name:** `connection.location_disconnected`
+
+
+        A Google or Facebook listing is unlinked/removed from a location. Scope: location-scoped. Delivered
+        as a signed HTTP POST to your Webhooks URL.
+
+
+        </span>'
+      tags:
+      - Webhooks/Webhooks
+      - Webhooks
+      parameters:
+      - name: X-Synup-Signature
+        in: header
+        description: sha256=base64(HMAC-SHA256(signing_secret, raw_request_body)). Verify with your signing
+          secret before processing; reject on mismatch.
+        required: true
+        example: sha256=Base64Signature==
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event:
+                  type: string
+                  description: Dotted event name.
+                timestamp:
+                  type: string
+                  description: ISO-8601 UTC time the event was emitted.
+                account_id:
+                  type: integer
+                  description: Synup account the event belongs to.
+                location_id:
+                  type: string
+                  description: Numeric string for location-scoped events; null for brand-scoped events.
+                data:
+                  type: object
+                  properties:
+                    platform:
+                      type: string
+                      description: '"google" or "facebook".'
+                    connected_account_id:
+                      type: string
+                      description: UUID of the connected account that was unlinked.
+                  x-apidog-orders:
+                  - platform
+                  - connected_account_id
+              x-apidog-orders:
+              - event
+              - timestamp
+              - account_id
+              - location_id
+              - data
+            example:
+              event: connection.location_disconnected
+              timestamp: '2026-07-15T14:35:02Z'
+              account_id: 11073
+              location_id: '279381'
+              data:
+                platform: google
+                connected_account_id: ba03bc4b-9f8c-4d3b-8e93-9628034c63cc
+      responses:
+        '200':
+          description: Your endpoint acknowledges receipt with any 2xx. A non-2xx response or a timeout
+            (>10s) is treated as a failed delivery.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Webhooks/Webhooks
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40143125-run
+  connection.reauth_required:
+    post:
+      summary: Listing re-authorization required
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+
+        **Event name:** `connection.reauth_required`
+
+
+        The connected account''s credentials were invalidated; the customer must reconnect / re-authorize.
+        Scope: location-scoped. Delivered as a signed HTTP POST to your Webhooks URL.
+
+
+        </span>'
+      tags:
+      - Webhooks/Webhooks
+      - Webhooks
+      parameters:
+      - name: X-Synup-Signature
+        in: header
+        description: sha256=base64(HMAC-SHA256(signing_secret, raw_request_body)). Verify with your signing
+          secret before processing; reject on mismatch.
+        required: true
+        example: sha256=Base64Signature==
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event:
+                  type: string
+                  description: Dotted event name.
+                timestamp:
+                  type: string
+                  description: ISO-8601 UTC time the event was emitted.
+                account_id:
+                  type: integer
+                  description: Synup account the event belongs to.
+                location_id:
+                  type: string
+                  description: Numeric string for location-scoped events; null for brand-scoped events.
+                data:
+                  type: object
+                  properties:
+                    platform:
+                      type: string
+                      description: '"google" or "facebook".'
+                    connected_account_id:
+                      type: string
+                      description: UUID of the connected account needing re-auth.
+                    reason:
+                      type: string
+                      description: Human-readable description of the issue.
+                  x-apidog-orders:
+                  - platform
+                  - connected_account_id
+                  - reason
+              x-apidog-orders:
+              - event
+              - timestamp
+              - account_id
+              - location_id
+              - data
+            example:
+              event: connection.reauth_required
+              timestamp: '2026-07-15T14:40:18Z'
+              account_id: 11073
+              location_id: '279381'
+              data:
+                platform: google
+                connected_account_id: ba03bc4b-9f8c-4d3b-8e93-9628034c63cc
+                reason: The Google account credentials are no longer valid. Please reconnect.
+      responses:
+        '200':
+          description: Your endpoint acknowledges receipt with any 2xx. A non-2xx response or a timeout
+            (>10s) is treated as a failed delivery.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Webhooks/Webhooks
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40143126-run
+  profile.created:
+    post:
+      summary: Location created
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+
+        **Event name:** `profile.created`
+
+
+        A new business location was created (customer-initiated only). Scope: location-scoped. Delivered
+        as a signed HTTP POST to your Webhooks URL.
+
+
+        </span>'
+      tags:
+      - Webhooks/Webhooks
+      - Webhooks
+      parameters:
+      - name: X-Synup-Signature
+        in: header
+        description: sha256=base64(HMAC-SHA256(signing_secret, raw_request_body)). Verify with your signing
+          secret before processing; reject on mismatch.
+        required: true
+        example: sha256=Base64Signature==
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event:
+                  type: string
+                  description: Dotted event name.
+                timestamp:
+                  type: string
+                  description: ISO-8601 UTC time the event was emitted.
+                account_id:
+                  type: integer
+                  description: Synup account the event belongs to.
+                location_id:
+                  type: string
+                  description: Numeric string for location-scoped events; null for brand-scoped events.
+                data:
+                  type: object
+                  properties:
+                    source:
+                      type: string
+                      description: 'Who created it: "user", "api", or "bulk_edit".'
+                  x-apidog-orders:
+                  - source
+              x-apidog-orders:
+              - event
+              - timestamp
+              - account_id
+              - location_id
+              - data
+            example:
+              event: profile.created
+              timestamp: '2026-07-15T10:04:00Z'
+              account_id: 11073
+              location_id: '901234'
+              data:
+                source: user
+      responses:
+        '200':
+          description: Your endpoint acknowledges receipt with any 2xx. A non-2xx response or a timeout
+            (>10s) is treated as a failed delivery.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Webhooks/Webhooks
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40143130-run
+  profile.deleted:
+    post:
+      summary: Location deleted
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+
+        **Event name:** `profile.deleted`
+
+
+        A location was archived (soft delete; there is no hard delete). Scope: location-scoped. Delivered
+        as a signed HTTP POST to your Webhooks URL.
+
+
+        </span>'
+      tags:
+      - Webhooks/Webhooks
+      - Webhooks
+      parameters:
+      - name: X-Synup-Signature
+        in: header
+        description: sha256=base64(HMAC-SHA256(signing_secret, raw_request_body)). Verify with your signing
+          secret before processing; reject on mismatch.
+        required: true
+        example: sha256=Base64Signature==
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event:
+                  type: string
+                  description: Dotted event name.
+                timestamp:
+                  type: string
+                  description: ISO-8601 UTC time the event was emitted.
+                account_id:
+                  type: integer
+                  description: Synup account the event belongs to.
+                location_id:
+                  type: string
+                  description: Numeric string for location-scoped events; null for brand-scoped events.
+                data:
+                  type: object
+                  properties:
+                    source:
+                      type: string
+                      description: '"user", "api", or "bulk_edit".'
+                  x-apidog-orders:
+                  - source
+              x-apidog-orders:
+              - event
+              - timestamp
+              - account_id
+              - location_id
+              - data
+            example:
+              event: profile.deleted
+              timestamp: '2026-07-15T10:20:44Z'
+              account_id: 11073
+              location_id: '901234'
+              data:
+                source: user
+      responses:
+        '200':
+          description: Your endpoint acknowledges receipt with any 2xx. A non-2xx response or a timeout
+            (>10s) is treated as a failed delivery.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Webhooks/Webhooks
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40143132-run
+  profile.updated:
+    post:
+      summary: Location updated
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+
+        **Event name:** `profile.updated`
+
+
+        An existing location''s details were edited. Debounced to at most one delivery per location per
+        60 seconds. Scope: location-scoped. Delivered as a signed HTTP POST to your Webhooks URL.
+
+
+        </span>'
+      tags:
+      - Webhooks/Webhooks
+      - Webhooks
+      parameters:
+      - name: X-Synup-Signature
+        in: header
+        description: sha256=base64(HMAC-SHA256(signing_secret, raw_request_body)). Verify with your signing
+          secret before processing; reject on mismatch.
+        required: true
+        example: sha256=Base64Signature==
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event:
+                  type: string
+                  description: Dotted event name.
+                timestamp:
+                  type: string
+                  description: ISO-8601 UTC time the event was emitted.
+                account_id:
+                  type: integer
+                  description: Synup account the event belongs to.
+                location_id:
+                  type: string
+                  description: Numeric string for location-scoped events; null for brand-scoped events.
+                data:
+                  type: object
+                  properties:
+                    source:
+                      type: string
+                      description: '"user", "api", or "bulk_edit".'
+                    changed_fields:
+                      type: array
+                      items:
+                        type: string
+                      description: Location field names that changed (e.g. name, phone, address1). Omitted
+                        if empty.
+                  x-apidog-orders:
+                  - source
+                  - changed_fields
+              x-apidog-orders:
+              - event
+              - timestamp
+              - account_id
+              - location_id
+              - data
+            example:
+              event: profile.updated
+              timestamp: '2026-07-15T10:06:12Z'
+              account_id: 11073
+              location_id: '901234'
+              data:
+                source: user
+                changed_fields:
+                - name
+                - phone
+      responses:
+        '200':
+          description: Your endpoint acknowledges receipt with any 2xx. A non-2xx response or a timeout
+            (>10s) is treated as a failed delivery.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Webhooks/Webhooks
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40143131-run
+  interaction.response:
+    post:
+      summary: New response to a review received
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+
+        **Event name:** `interaction.response`
+
+
+        Sent when Synup detects a new response to an existing review — including responses posted through
+        Synup and responses detected directly on the platform. Responses arrive asynchronously, often
+        well after the original review. Delivered to your Webhooks URL (Reviews webhook). Location-scoped.
+        Use data.interaction.parent_id to link the response to the review it answers.
+
+
+        </span>'
+      tags:
+      - Webhooks/Webhooks
+      - Webhooks
+      parameters:
+      - name: X-Synup-Signature
+        in: header
+        description: sha256=base64(HMAC-SHA256(signing_secret, raw_request_body)). Present when the account
+          has generated a signing secret; verify before processing.
+        required: true
+        example: sha256=Base64Signature==
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event:
+                  type: string
+                  description: Dotted event name.
+                timestamp:
+                  type: string
+                  description: ISO-8601 datetime Synup detected and processed this interaction (UTC).
+                account_id:
+                  type: integer
+                  description: The Synup account that owns this location.
+                location_id:
+                  type: string
+                  description: Synup's numeric location ID, as a string.
+                data:
+                  type: object
+                  description: ''
+                  properties:
+                    interaction:
+                      type: object
+                      description: The review or response.
+                      properties:
+                        id:
+                          type: string
+                          description: Synup's unique ID (UUID) for this interaction.
+                        type:
+                          type: string
+                          description: '"Response" for this event.'
+                        content:
+                          type: string
+                          description: Full text of the review.
+                        rating:
+                          type: integer
+                          description: Always null — responses do not carry a rating.
+                        author_name:
+                          type: string
+                          description: Name of the business or person who wrote the response (e.g. "Owner").
+                        author_avatar:
+                          type: string
+                          description: Usually null for owner responses.
+                        date:
+                          type: string
+                          description: ISO-8601 datetime the review was originally posted on the platform.
+                        source:
+                          type: string
+                          description: Platform the review came from (e.g. "maps.google.com", "yelp.com").
+                        parent_id:
+                          type: string
+                          description: The id (UUID) of the original review this response belongs to;
+                            use it to link back to a review you already received.
+                        interaction_request_id:
+                          type: string
+                          description: Internal tracking ID (UUID) for the crawl request that surfaced
+                            this review.
+                        title:
+                          type: string
+                          description: '"Response from owner" when provided by the platform, otherwise
+                            null.'
+                        permalink:
+                          type: string
+                          description: Direct URL to the review on the original platform.
+                        category:
+                          type: string
+                          description: '"Review" — responses share the same category value as reviews.'
+                        interaction_status:
+                          type: string
+                          description: String or null.
+                      x-apidog-orders:
+                      - id
+                      - type
+                      - content
+                      - rating
+                      - author_name
+                      - author_avatar
+                      - date
+                      - source
+                      - parent_id
+                      - interaction_request_id
+                      - title
+                      - permalink
+                      - category
+                      - interaction_status
+                  x-apidog-orders:
+                  - interaction
+                agency_account_id:
+                  type: integer
+                  description: Present only when the account is managed by a parent agency account.
+              x-apidog-orders:
+              - event
+              - timestamp
+              - account_id
+              - location_id
+              - data
+              - agency_account_id
+            example:
+              event: interaction.response
+              timestamp: '2026-06-16T04:40:38Z'
+              account_id: 10002
+              location_id: '700002'
+              data:
+                interaction:
+                  id: dddddddd-eeee-ffff-0000-111111111111
+                  type: Response
+                  content: Thank you for the kind words! We truly appreciate your feedback and look forward
+                    to serving you again.
+                  rating: null
+                  author_name: Owner
+                  author_avatar: null
+                  date: '2022-03-22T18:22:28.266579+00:00'
+                  source: maps.google.com
+                  parent_id: aaaaaaaa-1111-2222-3333-bbbbbbbbbbbb
+                  interaction_request_id: eeeeeeee-ffff-0000-1111-222222222222
+                  title: Response from owner
+                  permalink: https://maps.google.com/maps?cid=00000000000000000002
+                  category: Review
+                  interaction_status: null
+      responses:
+        '200':
+          description: Acknowledge with any 2xx. A non-2xx (or timeout) is recorded as a failed delivery;
+            failures are logged but not automatically retried at this time.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Webhooks/Webhooks
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40143123-run
+  interaction.review:
+    post:
+      summary: New review received for a location
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+
+        **Event name:** `interaction.review`
+
+
+        Sent when Synup detects a new review for one of your locations on any monitored platform (Google,
+        Yelp, TripAdvisor, etc.). Delivered to your Webhooks URL (Reviews webhook — requires the reviews
+        webhook permission). Location-scoped. Social-category interactions are not delivered.
+
+
+        </span>'
+      tags:
+      - Webhooks/Webhooks
+      - Webhooks
+      parameters:
+      - name: X-Synup-Signature
+        in: header
+        description: sha256=base64(HMAC-SHA256(signing_secret, raw_request_body)). Present when the account
+          has generated a signing secret; verify before processing.
+        required: true
+        example: sha256=Base64Signature==
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event:
+                  type: string
+                  description: Dotted event name.
+                timestamp:
+                  type: string
+                  description: ISO-8601 datetime Synup detected and processed this interaction (UTC).
+                account_id:
+                  type: integer
+                  description: The Synup account that owns this location.
+                location_id:
+                  type: string
+                  description: Synup's numeric location ID, as a string.
+                data:
+                  type: object
+                  description: ''
+                  properties:
+                    interaction:
+                      type: object
+                      description: The review or response.
+                      properties:
+                        id:
+                          type: string
+                          description: Synup's unique ID (UUID) for this interaction.
+                        type:
+                          type: string
+                          description: '"Review" for this event.'
+                        content:
+                          type: string
+                          description: Full text of the review.
+                        rating:
+                          type: integer
+                          description: Reviewer rating on a normalized 1-10 scale (null for platforms
+                            without ratings). For Facebook Recommendations, 10 = positive (thumbs up),
+                            2 = negative (thumbs down). Divide if you need a 1-5 scale.
+                        author_name:
+                          type: string
+                          description: Name of the person who left the review.
+                        author_avatar:
+                          type: string
+                          description: URL to the reviewer's profile photo; null if the platform provides
+                            none.
+                        date:
+                          type: string
+                          description: ISO-8601 datetime the review was originally posted on the platform.
+                        source:
+                          type: string
+                          description: Platform the review came from (e.g. "maps.google.com", "yelp.com").
+                        parent_id:
+                          type: string
+                          description: Always null for reviews (used by responses to reference the original
+                            review).
+                        interaction_request_id:
+                          type: string
+                          description: Internal tracking ID (UUID) for the crawl request that surfaced
+                            this review.
+                        title:
+                          type: string
+                          description: Review title if provided; usually null for Google reviews.
+                        permalink:
+                          type: string
+                          description: Direct URL to the review on the original platform.
+                        category:
+                          type: string
+                          description: '"Review" for standard reviews, "Recommendation" for Facebook Recommendations.'
+                        interaction_status:
+                          type: string
+                          description: Always null for reviews.
+                      x-apidog-orders:
+                      - id
+                      - type
+                      - content
+                      - rating
+                      - author_name
+                      - author_avatar
+                      - date
+                      - source
+                      - parent_id
+                      - interaction_request_id
+                      - title
+                      - permalink
+                      - category
+                      - interaction_status
+                  x-apidog-orders:
+                  - interaction
+                agency_account_id:
+                  type: integer
+                  description: Present only when the account is managed by a parent agency account.
+              x-apidog-orders:
+              - event
+              - timestamp
+              - account_id
+              - location_id
+              - data
+              - agency_account_id
+            example:
+              event: interaction.review
+              timestamp: '2026-06-16T05:25:52Z'
+              account_id: 10002
+              location_id: '700001'
+              data:
+                interaction:
+                  id: aaaaaaaa-1111-2222-3333-bbbbbbbbbbbb
+                  type: Review
+                  content: From a parent's perspective, nothing matters more than knowing your child is
+                    happy and safe. Thank you for the wonderful care you provide!
+                  rating: 10
+                  author_name: Alex Johnson
+                  author_avatar: https://lh3.googleusercontent.com/a/placeholder-avatar
+                  date: '2026-06-15T14:58:43.540667+00:00'
+                  source: maps.google.com
+                  parent_id: null
+                  interaction_request_id: cccccccc-dddd-eeee-ffff-000000000000
+                  title: null
+                  permalink: https://maps.google.com/maps?cid=00000000000000000001
+                  category: Review
+                  interaction_status: null
+      responses:
+        '200':
+          description: Acknowledge with any 2xx. A non-2xx (or timeout) is recorded as a failed delivery;
+            failures are logged but not automatically retried at this time.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Webhooks/Webhooks
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40143122-run
+  campaign.sent:
+    post:
+      summary: Review campaign sent
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+
+        **Event name:** `campaign.sent`
+
+
+        A campaign was launched and invites started going out. Scope: location-scoped. Delivered as a
+        signed HTTP POST to your Webhooks URL.
+
+
+        </span>'
+      tags:
+      - Webhooks/Webhooks
+      - Webhooks
+      parameters:
+      - name: X-Synup-Signature
+        in: header
+        description: sha256=base64(HMAC-SHA256(signing_secret, raw_request_body)). Verify with your signing
+          secret before processing; reject on mismatch.
+        required: true
+        example: sha256=Base64Signature==
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event:
+                  type: string
+                  description: Dotted event name.
+                timestamp:
+                  type: string
+                  description: ISO-8601 UTC time the event was emitted.
+                account_id:
+                  type: integer
+                  description: Synup account the event belongs to.
+                location_id:
+                  type: string
+                  description: Numeric string for location-scoped events; null for brand-scoped events.
+                data:
+                  type: object
+                  properties:
+                    campaign_id:
+                      type: string
+                      description: Campaign UUID.
+                    campaign_name:
+                      type: string
+                      description: Campaign name.
+                    campaign_type:
+                      type: string
+                      description: '"email_sms" or "review_funnel".'
+                    campaign_scope:
+                      type: string
+                      description: '"sms", "email", or "sms_and_email".'
+                  x-apidog-orders:
+                  - campaign_id
+                  - campaign_name
+                  - campaign_type
+                  - campaign_scope
+              x-apidog-orders:
+              - event
+              - timestamp
+              - account_id
+              - location_id
+              - data
+            example:
+              event: campaign.sent
+              timestamp: '2026-07-15T09:00:00Z'
+              account_id: 11073
+              location_id: '279381'
+              data:
+                campaign_id: 8f3a1c72-1e4b-4d90-9a2e-6b1c0f7a4d21
+                campaign_name: Summer Review Push
+                campaign_type: email_sms
+                campaign_scope: sms_and_email
+      responses:
+        '200':
+          description: Your endpoint acknowledges receipt with any 2xx. A non-2xx response or a timeout
+            (>10s) is treated as a failed delivery.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Webhooks/Webhooks
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40143137-run
+  campaign.review_posted:
+    post:
+      summary: Review posted (campaign-attributed)
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+
+        **Event name:** `campaign.review_posted`
+
+
+        A new review landed at a location with at least one active campaign within the 30-day attribution
+        window. Attribution is location-level. Scope: location-scoped. Delivered as a signed HTTP POST
+        to your Webhooks URL.
+
+
+        </span>'
+      tags:
+      - Webhooks/Webhooks
+      - Webhooks
+      parameters:
+      - name: X-Synup-Signature
+        in: header
+        description: sha256=base64(HMAC-SHA256(signing_secret, raw_request_body)). Verify with your signing
+          secret before processing; reject on mismatch.
+        required: true
+        example: sha256=Base64Signature==
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event:
+                  type: string
+                  description: Dotted event name.
+                timestamp:
+                  type: string
+                  description: ISO-8601 UTC time the event was emitted.
+                account_id:
+                  type: integer
+                  description: Synup account the event belongs to.
+                location_id:
+                  type: string
+                  description: Numeric string for location-scoped events; null for brand-scoped events.
+                data:
+                  type: object
+                  properties:
+                    attribution:
+                      type: string
+                      description: Always "location_level".
+                    recency_window_days:
+                      type: integer
+                      description: Attribution window in days (30).
+                    review:
+                      type: object
+                      description: 'The posted review: interaction_id, source, author_name, rating (0-5),
+                        rating_scale, title, content, permalink, posted_at.'
+                      x-apidog-orders: []
+                    campaigns:
+                      type: array
+                      items:
+                        type: object
+                        x-apidog-orders: []
+                      description: 'Active campaigns attributed (max 25, newest first): review_campaign_id,
+                        name, launched_at.'
+                  x-apidog-orders:
+                  - attribution
+                  - recency_window_days
+                  - review
+                  - campaigns
+              x-apidog-orders:
+              - event
+              - timestamp
+              - account_id
+              - location_id
+              - data
+            example:
+              event: campaign.review_posted
+              timestamp: '2026-07-15T14:31:09Z'
+              account_id: 11073
+              location_id: '279381'
+              data:
+                attribution: location_level
+                recency_window_days: 30
+                review:
+                  interaction_id: 9c8b7a65-4321-4def-8abc-0123456789ab
+                  source: google
+                  author_name: Jordan M.
+                  rating: 4.5
+                  rating_scale: 0-5
+                  title: Great experience
+                  content: Booked online and everything went smoothly.
+                  permalink: https://maps.google.com/review/xyz123
+                  posted_at: '2026-07-15T13:58:44Z'
+                campaigns:
+                - review_campaign_id: 8f3a1c72-1e4b-4d90-9a2e-6b1c0f7a4d21
+                  name: Summer Review Push
+                  launched_at: '2026-07-01T09:00:00Z'
+      responses:
+        '200':
+          description: Your endpoint acknowledges receipt with any 2xx. A non-2xx response or a timeout
+            (>10s) is treated as a failed delivery.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Webhooks/Webhooks
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40143142-run
+  rankings.sov_snapshot_completed:
+    post:
+      summary: Share-of-Voice snapshot completed
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+
+        **Event name:** `rankings.sov_snapshot_completed`
+
+
+        A Share-of-Voice snapshot was stored for a keyword (one event per keyword). Scope: location-scoped.
+        Delivered as a signed HTTP POST to your Webhooks URL.
+
+
+        </span>'
+      tags:
+      - Webhooks/Webhooks
+      - Webhooks
+      parameters:
+      - name: X-Synup-Signature
+        in: header
+        description: sha256=base64(HMAC-SHA256(signing_secret, raw_request_body)). Verify with your signing
+          secret before processing; reject on mismatch.
+        required: true
+        example: sha256=Base64Signature==
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event:
+                  type: string
+                  description: Dotted event name.
+                timestamp:
+                  type: string
+                  description: ISO-8601 UTC time the event was emitted.
+                account_id:
+                  type: integer
+                  description: Synup account the event belongs to.
+                location_id:
+                  type: string
+                  description: Numeric string for location-scoped events; null for brand-scoped events.
+                data:
+                  type: object
+                  properties:
+                    keyword_id:
+                      type: string
+                      description: SoV keyword identifier.
+                    engine:
+                      type: string
+                      description: Search engine (defaults to "google").
+                    snapshot_date:
+                      type: string
+                      description: Capture date, YYYY-MM-DD.
+                    sov:
+                      type: number
+                      description: Share-of-voice value.
+                    rank:
+                      type: integer
+                      description: Computed rank position.
+                  x-apidog-orders:
+                  - keyword_id
+                  - engine
+                  - snapshot_date
+                  - sov
+                  - rank
+              x-apidog-orders:
+              - event
+              - timestamp
+              - account_id
+              - location_id
+              - data
+            example:
+              event: rankings.sov_snapshot_completed
+              timestamp: '2026-07-15T03:15:00Z'
+              account_id: 11073
+              location_id: '279381'
+              data:
+                keyword_id: '84213'
+                engine: google
+                snapshot_date: '2026-07-15'
+                sov: 62.5
+                rank: 3
+      responses:
+        '200':
+          description: Your endpoint acknowledges receipt with any 2xx. A non-2xx response or a timeout
+            (>10s) is treated as a failed delivery.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Webhooks/Webhooks
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40143133-run
+  social_connection.archived:
+    post:
+      summary: Social channel archived
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+
+        **Event name:** `social_connection.archived`
+
+
+        A social channel connection was archived. Scope: brand-scoped (location_id is null). Delivered
+        as a signed HTTP POST to your Webhooks URL.
+
+
+        </span>'
+      tags:
+      - Webhooks/Webhooks
+      - Webhooks
+      parameters:
+      - name: X-Synup-Signature
+        in: header
+        description: sha256=base64(HMAC-SHA256(signing_secret, raw_request_body)). Verify with your signing
+          secret before processing; reject on mismatch.
+        required: true
+        example: sha256=Base64Signature==
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event:
+                  type: string
+                  description: Dotted event name.
+                timestamp:
+                  type: string
+                  description: ISO-8601 UTC time the event was emitted.
+                account_id:
+                  type: integer
+                  description: Synup account the event belongs to.
+                location_id:
+                  type: string
+                  description: Numeric string for location-scoped events; null for brand-scoped events.
+                data:
+                  type: object
+                  properties:
+                    social_profile_id:
+                      type: string
+                      description: Brand UUID.
+                    connected_account_id:
+                      type: string
+                      description: Connected account UUID.
+                    platform:
+                      type: string
+                      description: Platform.
+                    display_name:
+                      type: string
+                      description: Channel display name.
+                    reason:
+                      type: string
+                      description: Archive reason.
+                  x-apidog-orders:
+                  - social_profile_id
+                  - connected_account_id
+                  - platform
+                  - display_name
+                  - reason
+              x-apidog-orders:
+              - event
+              - timestamp
+              - account_id
+              - location_id
+              - data
+            example:
+              event: social_connection.archived
+              timestamp: '2026-07-15T10:20:00Z'
+              account_id: 11073
+              location_id: null
+              data:
+                social_profile_id: b2d4...
+                connected_account_id: c-9
+                platform: facebook
+                display_name: Acme Coffee
+                reason: Credentials revoked
+      responses:
+        '200':
+          description: Your endpoint acknowledges receipt with any 2xx. A non-2xx response or a timeout
+            (>10s) is treated as a failed delivery.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Webhooks/Webhooks
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40143154-run
+  social_connection.connected:
+    post:
+      summary: Social channel connected
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+
+        **Event name:** `social_connection.connected`
+
+
+        A social channel was connected (or reconnected) to a brand. Scope: brand-scoped (location_id is
+        null). Delivered as a signed HTTP POST to your Webhooks URL.
+
+
+        </span>'
+      tags:
+      - Webhooks/Webhooks
+      - Webhooks
+      parameters:
+      - name: X-Synup-Signature
+        in: header
+        description: sha256=base64(HMAC-SHA256(signing_secret, raw_request_body)). Verify with your signing
+          secret before processing; reject on mismatch.
+        required: true
+        example: sha256=Base64Signature==
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event:
+                  type: string
+                  description: Dotted event name.
+                timestamp:
+                  type: string
+                  description: ISO-8601 UTC time the event was emitted.
+                account_id:
+                  type: integer
+                  description: Synup account the event belongs to.
+                location_id:
+                  type: string
+                  description: Numeric string for location-scoped events; null for brand-scoped events.
+                data:
+                  type: object
+                  properties:
+                    social_profile_id:
+                      type: string
+                      description: Brand UUID.
+                    connected_account_id:
+                      type: string
+                      description: Connected account UUID.
+                    platform:
+                      type: string
+                      description: Platform (facebook, instagram, ...).
+                    display_name:
+                      type: string
+                      description: Connected channel display name.
+                    is_reconnect:
+                      type: boolean
+                      description: True if this replaced an existing connection.
+                    listing_connected_account_id:
+                      type: string
+                      description: Linked listing connected-account UUID (if any).
+                  x-apidog-orders:
+                  - social_profile_id
+                  - connected_account_id
+                  - platform
+                  - display_name
+                  - is_reconnect
+                  - listing_connected_account_id
+              x-apidog-orders:
+              - event
+              - timestamp
+              - account_id
+              - location_id
+              - data
+            example:
+              event: social_connection.connected
+              timestamp: '2026-07-15T10:00:00Z'
+              account_id: 11073
+              location_id: null
+              data:
+                social_profile_id: b2d4...
+                connected_account_id: c-9
+                platform: facebook
+                display_name: Acme Coffee
+                is_reconnect: false
+                listing_connected_account_id: lc-3
+      responses:
+        '200':
+          description: Your endpoint acknowledges receipt with any 2xx. A non-2xx response or a timeout
+            (>10s) is treated as a failed delivery.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Webhooks/Webhooks
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40143152-run
+  social_connection.disconnected:
+    post:
+      summary: Social channel disconnected
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+
+        **Event name:** `social_connection.disconnected`
+
+
+        A social channel was disconnected from a brand. Scope: brand-scoped (location_id is null). Delivered
+        as a signed HTTP POST to your Webhooks URL.
+
+
+        </span>'
+      tags:
+      - Webhooks/Webhooks
+      - Webhooks
+      parameters:
+      - name: X-Synup-Signature
+        in: header
+        description: sha256=base64(HMAC-SHA256(signing_secret, raw_request_body)). Verify with your signing
+          secret before processing; reject on mismatch.
+        required: true
+        example: sha256=Base64Signature==
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event:
+                  type: string
+                  description: Dotted event name.
+                timestamp:
+                  type: string
+                  description: ISO-8601 UTC time the event was emitted.
+                account_id:
+                  type: integer
+                  description: Synup account the event belongs to.
+                location_id:
+                  type: string
+                  description: Numeric string for location-scoped events; null for brand-scoped events.
+                data:
+                  type: object
+                  properties:
+                    social_profile_id:
+                      type: string
+                      description: Brand UUID.
+                    connected_account_id:
+                      type: string
+                      description: Connected account UUID.
+                    platform:
+                      type: string
+                      description: Platform.
+                    display_name:
+                      type: string
+                      description: Channel display name.
+                  x-apidog-orders:
+                  - social_profile_id
+                  - connected_account_id
+                  - platform
+                  - display_name
+              x-apidog-orders:
+              - event
+              - timestamp
+              - account_id
+              - location_id
+              - data
+            example:
+              event: social_connection.disconnected
+              timestamp: '2026-07-15T10:10:00Z'
+              account_id: 11073
+              location_id: null
+              data:
+                social_profile_id: b2d4...
+                connected_account_id: c-9
+                platform: facebook
+                display_name: Acme Coffee
+      responses:
+        '200':
+          description: Your endpoint acknowledges receipt with any 2xx. A non-2xx response or a timeout
+            (>10s) is treated as a failed delivery.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Webhooks/Webhooks
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40143153-run
+  social_post.created:
+    post:
+      summary: Social post created
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+
+        **Event name:** `social_post.created`
+
+
+        A social post was created (draft or scheduled) in Synup. Scope: brand-scoped (location_id is null).
+        Delivered as a signed HTTP POST to your Webhooks URL.
+
+
+        </span>'
+      tags:
+      - Webhooks/Webhooks
+      - Webhooks
+      parameters:
+      - name: X-Synup-Signature
+        in: header
+        description: sha256=base64(HMAC-SHA256(signing_secret, raw_request_body)). Verify with your signing
+          secret before processing; reject on mismatch.
+        required: true
+        example: sha256=Base64Signature==
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event:
+                  type: string
+                  description: Dotted event name.
+                timestamp:
+                  type: string
+                  description: ISO-8601 UTC time the event was emitted.
+                account_id:
+                  type: integer
+                  description: Synup account the event belongs to.
+                location_id:
+                  type: string
+                  description: Numeric string for location-scoped events; null for brand-scoped events.
+                data:
+                  type: object
+                  properties:
+                    post_id:
+                      type: string
+                      description: Social post UUID.
+                    social_profile_id:
+                      type: string
+                      description: Brand / social profile UUID.
+                    status:
+                      type: string
+                      description: Post status (e.g. draft, scheduled).
+                    created_by:
+                      type: string
+                      description: 'Origin: "user", "api", "automation".'
+                    platform_ids:
+                      type: array
+                      items:
+                        type: string
+                      description: Target platform identifiers for this post.
+                  x-apidog-orders:
+                  - post_id
+                  - social_profile_id
+                  - status
+                  - created_by
+                  - platform_ids
+              x-apidog-orders:
+              - event
+              - timestamp
+              - account_id
+              - location_id
+              - data
+            example:
+              event: social_post.created
+              timestamp: '2026-07-15T11:00:00Z'
+              account_id: 11073
+              location_id: null
+              data:
+                post_id: 7a1c...
+                social_profile_id: b2d4...
+                status: scheduled
+                created_by: user
+                platform_ids:
+                - facebook
+                - instagram
+      responses:
+        '200':
+          description: Your endpoint acknowledges receipt with any 2xx. A non-2xx response or a timeout
+            (>10s) is treated as a failed delivery.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Webhooks/Webhooks
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40143143-run
+  social_post.deleted:
+    post:
+      summary: Social post deleted
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+
+        **Event name:** `social_post.deleted`
+
+
+        A social post was archived/removed. Scope: brand-scoped (location_id is null). Delivered as a
+        signed HTTP POST to your Webhooks URL.
+
+
+        </span>'
+      tags:
+      - Webhooks/Webhooks
+      - Webhooks
+      parameters:
+      - name: X-Synup-Signature
+        in: header
+        description: sha256=base64(HMAC-SHA256(signing_secret, raw_request_body)). Verify with your signing
+          secret before processing; reject on mismatch.
+        required: true
+        example: sha256=Base64Signature==
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event:
+                  type: string
+                  description: Dotted event name.
+                timestamp:
+                  type: string
+                  description: ISO-8601 UTC time the event was emitted.
+                account_id:
+                  type: integer
+                  description: Synup account the event belongs to.
+                location_id:
+                  type: string
+                  description: Numeric string for location-scoped events; null for brand-scoped events.
+                data:
+                  type: object
+                  properties:
+                    post_id:
+                      type: string
+                      description: Social post UUID.
+                    social_profile_id:
+                      type: string
+                      description: Brand UUID.
+                    status:
+                      type: string
+                      description: Post status.
+                    archived_at:
+                      type: string
+                      description: Archive time, ISO-8601.
+                  x-apidog-orders:
+                  - post_id
+                  - social_profile_id
+                  - status
+                  - archived_at
+              x-apidog-orders:
+              - event
+              - timestamp
+              - account_id
+              - location_id
+              - data
+            example:
+              event: social_post.deleted
+              timestamp: '2026-07-15T12:30:00Z'
+              account_id: 11073
+              location_id: null
+              data:
+                post_id: 7a1c...
+                social_profile_id: b2d4...
+                status: archived
+                archived_at: '2026-07-15T12:29:58Z'
+      responses:
+        '200':
+          description: Your endpoint acknowledges receipt with any 2xx. A non-2xx response or a timeout
+            (>10s) is treated as a failed delivery.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Webhooks/Webhooks
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40143145-run
+  social_post.failed:
+    post:
+      summary: Social post failed
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+
+        **Event name:** `social_post.failed`
+
+
+        A social post failed to publish on one or more platforms. Scope: brand-scoped (location_id is
+        null). Delivered as a signed HTTP POST to your Webhooks URL.
+
+
+        </span>'
+      tags:
+      - Webhooks/Webhooks
+      - Webhooks
+      parameters:
+      - name: X-Synup-Signature
+        in: header
+        description: sha256=base64(HMAC-SHA256(signing_secret, raw_request_body)). Verify with your signing
+          secret before processing; reject on mismatch.
+        required: true
+        example: sha256=Base64Signature==
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event:
+                  type: string
+                  description: Dotted event name.
+                timestamp:
+                  type: string
+                  description: ISO-8601 UTC time the event was emitted.
+                account_id:
+                  type: integer
+                  description: Synup account the event belongs to.
+                location_id:
+                  type: string
+                  description: Numeric string for location-scoped events; null for brand-scoped events.
+                data:
+                  type: object
+                  properties:
+                    post_id:
+                      type: string
+                      description: Social post UUID.
+                    social_profile_id:
+                      type: string
+                      description: Brand UUID.
+                    status:
+                      type: string
+                      description: Post status.
+                    items:
+                      type: array
+                      items:
+                        type: object
+                        x-apidog-orders: []
+                      description: 'Per-platform failure detail: platform, social_platform_id, status,
+                        reason, vendor_error.'
+                  x-apidog-orders:
+                  - post_id
+                  - social_profile_id
+                  - status
+                  - items
+              x-apidog-orders:
+              - event
+              - timestamp
+              - account_id
+              - location_id
+              - data
+            example:
+              event: social_post.failed
+              timestamp: '2026-07-15T12:00:10Z'
+              account_id: 11073
+              location_id: null
+              data:
+                post_id: 7a1c...
+                social_profile_id: b2d4...
+                status: failed
+                items:
+                - platform: instagram
+                  social_platform_id: i-55
+                  status: failed
+                  reason: Media rejected by platform
+                  vendor_error: IG_MEDIA_ERROR
+      responses:
+        '200':
+          description: Your endpoint acknowledges receipt with any 2xx. A non-2xx response or a timeout
+            (>10s) is treated as a failed delivery.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Webhooks/Webhooks
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40143147-run
+  social_post.published:
+    post:
+      summary: Social post published
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+
+        **Event name:** `social_post.published`
+
+
+        A social post was published to its platforms. Scope: brand-scoped (location_id is null). Delivered
+        as a signed HTTP POST to your Webhooks URL.
+
+
+        </span>'
+      tags:
+      - Webhooks/Webhooks
+      - Webhooks
+      parameters:
+      - name: X-Synup-Signature
+        in: header
+        description: sha256=base64(HMAC-SHA256(signing_secret, raw_request_body)). Verify with your signing
+          secret before processing; reject on mismatch.
+        required: true
+        example: sha256=Base64Signature==
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event:
+                  type: string
+                  description: Dotted event name.
+                timestamp:
+                  type: string
+                  description: ISO-8601 UTC time the event was emitted.
+                account_id:
+                  type: integer
+                  description: Synup account the event belongs to.
+                location_id:
+                  type: string
+                  description: Numeric string for location-scoped events; null for brand-scoped events.
+                data:
+                  type: object
+                  properties:
+                    post_id:
+                      type: string
+                      description: Social post UUID.
+                    social_profile_id:
+                      type: string
+                      description: Brand UUID.
+                    status:
+                      type: string
+                      description: Post status.
+                    published_on:
+                      type: string
+                      description: Publish time, ISO-8601.
+                    items:
+                      type: array
+                      items:
+                        type: object
+                        x-apidog-orders: []
+                      description: 'Per-platform results: platform, social_platform_id, connected_account_id,
+                        published_url, vendor_post_id, status.'
+                  x-apidog-orders:
+                  - post_id
+                  - social_profile_id
+                  - status
+                  - published_on
+                  - items
+              x-apidog-orders:
+              - event
+              - timestamp
+              - account_id
+              - location_id
+              - data
+            example:
+              event: social_post.published
+              timestamp: '2026-07-15T12:00:05Z'
+              account_id: 11073
+              location_id: null
+              data:
+                post_id: 7a1c...
+                social_profile_id: b2d4...
+                status: published
+                published_on: '2026-07-15T12:00:00Z'
+                items:
+                - platform: facebook
+                  social_platform_id: f-123
+                  connected_account_id: c-9
+                  published_url: https://facebook.com/p/xyz
+                  vendor_post_id: vp_88
+                  status: published
+      responses:
+        '200':
+          description: Your endpoint acknowledges receipt with any 2xx. A non-2xx response or a timeout
+            (>10s) is treated as a failed delivery.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Webhooks/Webhooks
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40143144-run
+  social_post.rejected:
+    post:
+      summary: Social post rejected
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+
+        **Event name:** `social_post.rejected`
+
+
+        A social post was rejected in an approval workflow. Scope: brand-scoped (location_id is null).
+        Delivered as a signed HTTP POST to your Webhooks URL.
+
+
+        </span>'
+      tags:
+      - Webhooks/Webhooks
+      - Webhooks
+      parameters:
+      - name: X-Synup-Signature
+        in: header
+        description: sha256=base64(HMAC-SHA256(signing_secret, raw_request_body)). Verify with your signing
+          secret before processing; reject on mismatch.
+        required: true
+        example: sha256=Base64Signature==
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event:
+                  type: string
+                  description: Dotted event name.
+                timestamp:
+                  type: string
+                  description: ISO-8601 UTC time the event was emitted.
+                account_id:
+                  type: integer
+                  description: Synup account the event belongs to.
+                location_id:
+                  type: string
+                  description: Numeric string for location-scoped events; null for brand-scoped events.
+                data:
+                  type: object
+                  properties:
+                    post_id:
+                      type: string
+                      description: Social post UUID.
+                    social_profile_id:
+                      type: string
+                      description: Brand UUID.
+                    status:
+                      type: string
+                      description: Post status.
+                    rejection_reason:
+                      type: string
+                      description: Why the post was rejected.
+                  x-apidog-orders:
+                  - post_id
+                  - social_profile_id
+                  - status
+                  - rejection_reason
+              x-apidog-orders:
+              - event
+              - timestamp
+              - account_id
+              - location_id
+              - data
+            example:
+              event: social_post.rejected
+              timestamp: '2026-07-15T11:15:00Z'
+              account_id: 11073
+              location_id: null
+              data:
+                post_id: 7a1c...
+                social_profile_id: b2d4...
+                status: rejected
+                rejection_reason: Off-brand imagery
+      responses:
+        '200':
+          description: Your endpoint acknowledges receipt with any 2xx. A non-2xx response or a timeout
+            (>10s) is treated as a failed delivery.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Webhooks/Webhooks
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40143146-run
+  review_analytics.weekly_snapshot:
+    post:
+      summary: Weekly review analytics snapshot
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+
+        **Event name:** `review_analytics.weekly_snapshot`
+
+
+        The weekly review-analytics roll-up for a location. Scope: location-scoped. Delivered as a signed
+        HTTP POST to your Webhooks URL.
+
+
+        </span>'
+      tags:
+      - Webhooks/Webhooks
+      - Webhooks
+      parameters:
+      - name: X-Synup-Signature
+        in: header
+        description: sha256=base64(HMAC-SHA256(signing_secret, raw_request_body)). Verify with your signing
+          secret before processing; reject on mismatch.
+        required: true
+        example: sha256=Base64Signature==
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event:
+                  type: string
+                  description: Dotted event name.
+                timestamp:
+                  type: string
+                  description: ISO-8601 UTC time the event was emitted.
+                account_id:
+                  type: integer
+                  description: Synup account the event belongs to.
+                location_id:
+                  type: string
+                  description: Numeric string for location-scoped events; null for brand-scoped events.
+                data:
+                  type: object
+                  properties:
+                    period:
+                      type: string
+                      description: Period start, YYYY-MM-DD.
+                    granularity:
+                      type: string
+                      description: '"daily" or "weekly".'
+                    total_reviews:
+                      type: integer
+                      description: All-time total review count for the location.
+                    new_reviews_in_period:
+                      type: integer
+                      description: New reviews received during this period.
+                    average_rating:
+                      type: number
+                      description: Average star rating this period (4-dp float; 0.0 if none).
+                    previous_average_rating:
+                      type: number
+                      description: Average rating for the preceding period.
+                  x-apidog-orders:
+                  - period
+                  - granularity
+                  - total_reviews
+                  - new_reviews_in_period
+                  - average_rating
+                  - previous_average_rating
+              x-apidog-orders:
+              - event
+              - timestamp
+              - account_id
+              - location_id
+              - data
+            example:
+              event: review_analytics.weekly_snapshot
+              timestamp: '2026-07-13T02:00:00Z'
+              account_id: 11073
+              location_id: '279381'
+              data:
+                period: '2026-07-06'
+                granularity: weekly
+                total_reviews: 1240
+                new_reviews_in_period: 18
+                average_rating: 4.6123
+                previous_average_rating: 4.5901
+      responses:
+        '200':
+          description: Your endpoint acknowledges receipt with any 2xx. A non-2xx response or a timeout
+            (>10s) is treated as a failed delivery.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Webhooks/Webhooks
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40143136-run

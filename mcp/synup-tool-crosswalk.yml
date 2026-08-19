@@ -1,0 +1,1282 @@
+name: Synup MCP <-> REST tool crosswalk
+generated: '2026-08-13'
+method: derived
+source: https://synup.github.io/synup-mcp-agent/ (published tool table) + openapi/synup-api-openapi.yml
+description: Binding between the 126 MCP tools Synup publishes in its own MCP documentation site and the
+  210 REST operations in its OpenAPI. The live tools/list is auth-gated (HTTP 401 + OAuth challenge),
+  so no inputSchema was read; every binding below is by tool name and the provider's own tool description
+  against a published REST operation, with confidence recorded honestly.
+surfaces:
+  openapi:
+    file: openapi/synup-api-openapi.yml
+    operations: 204
+    gated: false
+  mcp:
+    url: https://mcp-agent.synup.com/mcp
+    tools_published: 126
+    gated: true
+    gate: HTTP 401 on tools/list; WWW-Authenticate Bearer resource_metadata=..., scope="mcp:read mcp:write"
+    tool_table: https://synup.github.io/synup-mcp-agent/
+  graphql:
+    url: null
+    note: No public GraphQL endpoint, though the REST API is a facade over a GraphQL core.
+  webhooks:
+    file: openapi/synup-webhooks-openapi.yml
+    events: 43
+    gated: false
+binding_level: tool
+crosswalk:
+- tool: search_locations
+  friendly: Search Locations
+  category: locations
+  rest:
+  - searchLocations
+  - filterLocations
+  - advancedSearchFilters
+  binding: name-semantics
+  confidence: medium
+  note: Bound by tool name + provider description against the published REST operation; the live MCP inputSchema
+    is auth-gated and was not read.
+- tool: get_location
+  friendly: Get Location
+  category: locations
+  rest:
+  - getLocationsByIds
+  - getLocationsByStoreCodes
+  binding: name-semantics
+  confidence: medium
+  note: Bound by tool name + provider description against the published REST operation; the live MCP inputSchema
+    is auth-gated and was not read.
+- tool: create_location
+  friendly: Create Location
+  category: locations
+  rest:
+  - createLocation
+  binding: name-semantics
+  confidence: high
+  note: Bound by tool name + provider description against the published REST operation; the live MCP inputSchema
+    is auth-gated and was not read.
+- tool: update_location
+  friendly: Update Location
+  category: locations
+  rest:
+  - POST /locations/update
+  binding: name-semantics
+  confidence: high
+  note: Bound by tool name + provider description against the published REST operation; the live MCP inputSchema
+    is auth-gated and was not read.
+- tool: get_location_listings
+  friendly: Get Location Listings
+  category: locations
+  rest:
+  - getPremiumListings
+  - getVoiceListings
+  - GET /locations/{locationId}/ai-listings
+  binding: name-semantics
+  confidence: medium
+  note: Bound by tool name + provider description against the published REST operation; the live MCP inputSchema
+    is auth-gated and was not read.
+- tool: upload_media
+  friendly: Upload Media
+  category: locations
+  rest:
+  - uploadSingleLocationPhoto
+  - checkBulkPhotoUploadStatus
+  - starUnstarLocationPhotos
+  - deleteLocationPhotos
+  binding: name-semantics
+  confidence: medium
+  note: Bound by tool name + provider description against the published REST operation; the live MCP inputSchema
+    is auth-gated and was not read.
+- tool: get_location_interactions
+  friendly: Get Location Interactions
+  category: locations
+  rest:
+  - GET /locations/{locationId}/reviews
+  binding: name-semantics
+  confidence: high
+  note: Bound by tool name + provider description against the published REST operation; the live MCP inputSchema
+    is auth-gated and was not read.
+- tool: respond_to_interaction
+  friendly: Respond to Interaction
+  category: reviews
+  rest:
+  - POST /locations/reviews/respond
+  binding: name-semantics
+  confidence: high
+  note: Bound by tool name + provider description against the published REST operation; the live MCP inputSchema
+    is auth-gated and was not read.
+- tool: create_screened_campaign
+  friendly: Create Screened Campaign
+  category: account
+  rest:
+  - createReviewCampaign
+  binding: name-semantics
+  confidence: high
+  note: Bound by tool name + provider description against the published REST operation; the live MCP inputSchema
+    is auth-gated and was not read.
+- tool: create_non_screened_campaign
+  friendly: Create Non-Screened Campaign
+  category: account
+  rest:
+  - createReviewCampaign
+  binding: name-semantics
+  confidence: high
+  note: Bound by tool name + provider description against the published REST operation; the live MCP inputSchema
+    is auth-gated and was not read.
+- tool: get_location_rankings
+  friendly: Get Location Rankings
+  category: locations
+  rest:
+  - GET /locations/{locationId}/keywords-performance
+  binding: name-semantics
+  confidence: high
+  note: Bound by tool name + provider description against the published REST operation; the live MCP inputSchema
+    is auth-gated and was not read.
+- tool: add_keywords
+  friendly: Add Keywords
+  category: rankings
+  rest:
+  - POST /locations/keywords
+  binding: name-semantics
+  confidence: high
+  note: Bound by tool name + provider description against the published REST operation; the live MCP inputSchema
+    is auth-gated and was not read.
+- tool: create_gridrank_report
+  friendly: Grid Rank Report
+  category: rankings
+  rest:
+  - createGridReport
+  binding: name-semantics
+  confidence: high
+  note: Bound by tool name + provider description against the published REST operation; the live MCP inputSchema
+    is auth-gated and was not read.
+- tool: get_location_insights
+  friendly: Get Location Insights
+  category: locations
+  rest:
+  - GET /locations/{locationId}/google-analytics
+  - GET /locations/{locationId}/facebook-analytics
+  - GET /locations/{locationId}/bing-analytics
+  binding: name-semantics
+  confidence: medium
+  note: Bound by tool name + provider description against the published REST operation; the live MCP inputSchema
+    is auth-gated and was not read.
+- tool: get_interactions_stats
+  friendly: Get Interaction Stats
+  category: reviews
+  rest:
+  - getAnalytics
+  binding: name-semantics
+  confidence: high
+  note: Bound by tool name + provider description against the published REST operation; the live MCP inputSchema
+    is auth-gated and was not read.
+- tool: get_rollup_insights
+  friendly: Rollup Insights
+  category: insights
+  rest:
+  - GET /rollup_interactions
+  binding: name-semantics
+  confidence: high
+  note: Bound by tool name + provider description against the published REST operation; the live MCP inputSchema
+    is auth-gated and was not read.
+- tool: add_user
+  friendly: Add User
+  category: account
+  rest:
+  - POST /users/add_user_and_folder
+  binding: name-semantics
+  confidence: high
+  note: Bound by tool name + provider description against the published REST operation; the live MCP inputSchema
+    is auth-gated and was not read.
+- tool: update_user
+  friendly: Update User
+  category: account
+  rest:
+  - updateUser
+  binding: name-semantics
+  confidence: high
+  note: Bound by tool name + provider description against the published REST operation; the live MCP inputSchema
+    is auth-gated and was not read.
+- tool: archive_keyword
+  friendly: Archive Keyword
+  category: rankings
+  rest:
+  - POST /locations/keywords/archive
+  binding: name-semantics
+  confidence: high
+  note: Bound by tool name + provider description against the published REST operation; the live MCP inputSchema
+    is auth-gated and was not read.
+- tool: get_all_gridrank_reports
+  friendly: Get All Grid Rank Reports
+  category: rankings
+  rest:
+  - getAllGridReports
+  binding: name-semantics
+  confidence: high
+  note: Bound by tool name + provider description against the published REST operation; the live MCP inputSchema
+    is auth-gated and was not read.
+- tool: get_gridrank_report
+  friendly: Get Grid Rank Report
+  category: rankings
+  rest:
+  - getGridReport
+  binding: name-semantics
+  confidence: high
+  note: Bound by tool name + provider description against the published REST operation; the live MCP inputSchema
+    is auth-gated and was not read.
+- tool: get_keyword_performance
+  friendly: Get Keyword Performance
+  category: rankings
+  rest:
+  - GET /locations/{locationId}/keywords-performance
+  binding: name-semantics
+  confidence: high
+  note: Bound by tool name + provider description against the published REST operation; the live MCP inputSchema
+    is auth-gated and was not read.
+- tool: get_rollup_rankings_by_date
+  friendly: Rollup Rankings by Date
+  category: rankings
+  rest:
+  - POST /locations/ranking-analytics-timeline
+  binding: name-semantics
+  confidence: high
+  note: Bound by tool name + provider description against the published REST operation; the live MCP inputSchema
+    is auth-gated and was not read.
+- tool: get_rollup_rankings_by_keyword_count
+  friendly: Rollup Rankings by Keyword Count
+  category: rankings
+  rest:
+  - POST /locations/ranking-sitewise-histogram
+  binding: name-semantics
+  confidence: high
+  note: Bound by tool name + provider description against the published REST operation; the live MCP inputSchema
+    is auth-gated and was not read.
+- tool: get_interactions_setting
+  friendly: Get Interactions Setting
+  category: reviews
+  rest:
+  - GET /locations/{location_id}/reviews/settings
+  - GET /reviews/site-config
+  binding: name-semantics
+  confidence: medium
+  note: Bound by tool name + provider description against the published REST operation; the live MCP inputSchema
+    is auth-gated and was not read.
+- tool: edit_interactions_setting
+  friendly: Edit Interactions Setting
+  category: reviews
+  rest:
+  - GET /locations/reviews/settings/edit
+  binding: name-semantics
+  confidence: high
+  note: Bound by tool name + provider description against the published REST operation; the live MCP inputSchema
+    is auth-gated and was not read.
+- tool: get_multiple_locations_interactions
+  friendly: Get Multiple Locations Interactions
+  category: locations
+  rest:
+  - GET /rollup_interactions
+  - listInteractionsByIds
+  binding: name-semantics
+  confidence: medium
+  note: Bound by tool name + provider description against the published REST operation; the live MCP inputSchema
+    is auth-gated and was not read.
+- tool: get_multiple_locations_listings
+  friendly: Get Multiple Locations Listings
+  category: locations
+  rest:
+  - getAccountDuplicateListings
+  binding: name-semantics
+  confidence: high
+  note: Bound by tool name + provider description against the published REST operation; the live MCP inputSchema
+    is auth-gated and was not read.
+- tool: location_indexing_rate
+  friendly: Location Indexing Rate
+  category: locations
+  rest:
+  - GET /locations/{locationId}/indexing-rate
+  binding: name-semantics
+  confidence: high
+  note: Bound by tool name + provider description against the published REST operation; the live MCP inputSchema
+    is auth-gated and was not read.
+- tool: get_connected_accounts
+  friendly: Get Connected Accounts
+  category: account
+  rest:
+  - GET /connected-accounts
+  - getConnectedAccountDetails
+  binding: name-semantics
+  confidence: medium
+  note: Bound by tool name + provider description against the published REST operation; the live MCP inputSchema
+    is auth-gated and was not read.
+- tool: get_connected_account_listings
+  friendly: Get Connected Account Listings
+  category: listings
+  rest:
+  - POST /connected-accounts/connected-account-listings
+  binding: name-semantics
+  confidence: high
+  note: Bound by tool name + provider description against the published REST operation; the live MCP inputSchema
+    is auth-gated and was not read.
+- tool: connect_listing
+  friendly: Connect Listing
+  category: listings
+  rest:
+  - POST /connected-accounts/connect-listing
+  binding: name-semantics
+  confidence: high
+  note: Bound by tool name + provider description against the published REST operation; the live MCP inputSchema
+    is auth-gated and was not read.
+- tool: get_bulk_google_connect_link
+  friendly: Get Google Connect Link
+  category: account
+  rest:
+  - connectGoogleAccount
+  binding: name-semantics
+  confidence: high
+  note: Bound by tool name + provider description against the published REST operation; the live MCP inputSchema
+    is auth-gated and was not read.
+- tool: get_bulk_facebook_connect_link
+  friendly: Get Facebook Connect Link
+  category: account
+  rest:
+  - connectFacebookAccount
+  binding: name-semantics
+  confidence: high
+  note: Bound by tool name + provider description against the published REST operation; the live MCP inputSchema
+    is auth-gated and was not read.
+- tool: get_duplicate_listings_and_stats
+  friendly: Get Duplicate Listings
+  category: listings
+  rest:
+  - getDuplicateListings
+  - getAccountDuplicateListings
+  binding: name-semantics
+  confidence: medium
+  note: Bound by tool name + provider description against the published REST operation; the live MCP inputSchema
+    is auth-gated and was not read.
+- tool: mark_duplicate_listings
+  friendly: Mark Duplicate Listings
+  category: listings
+  rest:
+  - markAsDuplicate
+  binding: name-semantics
+  confidence: high
+  note: Bound by tool name + provider description against the published REST operation; the live MCP inputSchema
+    is auth-gated and was not read.
+- tool: mark_not_duplicate_listings
+  friendly: Mark Not Duplicate
+  category: listings
+  rest:
+  - markAsNotDuplicate
+  binding: name-semantics
+  confidence: high
+  note: Bound by tool name + provider description against the published REST operation; the live MCP inputSchema
+    is auth-gated and was not read.
+- tool: add_review_widget
+  friendly: Add Review Widget
+  category: reviews
+  rest:
+  - POST /review_widget/add
+  binding: name-semantics
+  confidence: high
+  note: Bound by tool name + provider description against the published REST operation; the live MCP inputSchema
+    is auth-gated and was not read.
+- tool: edit_review_widget
+  friendly: Edit Review Widget
+  category: reviews
+  rest:
+  - POST /review_widget/edit
+  binding: name-semantics
+  confidence: high
+  note: Bound by tool name + provider description against the published REST operation; the live MCP inputSchema
+    is auth-gated and was not read.
+- tool: list_review_campaigns
+  friendly: List Review Campaigns
+  category: reviews
+  rest:
+  - listReviewCampaigns
+  binding: name-semantics
+  confidence: high
+  note: Bound by tool name + provider description against the published REST operation; the live MCP inputSchema
+    is auth-gated and was not read.
+- tool: review_campaign_customers
+  friendly: Review Campaign Customers
+  category: reviews
+  rest:
+  - listReviewCampaignCustomers
+  binding: name-semantics
+  confidence: high
+  note: Bound by tool name + provider description against the published REST operation; the live MCP inputSchema
+    is auth-gated and was not read.
+- tool: add_customers_to_review_campaign
+  friendly: Add Customers to Campaign
+  category: reviews
+  rest:
+  - addCustomersToReviewCampaign
+  binding: name-semantics
+  confidence: high
+  note: Bound by tool name + provider description against the published REST operation; the live MCP inputSchema
+    is auth-gated and was not read.
+- tool: archive_response
+  friendly: Archive Response
+  category: account
+  rest:
+  - POST /locations/reviews/respond/archive
+  binding: name-semantics
+  confidence: high
+  note: Bound by tool name + provider description against the published REST operation; the live MCP inputSchema
+    is auth-gated and was not read.
+- tool: edit_response
+  friendly: Edit Response
+  category: account
+  rest:
+  - POST /locations/reviews/respond/edit
+  binding: name-semantics
+  confidence: high
+  note: Bound by tool name + provider description against the published REST operation; the live MCP inputSchema
+    is auth-gated and was not read.
+- tool: fetch_account_roles
+  friendly: Fetch Account Roles
+  category: account
+  rest:
+  - listUserRoles
+  binding: name-semantics
+  confidence: high
+  note: Bound by tool name + provider description against the published REST operation; the live MCP inputSchema
+    is auth-gated and was not read.
+- tool: users_by_ids
+  friendly: Get Users by IDs
+  category: account
+  rest:
+  - listUsersById
+  binding: name-semantics
+  confidence: high
+  note: Bound by tool name + provider description against the published REST operation; the live MCP inputSchema
+    is auth-gated and was not read.
+- tool: add_folders_for_users
+  friendly: Add Folders for Users
+  category: account
+  rest:
+  - addFoldersToUser
+  binding: name-semantics
+  confidence: high
+  note: Bound by tool name + provider description against the published REST operation; the live MCP inputSchema
+    is auth-gated and was not read.
+- tool: get_folders
+  friendly: Get Folders
+  category: account
+  rest:
+  - listFolders
+  binding: name-semantics
+  confidence: high
+  note: Bound by tool name + provider description against the published REST operation; the live MCP inputSchema
+    is auth-gated and was not read.
+- tool: get_folder_tree
+  friendly: Get Folder Tree
+  category: account
+  rest:
+  - GET /folders/tree
+  binding: name-semantics
+  confidence: high
+  note: Bound by tool name + provider description against the published REST operation; the live MCP inputSchema
+    is auth-gated and was not read.
+- tool: get_categories
+  friendly: Get Categories
+  category: account
+  rest:
+  - GET /sub-categories
+  binding: name-semantics
+  confidence: high
+  note: Bound by tool name + provider description against the published REST operation; the live MCP inputSchema
+    is auth-gated and was not read.
+- tool: get_supported_countries
+  friendly: Get Supported Countries
+  category: account
+  rest:
+  - GET /countries
+  binding: name-semantics
+  confidence: high
+  note: Bound by tool name + provider description against the published REST operation; the live MCP inputSchema
+    is auth-gated and was not read.
+- tool: get_supported_sites
+  friendly: Get Supported Sites
+  category: account
+  rest:
+  - GET /plan-sites
+  binding: name-semantics
+  confidence: high
+  note: Bound by tool name + provider description against the published REST operation; the live MCP inputSchema
+    is auth-gated and was not read.
+- tool: get_subscription_tenure
+  friendly: Get Subscription Tenure
+  category: account
+  rest:
+  - GET /subscriptions
+  binding: name-semantics
+  confidence: high
+  note: Bound by tool name + provider description against the published REST operation; the live MCP inputSchema
+    is auth-gated and was not read.
+- tool: voice_assistants_for_location
+  friendly: Voice Assistants for Location
+  category: locations
+  rest:
+  - getVoiceListings
+  binding: name-semantics
+  confidence: high
+  note: Bound by tool name + provider description against the published REST operation; the live MCP inputSchema
+    is auth-gated and was not read.
+mcp_only:
+- tool: send_bulk_responses
+  friendly: Bulk Respond
+  category: account
+  reason: Send the same response to multiple reviews at once
+- tool: create_review_funnel_campaign
+  friendly: Create Review Funnel
+  category: reviews
+  reason: Build a shareable review landing page
+- tool: best_performing_gbp_keywords
+  friendly: Best Keywords
+  category: rankings
+  reason: Find the search terms driving visibility
+- tool: sov_performance_over_time
+  friendly: Share of Voice
+  category: rankings
+  reason: Track local search visibility over time
+- tool: create_local_post
+  friendly: Create Local Post
+  category: local_posts
+  reason: Publish a post to Google Business or Facebook
+- tool: get_all_local_posts
+  friendly: Get Local Posts
+  category: local_posts
+  reason: Retrieve published posts and analytics
+- tool: edit_local_post
+  friendly: Edit Local Post
+  category: local_posts
+  reason: Modify an existing post
+- tool: delete_local_post
+  friendly: Delete Local Post
+  category: local_posts
+  reason: Remove a published post
+- tool: create_flow_announcement
+  friendly: Create Announcement Flow
+  category: flows
+  reason: Set up recurring announcement posts
+- tool: create_flow_event
+  friendly: Create Event Flow
+  category: flows
+  reason: Schedule event announcements
+- tool: create_flow_offer
+  friendly: Create Offer Flow
+  category: flows
+  reason: Publish time-limited promotional offers
+- tool: list_social_profiles
+  friendly: List Social Profiles
+  category: social_posts
+  reason: View all brand profiles in Synup Social
+- tool: create_social_profile
+  friendly: Create Social Profile
+  category: social_posts
+  reason: Set up a new brand profile
+- tool: update_social_profile
+  friendly: Update Social Profile
+  category: social_posts
+  reason: Modify an existing brand profile
+- tool: get_social_profile
+  friendly: Get Social Profile
+  category: social_posts
+  reason: Retrieve details for a brand profile
+- tool: create_social_media_post
+  friendly: Create Social Media Post
+  category: social_posts
+  reason: Publish content to connected social channels
+- tool: update_social_media_post
+  friendly: Update Social Media Post
+  category: social_posts
+  reason: Edit an existing social media post
+- tool: get_social_media_post
+  friendly: Get Social Media Post
+  category: social_posts
+  reason: Retrieve a single social media post
+- tool: get_social_media_post_by_list
+  friendly: List Social Media Posts
+  category: social_posts
+  reason: Retrieve multiple social media posts with filters
+- tool: get_social_media_detailed_analytics
+  friendly: Get Social Media Analytics
+  category: social_posts
+  reason: Pull engagement metrics (likes, shares, comments)
+- tool: fetch_paid_posts
+  friendly: Fetch Paid Posts
+  category: local_posts
+  reason: Retrieve boosted/paid social media posts
+- tool: create_boost_post
+  friendly: Create Boost Post
+  category: local_posts
+  reason: Create a paid promotion for a social post
+- tool: get_connected_channels_social_profile
+  friendly: Get Connected Channels
+  category: social_posts
+  reason: View social channels connected to a brand profile
+- tool: get_day_of_the_year_local
+  friendly: Day of Year Events (Location)
+  category: account
+  reason: Get national days and observances for post inspiration
+- tool: get_month_long_observances_local
+  friendly: Month-Long Observances (Location)
+  category: account
+  reason: Get awareness months for a specific month
+- tool: get_ai_generated_posts_for_location
+  friendly: AI-Generated Posts
+  category: locations
+  reason: Get AI-suggested posts for a location
+- tool: get_local_post_view
+  friendly: Get Local Post View
+  category: local_posts
+  reason: Get detailed analytics for a specific post
+- tool: get_local_posts_stats
+  friendly: Get Local Posts Stats
+  category: local_posts
+  reason: Get aggregate metrics for all local posts
+- tool: get_post_automations
+  friendly: Get Post Automations
+  category: local_posts
+  reason: Retrieve recurring post automation workflows
+- tool: get_flow
+  friendly: Get Flow
+  category: flows
+  reason: Retrieve details for a specific automation flow
+- tool: get_flow_run_details
+  friendly: Get Flow Run Details
+  category: flows
+  reason: View execution details for a flow run
+- tool: update_flow
+  friendly: Update Flow
+  category: flows
+  reason: Modify an existing post automation flow
+- tool: stop_flow
+  friendly: Stop Flow
+  category: flows
+  reason: Stop a running post automation flow
+- tool: delete_flow_posts
+  friendly: Delete Flow Posts
+  category: local_posts
+  reason: Remove published posts from a flow
+- tool: get_post_insights_and_comments_for_social_channel
+  friendly: Get Post Insights and Comments
+  category: social_posts
+  reason: Get post insights and comments for a social channel
+- tool: bulk_add_keywords
+  friendly: Bulk Add Keywords
+  category: rankings
+  reason: Add same keywords to multiple locations
+- tool: all_gridrank_keywords
+  friendly: All Grid Rank Keywords
+  category: rankings
+  reason: List all grid rank tracked keywords
+- tool: gridrank_baseline_report_by_id
+  friendly: Grid Rank Baseline Report
+  category: rankings
+  reason: Get initial baseline for a tracked keyword
+- tool: get_rollup_interactions_stats
+  friendly: Rollup Interactions Stats
+  category: reviews
+  reason: Get aggregate interaction metrics
+- tool: get_rollup_interactions_locations_stats
+  friendly: Rollup Interactions by Location
+  category: locations
+  reason: Get interactions ranked by location
+- tool: get_rollup_interactions_sites_stats
+  friendly: Rollup Interactions by Site
+  category: reviews
+  reason: Get interactions broken down by review site
+- tool: get_google_connect_link
+  friendly: Get Google Connect Link (Location)
+  category: account
+  reason: Generate OAuth link for a specific location
+- tool: get_facebook_connect_link
+  friendly: Get Facebook Connect Link (Location)
+  category: account
+  reason: Generate OAuth link for a specific location
+- tool: review_widgets_by_location
+  friendly: Review Widgets by Location
+  category: locations
+  reason: Get configured review widgets
+- tool: remove_review_widget
+  friendly: Remove Review Widget
+  category: reviews
+  reason: Delete a review widget
+- tool: fetch_review_campaign_feedback_by_campaign_id
+  friendly: Get Campaign Feedback
+  category: reviews
+  reason: Get customer responses from a campaign
+- tool: fetch_review_campaign_feedback_by_location_id
+  friendly: Get Location Campaign Feedback
+  category: locations
+  reason: Get all campaign responses for a location
+- tool: update_review_campaign_global_settings
+  friendly: Update Campaign Settings
+  category: reviews
+  reason: Modify default review campaign settings
+- tool: get_review_campaign_global_settings
+  friendly: Get Campaign Settings
+  category: reviews
+  reason: Retrieve default review campaign settings
+- tool: bulk_user_action
+  friendly: Bulk User Action
+  category: account
+  reason: Perform actions on multiple users
+- tool: resend_invite
+  friendly: Resend Invite
+  category: account
+  reason: Resend user invitation email
+- tool: user_brand_mapping
+  friendly: User Brand Mapping
+  category: account
+  reason: Assign brand profiles to users
+- tool: account_info
+  friendly: Account Info
+  category: account
+  reason: Get current account information
+- tool: fetch_currency_codes
+  friendly: Fetch Currency Codes
+  category: account
+  reason: Get currency codes for all countries
+- tool: get_billing_info
+  friendly: Get Billing Info
+  category: account
+  reason: Get account billing information
+- tool: get_invoice_history
+  friendly: Get Invoice History
+  category: account
+  reason: Retrieve past invoices
+- tool: get_lead_stats
+  friendly: Get Lead Stats
+  category: insights
+  reason: Get lead generation metrics
+- tool: fetch_churn_risks_of_clients
+  friendly: Fetch Churn Risks
+  category: insights
+  reason: Get client churn risk summary (agencies only)
+- tool: list_available_operations
+  friendly: List Available Operations
+  category: account
+  reason: Get all available MCP operations
+- tool: create_faq
+  friendly: Create FAQ
+  category: locations
+  reason: Create FAQs for locations
+- tool: edit_faq
+  friendly: Edit FAQ
+  category: locations
+  reason: Modify an existing FAQ
+- tool: delete_faq
+  friendly: Delete FAQ
+  category: locations
+  reason: Delete FAQs
+- tool: faqs_for_location
+  friendly: Get FAQs for Location
+  category: locations
+  reason: Retrieve FAQs for a location
+- tool: upsert_service_item
+  friendly: Upsert Service Item
+  category: locations
+  reason: Create or update service items
+- tool: delete_service_items
+  friendly: Delete Service Items
+  category: locations
+  reason: Remove service items
+- tool: fetch_ad_demographics
+  friendly: Fetch Ad Demographics
+  category: account
+  reason: Get ad targeting demographics
+- tool: get_instagram_top_posts_social_profile
+  friendly: Get Instagram Top Posts
+  category: social_posts
+  reason: Get top Instagram posts for a brand
+- tool: get_twitter_top_posts_social_profile
+  friendly: Get Twitter Top Posts
+  category: social_posts
+  reason: Get top Twitter posts for a brand
+- tool: get_day_of_the_year_social_profile
+  friendly: Day Events (Social Profile)
+  category: social_posts
+  reason: Get daily events for a brand profile
+- tool: get_month_long_observances_social_profile
+  friendly: Month Observances (Social)
+  category: social_posts
+  reason: Get monthly observances for a brand
+- tool: get_interactions_site_stats
+  friendly: Interactions Site Stats
+  category: reviews
+  reason: Get review metrics by platform
+- tool: indexing_not_supported_sites
+  friendly: Indexing Not Supported Sites
+  category: account
+  reason: Get sites that do not support indexation checks
+rest_only:
+- operation: DELETE /posts/{postId}
+  paths:
+  - DELETE /posts/{postId}
+- operation: GET /api/v4/users/{userId}/resources
+  paths:
+  - GET /api/v4/users/{userId}/resources
+- operation: GET /bulk-posts/{bulkPostId}
+  paths:
+  - GET /bulk-posts/{bulkPostId}
+- operation: GET /connected-accounts/{connectedAccountId}/folders
+  paths:
+  - GET /connected-accounts/{connectedAccountId}/folders
+- operation: GET /folder-details
+  paths:
+  - GET /folder-details
+- operation: GET /location-connections
+  paths:
+  - GET /location-connections
+- operation: GET /locations/{locationId}/bulk-posts
+  paths:
+  - GET /locations/{locationId}/bulk-posts
+- operation: GET /locations/{locationId}/menus
+  paths:
+  - GET /locations/{locationId}/menus
+- operation: GET /locations/{locationId}/photos
+  paths:
+  - GET /locations/{locationId}/photos
+- operation: GET /locations/{locationId}/posts
+  paths:
+  - GET /locations/{locationId}/posts
+- operation: GET /posts/{postId}
+  paths:
+  - GET /posts/{postId}
+- operation: POST /api/v4/automations/temporary-close-location-with-reopening-date
+  paths:
+  - POST /api/v4/automations/temporary-close-location-with-reopening-date
+- operation: POST /bulk-posts
+  paths:
+  - POST /bulk-posts
+- operation: POST /connected-accounts/confirm-matches
+  paths:
+  - POST /connected-accounts/confirm-matches
+- operation: POST /connected-accounts/disconnect-listing
+  paths:
+  - POST /connected-accounts/disconnect-listing
+- operation: POST /connected-accounts/trigger-matches
+  paths:
+  - POST /connected-accounts/trigger-matches
+- operation: POST /locations/create/gmb-listing
+  paths:
+  - POST /locations/create/gmb-listing
+- operation: POST /locations/folders
+  paths:
+  - POST /locations/folders
+- operation: POST /locations/folders/remove
+  paths:
+  - POST /locations/folders/remove
+- operation: POST /locations/folders/rename
+  paths:
+  - POST /locations/folders/rename
+- operation: POST /menus
+  paths:
+  - POST /menus
+- operation: POST /menus/{menuId}/assign-location
+  paths:
+  - POST /menus/{menuId}/assign-location
+- operation: POST /menus/{menuId}/items
+  paths:
+  - POST /menus/{menuId}/items
+- operation: POST /posts
+  paths:
+  - POST /posts
+- operation: POST /social/brands
+  paths:
+  - POST /social/brands
+- operation: POST /users/folders/add
+  paths:
+  - POST /users/folders/add
+- operation: POST /users/folders/remove
+  paths:
+  - POST /users/folders/remove
+- operation: POST /users/locations/remove
+  paths:
+  - POST /users/locations/remove
+- operation: POST /users/update
+  paths:
+  - POST /users/update
+- operation: PUT /api/v4/social/brands/{brandId1},{brandId2},{brandId3}
+  paths:
+  - PUT /api/v4/social/brands/{brandId1},{brandId2},{brandId3}
+- operation: PUT /menus/{menuId}/currency
+  paths:
+  - PUT /menus/{menuId}/currency
+- operation: PUT /social/brands/{brandId}
+  paths:
+  - PUT /social/brands/{brandId}
+- operation: activateLocations
+  paths:
+  - POST /locations/activate
+- operation: activeChatSession
+  paths:
+  - GET /social-post-ideas/active-chat-session
+- operation: addLocationToTag
+  paths:
+  - POST /locations/tags
+- operation: addLocationsToUser
+  paths:
+  - POST /users/locations/add
+- operation: analyzeReferenceImage
+  paths:
+  - GET /local-post-ideas/analyze-reference-image
+  - GET /social-post-ideas/analyze-reference-image
+- operation: appleConfirmedMatches
+  paths:
+  - GET /connected-accounts/apple-confirmed-matches
+- operation: archiveIdea
+  paths:
+  - POST /social-post-ideas/archive-idea
+- operation: archiveLocalIdea
+  paths:
+  - POST /local-post-ideas/archive-idea
+- operation: archiveLocalSeries
+  paths:
+  - POST /local-post-ideas/archive-series
+- operation: archiveLocations
+  paths:
+  - POST /locations/archive
+- operation: archiveSeries
+  paths:
+  - POST /social-post-ideas/archive-series
+- operation: branchChatSession
+  paths:
+  - POST /social-post-ideas/branch-chat-session
+- operation: branchLocalChatSession
+  paths:
+  - POST /local-post-ideas/branch-chat-session
+- operation: brandInfo
+  paths:
+  - GET /social-post-ideas/brand-info
+- operation: bulkConnectLinkForApple
+  paths:
+  - POST /connected-accounts/connect-apple/bulk
+- operation: calendar
+  paths:
+  - GET /social-post-ideas/calendar
+- operation: cancelLocationsArchive
+  paths:
+  - POST /locations/cancel_archive
+- operation: chatHistory
+  paths:
+  - GET /social-post-ideas/chat-history
+- operation: chatSessions
+  paths:
+  - GET /social-post-ideas/chat-sessions
+- operation: closeChatSession
+  paths:
+  - POST /social-post-ideas/close-chat-session
+- operation: closeLocalChatSession
+  paths:
+  - POST /local-post-ideas/close-chat-session
+- operation: connectLinkForApple
+  paths:
+  - POST /connected-accounts/connect-apple
+- operation: contentSeriesDetail
+  paths:
+  - GET /social-post-ideas/content-series-detail
+- operation: contentSeriesList
+  paths:
+  - GET /social-post-ideas/content-series-list
+- operation: createContentSeries
+  paths:
+  - POST /social-post-ideas/create-content-series
+- operation: createFolder
+  paths:
+  - POST /folders/create
+- operation: createUser
+  paths:
+  - POST /users/create
+- operation: defaultFolder
+  paths:
+  - GET /folders/default
+- operation: deleteFolder
+  paths:
+  - POST /folders/delete
+- operation: disconnectGoogleAccount
+  paths:
+  - POST /connected-accounts/disconnect-facebook
+  - POST /connected-accounts/disconnect-google
+- operation: downloadLocations
+  paths:
+  - GET /locations/download
+- operation: extendedBrandConfig
+  paths:
+  - GET /social-post-ideas/extended-brand-config
+- operation: generateAllLocalSeriesPosts
+  paths:
+  - POST /local-post-ideas/generate-all-series-posts
+- operation: generateAllSeriesPosts
+  paths:
+  - POST /social-post-ideas/generate-all-series-posts
+- operation: generateCalendarDay
+  paths:
+  - POST /social-post-ideas/generate-calendar-day
+- operation: generateHolidayIdeaVariant
+  paths:
+  - POST /social-post-ideas/generate-holiday-idea-variant
+- operation: generateIdeaVisual
+  paths:
+  - POST /social-post-ideas/generate-idea-visual
+- operation: generateLocalHolidayIdeaVariant
+  paths:
+  - POST /local-post-ideas/generate-holiday-idea-variant
+- operation: generateLocalSeriesPost
+  paths:
+  - POST /local-post-ideas/generate-series-post
+- operation: generateObservanceIdea
+  paths:
+  - POST /social-post-ideas/generate-observance-idea
+- operation: generateSeriesPost
+  paths:
+  - POST /social-post-ideas/generate-series-post
+- operation: getFolderLocations
+  paths:
+  - GET /folder-locations
+- operation: getLocationsByTags
+  paths:
+  - GET /tags/locations
+- operation: googleVerificationLocationStats
+  paths:
+  - GET /locations/google-verification-stats
+- operation: holidayIdeaVariants
+  paths:
+  - GET /social-post-ideas/holiday-idea-variants
+- operation: ideaJobStatus
+  paths:
+  - GET /social-post-ideas/idea-job-status
+- operation: imageCredits
+  paths:
+  - GET /social-post-ideas/image-credits
+- operation: linkPostIdeaToSocialPost
+  paths:
+  - POST /social-post-ideas/link-post-idea-to-social-post
+- operation: listAllTags
+  paths:
+  - GET /tags
+- operation: listConnectionSuggestions
+  paths:
+  - GET /connected-accounts/{connectedAccountId}/connection-suggestions
+- operation: listKeywords
+  paths:
+  - GET /locations/{locationId}/keywords
+- operation: listLocations
+  paths:
+  - GET /locations
+- operation: listUsers
+  paths:
+  - GET /users
+- operation: listUsersByIds
+  paths:
+  - GET /users-by-ids
+- operation: localActiveChatSession
+  paths:
+  - GET /local-post-ideas/active-chat-session
+- operation: localCalendar
+  paths:
+  - GET /local-post-ideas/calendar
+- operation: localChatHistory
+  paths:
+  - GET /local-post-ideas/chat-history
+- operation: localChatSessions
+  paths:
+  - GET /local-post-ideas/chat-sessions
+- operation: localContentSeriesDetail
+  paths:
+  - GET /local-post-ideas/content-series-detail
+- operation: localContentSeriesList
+  paths:
+  - GET /local-post-ideas/content-series-list
+- operation: localExtendedConfig
+  paths:
+  - GET /local-post-ideas/extended-config
+- operation: localHolidayIdeaVariants
+  paths:
+  - GET /local-post-ideas/holiday-idea-variants
+- operation: localIdeaJobStatus
+  paths:
+  - GET /local-post-ideas/idea-job-status
+- operation: localImageCredits
+  paths:
+  - GET /local-post-ideas/image-credits
+- operation: localLocationInfo
+  paths:
+  - GET /local-post-ideas/location-info
+- operation: localObservances
+  paths:
+  - GET /local-post-ideas/observances
+- operation: localObservancesWithIdeas
+  paths:
+  - GET /local-post-ideas/observances-with-ideas
+- operation: localPipelineStatus
+  paths:
+  - GET /local-post-ideas/pipeline-status
+- operation: localPostIdea
+  paths:
+  - GET /local-post-ideas/post-idea
+- operation: localPostIdeaCounts
+  paths:
+  - GET /local-post-ideas/post-idea-counts
+- operation: localPostIdeas
+  paths:
+  - GET /local-post-ideas/post-ideas
+- operation: localReferenceImages
+  paths:
+  - GET /local-post-ideas/reference-images
+- operation: localScrapedContext
+  paths:
+  - GET /local-post-ideas/scraped-context
+- operation: locationAddOnCount
+  paths:
+  - GET /locations/add-on-count
+- operation: locationPackageCount
+  paths:
+  - GET /locations/package-count
+- operation: observances
+  paths:
+  - GET /social-post-ideas/observances
+- operation: observancesWithIdeas
+  paths:
+  - GET /social-post-ideas/observances-with-ideas
+- operation: pipelineStatus
+  paths:
+  - GET /social-post-ideas/pipeline-status
+- operation: postIdea
+  paths:
+  - GET /social-post-ideas/post-idea
+- operation: postIdeaCounts
+  paths:
+  - GET /social-post-ideas/post-idea-counts
+- operation: postIdeas
+  paths:
+  - GET /social-post-ideas/post-ideas
+- operation: referenceImages
+  paths:
+  - GET /social-post-ideas/reference-images
+- operation: refreshIdeas
+  paths:
+  - POST /social-post-ideas/refresh-ideas
+- operation: refreshLocalIdeas
+  paths:
+  - POST /local-post-ideas/refresh-ideas
+- operation: regenerateIdea
+  paths:
+  - POST /social-post-ideas/regenerate-idea
+- operation: regenerateIdeaContent
+  paths:
+  - POST /social-post-ideas/regenerate-idea-content
+- operation: regenerateIdeaImage
+  paths:
+  - POST /social-post-ideas/regenerate-idea-image
+- operation: regenerateLocalIdea
+  paths:
+  - POST /local-post-ideas/regenerate-idea
+- operation: regenerateLocalIdeaContent
+  paths:
+  - POST /local-post-ideas/regenerate-idea-content
+- operation: regenerateLocalIdeaImage
+  paths:
+  - POST /local-post-ideas/regenerate-idea-image
+- operation: removeLocationFromTag
+  paths:
+  - POST /locations/tags/remove
+- operation: renewConnectLinkForApple
+  paths:
+  - POST /connected-accounts/connect-apple/renew
+- operation: respondToInteraction
+  paths:
+  - POST /locations/reviews/respond/archive
+  - POST /locations/reviews/respond/edit
+  - POST /locations/reviews/respond
+- operation: scheduleLocalSeries
+  paths:
+  - POST /local-post-ideas/schedule-series
+- operation: scheduleSeries
+  paths:
+  - POST /social-post-ideas/schedule-series
+- operation: scrapeBrand
+  paths:
+  - POST /social-post-ideas/scrape-brand
+- operation: scrapeLocation
+  paths:
+  - POST /local-post-ideas/scrape-location
+- operation: scrapedBrandContext
+  paths:
+  - GET /social-post-ideas/scraped-brand-context
+- operation: searchFilters
+  paths:
+  - GET /locations/search-filters
+- operation: sendChatMessage
+  paths:
+  - POST /social-post-ideas/send-chat-message
+- operation: sendLocalChatMessage
+  paths:
+  - POST /local-post-ideas/send-chat-message
+- operation: seriesPosts
+  paths:
+  - GET /social-post-ideas/series-posts
+- operation: setBrandImageCredits
+  paths:
+  - POST /social-post-ideas/set-brand-image-credits
+- operation: setLocationImageCredits
+  paths:
+  - POST /local-post-ideas/set-location-image-credits
+- operation: startChatSession
+  paths:
+  - POST /social-post-ideas/start-chat-session
+- operation: startLocalChatSession
+  paths:
+  - POST /local-post-ideas/start-chat-session
+- operation: suggestLocalPostsForDate
+  paths:
+  - POST /local-post-ideas/suggest-posts-for-date
+- operation: suggestPostsForDate
+  paths:
+  - POST /social-post-ideas/suggest-posts-for-date
+- operation: switchChatMode
+  paths:
+  - POST /social-post-ideas/switch-chat-mode
+- operation: switchLocalChatMode
+  paths:
+  - POST /local-post-ideas/switch-chat-mode
+- operation: triggerLocalPipeline
+  paths:
+  - POST /local-post-ideas/trigger-pipeline
+- operation: triggerPipeline
+  paths:
+  - POST /social-post-ideas/trigger-pipeline
+- operation: updateExtendedBrandConfig
+  paths:
+  - POST /social-post-ideas/update-extended-brand-config
+- operation: updateIdea
+  paths:
+  - POST /social-post-ideas/update-idea
+- operation: updateLocalIdea
+  paths:
+  - POST /local-post-ideas/update-idea
+- operation: upsertExtendedLocationConfig
+  paths:
+  - POST /local-post-ideas/upsert-extended-location-config
+coverage:
+  mcp_tools: 126
+  tools_bound: 54
+  tools_mcp_only: 72
+  rest_operations: 204
+  rest_operations_bound: 63
+  rest_only: 148
+notes:
+- 'The two surfaces are genuinely different products, not projections of each other: 72 of 126 MCP tools
+  have no public REST equivalent (social profiles and brand posting, automation flows, billing and invoices,
+  churn risk, FAQs and service items, Instagram/Twitter top posts, national-day post inspiration), and
+  148 REST operations have no MCP tool (the AI post-idea pipeline dominates that side).'
+- 'Tool counts disagree across Synup''s own surfaces: the MCP docs table renders 126 rows under a heading
+  that says 127, and www.synup.dev advertises 131 tools across 6 surfaces.'
+- 'list_available_operations is a meta-tool: Synup ships tool discovery as a tool, because the server
+  lazily loads tools rather than listing them on connect.'

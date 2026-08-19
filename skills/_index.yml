@@ -1,0 +1,37 @@
+name: Synup Agent Skills
+generated: '2026-08-13'
+method: generated
+source: openapi/synup-api-openapi.yml + openapi/synup-webhooks-openapi.yml + errors/synup-error-codes.yml
+description: Packaged agent skills for the marquee Synup API v4 flows. Every operationId and every SYxxxxx
+  error code referenced was grepped out of the OpenAPI documents Synup publishes; none were invented.
+  Synup publishes no AGENTS.md or skills of its own.
+api: Synup API v4
+base_url: https://api.synup.com/api/v4
+skills:
+- name: synup-onboard-a-location
+  file: skills/synup-onboard-a-location.md
+  domain: locations
+  description: Create a location, file it into folders/tags, attach photos, confirm syndication.
+- name: synup-review-response-desk
+  file: skills/synup-review-response-desk.md
+  domain: reviews
+  description: Pull interactions across every connected directory, respond, and measure.
+- name: synup-listings-health-audit
+  file: skills/synup-listings-health-audit.md
+  domain: listings
+  description: Premium/voice/AI listing coverage, duplicate detection and merge, indexing rate, verification
+    state.
+- name: synup-grid-rank-report
+  file: skills/synup-grid-rank-report.md
+  domain: rankings
+  description: Keyword tracking plus the asynchronous grid-rank heatmap job and its completion webhook.
+- name: synup-review-campaign
+  file: skills/synup-review-campaign.md
+  domain: reviews
+  description: SMS/email review-request campaigns, recipient loading, and the campaign webhook lifecycle.
+skill_count: 5
+provider_published_skills: false
+notes:
+- 'Skills carry the cross-cutting rules an agent gets wrong otherwise: the literal "API " Authorization
+  prefix, the data+errors envelope that can be populated at the same time, the absence of idempotency
+  keys, and the operationIds Synup publishes more than once.'

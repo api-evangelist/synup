@@ -1,0 +1,533 @@
+# Title
+
+## Docs
+- [Synup Local SEO API - Getting Started ](https://developer.synup.com/synup-local-seo-api-getting-started-doc-824500.md): 
+- Social [Social Overview](https://developer.synup.com/social-overview-doc-2079873.md): 
+- Posts [Posts Overview](https://developer.synup.com/posts-overview-doc-2079532.md): 
+- Menus [Menus Overview](https://developer.synup.com/menus-overview-doc-2079537.md): 
+- MCP Server [Synup MCP — Getting Connected](https://developer.synup.com/synup-mcp-getting-connected-doc-2070739.md): 
+- MCP Server [Synup MCP — Putting It to Work](https://developer.synup.com/synup-mcp-putting-it-to-work-doc-2223537.md): 
+- Webhooks [Synup Webhooks](https://developer.synup.com/synup-webhooks-doc-2259000.md): 
+
+## API Docs
+- Locations [Location Attributes](https://developer.synup.com/location-attributes-custom-endpoint-300818.md): 
+- Locations [Photo specifications for your business location](https://developer.synup.com/photo-specifications-for-your-business-location-custom-endpoint-300852.md): 
+- Locations [Star and Unstar Photos](https://developer.synup.com/star-and-unstar-photos-custom-endpoint-300853.md): 
+- Locations [Create a new business location](https://developer.synup.com/create-a-new-business-location-api-13603961.md): <span style="font-size: 14px;">
+- Locations [Update  business location](https://developer.synup.com/update-business-location-api-13640375.md): <span style="font-size: 14px;">
+- Locations [List all locations](https://developer.synup.com/list-all-locations-api-13651646.md): <br>
+- Locations [List particular locations](https://developer.synup.com/list-particular-locations-api-13646679.md): <br>
+- Locations [Search locations](https://developer.synup.com/search-locations-api-13651538.md): <br>
+- Locations [Get locations by store codes](https://developer.synup.com/get-locations-by-store-codes-api-13651265.md): <br>
+- Locations [Get Photos by Location IDs](https://developer.synup.com/get-photos-by-location-ids-api-23089104.md): <br>
+- Locations [Upload Photos to a Location](https://developer.synup.com/upload-photos-to-a-location-api-13642280.md): <br>
+- Locations [Check Bulk Photo Upload Status](https://developer.synup.com/check-bulk-photo-upload-status-api-13642386.md): <span style="font-size: 14px;">
+- Locations [Star/Unstar Location Photos](https://developer.synup.com/starunstar-location-photos-api-13642393.md): <span style="font-size: 14px;">
+- Locations [Delete Location Photos](https://developer.synup.com/delete-location-photos-api-13642416.md): <span style="font-size: 14px;">
+- Locations [Archive multiple locations](https://developer.synup.com/archive-multiple-locations-api-13659698.md): <span style="font-size: 14px;">
+- Locations [Cancel scheduled location archival](https://developer.synup.com/cancel-scheduled-location-archival-api-13659850.md): <span style="font-size: 14px;">
+- Locations [Activate archived locations](https://developer.synup.com/activate-archived-locations-api-13659836.md): <span style="font-size: 14px;">
+- Locations [List Active Subscriptions](https://developer.synup.com/list-active-subscriptions-api-13639877.md): <span style="font-size: 14px;">
+- Locations [Get a list of supported countries and their states](https://developer.synup.com/get-a-list-of-supported-countries-and-their-states-api-13600948.md): <span style="font-size: 14px;">
+- Locations [Get SubCategories and AdditionalCategories](https://developer.synup.com/get-subcategories-and-additionalcategories-api-13636558.md): <span style="font-size: 14px;">
+- Locations [Get Site Details for Your Plan](https://developer.synup.com/get-site-details-for-your-plan-api-13602957.md): <span style="font-size: 14px;">
+- Locations [Location Indexing Rate](https://developer.synup.com/location-indexing-rate-api-21817244.md): 
+- Locations [Available advanced filter values](https://developer.synup.com/available-advanced-filter-values-api-40051636.md): <br>
+- Locations [Download locations](https://developer.synup.com/download-locations-api-40051637.md): <br>
+- Locations [Filter locations](https://developer.synup.com/filter-locations-api-40051643.md): <br>
+- Locations [Google verification location stats](https://developer.synup.com/google-verification-location-stats-api-40051645.md): <br>
+- Locations [Location add-on count](https://developer.synup.com/location-add-on-count-api-40051647.md): <br>
+- Locations [Location package count](https://developer.synup.com/location-package-count-api-40051649.md): <br>
+- Locations [Available search filter values](https://developer.synup.com/available-search-filter-values-api-40051651.md): <br>
+- Organizing locations [Organizing locations](https://developer.synup.com/organizing-locations-custom-endpoint-300821.md): 
+- Organizing locations [Create a new folder](https://developer.synup.com/create-a-new-folder-api-13659982.md): <span style="font-size: 14px;">
+- Organizing locations [List all folders](https://developer.synup.com/list-all-folders-api-13660098.md): <span style="font-size: 14px;">
+- Organizing locations [List all folders under an account in hierarchical structure](https://developer.synup.com/list-all-folders-under-an-account-in-hierarchical-structure-api-13660114.md): <span style="font-size: 14px;">
+- Organizing locations [Get details of a folder](https://developer.synup.com/get-details-of-a-folder-api-13660126.md): <span style="font-size: 14px;">
+- Organizing locations [Rename a folder](https://developer.synup.com/rename-a-folder-api-13660162.md): <span style="font-size: 14px;">
+- Organizing locations [Add locations to a folder](https://developer.synup.com/add-locations-to-a-folder-api-13660182.md): <span style="font-size: 14px;">
+- Organizing locations [Remove locations from a folder](https://developer.synup.com/remove-locations-from-a-folder-api-13660249.md): <span style="font-size: 14px;">
+- Organizing locations [Delete a folder](https://developer.synup.com/delete-a-folder-api-13660288.md): <span style="font-size: 14px;">
+- Organizing locations [List locations under a folder](https://developer.synup.com/list-locations-under-a-folder-api-13660305.md): <span style="font-size: 14px;">
+- Organizing locations [List all tags](https://developer.synup.com/list-all-tags-api-13660325.md): <span style="font-size: 14px;">
+- Organizing locations [List locations by tags](https://developer.synup.com/list-locations-by-tags-api-13660360.md): <span style="font-size: 14px;">
+- Organizing locations [Add location to a tag](https://developer.synup.com/add-location-to-a-tag-api-13660400.md): 
+- Organizing locations [Remove location from a tag](https://developer.synup.com/remove-location-from-a-tag-api-13660509.md): <span style="font-size: 14px;">
+- Organizing locations [Default folder](https://developer.synup.com/default-folder-api-40051830.md): <br>
+- User Management [User Attributes](https://developer.synup.com/user-attributes-custom-endpoint-300846.md): 
+- User Management [Create User with Role](https://developer.synup.com/create-user-with-role-api-13932627.md): <span style="font-size: 14px;">
+- User Management [List Users](https://developer.synup.com/list-users-api-13932639.md): <span style="font-size: 14px;">
+- User Management [List Users by ID](https://developer.synup.com/list-users-by-id-api-13932648.md): <span style="font-size: 14px;">
+- User Management [Add Locations to User](https://developer.synup.com/add-locations-to-user-api-13932855.md): <span style="font-size: 14px;">
+- User Management [Add User and folder](https://developer.synup.com/add-user-and-folder-api-19358677.md): <span style="font-size: 14px;">
+- User Management [List User Roles](https://developer.synup.com/list-user-roles-api-13933011.md): <span style="font-size: 14px;">
+- User Management [Add folders to user](https://developer.synup.com/add-folders-to-user-api-13994432.md): <span style="font-size: 14px;">
+- User Management [List User Resources](https://developer.synup.com/list-user-resources-api-13994825.md): <span style="font-size: 14px;">
+- User Management [Update a User](https://developer.synup.com/update-a-user-api-13997390.md): <span style="font-size: 14px;">
+- User Management [Remove Folders for User](https://developer.synup.com/remove-folders-for-user-api-13997706.md): <span style="font-size: 14px;">
+- User Management [Remove Locations for User](https://developer.synup.com/remove-locations-for-user-api-13998778.md): <span style="font-size: 14px;">
+- Grid Rank [Local Rank Grid](https://developer.synup.com/local-rank-grid-custom-endpoint-300858.md): 
+- Grid Rank [Create Rank Grid Report](https://developer.synup.com/create-rank-grid-report-api-13932561.md): 
+- Grid Rank [Fetch All Grid Reports for Location](https://developer.synup.com/fetch-all-grid-reports-for-location-api-13932576.md): <span style="font-size: 14px;">
+- Grid Rank [Fetch Rank Grid Report By ID](https://developer.synup.com/fetch-rank-grid-report-by-id-api-13932585.md): 
+- Review Campaigns [Review Campaign Info Attributes](https://developer.synup.com/review-campaign-info-attributes-custom-endpoint-300848.md): 
+- Review Campaigns [Create a review campaign](https://developer.synup.com/create-a-review-campaign-api-14003756.md): <span style="font-size: 14px;">
+- Review Campaigns [Add customers to a review campaign](https://developer.synup.com/add-customers-to-a-review-campaign-api-14003757.md): <span style="font-size: 14px;">
+- Review Campaigns [List review campaigns](https://developer.synup.com/list-review-campaigns-api-14026077.md): <span style="font-size: 14px;">
+- Review Campaigns [List review campaign customers](https://developer.synup.com/list-review-campaign-customers-api-14026088.md): <span style="font-size: 14px;">
+- Listings [Listings](https://developer.synup.com/listings-custom-endpoint-300823.md): 
+- Listings [Listing Status Webhooks](https://developer.synup.com/listing-status-webhooks-custom-endpoint-300824.md): 
+- Listings [Get premium listings](https://developer.synup.com/get-premium-listings-api-13671527.md): <span style="font-size: 14px;">
+- Listings [Get voice listings for a location](https://developer.synup.com/get-voice-listings-for-a-location-api-13671591.md): <span style="font-size: 14px;">
+- Listings [Get duplicate listings for a location](https://developer.synup.com/get-duplicate-listings-for-a-location-api-13671710.md): <span style="font-size: 14px;">
+- Listings [Get all duplicate listings for an account](https://developer.synup.com/get-all-duplicate-listings-for-an-account-api-13672026.md): <span style="font-size: 14px;">
+- Listings [Mark listings as duplicates](https://developer.synup.com/mark-listings-as-duplicates-api-13672183.md): <span style="font-size: 14px;">
+- Listings [Mark listings as not duplicates](https://developer.synup.com/mark-listings-as-not-duplicates-api-13672206.md): <span style="font-size: 14px;">
+- Listings [Get AI listings](https://developer.synup.com/get-ai-listings-api-19356815.md): This API retrieves all premium listings associated with a specific location.
+- Connected Accounts [Connected Accounts](https://developer.synup.com/connected-accounts-custom-endpoint-300825.md): 
+- Connected Accounts [Connect Google Profile to Account](https://developer.synup.com/connect-google-profile-to-account-api-13675039.md): <span style="font-size: 14px;">
+- Connected Accounts [Connect Facebook Page to Account](https://developer.synup.com/connect-facebook-page-to-account-api-13675265.md): 
+- Connected Accounts [Bulk connect link for Apple](https://developer.synup.com/bulk-connect-link-for-apple-api-39902193.md): <span style="font-size: 14px;">
+- Connected Accounts [List all connected accounts](https://developer.synup.com/list-all-connected-accounts-api-13679586.md): <span style="font-size: 14px;">
+- Connected Accounts [List folders under a Google account](https://developer.synup.com/list-folders-under-a-google-account-api-19190292.md): <span style="font-size: 14px;">
+- Connected Accounts [Create GMB Listing](https://developer.synup.com/create-gmb-listing-api-19189800.md): <span style="font-size: 14px;">
+- Connected Accounts [Disconnect GMB Profile](https://developer.synup.com/disconnect-gmb-profile-api-13678474.md): <span style="font-size: 14px;">
+- Connected Accounts [Disconnect Facebook Account](https://developer.synup.com/disconnect-facebook-account-api-13686527.md): <span style="font-size: 14px;">
+- Connected Accounts [Fetch Connected Account Details](https://developer.synup.com/fetch-connected-account-details-api-13687153.md): <span style="font-size: 14px;">
+- Connected Accounts [Trigger New Matches](https://developer.synup.com/trigger-new-matches-api-13679897.md): <span style="font-size: 14px;">
+- Connected Accounts [List Connection Suggestions](https://developer.synup.com/list-connection-suggestions-api-13687215.md): <span style="font-size: 14px;">
+- Connected Accounts [Fetch Connected Account Listings](https://developer.synup.com/fetch-connected-account-listings-api-13680740.md): <span style="font-size: 14px;">
+- Connected Accounts [Confirm Connected Account Matches](https://developer.synup.com/confirm-connected-account-matches-api-13680753.md): <span style="font-size: 14px;">
+- Connected Accounts [Connect a location with a listing of a connected account](https://developer.synup.com/connect-a-location-with-a-listing-of-a-connected-account-api-13680763.md): <span style="font-size: 14px;">
+- Connected Accounts [Disconnect Location from Listing](https://developer.synup.com/disconnect-location-from-listing-api-13680775.md): <span style="font-size: 14px;">
+- Connected Accounts [create location from connected account listing](https://developer.synup.com/create-location-from-connected-account-listing-api-25157498.md): <span style="font-size: 14px;">
+- Connected Accounts [Apple confirmed matches](https://developer.synup.com/apple-confirmed-matches-api-40050924.md): <span style="font-size: 14px;">
+- Connected Accounts [Connect link for Apple](https://developer.synup.com/connect-link-for-apple-api-40051582.md): <span style="font-size: 14px;">
+- Connected Accounts [Renew connect link for Apple](https://developer.synup.com/renew-connect-link-for-apple-api-40051602.md): <span style="font-size: 14px;">
+- Connected Accounts [List location connections](https://developer.synup.com/list-location-connections-api-40947471.md): <span style="font-size: 14px;">
+- Rankings [Rankings Analytics Attributes](https://developer.synup.com/rankings-analytics-attributes-custom-endpoint-300832.md): 
+- Rankings [Add keywords](https://developer.synup.com/add-keywords-api-13687734.md): <span style="font-size: 14px;">
+- Rankings [List Keywords](https://developer.synup.com/list-keywords-api-13695476.md): <span style="font-size: 14px;">
+- Rankings [Get keywords performance](https://developer.synup.com/get-keywords-performance-api-13695557.md): <span style="font-size: 14px;">
+- Rankings [Archive a keyword](https://developer.synup.com/archive-a-keyword-api-13695580.md): <span style="font-size: 14px;">
+- Rankings [Get Rollup Keyword Performance](https://developer.synup.com/get-rollup-keyword-performance-api-13695712.md): <span style="font-size: 14px;">
+- Rankings [Get Rankings Distribution By Time](https://developer.synup.com/get-rankings-distribution-by-time-api-13695783.md): <span style="font-size: 14px;">
+- Profile Analytics [Profile Analytics](https://developer.synup.com/profile-analytics-custom-endpoint-300833.md): 
+- Profile Analytics [Get Bing Analytics](https://developer.synup.com/get-bing-analytics-api-13695983.md): Fetch profile analytics for Bing data for a specific location
+- Profile Analytics [Get Facebook Page Analytics](https://developer.synup.com/get-facebook-page-analytics-api-13695985.md): <span style="font-size: 14px;">
+- Profile Analytics [Get Google My Business Analytics](https://developer.synup.com/get-google-my-business-analytics-api-13695987.md): <span style="font-size: 14px;">
+- Reviews [Reviews](https://developer.synup.com/reviews-custom-endpoint-300845.md): 
+- Reviews > Review Sources [Get a list of interaction sources for location](https://developer.synup.com/get-a-list-of-interaction-sources-for-location-api-19357317.md): <span style="font-size: 14px;">
+- Reviews > Review Sources [Get a list of interaction sources for account](https://developer.synup.com/get-a-list-of-interaction-sources-for-account-api-19357376.md): <span style="font-size: 14px;">
+- Reviews > Review Sources [Add / Edit interaction source](https://developer.synup.com/add-edit-interaction-source-api-19357403.md): <span style="font-size: 14px;">
+- Reviews [Fetch all interactions](https://developer.synup.com/fetch-all-interactions-api-13932709.md): <span style="font-size: 14px;">
+- Reviews [List Interactions by IDs](https://developer.synup.com/list-interactions-by-ids-api-13932710.md): <span style="font-size: 14px;">
+- Reviews [Respond to an Interaction](https://developer.synup.com/respond-to-an-interaction-api-13932713.md): <span style="font-size: 14px;">
+- Reviews [Edit Response for Interaction](https://developer.synup.com/edit-response-for-interaction-api-19356956.md): <span style="font-size: 14px;">
+- Reviews [Archive Response for Interaction](https://developer.synup.com/archive-response-for-interaction-api-19357202.md): <span style="font-size: 14px;">
+- Reviews [Get Interaction Analytics](https://developer.synup.com/get-interaction-analytics-api-13932683.md): <span style="font-size: 14px;">
+- Reviews [Add Review Widget](https://developer.synup.com/add-review-widget-api-20127692.md): 
+- Reviews [Edit Review Widget](https://developer.synup.com/edit-review-widget-api-20127698.md): 
+- Reviews [Rollup Review API](https://developer.synup.com/rollup-review-api-api-20430521.md): 
+- Automations [Temporary Close Location with a reopening date](https://developer.synup.com/temporary-close-location-with-a-reopening-date-api-19519030.md): <span style="font-size: 14px;">
+- Error Codes [ERROR CODES](https://developer.synup.com/error-codes-api-19731976.md): # Error Codes
+- Social [Create a brand](https://developer.synup.com/create-a-brand-api-33169855.md): 
+- Social [Assign a user to a single brand](https://developer.synup.com/assign-a-user-to-a-single-brand-api-33169859.md): 
+- Social [Assign multiple brands](https://developer.synup.com/assign-multiple-brands-api-33169860.md): 
+- Posts [Create an Announcement post](https://developer.synup.com/create-an-announcement-post-api-33169275.md): 
+- Posts [Create an Event post](https://developer.synup.com/create-an-event-post-api-33169313.md): 
+- Posts [Create an Offer post](https://developer.synup.com/create-an-offer-post-api-33169317.md): 
+- Posts [Fetch posts for a location](https://developer.synup.com/fetch-posts-for-a-location-api-33169608.md): 
+- Posts [Get a single post](https://developer.synup.com/get-a-single-post-api-33169610.md): 
+- Posts [Delete a post](https://developer.synup.com/delete-a-post-api-33169611.md): 
+- Posts [Create a bulk post](https://developer.synup.com/create-a-bulk-post-api-33169612.md): 
+- Posts [Fetch a bulk post by ID](https://developer.synup.com/fetch-a-bulk-post-by-id-api-33169732.md): 
+- Posts [Fetch bulk posts for a location](https://developer.synup.com/fetch-bulk-posts-for-a-location-api-33169760.md): 
+- Menus [Create a menu](https://developer.synup.com/create-a-menu-api-33169800.md): 
+- Menus [Fetch menus for a location](https://developer.synup.com/fetch-menus-for-a-location-api-33169802.md): 
+- Menus [Add an item to an existing section](https://developer.synup.com/add-an-item-to-an-existing-section-api-33169805.md): 
+- Menus [Update menu currency](https://developer.synup.com/update-menu-currency-api-33169808.md): 
+- Menus [Assign a menu to a location](https://developer.synup.com/assign-a-menu-to-a-location-api-33169811.md): 
+- Local Post Ideas [Refresh local ideas](https://developer.synup.com/refresh-local-ideas-api-40053261.md): <span style="font-size: 14px;">
+- Local Post Ideas [Suggest local posts for date](https://developer.synup.com/suggest-local-posts-for-date-api-40053321.md): <span style="font-size: 14px;">
+- Local Post Ideas [Analyze reference image](https://developer.synup.com/analyze-reference-image-api-40052170.md): <span style="font-size: 14px;">
+- Local Post Ideas [Archive local idea](https://developer.synup.com/archive-local-idea-api-40052176.md): <span style="font-size: 14px;">
+- Local Post Ideas [Archive local series](https://developer.synup.com/archive-local-series-api-40052177.md): <span style="font-size: 14px;">
+- Local Post Ideas [Branch local chat session](https://developer.synup.com/branch-local-chat-session-api-40052178.md): <span style="font-size: 14px;">
+- Local Post Ideas [Close local chat session](https://developer.synup.com/close-local-chat-session-api-40052180.md): <span style="font-size: 14px;">
+- Local Post Ideas [Generate all local series posts](https://developer.synup.com/generate-all-local-series-posts-api-40052188.md): <span style="font-size: 14px;">
+- Local Post Ideas [Generate local holiday idea variant](https://developer.synup.com/generate-local-holiday-idea-variant-api-40052189.md): <span style="font-size: 14px;">
+- Local Post Ideas [Generate local series post](https://developer.synup.com/generate-local-series-post-api-40052190.md): <span style="font-size: 14px;">
+- Local Post Ideas [Local active chat session](https://developer.synup.com/local-active-chat-session-api-40052193.md): <span style="font-size: 14px;">
+- Local Post Ideas [Local calendar](https://developer.synup.com/local-calendar-api-40052194.md): <span style="font-size: 14px;">
+- Local Post Ideas [Local chat history](https://developer.synup.com/local-chat-history-api-40052196.md): <span style="font-size: 14px;">
+- Local Post Ideas [Local chat sessions](https://developer.synup.com/local-chat-sessions-api-40052241.md): <span style="font-size: 14px;">
+- Local Post Ideas [Local content series detail](https://developer.synup.com/local-content-series-detail-api-40052244.md): <span style="font-size: 14px;">
+- Local Post Ideas [Local content series list](https://developer.synup.com/local-content-series-list-api-40052297.md): <span style="font-size: 14px;">
+- Local Post Ideas [Local extended config](https://developer.synup.com/local-extended-config-api-40052300.md): <span style="font-size: 14px;">
+- Local Post Ideas [Local holiday idea variants](https://developer.synup.com/local-holiday-idea-variants-api-40052301.md): <span style="font-size: 14px;">
+- Local Post Ideas [Local idea job status](https://developer.synup.com/local-idea-job-status-api-40052552.md): <span style="font-size: 14px;">
+- Local Post Ideas [Local image credits](https://developer.synup.com/local-image-credits-api-40052720.md): <span style="font-size: 14px;">
+- Local Post Ideas [Local location info](https://developer.synup.com/local-location-info-api-40052818.md): <span style="font-size: 14px;">
+- Local Post Ideas [Local observances](https://developer.synup.com/local-observances-api-40052821.md): <span style="font-size: 14px;">
+- Local Post Ideas [Local observances with ideas](https://developer.synup.com/local-observances-with-ideas-api-40052823.md): <span style="font-size: 14px;">
+- Local Post Ideas [Local pipeline status](https://developer.synup.com/local-pipeline-status-api-40052824.md): <span style="font-size: 14px;">
+- Local Post Ideas [Local post idea](https://developer.synup.com/local-post-idea-api-40052825.md): <span style="font-size: 14px;">
+- Local Post Ideas [Local post idea counts](https://developer.synup.com/local-post-idea-counts-api-40053202.md): <span style="font-size: 14px;">
+- Local Post Ideas [Local post ideas](https://developer.synup.com/local-post-ideas-api-40053207.md): <span style="font-size: 14px;">
+- Local Post Ideas [Local reference images](https://developer.synup.com/local-reference-images-api-40053209.md): <span style="font-size: 14px;">
+- Local Post Ideas [Local scraped context](https://developer.synup.com/local-scraped-context-api-40053257.md): <span style="font-size: 14px;">
+- Local Post Ideas [Regenerate local idea](https://developer.synup.com/regenerate-local-idea-api-40053275.md): <span style="font-size: 14px;">
+- Local Post Ideas [Regenerate local idea content](https://developer.synup.com/regenerate-local-idea-content-api-40053278.md): <span style="font-size: 14px;">
+- Local Post Ideas [Regenerate local idea image](https://developer.synup.com/regenerate-local-idea-image-api-40053282.md): <span style="font-size: 14px;">
+- Local Post Ideas [Schedule local series](https://developer.synup.com/schedule-local-series-api-40053284.md): <span style="font-size: 14px;">
+- Local Post Ideas [Scrape location](https://developer.synup.com/scrape-location-api-40053286.md): <span style="font-size: 14px;">
+- Local Post Ideas [Send local chat message](https://developer.synup.com/send-local-chat-message-api-40053287.md): <span style="font-size: 14px;">
+- Local Post Ideas [Set location image credits](https://developer.synup.com/set-location-image-credits-api-40053288.md): <span style="font-size: 14px;">
+- Local Post Ideas [Start local chat session](https://developer.synup.com/start-local-chat-session-api-40053319.md): <span style="font-size: 14px;">
+- Local Post Ideas [Switch local chat mode](https://developer.synup.com/switch-local-chat-mode-api-40053323.md): <span style="font-size: 14px;">
+- Local Post Ideas [Trigger local pipeline](https://developer.synup.com/trigger-local-pipeline-api-40053325.md): <span style="font-size: 14px;">
+- Local Post Ideas [Update local idea](https://developer.synup.com/update-local-idea-api-40053326.md): <span style="font-size: 14px;">
+- Local Post Ideas [Upsert extended location config](https://developer.synup.com/upsert-extended-location-config-api-40053377.md): <span style="font-size: 14px;">
+- Social Post Ideas [Active chat session](https://developer.synup.com/active-chat-session-api-40055529.md): <span style="font-size: 14px;">
+- Social Post Ideas [Analyze reference image](https://developer.synup.com/analyze-reference-image-api-40055530.md): <span style="font-size: 14px;">
+- Social Post Ideas [Archive idea](https://developer.synup.com/archive-idea-api-40055531.md): <span style="font-size: 14px;">
+- Social Post Ideas [Archive series](https://developer.synup.com/archive-series-api-40055564.md): <span style="font-size: 14px;">
+- Social Post Ideas [Branch chat session](https://developer.synup.com/branch-chat-session-api-40055575.md): <span style="font-size: 14px;">
+- Social Post Ideas [Brand info](https://developer.synup.com/brand-info-api-40055576.md): <span style="font-size: 14px;">
+- Social Post Ideas [Calendar](https://developer.synup.com/calendar-api-40055577.md): <span style="font-size: 14px;">
+- Social Post Ideas [Chat history](https://developer.synup.com/chat-history-api-40055578.md): <span style="font-size: 14px;">
+- Social Post Ideas [Chat sessions](https://developer.synup.com/chat-sessions-api-40055580.md): <span style="font-size: 14px;">
+- Social Post Ideas [Close chat session](https://developer.synup.com/close-chat-session-api-40055581.md): <span style="font-size: 14px;">
+- Social Post Ideas [Content series detail](https://developer.synup.com/content-series-detail-api-40055584.md): <span style="font-size: 14px;">
+- Social Post Ideas [Content series list](https://developer.synup.com/content-series-list-api-40055587.md): <span style="font-size: 14px;">
+- Social Post Ideas [Create content series](https://developer.synup.com/create-content-series-api-40055588.md): <span style="font-size: 14px;">
+- Social Post Ideas [Extended brand config](https://developer.synup.com/extended-brand-config-api-40055590.md): <span style="font-size: 14px;">
+- Social Post Ideas [Generate all series posts](https://developer.synup.com/generate-all-series-posts-api-40055591.md): <span style="font-size: 14px;">
+- Social Post Ideas [Generate calendar day](https://developer.synup.com/generate-calendar-day-api-40055593.md): <span style="font-size: 14px;">
+- Social Post Ideas [Generate holiday idea variant](https://developer.synup.com/generate-holiday-idea-variant-api-40055594.md): <span style="font-size: 14px;">
+- Social Post Ideas [Generate idea visual](https://developer.synup.com/generate-idea-visual-api-40055608.md): <span style="font-size: 14px;">
+- Social Post Ideas [Generate observance idea](https://developer.synup.com/generate-observance-idea-api-40055609.md): <span style="font-size: 14px;">
+- Social Post Ideas [Generate series post](https://developer.synup.com/generate-series-post-api-40055610.md): <span style="font-size: 14px;">
+- Social Post Ideas [Holiday idea variants](https://developer.synup.com/holiday-idea-variants-api-40140127.md): <span style="font-size: 14px;">
+- Social Post Ideas [Idea job status](https://developer.synup.com/idea-job-status-api-40140134.md): <span style="font-size: 14px;">
+- Social Post Ideas [Image credits](https://developer.synup.com/image-credits-api-40140138.md): <span style="font-size: 14px;">
+- Social Post Ideas [Link post idea to social post](https://developer.synup.com/link-post-idea-to-social-post-api-40140139.md): <span style="font-size: 14px;">
+- Social Post Ideas [Observances](https://developer.synup.com/observances-api-40140152.md): <span style="font-size: 14px;">
+- Social Post Ideas [Observances with ideas](https://developer.synup.com/observances-with-ideas-api-40140160.md): <span style="font-size: 14px;">
+- Social Post Ideas [Pipeline status](https://developer.synup.com/pipeline-status-api-40140173.md): <span style="font-size: 14px;">
+- Social Post Ideas [Post idea](https://developer.synup.com/post-idea-api-40140182.md): <span style="font-size: 14px;">
+- Social Post Ideas [Post idea counts](https://developer.synup.com/post-idea-counts-api-40140183.md): <span style="font-size: 14px;">
+- Social Post Ideas [Post ideas](https://developer.synup.com/post-ideas-api-40140416.md): <span style="font-size: 14px;">
+- Social Post Ideas [Reference images](https://developer.synup.com/reference-images-api-40140418.md): <span style="font-size: 14px;">
+- Social Post Ideas [Refresh ideas](https://developer.synup.com/refresh-ideas-api-40140425.md): <span style="font-size: 14px;">
+- Social Post Ideas [Regenerate idea](https://developer.synup.com/regenerate-idea-api-40140427.md): <span style="font-size: 14px;">
+- Social Post Ideas [Regenerate idea content](https://developer.synup.com/regenerate-idea-content-api-40140428.md): <span style="font-size: 14px;">
+- Social Post Ideas [Regenerate idea image](https://developer.synup.com/regenerate-idea-image-api-40140435.md): <span style="font-size: 14px;">
+- Social Post Ideas [Schedule series](https://developer.synup.com/schedule-series-api-40140440.md): <span style="font-size: 14px;">
+- Social Post Ideas [Scrape brand](https://developer.synup.com/scrape-brand-api-40140472.md): <span style="font-size: 14px;">
+- Social Post Ideas [Scraped brand context](https://developer.synup.com/scraped-brand-context-api-40140475.md): <span style="font-size: 14px;">
+- Social Post Ideas [Send chat message](https://developer.synup.com/send-chat-message-api-40140476.md): <span style="font-size: 14px;">
+- Social Post Ideas [Series posts](https://developer.synup.com/series-posts-api-40140477.md): <span style="font-size: 14px;">
+- Social Post Ideas [Set brand image credits](https://developer.synup.com/set-brand-image-credits-api-40140480.md): <span style="font-size: 14px;">
+- Social Post Ideas [Start chat session](https://developer.synup.com/start-chat-session-api-40140483.md): <span style="font-size: 14px;">
+- Social Post Ideas [Suggest posts for date](https://developer.synup.com/suggest-posts-for-date-api-40140486.md): <span style="font-size: 14px;">
+- Social Post Ideas [Switch chat mode](https://developer.synup.com/switch-chat-mode-api-40140796.md): <span style="font-size: 14px;">
+- Social Post Ideas [Trigger pipeline](https://developer.synup.com/trigger-pipeline-api-40140799.md): <span style="font-size: 14px;">
+- Social Post Ideas [Update extended brand config](https://developer.synup.com/update-extended-brand-config-api-40140803.md): <span style="font-size: 14px;">
+- Social Post Ideas [Update idea](https://developer.synup.com/update-idea-api-40140804.md): <span style="font-size: 14px;">
+- Webhooks > Webhooks [Directory listing synced (success/incomplete)](https://developer.synup.com/directory-listing-synced-successincomplete-api-40143121.md): <span style="font-size: 14px;">
+- Webhooks > Webhooks [New review received for a location](https://developer.synup.com/new-review-received-for-a-location-api-40143122.md): <span style="font-size: 14px;">
+- Webhooks > Webhooks [New response to a review received](https://developer.synup.com/new-response-to-a-review-received-api-40143123.md): <span style="font-size: 14px;">
+- Webhooks > Webhooks [Listing connected](https://developer.synup.com/listing-connected-api-40143124.md): <span style="font-size: 14px;">
+- Webhooks > Webhooks [Listing disconnected](https://developer.synup.com/listing-disconnected-api-40143125.md): <span style="font-size: 14px;">
+- Webhooks > Webhooks [Listing re-authorization required](https://developer.synup.com/listing-re-authorization-required-api-40143126.md): <span style="font-size: 14px;">
+- Webhooks > Webhooks [Listing became inaccessible](https://developer.synup.com/listing-became-inaccessible-api-40143127.md): <span style="font-size: 14px;">
+- Webhooks > Webhooks [Google verification passed](https://developer.synup.com/google-verification-passed-api-40143128.md): <span style="font-size: 14px;">
+- Webhooks > Webhooks [Google verification failed](https://developer.synup.com/google-verification-failed-api-40143129.md): <span style="font-size: 14px;">
+- Webhooks > Webhooks [Location created](https://developer.synup.com/location-created-api-40143130.md): <span style="font-size: 14px;">
+- Webhooks > Webhooks [Location updated](https://developer.synup.com/location-updated-api-40143131.md): <span style="font-size: 14px;">
+- Webhooks > Webhooks [Location deleted](https://developer.synup.com/location-deleted-api-40143132.md): <span style="font-size: 14px;">
+- Webhooks > Webhooks [Share-of-Voice snapshot completed](https://developer.synup.com/share-of-voice-snapshot-completed-api-40143133.md): <span style="font-size: 14px;">
+- Webhooks > Webhooks [Grid rank report ready](https://developer.synup.com/grid-rank-report-ready-api-40143134.md): <span style="font-size: 14px;">
+- Webhooks > Webhooks [Daily review analytics snapshot](https://developer.synup.com/daily-review-analytics-snapshot-api-40143135.md): <span style="font-size: 14px;">
+- Webhooks > Webhooks [Weekly review analytics snapshot](https://developer.synup.com/weekly-review-analytics-snapshot-api-40143136.md): <span style="font-size: 14px;">
+- Webhooks > Webhooks [Review campaign sent](https://developer.synup.com/review-campaign-sent-api-40143137.md): <span style="font-size: 14px;">
+- Webhooks > Webhooks [Campaign recipients added](https://developer.synup.com/campaign-recipients-added-api-40143138.md): <span style="font-size: 14px;">
+- Webhooks > Webhooks [Campaign message status changed](https://developer.synup.com/campaign-message-status-changed-api-40143139.md): <span style="font-size: 14px;">
+- Webhooks > Webhooks [Campaign feedback submitted](https://developer.synup.com/campaign-feedback-submitted-api-40143140.md): <span style="font-size: 14px;">
+- Webhooks > Webhooks [Campaign message send rejected](https://developer.synup.com/campaign-message-send-rejected-api-40143141.md): <span style="font-size: 14px;">
+- Webhooks > Webhooks [Review posted (campaign-attributed)](https://developer.synup.com/review-posted-campaign-attributed-api-40143142.md): <span style="font-size: 14px;">
+- Webhooks > Webhooks [Social post created](https://developer.synup.com/social-post-created-api-40143143.md): <span style="font-size: 14px;">
+- Webhooks > Webhooks [Social post published](https://developer.synup.com/social-post-published-api-40143144.md): <span style="font-size: 14px;">
+- Webhooks > Webhooks [Social post deleted](https://developer.synup.com/social-post-deleted-api-40143145.md): <span style="font-size: 14px;">
+- Webhooks > Webhooks [Social post rejected](https://developer.synup.com/social-post-rejected-api-40143146.md): <span style="font-size: 14px;">
+- Webhooks > Webhooks [Social post failed](https://developer.synup.com/social-post-failed-api-40143147.md): <span style="font-size: 14px;">
+- Webhooks > Webhooks [Boost created](https://developer.synup.com/boost-created-api-40143148.md): <span style="font-size: 14px;">
+- Webhooks > Webhooks [Boost active](https://developer.synup.com/boost-active-api-40143149.md): <span style="font-size: 14px;">
+- Webhooks > Webhooks [Boost rejected](https://developer.synup.com/boost-rejected-api-40143150.md): <span style="font-size: 14px;">
+- Webhooks > Webhooks [Boost stopped](https://developer.synup.com/boost-stopped-api-40143151.md): <span style="font-size: 14px;">
+- Webhooks > Webhooks [Social channel connected](https://developer.synup.com/social-channel-connected-api-40143152.md): <span style="font-size: 14px;">
+- Webhooks > Webhooks [Social channel disconnected](https://developer.synup.com/social-channel-disconnected-api-40143153.md): <span style="font-size: 14px;">
+- Webhooks > Webhooks [Social channel archived](https://developer.synup.com/social-channel-archived-api-40143154.md): <span style="font-size: 14px;">
+- Webhooks > Webhooks [Ad account status changed](https://developer.synup.com/ad-account-status-changed-api-40143155.md): <span style="font-size: 14px;">
+- Webhooks > Webhooks [AI post idea generated](https://developer.synup.com/ai-post-idea-generated-api-40143156.md): <span style="font-size: 14px;">
+- Webhooks > Webhooks [AI idea scheduled as post](https://developer.synup.com/ai-idea-scheduled-as-post-api-40143157.md): <span style="font-size: 14px;">
+- Webhooks > Webhooks [AI idea series completed](https://developer.synup.com/ai-idea-series-completed-api-40143158.md): <span style="font-size: 14px;">
+- Webhooks > Webhooks [AI idea scrape completed](https://developer.synup.com/ai-idea-scrape-completed-api-40143159.md): <span style="font-size: 14px;">
+- Webhooks > Webhooks [AI idea scrape failed](https://developer.synup.com/ai-idea-scrape-failed-api-40515005.md): <span style="font-size: 14px;">
+- Webhooks > Webhooks [AI idea image generated](https://developer.synup.com/ai-idea-image-generated-api-40515006.md): <span style="font-size: 14px;">
+- Webhooks > Webhooks [AI idea image generation failed](https://developer.synup.com/ai-idea-image-generation-failed-api-40515007.md): <span style="font-size: 14px;">
+- Webhooks [Endpoint verification handshake](https://developer.synup.com/endpoint-verification-handshake-api-40142150.md): <span style="font-size: 14px;">
+
+## Schemas
+- Schemas > FolderSchema > Schemas [ListFoldersResponse](https://developer.synup.com/listfoldersresponse-schema-5043749.md): 
+- Schemas > FolderSchema > Schemas [FolderInfo](https://developer.synup.com/folderinfo-schema-5043750.md): 
+- Schemas [LocationResponseSchema](https://developer.synup.com/locationresponseschema-schema-6968595.md): 
+- Schemas [LocationResponseErrorSchema](https://developer.synup.com/locationresponseerrorschema-schema-6968594.md): 
+- Schemas [SubCategory](https://developer.synup.com/subcategory-schema-4983728.md): 
+- Schemas [SubscriptionsResponse](https://developer.synup.com/subscriptionsresponse-schema-5036309.md): 
+- Schemas [CreateFolderRequest](https://developer.synup.com/createfolderrequest-schema-5043662.md): 
+- Schemas [FolderNode](https://developer.synup.com/foldernode-schema-5043754.md): 
+- Schemas [ListingsResponse](https://developer.synup.com/listingsresponse-schema-5046001.md): 
+- Schemas [LocationListResponse](https://developer.synup.com/locationlistresponse-schema-5047439.md): 
+- Schemas [ConnectGoogleInput](https://developer.synup.com/connectgoogleinput-schema-5048181.md): 
+- Schemas [ConnectFacebookInput](https://developer.synup.com/connectfacebookinput-schema-5049316.md): 
+- Schemas [DisconnectGoogleRequest](https://developer.synup.com/disconnectgooglerequest-schema-5050725.md): 
+- Schemas [TriggerMatchesRequest](https://developer.synup.com/triggermatchesrequest-schema-5052103.md): 
+- Schemas [FetchListingsRequest](https://developer.synup.com/fetchlistingsrequest-schema-5052539.md): 
+- Schemas [ConfirmMatchesRequest](https://developer.synup.com/confirmmatchesrequest-schema-5052542.md): 
+- Schemas [ConnectListingRequest](https://developer.synup.com/connectlistingrequest-schema-5052547.md): 
+- Schemas [DisconnectListingRequest](https://developer.synup.com/disconnectlistingrequest-schema-5052866.md): 
+- Schemas [ConnectedAccountDetailsResponse](https://developer.synup.com/connectedaccountdetailsresponse-schema-5056360.md): 
+- Schemas [ConnectionSuggestionsResponse](https://developer.synup.com/connectionsuggestionsresponse-schema-5056379.md): 
+- Schemas [Keyword](https://developer.synup.com/keyword-schema-5060444.md): 
+- Schemas [Keyword](https://developer.synup.com/keyword-schema-5060448.md): 
+- Schemas [Keyword](https://developer.synup.com/keyword-schema-5060470.md): 
+- Schemas [UnauthorizedError](https://developer.synup.com/unauthorizederror-schema-5060583.md): 
+- Schemas [UnauthorizedError](https://developer.synup.com/unauthorizederror-schema-5060633.md): 
+- Schemas [UnauthorizedError](https://developer.synup.com/unauthorizederror-schema-5060670.md): 
+- Schemas [UnauthorizedError](https://developer.synup.com/unauthorizederror-schema-5060706.md): 
+- Schemas [InsightMetric](https://developer.synup.com/insightmetric-schema-5060708.md): 
+- Schemas [InsightMetric](https://developer.synup.com/insightmetric-schema-5060711.md): 
+- Schemas [CreateGridReportInput](https://developer.synup.com/creategridreportinput-schema-5194351.md): 
+- Schemas [AllGridReportsResponse](https://developer.synup.com/allgridreportsresponse-schema-5194356.md): 
+- Schemas [GridReportResponse](https://developer.synup.com/gridreportresponse-schema-5194365.md): 
+- Schemas [CreateUserInput](https://developer.synup.com/createuserinput-schema-5194385.md): 
+- Schemas [UsersResponse](https://developer.synup.com/usersresponse-schema-5194396.md): 
+- Schemas [UsersResponse](https://developer.synup.com/usersresponse-schema-5194402.md): 
+- Schemas [UsersByIdsResponse](https://developer.synup.com/usersbyidsresponse-schema-5194407.md): 
+- Schemas [AnalyticsOverview](https://developer.synup.com/analyticsoverview-schema-5194422.md): 
+- Schemas [Interaction](https://developer.synup.com/interaction-schema-5194427.md): 
+- Schemas [Interaction](https://developer.synup.com/interaction-schema-5194429.md): 
+- Schemas [InteractionsResponse](https://developer.synup.com/interactionsresponse-schema-5194431.md): 
+- Schemas [ResponseInteraction](https://developer.synup.com/responseinteraction-schema-5194435.md): 
+- Schemas [AddLocationsInput](https://developer.synup.com/addlocationsinput-schema-5194487.md): 
+- Schemas [UserRole](https://developer.synup.com/userrole-schema-5194528.md): 
+- Schemas [UserRole](https://developer.synup.com/userrole-schema-5194532.md): 
+- Schemas [CreateReviewCampaignRequest](https://developer.synup.com/createreviewcampaignrequest-schema-5233747.md): 
+- Schemas [ReviewCampaignsResponse](https://developer.synup.com/reviewcampaignsresponse-schema-5244563.md): 
+- Schemas [ReviewCampaignCustomersResponse](https://developer.synup.com/reviewcampaigncustomersresponse-schema-5244575.md): 
+- Schemas [PremiumListing](https://developer.synup.com/premiumlisting-schema-4983729.md): 
+- Schemas [Subscription](https://developer.synup.com/subscription-schema-5036310.md): 
+- Schemas [CreateFolderResponse](https://developer.synup.com/createfolderresponse-schema-5043663.md): 
+- Schemas [Listing](https://developer.synup.com/listing-schema-5046002.md): 
+- Schemas [ConnectGoogleResponse](https://developer.synup.com/connectgoogleresponse-schema-5048182.md): 
+- Schemas [ConnectFacebookResponse](https://developer.synup.com/connectfacebookresponse-schema-5049317.md): 
+- Schemas [DisconnectGoogleResponse](https://developer.synup.com/disconnectgoogleresponse-schema-5050726.md): 
+- Schemas [ConnectedAccount](https://developer.synup.com/connectedaccount-schema-5052068.md): 
+- Schemas [TriggerMatchesResponse](https://developer.synup.com/triggermatchesresponse-schema-5052104.md): 
+- Schemas [ConfirmMatchesResponse](https://developer.synup.com/confirmmatchesresponse-schema-5052543.md): 
+- Schemas [ConnectListingResponse](https://developer.synup.com/connectlistingresponse-schema-5052548.md): 
+- Schemas [DisconnectListingResponse](https://developer.synup.com/disconnectlistingresponse-schema-5052867.md): 
+- Schemas [Error](https://developer.synup.com/error-schema-5060449.md): 
+- Schemas [Error](https://developer.synup.com/error-schema-5060471.md): 
+- Schemas [BadRequestError](https://developer.synup.com/badrequesterror-schema-5060584.md): 
+- Schemas [BadRequestError](https://developer.synup.com/badrequesterror-schema-5060634.md): 
+- Schemas [BadRequestError](https://developer.synup.com/badrequesterror-schema-5060671.md): 
+- Schemas [NotFoundError](https://developer.synup.com/notfounderror-schema-5060707.md): 
+- Schemas [UnauthorizedError](https://developer.synup.com/unauthorizederror-schema-5060709.md): 
+- Schemas [UnauthorizedError](https://developer.synup.com/unauthorizederror-schema-5060712.md): 
+- Schemas [CreateGridReportResponse](https://developer.synup.com/creategridreportresponse-schema-5194352.md): 
+- Schemas [GridReport](https://developer.synup.com/gridreport-schema-5194357.md): 
+- Schemas [GridReport](https://developer.synup.com/gridreport-schema-5194366.md): 
+- Schemas [CreateUserResponse](https://developer.synup.com/createuserresponse-schema-5194386.md): 
+- Schemas [PageInfo](https://developer.synup.com/pageinfo-schema-5194397.md): 
+- Schemas [PageInfo](https://developer.synup.com/pageinfo-schema-5194403.md): 
+- Schemas [UserDetail](https://developer.synup.com/userdetail-schema-5194408.md): 
+- Schemas [AnalyticsTimeline](https://developer.synup.com/analyticstimeline-schema-5194423.md): 
+- Schemas [Response](https://developer.synup.com/response-schema-5194428.md): 
+- Schemas [Response](https://developer.synup.com/response-schema-5194430.md): 
+- Schemas [PageInfo](https://developer.synup.com/pageinfo-schema-5194432.md): 
+- Schemas [AddLocationsResponse](https://developer.synup.com/addlocationsresponse-schema-5194488.md): 
+- Schemas [Pagination](https://developer.synup.com/pagination-schema-5194529.md): 
+- Schemas [Pagination](https://developer.synup.com/pagination-schema-5194533.md): 
+- Schemas [CustomerInput](https://developer.synup.com/customerinput-schema-5233748.md): 
+- Schemas [ReviewCampaign](https://developer.synup.com/reviewcampaign-schema-5244564.md): 
+- Schemas [ReviewCampaignInfo](https://developer.synup.com/reviewcampaigninfo-schema-5244576.md): 
+- Schemas [Tag](https://developer.synup.com/tag-schema-4983727.md): 
+- Schemas [SearchResponse](https://developer.synup.com/searchresponse-schema-4983730.md): 
+- Schemas [LocationPhoto](https://developer.synup.com/locationphoto-schema-5038483.md): 
+- Schemas [CustomAttribute](https://developer.synup.com/customattribute-schema-5039679.md): 
+- Schemas [Folder](https://developer.synup.com/folder-schema-5043664.md): 
+- Schemas [Site](https://developer.synup.com/site-schema-5046003.md): 
+- Schemas [ConnectedAccountsResponse](https://developer.synup.com/connectedaccountsresponse-schema-5052069.md): 
+- Schemas [LocationListing](https://developer.synup.com/locationlisting-schema-5052540.md): 
+- Schemas [ListingRecord](https://developer.synup.com/listingrecord-schema-5056353.md): 
+- Schemas [ConnectionSuggestion](https://developer.synup.com/connectionsuggestion-schema-5056380.md): 
+- Schemas [NotFoundError](https://developer.synup.com/notfounderror-schema-5060710.md): 
+- Schemas [NotFoundError](https://developer.synup.com/notfounderror-schema-5060713.md): 
+- Schemas [RankPoint](https://developer.synup.com/rankpoint-schema-5194358.md): 
+- Schemas [RankPoint](https://developer.synup.com/rankpoint-schema-5194367.md): 
+- Schemas [CreatedUser](https://developer.synup.com/createduser-schema-5194387.md): 
+- Schemas [UserEdge](https://developer.synup.com/useredge-schema-5194398.md): 
+- Schemas [UserEdge](https://developer.synup.com/useredge-schema-5194404.md): 
+- Schemas [SiteWiseAnalytics](https://developer.synup.com/sitewiseanalytics-schema-5194424.md): 
+- Schemas [InteractionEdge](https://developer.synup.com/interactionedge-schema-5194433.md): 
+- Schemas [LocationAddStatus](https://developer.synup.com/locationaddstatus-schema-5194489.md): 
+- Schemas [LandingPageTemplate](https://developer.synup.com/landingpagetemplate-schema-5233749.md): 
+- Schemas [EmailTemplate](https://developer.synup.com/emailtemplate-schema-5244565.md): 
+- Schemas [ReviewCampaignCustomer](https://developer.synup.com/reviewcampaigncustomer-schema-5244577.md): 
+- Schemas [LocationEdge](https://developer.synup.com/locationedge-schema-4983731.md): 
+- Schemas [FetchListingsResponse](https://developer.synup.com/fetchlistingsresponse-schema-5052541.md): 
+- Schemas [User](https://developer.synup.com/user-schema-5194399.md): 
+- Schemas [User](https://developer.synup.com/user-schema-5194405.md): 
+- Schemas [MetricWithDelta](https://developer.synup.com/metricwithdelta-schema-5194425.md): 
+- Schemas [Interaction](https://developer.synup.com/interaction-schema-5194434.md): 
+- Schemas [EmailTemplate](https://developer.synup.com/emailtemplate-schema-5233750.md): 
+- Schemas [SmsTemplate](https://developer.synup.com/smstemplate-schema-5244566.md): 
+- Schemas [SuggestedLocationInfo](https://developer.synup.com/suggestedlocationinfo-schema-5056382.md): 
+- Schemas [SMSTemplate](https://developer.synup.com/smstemplate-schema-5233751.md): 
+- Schemas [CampaignStat](https://developer.synup.com/campaignstat-schema-5244567.md): 
+- Schemas [ReviewSite](https://developer.synup.com/reviewsite-schema-5233752.md): 
+- Schemas [BusinessHours](https://developer.synup.com/businesshours-schema-4983734.md): 
+- Schemas [AddCustomersRequest](https://developer.synup.com/addcustomersrequest-schema-5233753.md): 
+- [Business hours](https://developer.synup.com/business-hours-schema-5032025.md): 
+- [paymentMethods](https://developer.synup.com/paymentmethods-schema-5032568.md): 
+- [Contact Support](https://developer.synup.com/contact-support-schema-5038642.md): 
+- [LocationInfo](https://developer.synup.com/locationinfo-schema-5056381.md): 
+- [AppleOauthBulkRequest](https://developer.synup.com/appleoauthbulkrequest-schema-16383952.md): 
+- [AddKeywordRequest](https://developer.synup.com/addkeywordrequest-schema-16385825.md): 
+- [AppleConfirmedMatches](https://developer.synup.com/appleconfirmedmatches-schema-16451999.md): 
+- [AppleOauthRequest](https://developer.synup.com/appleoauthrequest-schema-16452005.md): 
+- [AppleRenewOauthRequest](https://developer.synup.com/applerenewoauthrequest-schema-16452007.md): 
+- [LocationAdvancedSearchFilterType](https://developer.synup.com/locationadvancedsearchfiltertype-schema-16452093.md): 
+- [DownloadLocationsInBulkType](https://developer.synup.com/downloadlocationsinbulktype-schema-16452094.md): 
+- [LocationSummaryConnectionType](https://developer.synup.com/locationsummaryconnectiontype-schema-16452095.md): 
+- [GoogleVerificationLocationStats](https://developer.synup.com/googleverificationlocationstats-schema-16452097.md): 
+- [LocationAddOnCount](https://developer.synup.com/locationaddoncount-schema-16452098.md): 
+- [LocationPackageCount](https://developer.synup.com/locationpackagecount-schema-16452100.md): 
+- [LocationSearchFilterType](https://developer.synup.com/locationsearchfiltertype-schema-16452101.md): 
+- [DefaultFolderType](https://developer.synup.com/defaultfoldertype-schema-16452108.md): 
+- [ReferenceImageAnalysis](https://developer.synup.com/referenceimageanalysis-schema-16452158.md): 
+- [ArchiveLocalIdeaRequest](https://developer.synup.com/archivelocalidearequest-schema-16452159.md): 
+- [ArchiveLocalSeriesRequest](https://developer.synup.com/archivelocalseriesrequest-schema-16452162.md): 
+- [BranchLocalChatSessionRequest](https://developer.synup.com/branchlocalchatsessionrequest-schema-16452163.md): 
+- [CloseLocalChatSessionRequest](https://developer.synup.com/closelocalchatsessionrequest-schema-16452166.md): 
+- [GenerateAllLocalSeriesPostsRequest](https://developer.synup.com/generatealllocalseriespostsrequest-schema-16452167.md): 
+- [GenerateLocalHolidayIdeaVariantRequest](https://developer.synup.com/generatelocalholidayideavariantrequest-schema-16452169.md): 
+- [GenerateLocalSeriesPostRequest](https://developer.synup.com/generatelocalseriespostrequest-schema-16452171.md): 
+- [LocalCalendarDay](https://developer.synup.com/localcalendarday-schema-16452172.md): 
+- [LocalContentSeries](https://developer.synup.com/localcontentseries-schema-16452174.md): 
+- [ExtendedLocationConfig](https://developer.synup.com/extendedlocationconfig-schema-16452213.md): 
+- [LocalIdeaJobStatus](https://developer.synup.com/localideajobstatus-schema-16452312.md): 
+- [LocalLocationInfo](https://developer.synup.com/locallocationinfo-schema-16452344.md): 
+- [LocalObservance](https://developer.synup.com/localobservance-schema-16452345.md): 
+- [LocalObservanceWithIdea](https://developer.synup.com/localobservancewithidea-schema-16452346.md): 
+- [LocalPipelineStatus](https://developer.synup.com/localpipelinestatus-schema-16452347.md): 
+- [LocalPostIdea](https://developer.synup.com/localpostidea-schema-16452348.md): 
+- [ReferenceImageOption](https://developer.synup.com/referenceimageoption-schema-16452349.md): 
+- [PostIdeaCounts](https://developer.synup.com/postideacounts-schema-16452455.md): 
+- [ScrapedLocationContext](https://developer.synup.com/scrapedlocationcontext-schema-16452542.md): 
+- [RefreshLocalIdeasRequest](https://developer.synup.com/refreshlocalideasrequest-schema-16452543.md): 
+- [RegenerateLocalIdeaRequest](https://developer.synup.com/regeneratelocalidearequest-schema-16452557.md): 
+- [RegenerateLocalIdeaContentRequest](https://developer.synup.com/regeneratelocalideacontentrequest-schema-16452558.md): 
+- [RegenerateLocalIdeaImageRequest](https://developer.synup.com/regeneratelocalideaimagerequest-schema-16452559.md): 
+- [ScheduleLocalSeriesRequest](https://developer.synup.com/schedulelocalseriesrequest-schema-16452560.md): 
+- [ScrapeLocationRequest](https://developer.synup.com/scrapelocationrequest-schema-16452562.md): 
+- [SendLocalChatMessageRequest](https://developer.synup.com/sendlocalchatmessagerequest-schema-16452563.md): 
+- [SetLocationImageCreditsRequest](https://developer.synup.com/setlocationimagecreditsrequest-schema-16452566.md): 
+- [StartLocalChatSessionRequest](https://developer.synup.com/startlocalchatsessionrequest-schema-16452571.md): 
+- [SuggestLocalPostsForDateRequest](https://developer.synup.com/suggestlocalpostsfordaterequest-schema-16452572.md): 
+- [SwitchLocalChatModeRequest](https://developer.synup.com/switchlocalchatmoderequest-schema-16452573.md): 
+- [TriggerLocalPipelineRequest](https://developer.synup.com/triggerlocalpipelinerequest-schema-16452574.md): 
+- [UpdateLocalIdeaRequest](https://developer.synup.com/updatelocalidearequest-schema-16452575.md): 
+- [UpsertExtendedLocationConfigRequest](https://developer.synup.com/upsertextendedlocationconfigrequest-schema-16452611.md): 
+- [ArchiveIdeaRequest](https://developer.synup.com/archiveidearequest-schema-16453070.md): 
+- [ArchiveSeriesRequest](https://developer.synup.com/archiveseriesrequest-schema-16453082.md): 
+- [BranchChatSessionRequest](https://developer.synup.com/branchchatsessionrequest-schema-16453083.md): 
+- [BrandInfo](https://developer.synup.com/brandinfo-schema-16453085.md): 
+- [CalendarDay](https://developer.synup.com/calendarday-schema-16453086.md): 
+- [CloseChatSessionRequest](https://developer.synup.com/closechatsessionrequest-schema-16453088.md): 
+- [ContentSeries](https://developer.synup.com/contentseries-schema-16453089.md): 
+- [CreateContentSeriesRequest](https://developer.synup.com/createcontentseriesrequest-schema-16453090.md): 
+- [ExtendedBrandConfig](https://developer.synup.com/extendedbrandconfig-schema-16453091.md): 
+- [GenerateAllSeriesPostsRequest](https://developer.synup.com/generateallseriespostsrequest-schema-16453092.md): 
+- [GenerateCalendarDayRequest](https://developer.synup.com/generatecalendardayrequest-schema-16453094.md): 
+- [GenerateHolidayIdeaVariantRequest](https://developer.synup.com/generateholidayideavariantrequest-schema-16453096.md): 
+- [GenerateIdeaVisualRequest](https://developer.synup.com/generateideavisualrequest-schema-16453097.md): 
+- [GenerateObservanceIdeaRequest](https://developer.synup.com/generateobservanceidearequest-schema-16453098.md): 
+- [GenerateSeriesPostRequest](https://developer.synup.com/generateseriespostrequest-schema-16453099.md): 
+- [LocationConnectedEvent](https://developer.synup.com/locationconnectedevent-schema-16477288.md): 
+- [IdeaJobStatus](https://developer.synup.com/ideajobstatus-schema-16477539.md): 
+- [ImageCredits](https://developer.synup.com/imagecredits-schema-16477543.md): 
+- [LinkPostIdeaToSocialPostRequest](https://developer.synup.com/linkpostideatosocialpostrequest-schema-16477548.md): 
+- [Observance](https://developer.synup.com/observance-schema-16477550.md): 
+- [ObservanceWithIdea](https://developer.synup.com/observancewithidea-schema-16477551.md): 
+- [PipelineStatus](https://developer.synup.com/pipelinestatus-schema-16477580.md): 
+- [PostIdea](https://developer.synup.com/postidea-schema-16477583.md): 
+- [RefreshIdeasRequest](https://developer.synup.com/refreshideasrequest-schema-16477829.md): 
+- [RegenerateIdeaRequest](https://developer.synup.com/regenerateidearequest-schema-16477831.md): 
+- [RegenerateIdeaContentRequest](https://developer.synup.com/regenerateideacontentrequest-schema-16477833.md): 
+- [RegenerateIdeaImageRequest](https://developer.synup.com/regenerateideaimagerequest-schema-16477834.md): 
+- [ScheduleSeriesRequest](https://developer.synup.com/scheduleseriesrequest-schema-16477835.md): 
+- [ScrapeBrandRequest](https://developer.synup.com/scrapebrandrequest-schema-16477838.md): 
+- [ScrapedBrandContext](https://developer.synup.com/scrapedbrandcontext-schema-16477841.md): 
+- [SendChatMessageRequest](https://developer.synup.com/sendchatmessagerequest-schema-16477842.md): 
+- [SetBrandImageCreditsRequest](https://developer.synup.com/setbrandimagecreditsrequest-schema-16477846.md): 
+- [StartChatSessionRequest](https://developer.synup.com/startchatsessionrequest-schema-16477847.md): 
+- [SuggestPostsForDateRequest](https://developer.synup.com/suggestpostsfordaterequest-schema-16477848.md): 
+- [SwitchChatModeRequest](https://developer.synup.com/switchchatmoderequest-schema-16477857.md): 
+- [TriggerPipelineRequest](https://developer.synup.com/triggerpipelinerequest-schema-16477858.md): 
+- [UpdateExtendedBrandConfigRequest](https://developer.synup.com/updateextendedbrandconfigrequest-schema-16477859.md): 
+- [UpdateIdeaRequest](https://developer.synup.com/updateidearequest-schema-16477860.md): 
+- [AppleOauthBulkPayload](https://developer.synup.com/appleoauthbulkpayload-schema-16383953.md): 
+- [CoordinateInput](https://developer.synup.com/coordinateinput-schema-16385826.md): 
+- [AppleConfirmedMatch](https://developer.synup.com/appleconfirmedmatch-schema-16452000.md): 
+- [AppleOauthPayload](https://developer.synup.com/appleoauthpayload-schema-16452006.md): 
+- [AppleRenewOauthPayload](https://developer.synup.com/applerenewoauthpayload-schema-16452008.md): 
+- [LocationSummaryEdge](https://developer.synup.com/locationsummaryedge-schema-16452096.md): 
+- [AddOnCount](https://developer.synup.com/addoncount-schema-16452099.md): 
+- [SitePublisherCategory](https://developer.synup.com/sitepublishercategory-schema-16452102.md): 
+- [LocalMutationResponse](https://developer.synup.com/localmutationresponse-schema-16452160.md): 
+- [LocalChatSessionResponse](https://developer.synup.com/localchatsessionresponse-schema-16452164.md): 
+- [LocalGenerateIdeasResponse](https://developer.synup.com/localgenerateideasresponse-schema-16452168.md): 
+- [LocalRegenerateResponse](https://developer.synup.com/localregenerateresponse-schema-16452170.md): 
+- [LocalImageCredits](https://developer.synup.com/localimagecredits-schema-16452313.md): 
+- [LocalTriggerPipelineResponse](https://developer.synup.com/localtriggerpipelineresponse-schema-16452544.md): 
+- [LocalScheduleSeriesResponse](https://developer.synup.com/localscheduleseriesresponse-schema-16452561.md): 
+- [LocalChatMessageResponse](https://developer.synup.com/localchatmessageresponse-schema-16452564.md): 
+- [MutationResponse](https://developer.synup.com/mutationresponse-schema-16453071.md): 
+- [ChatSessionResponse](https://developer.synup.com/chatsessionresponse-schema-16453084.md): 
+- [GenerateAllSeriesPostsResponse](https://developer.synup.com/generateallseriespostsresponse-schema-16453093.md): 
+- [RegenerateResponse](https://developer.synup.com/regenerateresponse-schema-16453095.md): 
+- [LinkPostIdeaToSocialPostResponse](https://developer.synup.com/linkpostideatosocialpostresponse-schema-16477549.md): 
+- [TriggerPipelineResponse](https://developer.synup.com/triggerpipelineresponse-schema-16477830.md): 
+- [ScheduleSeriesResponse](https://developer.synup.com/scheduleseriesresponse-schema-16477836.md): 
+- [ChatMessageResponse](https://developer.synup.com/chatmessageresponse-schema-16477843.md): 
+- [GenerateIdeasResponse](https://developer.synup.com/generateideasresponse-schema-16477849.md): 
+- [GmbConnectedListingInfo](https://developer.synup.com/gmbconnectedlistinginfo-schema-16772330.md): 
+- [Error](https://developer.synup.com/error-schema-5043665.md): 
+- [MutationError](https://developer.synup.com/mutationerror-schema-16383954.md): 
+- [AddKeywordResult](https://developer.synup.com/addkeywordresult-schema-16385827.md): 
+- [LocalError](https://developer.synup.com/localerror-schema-16452161.md): 
+- [LocalChatSession](https://developer.synup.com/localchatsession-schema-16452165.md): 
+- [LocalChatMessage](https://developer.synup.com/localchatmessage-schema-16452173.md): 
+- [ChatSession](https://developer.synup.com/chatsession-schema-16453069.md): 
+- [ChatMessage](https://developer.synup.com/chatmessage-schema-16453087.md): 
+- [FbConnectedListingInfo](https://developer.synup.com/fbconnectedlistinginfo-schema-16772331.md): 
+- [ActionChip](https://developer.synup.com/actionchip-schema-16452565.md): 
+- [AppleConnectedListingInfo](https://developer.synup.com/appleconnectedlistinginfo-schema-16772332.md): 
+- [LocationConnectInfo](https://developer.synup.com/locationconnectinfo-schema-16772333.md): 
+- [PageInfo](https://developer.synup.com/pageinfo-schema-4983733.md): 
+- [LocationConnectionsResponse](https://developer.synup.com/locationconnectionsresponse-schema-16772334.md): 

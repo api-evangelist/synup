@@ -1,0 +1,807 @@
+name: Synup API v4 error catalog
+generated: '2026-08-13'
+method: searched
+source: https://developer.synup.com/error-codes-api-19731976
+description: Synup publishes a single account-wide error-code registry (SYxxxxx codes) shared by every
+  product area of the v4 API. Errors are returned in a GraphQL-shaped envelope with HTTP status codes;
+  the code is the stable contract, the message is human text.
+format: proprietary
+rfc9457: false
+envelope:
+  shape: '{"data": <partial or null>, "errors": [{"message": "...", "context": {}, "code": "SY10039"}]}'
+  fields:
+    data: The partial or null result for the operation; Synup returns data and errors together (GraphQL-style).
+    errors[].message: Human-readable message. On some responses the code is inlined as "SY90005:Invalid
+      token".
+    errors[].context: Object carrying the offending input value for codes whose message interpolates a
+      $variable; empty when not relevant.
+    errors[].code: The stable SYxxxxx error code.
+  observed_live:
+    url: https://api.synup.com/api/v4/locations
+    http_status: 401
+    body: '{"data":{"allLocations":null},"errors":[{"message":"SY90005:Invalid token"}]}'
+    probed: '2026-08-13'
+http_statuses_in_spec:
+- status: '400'
+  operations: 43
+- status: '401'
+  operations: 142
+- status: '403'
+  operations: 30
+- status: '404'
+  operations: 23
+- status: '409'
+  operations: 1
+- status: '500'
+  operations: 7
+cross_cutting_codes:
+- code: SY90001
+  message: Not Authorized to access this resource
+- code: SY90002
+  message: Invalid Id
+- code: SY90003
+  message: Operation not permitted
+- code: SY90004
+  message: Token has expired
+- code: SY90005
+  message: Invalid Token
+- code: SY90006
+  message: System Internal Error
+- code: SY90007
+  message: Resource Not Found
+code_count: 358
+groups:
+- group: Locations
+  codes:
+  - code: SY10038
+    message: Location Does Not Exist
+  - code: SY10039
+    message: Folder Does Not Exist
+  - code: SY10040
+    message: Cannot add more than 10 tags
+  - code: SY10046
+    message: Invalid location id
+  - code: SY10047
+    message: Folder does not exist for the account id
+  - code: SY10048
+    message: User doesn't have access to folder
+  - code: SY10049
+    message: Root Folder Cannot Be Deleted.
+  - code: SY10050
+    message: Access To Folder Denied.
+  - code: SY10051
+    message: Folder Belonging To Location not found.
+  - code: SY10052
+    message: Location Is Not Assigned To Any Folder. Location Is In Root And Root Locations Cannot Be
+      Deleted.
+  - code: SY10056
+    message: Site is not valid for the location disconnection
+  - code: SY10057
+    message: Location is not connected for the site
+  - code: SY10058
+    message: Root Folder For account Not Present
+  - code: SY10063
+    message: Only a maximum of 4 photos can be starred or unstarred
+  - code: SY10064
+    message: Only additional photo types can be starred or unstarred
+  - code: SY90001
+    message: Not Authorized to access this resource
+  - code: SY90005
+    message: Invalid Token
+  - code: SY90003
+    message: Operation not permitted
+  - code: SY90006
+    message: System Internal Error
+  - code: SY10001
+    message: Location `${name}` needs to be between 2
+  - code: SY10002
+    message: Additional Info needs to be a maximum of 1024 char
+  - code: SY10003
+    message: Plan Id needs to be present
+  - code: SY10004
+    message: Account Id needs to be present
+  - code: SY10005
+    message: Description needs to have a minimum of 200 characters.
+  - code: SY10006
+    message: Owner Email is of incorrect
+  - code: SY10007
+    message: Enabled Site Ids are invalid
+  - code: SY10008
+    message: Year of Incorporation is not valid
+  - code: SY10009
+    message: Country is invalid
+  - code: SY10010
+    message: State is invalid
+  - code: SY10011
+    message: Street is invalid
+  - code: SY10012
+    message: City is invalid
+  - code: SY10013
+    message: Postal code is not present.
+  - code: SY10014
+    message: Postal code is invalid
+  - code: SY10015
+    message: Phone Number is invalid
+  - code: SY10016
+    message: Payment Method is invalid
+  - code: SY10017
+    message: Location with same name, phone number and zip code has already been added.
+  - code: SY10018
+    message: Facebook Url for the location is invalid
+  - code: SY10019
+    message: Twitter Url for location is invalid. Must be in the format http(s)://twitter.com/handle or
+      http(s)://x.com/handle.
+  - code: SY10020
+    message: Linkedin Url for location is invalid.
+  - code: SY10021
+    message: Google Plus Url for location is invalid.
+  - code: SY10022
+    message: Business Url for location is invalid.
+  - code: SY10023
+    message: Video links are invalid.
+  - code: SY10024
+    message: Primary Sub Category is blank.
+  - code: SY10025
+    message: Primary Subcategory is invalid
+  - code: SY10026
+    message: A total of 9 additional categories are allowed
+  - code: SY10027
+    message: SubCategory is invalid
+  - code: SY10028
+    message: Some additional categories are not valid
+  - code: SY10029
+    message: Couldn't geolocate with the given address. Please provide a valid address
+  - code: SY10030
+    message: The provided coordinates and address do not match
+  - code: SY10031
+    message: All days of the week should be included in the business hours
+  - code: SY10032
+    message: Invalid operating hours for each day of the week
+  - code: SY10033
+    message: Business Hours should be in 12 hours format and no trailing spaces. eg '09:00am'
+  - code: SY10034
+    message: Bad image URL `${bad_url}`
+  - code: SY10035
+    message: Invalid folder id
+  - code: SY10036
+    message: Unsupported country
+  - code: SY10037
+    message: Tag limit is 10
+  - code: SY10041
+    message: 'Failed to add tag: `${tag}`'
+  - code: SY10042
+    message: 'Invalid tag name: `${tag}`'
+  - code: SY10043
+    message: Failed to remove tag
+  - code: SY10045
+    message: Mutation not permitted
+  - code: SY10053
+    message: Only additional photo types can be starred or unstarred
+  - code: SY10054
+    message: Only a maximum of 4 photos can be starred or unstarred
+  - code: SY10060
+    message: Can only upload one logo
+  - code: SY10061
+    message: Can only upload one cover image
+  - code: SY10062
+    message: Only additional photo types can be removed
+  - code: SY10065
+    message: Invalid Photo format (jpeg or png allowed)
+  - code: SY10066
+    message: Photo cannot be blank
+  - code: SY10067
+    message: Photo size needs to be between 10kb to 5mb
+  - code: SY10068
+    message: Unknown error occurred
+  - code: SY10069
+    message: Topline Error
+  - code: SY10070
+    message: A location is already being processed for this account
+  - code: SY10071
+    message: Special characters aren't allowed in tags
+  - code: SY10072
+    message: Store Id has to be unique for an account
+  - code: SY10073
+    message: Business Hours are overlapping
+  - code: SY10074
+    message: The entered business hour slots are reversed. Please ensure the first time slot precedes
+      the second time slot
+  - code: SY10075
+    message: The entered business hours are incorrect. Please ensure the opening hours precede the closing
+      hours
+  - code: SY10076
+    message: The entered business hours overlap. Please check or use a single time slot under Open
+  - code: SY10077
+    message: Offerings Item name should be present
+  - code: SY10078
+    message: Offerings Section name should be present
+  - code: SY10079
+    message: Section name cannot be the same as List name
+  - code: SY10080
+    message: Section name already exists in the Menu
+  - code: SY10081
+    message: Section name cannot be same as Item name
+  - code: SY10082
+    message: Item name cannot be the same as List name
+  - code: SY10083
+    message: Item name cannot be the same as Section name
+  - code: SY10084
+    message: Item name already exists in the Menu
+  - code: SY10086
+    message: Hide Address has an incorrect value
+  - code: SY10087
+    message: Tenure is required
+  - code: SY10088
+    message: Tenure not active for account
+  - code: SY10089
+    message: Invalid Attribute Id
+  - code: SY10090
+    message: Attribute already deleted
+  - code: SY10091
+    message: Special hours can not be added without adding operational hours
+  - code: SY10092
+    message: Operational hours can not be closed for all days of the week
+  - code: SY10093
+    message: Split Hours can not exceed 24 hours
+  - code: SY10123
+    message: Tags can not be added for freemium locations
+  - code: SY10111
+    message: Owner's Email is Mandatory
+  - code: SY10112
+    message: Business Owner Name is Mandatory
+  - code: SY10110
+    message: Cannot edit package
+  - code: SY10124
+    message: Maximum of only $free_trial_location_limit locations allowed
+  - code: SY10109
+    message: Entity does not exist
+  - code: SY85002
+    message: AddOn not enabled
+  - code: SY10095
+    message: Voice already enabled for this location
+  - code: SY10108
+    message: Some exception occurred while voice billing
+  - code: SY10118
+    message: This currency code does not correspond to the locations assigned to this menu. Please select
+      a valid currency code
+  - code: SY10094
+    message: Root Folder not found
+  - code: SY10117
+    message: This location cannot be assigned to this menu. Please select a location that corresponds
+      to the currency code chosen in this menu
+  - code: SY10114
+    message: Name already taken for this account
+  - code: SY10115
+    message: Please choose a currency code
+  - code: SY10116
+    message: This currency code is currently not supported. Please choose a valid currency code
+  - code: SY10121
+    message: Offerings List's display name cannot be blank
+  - code: SY10119
+    message: Menu name cannot be same as Section name
+  - code: SY10120
+    message: Menu name cannot be same as Item name
+  - code: SY10122
+    message: We could not add this location as you have exceeded your Freemium Usage limits. Please email
+      Support to upgrade your package
+- group: Profile Analytics
+  codes:
+  - code: SY60101
+    message: fromDate cannot be greater than toDate.
+  - code: SY60102
+    message: Error fetching insights for this tag.
+  - code: SY60103
+    message: Invalid Date
+  - code: SY90001
+    message: Not Authorized to access this resource
+  - code: SY90002
+    message: Invalid Id
+  - code: SY90005
+    message: Invalid Token
+  - code: SY60203
+    message: Insufficient permission to update ROIs
+  - code: SY60201
+    message: Id can't be blank
+- group: Interactions
+  codes:
+  - code: SY90002
+    message: Invalid Id
+  - code: SY90003
+    message: Operation not permitted
+  - code: SY90001
+    message: Not Authorized to access this resource
+  - code: SY90006
+    message: System Internal Error
+  - code: SY90004
+    message: Token has expired
+  - code: SY90005
+    message: Invalid Token
+  - code: SY50100
+    message: Note must not be empty
+  - code: SY50101
+    message: Widget name `$name` already used
+  - code: SY50102
+    message: Name must not be empty
+  - code: SY50103
+    message: Response content must not be empty
+  - code: SY50300
+    message: 'Response not successful: Received status code 500'
+  - code: SY50104
+    message: Invalid site name provided
+  - code: SY50105
+    message: Invalid URL provided
+  - code: SY50106
+    message: Cannot update connected sites
+  - code: SY50107
+    message: Template does not exist
+  - code: SY50108
+    message: User config does not exist
+  - code: SY50109
+    message: Template name already used
+  - code: SY50110
+    message: ratings should be between [1-5]
+  - code: SY50111
+    message: Invalid SiteUrls
+  - code: SY50112
+    message: Name can't be blank
+  - code: SY50113
+    message: Content can't be blank
+  - code: SY50501
+    message: SY50501 Fields must not be empty
+  - code: SY50114
+    message: Answer must not be empty
+  - code: SY50115
+    message: Question must not be empty
+  - code: SY50116
+    message: Owner has already responded to the question
+  - code: SY50117
+    message: Duplicate SiteUrls
+  - code: SY50118
+    message: Duplicate Ratings
+  - code: SY50119
+    message: Duplicate Location Ids
+  - code: SY50121
+    message: Google Reviews can only be replied to once
+  - code: SY50131
+    message: Trustpilot connection failed
+  - code: SY50132
+    message: Interaction Request does not exist
+  - code: SY50133
+    message: Invalid Trustpilot Review Source
+  - code: SY82001
+    message: Connection does not exist
+- group: Rankings
+  codes:
+  - code: SY20105
+    message: Keyword with id `$keyword_id` not found
+  - code: SY20106
+    message: Keyword with name `$keyword` already exists
+  - code: SY20200
+    message: Keyword can't be blank
+  - code: SY20201
+    message: Keyword must be minimum 2 characters
+  - code: SY20202
+    message: Keyword can't be more than 255 characters
+  - code: SY20100
+    message: Keywords can't be blank
+  - code: SY20101
+    message: Location Ids can't be blank
+  - code: SY90001
+    message: Not authorized to access this resource
+  - code: SY90002
+    message: Invalid Id
+  - code: SY90003
+    message: Operation not permitted
+  - code: SY90005
+    message: Invalid token
+  - code: SY90006
+    message: System Internal Error
+  - code: SY20103
+    message: Maximum keyword limit reached
+  - code: SY20006
+    message: Please provide a valid role
+  - code: SY20009
+    message: Rankings not enabled for this account
+  - code: SY20104
+    message: Invalid Keyword Id
+- group: Review Campaigns
+  codes:
+  - code: SY90001
+    message: Not Authorized to access this resource
+  - code: SY90002
+    message: Invalid id
+  - code: SY90003
+    message: Operation not permitted
+  - code: SY90005
+    message: Invalid Token
+  - code: SY90007
+    message: Resource Not Found
+  - code: SY90006
+    message: System Internal Error
+  - code: SY30038
+    message: Invalid message id
+  - code: SY30006
+    message: The Global Setting for the location and account does not exists.
+  - code: SY30039
+    message: The date fields are not set up correctly. Please review the dates and try again.
+  - code: SY30040
+    message: Both before and after should not be present
+  - code: SY30001
+    message: Either email or phone has to be present
+  - code: SY30002
+    message: Phone must be a number
+  - code: SY30003
+    message: Email already exists
+  - code: SY30033
+    message: Phone `$phone` is not a number
+  - code: SY30034
+    message: Email `$email` has already been taken
+  - code: SY30035
+    message: Phone `$phone` has already taken
+  - code: SY30004
+    message: Account id can't be blank
+  - code: SY30005
+    message: Location id can't be blank
+  - code: SY30016
+    message: Insufficient Permissions To Add Customers To Campaigns.
+  - code: SY30017
+    message: Validation for some of your customers failed
+  - code: SY30018
+    message: Insufficient Permissions To Create Campaigns.
+  - code: SY30019
+    message: 'INVALID OPERATION: Construction Of Campaign Before Construction Of Global Settings.'
+  - code: SY30020
+    message: 'The Global Setting for the location id: `$location_id` and account id: `$account_id` already
+      exists.'
+  - code: SY30021
+    message: Invalid Input. Missing either Rating or Feedback or Clicked Key in the input.
+  - code: SY30022
+    message: Only one of clicked_key, feedback or rating can be present at a time.
+  - code: SY30023
+    message: 'The customer with id: `$customer_id` does not exist.'
+  - code: SY30024
+    message: Rating and feedback cannot be updated simultaneously.
+  - code: SY30025
+    message: Rating already present for this customer.
+  - code: SY30026
+    message: The clicked link does not exist.
+  - code: SY30027
+    message: Invalid link.
+  - code: SY30028
+    message: Insufficient Permissions To Manage Global Settings.
+  - code: SY30029
+    message: 'The Global Setting for the location id: `$location_id` and account id: ''$account_id'' does
+      not exist.'
+  - code: SY30030
+    message: Insufficient Permissions To Update SMS Credits.
+  - code: SY30031
+    message: credits could not be updated.
+  - code: SY30046
+    message: domain is not matching
+  - code: SY30051
+    message: email is invalid
+  - code: SY30054
+    message: From email can't be blank for a domain
+  - code: SY30055
+    message: Assignment can't proceed. Domain is not active
+  - code: SY30048
+    message: Domain is not verified
+  - code: SY30049
+    message: No subdomain is associated with this account
+- group: Notifications
+  codes:
+  - code: SY90001
+    message: Not authorized to access this resource
+  - code: SY90003
+    message: Operation not permitted
+  - code: SY40003
+    message: Email activation failed. Please try after some time
+  - code: SY40004
+    message: Location does not belong to your account
+  - code: SY40005
+    message: Error while querying for email setting
+  - code: SY40006
+    message: Error while querying for agency setting
+  - code: SY40007
+    message: Error while querying for email notifications
+  - code: SY40008
+    message: Error while querying for email templates
+  - code: SY40009
+    message: Error while querying for recipient emails
+  - code: SY40010
+    message: Error while sending test email
+  - code: SY40015
+    message: Requested resource could not be found
+  - code: SY40016
+    message: Something went wrong while calling graphql end points
+  - code: SY40017
+    message: Error while Downloading report
+  - code: SY40018
+    message: Error while unsubscribing recipients
+  - code: SY40019
+    message: Something went wrong in notification app
+  - code: SY40011
+    message: 'Validation failed for Template: account_id can''t be blank'
+  - code: SY40012
+    message: 'Validation failed for Recipient: mailable_type can''t be blank'
+  - code: SY40013
+    message: 'Validation failed for Recipient: mailable_id can''t be blank'
+  - code: SY40014
+    message: 'Validation failed for Recipient: email is invalid'
+  - code: SY90008
+    message: Error while Downloading report
+  - code: SY40030
+    message: Error while saving dkim details
+  - code: SY40031
+    message: Public domain email is not supported. Please try again with business domain email
+  - code: SY85001
+    message: AddOn belonging to same umbrella already enabled
+- group: Listings
+  codes:
+  - code: SY00001
+    message: Permission Denied
+  - code: SY00002
+    message: Listing item ID not found
+  - code: SY00003
+    message: Invalid Site ids submitted
+  - code: SY00004
+    message: Location has not yet been approved
+  - code: SY90007
+    message: Resource Not Found
+  - code: SY90002
+    message: Invalid Id
+  - code: SY00008
+    message: Location is in archived state
+  - code: SY00009
+    message: No access to location
+  - code: SY90001
+    message: Not Authorized to access this resource
+  - code: SY00028
+    message: Error in processing request
+  - code: SY30036
+    message: Requested resource not found
+- group: Promotional Posts
+  codes:
+  - code: SY75001
+    message: Invalid scheduled date
+  - code: SY75003
+    message: Scheduled cannot be set for active posts
+  - code: SY75004
+    message: Content should be present while creating a post
+  - code: SY75005
+    message: Content should be between 0-1500
+  - code: SY75006
+    message: Start date should be greater than today
+  - code: SY75007
+    message: Invalid start date
+  - code: SY75008
+    message: End date should be greater than today
+  - code: SY75009
+    message: Invalid end date
+  - code: SY75010
+    message: Start date should be more than the end date
+  - code: SY75011
+    message: Start time should be less than end time
+  - code: SY75012
+    message: The photo uploaded is too small! it must be at least 720 pixels wide and 540 pixels tall
+  - code: SY75013
+    message: The photo uploaded is too large! it must be at max 3000 pixels wide and 3000 pixels tall
+  - code: SY75014
+    message: Google account is no longer connected.
+  - code: SY75015
+    message: Cannot repost an event
+  - code: SY75016
+    message: Invalid click to action url
+  - code: SY75017
+    message: Can only edit scheduled or active posts
+  - code: SY75018
+    message: Cannot repost posts with events
+  - code: SY75019
+    message: Cannot set repost for expired post if it is already marked repost
+  - code: SY75020
+    message: Can repost only active or expired posts
+  - code: SY75021
+    message: Can delete only active posts
+  - code: SY75022
+    message: Please select a post to delete
+  - code: SY75023
+    message: End date should be less than today
+  - code: SY75024
+    message: start date should be less than end date
+  - code: SY75025
+    message: should be larger than 10KB and smaller than 5MB
+  - code: SY75002
+    message: Invalid api key
+  - code: SY75026
+    message: Invalid Credentials. Please reconnect
+  - code: SY75039
+    message: Post name should be present
+  - code: SY75027
+    message: Post start timing should be for a future timing
+  - code: SY75028
+    message: Post end timing should be greater than start timing
+  - code: SY75029
+    message: Scheduled start timing should be for a future timing
+  - code: SY75030
+    message: Scheduled end timing should be greater than start timing
+  - code: SY75031
+    message: Facebook doesn't support Event, Covid19 and Offer Posts
+  - code: SY75032
+    message: Facebook offer requires cta
+  - code: SY75033
+    message: Offer requires start and end timings to be present
+  - code: SY75034
+    message: Event requires start and end timings to be present
+  - code: SY75035
+    message: Google event requires title to be present
+  - code: SY75036
+    message: Facebook offer requires media to be present
+  - code: SY75038
+    message: Google offer requires cta
+  - code: SY75040
+    message: Crossed allowed Google post content length
+  - code: SY75041
+    message: Crossed allowed Facebook post content length
+  - code: SY75042
+    message: Facebook offer requires title to be present
+  - code: SY75044
+    message: Google post required title to not exeed 58 characters
+  - code: SY75045
+    message: Video file size exceeds Facebook's maximum limit of 10 GB
+  - code: SY75046
+    message: Video duration exceeds Facebook's maximum limit of 240 minutes
+  - code: SY75047
+    message: Video frame rate exceeds Facebook's maximum limit of 30 fps
+  - code: SY75048
+    message: Video width is below Facebook's minimum requirement of 1200px
+  - code: SY75049
+    message: Video width exceeds Facebook's maximum limit of 4000px
+  - code: SY75050
+    message: Video aspect ratio is outside Facebook's supported range of 9:16 to 16:9
+  - code: SY75051
+    message: Video format is not supported by Facebook
+  - code: SY75052
+    message: Unable to validate video file. Please ensure the video URL is accessible.
+  - code: SY75053
+    message: Unable to validate image file. Please ensure the image URL is accessible.
+  - code: SY75054
+    message: Image format is not supported by Facebook
+  - code: SY75055
+    message: Image file size exceeds Facebook's maximum limit of 10 MB
+  - code: SY75056
+    message: Image width is below Facebook's minimum requirement of 250px
+  - code: SY75057
+    message: Image width exceeds Facebook's maximum limit of 1936px
+  - code: SY75058
+    message: Image height is below Facebook's minimum requirement of 250px
+  - code: SY75059
+    message: Image height exceeds Facebook's maximum limit of 1936px
+  - code: SY75060
+    message: Image aspect ratio is outside Facebook's supported range of 1:1.91 to 1.91:1
+  - code: SY75061
+    message: Facebook posts cannot contain both images and videos. Please use either images OR video,
+      not both.
+  - code: SY75062
+    message: Facebook posts can contain a maximum of 10 images.
+- group: User
+  codes:
+  - code: SY80100
+    message: Invalid location
+  - code: SY80101
+    message: '`$url` is not a valid url'
+  - code: SY80102
+    message: Location is in archived state
+  - code: SY80103
+    message: Access to reseller denied
+  - code: SY80104
+    message: Site not included in Plan
+  - code: SY80010
+    message: Permission Denied For This Operation
+  - code: SY80011
+    message: Role does not belong to your account
+  - code: SY81000
+    message: Email is a mandatory field
+  - code: SY81001
+    message: Email should be unique
+  - code: SY81003
+    message: Invalid Email Format
+  - code: SY81004
+    message: Password is a mandatory field
+  - code: SY81005
+    message: Confirmation password required for new password
+  - code: SY81006
+    message: Password must be between 8 and 128 characters
+  - code: SY81007
+    message: First Name should not be more than 60 characters
+  - code: SY81008
+    message: Last Name should not be more than 60 characters
+  - code: SY81009
+    message: First Name is a mandatory field
+  - code: SY81010
+    message: Cname is a mandatory field
+  - code: SY81011
+    message: Stripe Customer Id must be Unique
+  - code: SY81012
+    message: Company logo must be present
+  - code: SY81013
+    message: logo must be less than 1536Kb
+  - code: SY81014
+    message: cover must be .jpeg or .png
+  - code: SY81015
+    message: SMS Credit must be more than 0
+  - code: SY81016
+    message: You are not permitted to add `$role_type`
+  - code: SY81017
+    message: Invalid Account Id
+  - code: SY81018
+    message: User Already Exists
+  - code: SY81019
+    message: User not found
+  - code: SY81020
+    message: User does not belong to this account
+  - code: SY81021
+    message: Please accept privacy policy
+  - code: SY81022
+    message: Invalid Success or Error URL
+  - code: SY81023
+    message: This workspace has already been taken
+  - code: SY81024
+    message: This email has already been taken
+  - code: SY81025
+    message: Please enter a valid Workspace
+  - code: SY81026
+    message: Workspace is already setup for your account
+  - code: SY81027
+    message: Email/Password update requires current password
+  - code: SY81028
+    message: Domain should not be empty
+  - code: SY81029
+    message: Limit max length of subdomain to under 250 characters
+  - code: SY89999
+    message: Internal Server Error
+  - code: SY81030
+    message: Confirmation password doesn't match match new password
+  - code: SY81031
+    message: Limit max length of domain to under 250 characters
+  - code: SY90001
+    message: Not Authorized to access this resource
+  - code: SY90005
+    message: Invalid Token
+  - code: SY90003
+    message: Operation not permitted
+  - code: SY90006
+    message: System Internal Error
+  - code: SY81057
+    message: Invalid role passed
+- group: Scan Tool
+  codes:
+  - code: SY70100
+    message: Invalid Business Rep Ids
+  - code: SY90001
+    message: Please pass a Valid authorization key
+- group: Media
+  codes:
+  - code: SY10034
+    message: Bad image URL ${bad_url}
+  - code: SY10060
+    message: Can only upload one logo
+  - code: SY10061
+    message: Can only upload one cover image
+  - code: SY10065
+    message: Invalid Photo format (jpeg or png allowed)
+  - code: SY10066
+    message: Photo cannot be blank
+  - code: SY10067
+    message: Photo size needs to be between 10kb to 5mb
+  - code: SY81012
+    message: Company logo must be present
+  - code: SY81013
+    message: logo must be less than 1536Kb
+  - code: SY81014
+    message: cover must be .jpeg or .png
+notes:
+- The published registry carries a legacy banner stating error codes were sandbox-only until August 5th,
+  2019; the codes are live in production today (SY90005 was observed on an anonymous call to api.synup.com).
+- 'Codes are not namespaced per HTTP status: the same SY90001 appears under authorization failures across
+  every product area.'
+- Messages containing $variable placeholders are populated from errors[].context.

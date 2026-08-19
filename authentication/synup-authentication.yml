@@ -1,0 +1,91 @@
+name: Synup API authentication
+generated: '2026-08-13'
+method: searched
+source: https://developer.synup.com/synup-local-seo-api-getting-started-doc-824500
+docs:
+- https://developer.synup.com/synup-local-seo-api-getting-started-doc-824500
+- https://developer.synup.com/synup-mcp-getting-connected-doc-2070739
+description: Synup v4 is API-key authenticated with a custom Authorization scheme. The published OpenAPI
+  documents declare no components.securitySchemes; instead every operation declares Authorization as a
+  required HEADER PARAMETER. The MCP server adds a full OAuth 2.1 path on top of the same credential.
+summary:
+  rest: api-key (custom Authorization scheme)
+  mcp: oauth2.1 + api-key
+  oauth_for_rest: false
+schemes:
+- id: api_key_header
+  type: apiKey
+  in: header
+  name: Authorization
+  format: API <your_api_key>
+  example: 'Authorization: API T9V35W3xxxxxxxxxxx'
+  description: The primary REST credential. Note the literal "API " prefix — this is not Bearer.
+  issued_at: Synup workspace -> Settings -> Integrations -> name the key -> Generate
+  scope: account-wide; no scoping or per-resource permissions are published for REST keys
+  declared_in_spec: per-operation header parameter on 209 of 210 operations
+  evidence:
+    url: https://api.synup.com/api/v4/locations
+    http_status: 401
+    body: '{"data":{"allLocations":null},"errors":[{"message":"SY90005:Invalid token"}]}'
+    probed: '2026-08-13'
+- id: mcp_oauth
+  type: oauth2
+  flow: authorization_code
+  description: OAuth 2.1 with PKCE and dynamic client registration, used by MCP clients that sign in through
+    the browser.
+  issuer: https://mcp-agent.synup.com
+  authorization_endpoint: https://mcp-agent.synup.com/oauth/mcp/authorize
+  token_endpoint: https://mcp-agent.synup.com/oauth/mcp/token
+  registration_endpoint: https://mcp-agent.synup.com/oauth/mcp/register
+  revocation_endpoint: https://mcp-agent.synup.com/oauth/mcp/revoke
+  jwks_uri: https://mcp-agent.synup.com/.well-known/jwks.json
+  scopes:
+  - mcp:read
+  - mcp:write
+  pkce: S256
+  require_state_parameter: true
+  token_endpoint_auth_methods:
+  - none
+  - client_secret_post
+  discovery: https://mcp-agent.synup.com/.well-known/oauth-authorization-server
+  evidence:
+    url: https://mcp-agent.synup.com/.well-known/oauth-authorization-server
+    http_status: 200
+    probed: '2026-08-13'
+- id: mcp_api_key
+  type: apiKey
+  in: header
+  name: X-api-key
+  description: The same Synup API key passed to the MCP server, optionally with X-user-email. Used by
+    editor-based clients.
+  companion_headers:
+  - X-user-email
+  - X-access-mode
+  env_vars:
+  - SYNUP_API_KEY
+  - SYNUP_USER_EMAIL
+- id: mcp_bearer
+  type: http
+  scheme: bearer
+  description: 'Authorization: Bearer accepting an API key, an encoded credential, or a Synup token, on
+    the MCP surface only.'
+- id: connected_accounts_oauth
+  type: oauth2
+  flow: authorization_code
+  third_party: true
+  description: 'Downstream, per-directory OAuth: the Connected Accounts endpoints broker Google Business
+    Profile, Facebook and Apple connections on behalf of a customer. This is Synup calling out, not Synup
+    authenticating you.'
+  docs: https://developer.synup.com/connected-accounts-custom-endpoint-300825
+authorization_model:
+  rest: No scopes. A key carries whatever the issuing account and user role can see; user roles are managed
+    through the User Management endpoints.
+  mcp: Two coarse scopes (mcp:read, mcp:write) plus an X-access-mode header (read|write) for key-authenticated
+    sessions.
+gaps:
+- components.securitySchemes is empty in every published OpenAPI document — the credential is documented
+  only as a per-operation header parameter, so generated SDKs and agents cannot discover it from the spec
+  alone.
+- No key rotation, expiry or scoping policy is published for REST API keys.
+- The custom "API <key>" Authorization scheme is not a registered HTTP auth scheme; generic OpenAPI tooling
+  will not model it correctly.

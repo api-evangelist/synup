@@ -1,0 +1,533 @@
+name: Synup MCP Server
+generated: '2026-08-13'
+method: probed
+source: https://synup.github.io/synup-mcp-agent/
+description: 'Synup ships a first-party remote MCP server that exposes the same surface area as the Synup
+  dashboard as agent tools: locations, listings, reviews, rankings, local and social posts, flows, account
+  and insights. The server is TENANT-AWARE — the canonical endpoint is your own Synup workspace domain
+  with /mcp appended (https://<workspace>.synup.com/mcp), and https://mcp-agent.synup.com/mcp is the default/shared
+  host that Synup publishes in its own quick-start snippet.'
+status: live
+deployment:
+  mode: remote
+  endpoint: https://mcp-agent.synup.com/mcp
+  endpoint_template: https://<your-synup-workspace-domain>/mcp
+  transport: streamable-http
+  auth: oauth
+  verified: probed
+  install: "claude mcp add --transport http synup-mcp https://mcp-agent.synup.com/mcp \\\n  --header \"\
+    X-api-key: YOUR_API_KEY\" \\\n  --header \"X-access-mode: write\""
+  package: null
+  note: Remote only. There is no npm/PyPI package and nothing to run locally — the "install" line is a
+    client registration command that points an MCP client at Synup's hosted URL. Synup calls it the "Managed
+    Endpoint".
+x-evidence:
+  probed: '2026-08-13'
+  tools_list:
+    url: https://mcp-agent.synup.com/mcp
+    method: POST
+    jsonrpc_method: tools/list
+    http_status: 401
+    body: '{"error":"unauthorized","error_description":"Authentication required. Use OAuth or X-Api-Key
+      header."}'
+    www_authenticate: Bearer resource_metadata="https://mcp-agent.synup.com/mcp/.well-known/oauth-protected-resource",
+      scope="mcp:read mcp:write"
+    note: The live tool manifest is auth-gated. Tool names and input schemas below are NOT harvested from
+      tools/list; the surface groups and counts are what Synup itself publishes.
+  oauth_authorization_server:
+    url: https://mcp-agent.synup.com/.well-known/oauth-authorization-server
+    http_status: 200
+  oauth_protected_resource:
+    url: https://mcp-agent.synup.com/mcp/.well-known/oauth-protected-resource
+    http_status: 200
+  jwks:
+    url: https://mcp-agent.synup.com/.well-known/jwks.json
+    http_status: 200
+  tool_table:
+    url: https://synup.github.io/synup-mcp-agent/
+    http_status: 200
+    probed: '2026-08-13'
+    finding: First-party MCP documentation site published from the synup GitHub organization; carries
+      the full tool table (name, friendly name, description) inline in the page.
+authentication:
+  methods:
+  - type: oauth
+    detail: OAuth 2.1 with dynamic client registration and PKCE (S256). Discovery at https://mcp-agent.synup.com/.well-known/oauth-authorization-server.
+      Used by Claude.ai and Claude Desktop custom connectors.
+    scopes:
+    - mcp:read
+    - mcp:write
+  - type: api-key
+    detail: 'Header X-api-key: <Synup API key>, optionally with X-user-email. Used by Claude Code, Cursor
+      and Windsurf configs.'
+  - type: bearer
+    detail: 'Authorization: Bearer <API key | encoded credential | Synup token>.'
+  - type: environment
+    detail: SYNUP_API_KEY and SYNUP_USER_EMAIL for local/embedded setups with no headers.
+  access_mode:
+    header: X-access-mode
+    values:
+    - read
+    - write
+    note: Read-only by default in the docs guidance; write must be explicitly requested. Under OAuth the
+      access level is what the user approved at sign-in.
+tool_discovery:
+  default: lazy
+  note: The server does NOT list all tools on connect. It advertises a light footprint and pulls in the
+    tool it needs on demand, "rather than load all 120+ tools at once".
+  direct_mode_header:
+    X-MCP-Mode: direct
+    effect: Return the full tool list up front, for agents that call tools by name.
+  filter_headers:
+  - header: X-tags-include
+    example: domain:reviews,domain:locations
+    effect: Expose only the named domains.
+  - header: X-tags-exclude
+    example: domain:local_posts
+    effect: Hide the named domains.
+  domain_tags:
+  - locations
+  - listings
+  - reviews
+  - local_posts
+  - social_posts
+  - rankings
+  - flows
+  - account
+  - insights
+tool_count: 126
+surfaces:
+- surface: Locations
+  tools: 20
+  scope: CRUD, categories, folders, OAuth connect
+- surface: Listings
+  tools: 7
+  scope: Sync status, supported sites, duplicates
+- surface: Reviews
+  tools: 30
+  scope: Interactions, responses, widgets, campaigns
+- surface: Rankings
+  tools: 15
+  scope: Keywords, grid rank, share of voice
+- surface: Posts & Social
+  tools: 38
+  scope: Local posts, social profiles, flows, ads
+- surface: Account & Insights
+  tools: 21
+  scope: Account, billing, users, profile insights
+surfaces_source: https://www.synup.dev/
+tools_observed:
+- name: get_all_locations
+  source: https://developer.synup.com/synup-mcp-putting-it-to-work-doc-2223537
+  note: Named in the troubleshooting section of the provider guide.
+- name: synup.get_multiple_locations_interactions
+  source: https://www.synup.dev/
+  note: Named in the worked example on the provider developer site.
+install_snippet_published_by_provider: "claude mcp add --transport http synup-mcp https://YOUR_SYNUP_DOMAIN/mcp\
+  \ \\\n  --header \"X-api-key: YOUR_API_KEY\" \\\n  --header \"X-access-mode: write\""
+clients_documented:
+- Claude.ai
+- Claude Desktop
+- Claude Code
+- Cursor
+- Windsurf
+notes:
+- 'mode is remote: an MCP client POSTs directly to an https URL. Synup ships no stdio/npx package.'
+- The endpoint is tenant-routed — using your own workspace domain sends the OAuth flow to the right sign-in
+  page and the right account. mcp-agent.synup.com is the managed default.
+- Tool input schemas still require an authenticated tools/list; the names and descriptions below are the
+  provider-published table, not a live introspection.
+- 'DOC DEFECT: the Cursor and Windsurf snippets on synup.github.io/synup-mcp-agent set "type": "stdio"
+  alongside a "url" field. The developer.synup.com guide sets "type": "http" for the same config. The
+  server is HTTP; the GitHub Pages snippet is wrong.'
+- list_available_operations is shipped as a tool because the server lazy-loads its tool set instead of
+  listing everything on connect.
+docs:
+- https://synup.github.io/synup-mcp-agent/
+- https://developer.synup.com/synup-mcp-getting-connected-doc-2070739
+- https://developer.synup.com/synup-mcp-putting-it-to-work-doc-2223537
+- https://help.synup.com/ (Synup MCP knowledge base, 7 articles)
+version_published: v1.0.0
+tool_count_discrepancy: 'Synup publishes three different counts: the MCP docs table renders 126 rows,
+  its own heading says 127, and www.synup.dev advertises 131 tools across 6 surfaces. 126 is the number
+  actually enumerated.'
+tools:
+- name: search_locations
+  friendly: Search Locations
+  description: Find locations by name, city, state, postal code, tags, or categories
+- name: get_location
+  friendly: Get Location
+  description: Retrieve full details for a single location
+- name: create_location
+  friendly: Create Location
+  description: Register a new business location
+- name: update_location
+  friendly: Update Location
+  description: Modify location details (name, address, phone, hours, categories, etc.)
+- name: get_location_listings
+  friendly: Get Location Listings
+  description: View published listings and sync status across directories
+- name: upload_media
+  friendly: Upload Media
+  description: Add photos, videos, or logos to locations
+- name: get_location_interactions
+  friendly: Get Location Interactions
+  description: Retrieve reviews, recommendations, and social posts
+- name: respond_to_interaction
+  friendly: Respond to Interaction
+  description: Reply to a review or social post
+- name: send_bulk_responses
+  friendly: Bulk Respond
+  description: Send the same response to multiple reviews at once
+- name: create_screened_campaign
+  friendly: Create Screened Campaign
+  description: Launch a review campaign with private feedback screening
+- name: create_non_screened_campaign
+  friendly: Create Non-Screened Campaign
+  description: Launch a public review request campaign
+- name: create_review_funnel_campaign
+  friendly: Create Review Funnel
+  description: Build a shareable review landing page
+- name: get_location_rankings
+  friendly: Get Location Rankings
+  description: Check keyword rankings and trends
+- name: add_keywords
+  friendly: Add Keywords
+  description: Start tracking new keywords for a location
+- name: best_performing_gbp_keywords
+  friendly: Best Keywords
+  description: Find the search terms driving visibility
+- name: create_gridrank_report
+  friendly: Grid Rank Report
+  description: Generate geographic heatmap of keyword rankings
+- name: sov_performance_over_time
+  friendly: Share of Voice
+  description: Track local search visibility over time
+- name: create_local_post
+  friendly: Create Local Post
+  description: Publish a post to Google Business or Facebook
+- name: get_all_local_posts
+  friendly: Get Local Posts
+  description: Retrieve published posts and analytics
+- name: edit_local_post
+  friendly: Edit Local Post
+  description: Modify an existing post
+- name: delete_local_post
+  friendly: Delete Local Post
+  description: Remove a published post
+- name: create_flow_announcement
+  friendly: Create Announcement Flow
+  description: Set up recurring announcement posts
+- name: create_flow_event
+  friendly: Create Event Flow
+  description: Schedule event announcements
+- name: create_flow_offer
+  friendly: Create Offer Flow
+  description: Publish time-limited promotional offers
+- name: get_location_insights
+  friendly: Get Location Insights
+  description: Pull profile views, website clicks, phone calls, direction requests
+- name: get_interactions_stats
+  friendly: Get Interaction Stats
+  description: Get review counts, average ratings, response rates
+- name: get_rollup_insights
+  friendly: Rollup Insights
+  description: Aggregate metrics across multiple locations
+- name: add_user
+  friendly: Add User
+  description: Invite a team member to your account
+- name: update_user
+  friendly: Update User
+  description: Modify user name, email, role, or settings
+- name: list_social_profiles
+  friendly: List Social Profiles
+  description: View all brand profiles in Synup Social
+- name: create_social_profile
+  friendly: Create Social Profile
+  description: Set up a new brand profile
+- name: update_social_profile
+  friendly: Update Social Profile
+  description: Modify an existing brand profile
+- name: get_social_profile
+  friendly: Get Social Profile
+  description: Retrieve details for a brand profile
+- name: create_social_media_post
+  friendly: Create Social Media Post
+  description: Publish content to connected social channels
+- name: update_social_media_post
+  friendly: Update Social Media Post
+  description: Edit an existing social media post
+- name: get_social_media_post
+  friendly: Get Social Media Post
+  description: Retrieve a single social media post
+- name: get_social_media_post_by_list
+  friendly: List Social Media Posts
+  description: Retrieve multiple social media posts with filters
+- name: get_social_media_detailed_analytics
+  friendly: Get Social Media Analytics
+  description: Pull engagement metrics (likes, shares, comments)
+- name: fetch_paid_posts
+  friendly: Fetch Paid Posts
+  description: Retrieve boosted/paid social media posts
+- name: create_boost_post
+  friendly: Create Boost Post
+  description: Create a paid promotion for a social post
+- name: get_connected_channels_social_profile
+  friendly: Get Connected Channels
+  description: View social channels connected to a brand profile
+- name: get_day_of_the_year_local
+  friendly: Day of Year Events (Location)
+  description: Get national days and observances for post inspiration
+- name: get_month_long_observances_local
+  friendly: Month-Long Observances (Location)
+  description: Get awareness months for a specific month
+- name: get_ai_generated_posts_for_location
+  friendly: AI-Generated Posts
+  description: Get AI-suggested posts for a location
+- name: get_local_post_view
+  friendly: Get Local Post View
+  description: Get detailed analytics for a specific post
+- name: get_local_posts_stats
+  friendly: Get Local Posts Stats
+  description: Get aggregate metrics for all local posts
+- name: get_post_automations
+  friendly: Get Post Automations
+  description: Retrieve recurring post automation workflows
+- name: get_flow
+  friendly: Get Flow
+  description: Retrieve details for a specific automation flow
+- name: get_flow_run_details
+  friendly: Get Flow Run Details
+  description: View execution details for a flow run
+- name: update_flow
+  friendly: Update Flow
+  description: Modify an existing post automation flow
+- name: stop_flow
+  friendly: Stop Flow
+  description: Stop a running post automation flow
+- name: delete_flow_posts
+  friendly: Delete Flow Posts
+  description: Remove published posts from a flow
+- name: get_post_insights_and_comments_for_social_channel
+  friendly: Get Post Insights and Comments
+  description: Get post insights and comments for a social channel
+- name: bulk_add_keywords
+  friendly: Bulk Add Keywords
+  description: Add same keywords to multiple locations
+- name: archive_keyword
+  friendly: Archive Keyword
+  description: Stop tracking a keyword
+- name: all_gridrank_keywords
+  friendly: All Grid Rank Keywords
+  description: List all grid rank tracked keywords
+- name: get_all_gridrank_reports
+  friendly: Get All Grid Rank Reports
+  description: List all grid rank reports
+- name: get_gridrank_report
+  friendly: Get Grid Rank Report
+  description: Retrieve results from a specific grid rank report
+- name: gridrank_baseline_report_by_id
+  friendly: Grid Rank Baseline Report
+  description: Get initial baseline for a tracked keyword
+- name: get_keyword_performance
+  friendly: Get Keyword Performance
+  description: Get ranking performance across keywords
+- name: get_rollup_rankings_by_date
+  friendly: Rollup Rankings by Date
+  description: Get average rankings over time (multiple locations)
+- name: get_rollup_rankings_by_keyword_count
+  friendly: Rollup Rankings by Keyword Count
+  description: Get keyword ranking distribution (multiple locations)
+- name: get_interactions_setting
+  friendly: Get Interactions Setting
+  description: Get review source configuration for a location
+- name: edit_interactions_setting
+  friendly: Edit Interactions Setting
+  description: Update review source configuration
+- name: get_multiple_locations_interactions
+  friendly: Get Multiple Locations Interactions
+  description: Get reviews across multiple locations
+- name: get_rollup_interactions_stats
+  friendly: Rollup Interactions Stats
+  description: Get aggregate interaction metrics
+- name: get_rollup_interactions_locations_stats
+  friendly: Rollup Interactions by Location
+  description: Get interactions ranked by location
+- name: get_rollup_interactions_sites_stats
+  friendly: Rollup Interactions by Site
+  description: Get interactions broken down by review site
+- name: get_multiple_locations_listings
+  friendly: Get Multiple Locations Listings
+  description: Get listings across multiple locations
+- name: location_indexing_rate
+  friendly: Location Indexing Rate
+  description: Get percentage of listings indexed by search engines
+- name: get_connected_accounts
+  friendly: Get Connected Accounts
+  description: View connected Google and Facebook accounts
+- name: get_connected_account_listings
+  friendly: Get Connected Account Listings
+  description: View listings under a connected account
+- name: connect_listing
+  friendly: Connect Listing
+  description: Link a directory listing to a Synup location
+- name: get_bulk_google_connect_link
+  friendly: Get Google Connect Link
+  description: Generate OAuth link for Google account
+- name: get_bulk_facebook_connect_link
+  friendly: Get Facebook Connect Link
+  description: Generate OAuth link for Facebook account
+- name: get_google_connect_link
+  friendly: Get Google Connect Link (Location)
+  description: Generate OAuth link for a specific location
+- name: get_facebook_connect_link
+  friendly: Get Facebook Connect Link (Location)
+  description: Generate OAuth link for a specific location
+- name: get_duplicate_listings_and_stats
+  friendly: Get Duplicate Listings
+  description: Find duplicate listings for a location
+- name: mark_duplicate_listings
+  friendly: Mark Duplicate Listings
+  description: Flag listings for suppression
+- name: mark_not_duplicate_listings
+  friendly: Mark Not Duplicate
+  description: Dismiss potential duplicates
+- name: review_widgets_by_location
+  friendly: Review Widgets by Location
+  description: Get configured review widgets
+- name: add_review_widget
+  friendly: Add Review Widget
+  description: Create a new review widget
+- name: edit_review_widget
+  friendly: Edit Review Widget
+  description: Modify an existing widget
+- name: remove_review_widget
+  friendly: Remove Review Widget
+  description: Delete a review widget
+- name: list_review_campaigns
+  friendly: List Review Campaigns
+  description: Get all review campaigns for a location
+- name: fetch_review_campaign_feedback_by_campaign_id
+  friendly: Get Campaign Feedback
+  description: Get customer responses from a campaign
+- name: fetch_review_campaign_feedback_by_location_id
+  friendly: Get Location Campaign Feedback
+  description: Get all campaign responses for a location
+- name: review_campaign_customers
+  friendly: Review Campaign Customers
+  description: Get delivery status for campaign recipients
+- name: add_customers_to_review_campaign
+  friendly: Add Customers to Campaign
+  description: Add more recipients to active campaign
+- name: update_review_campaign_global_settings
+  friendly: Update Campaign Settings
+  description: Modify default review campaign settings
+- name: get_review_campaign_global_settings
+  friendly: Get Campaign Settings
+  description: Retrieve default review campaign settings
+- name: archive_response
+  friendly: Archive Response
+  description: Archive a review response
+- name: edit_response
+  friendly: Edit Response
+  description: Modify an existing review response
+- name: fetch_account_roles
+  friendly: Fetch Account Roles
+  description: Get available user roles
+- name: users_by_ids
+  friendly: Get Users by IDs
+  description: Retrieve specific user profiles
+- name: bulk_user_action
+  friendly: Bulk User Action
+  description: Perform actions on multiple users
+- name: resend_invite
+  friendly: Resend Invite
+  description: Resend user invitation email
+- name: user_brand_mapping
+  friendly: User Brand Mapping
+  description: Assign brand profiles to users
+- name: add_folders_for_users
+  friendly: Add Folders for Users
+  description: Assign folder access to users
+- name: get_folders
+  friendly: Get Folders
+  description: List all account folders
+- name: get_folder_tree
+  friendly: Get Folder Tree
+  description: Get full folder hierarchy
+- name: account_info
+  friendly: Account Info
+  description: Get current account information
+- name: get_categories
+  friendly: Get Categories
+  description: Get available business categories
+- name: get_supported_countries
+  friendly: Get Supported Countries
+  description: List supported countries and states
+- name: get_supported_sites
+  friendly: Get Supported Sites
+  description: List supported listing directories
+- name: fetch_currency_codes
+  friendly: Fetch Currency Codes
+  description: Get currency codes for all countries
+- name: get_billing_info
+  friendly: Get Billing Info
+  description: Get account billing information
+- name: get_invoice_history
+  friendly: Get Invoice History
+  description: Retrieve past invoices
+- name: get_subscription_tenure
+  friendly: Get Subscription Tenure
+  description: Get active subscription information
+- name: get_lead_stats
+  friendly: Get Lead Stats
+  description: Get lead generation metrics
+- name: fetch_churn_risks_of_clients
+  friendly: Fetch Churn Risks
+  description: Get client churn risk summary (agencies only)
+- name: list_available_operations
+  friendly: List Available Operations
+  description: Get all available MCP operations
+- name: create_faq
+  friendly: Create FAQ
+  description: Create FAQs for locations
+- name: edit_faq
+  friendly: Edit FAQ
+  description: Modify an existing FAQ
+- name: delete_faq
+  friendly: Delete FAQ
+  description: Delete FAQs
+- name: faqs_for_location
+  friendly: Get FAQs for Location
+  description: Retrieve FAQs for a location
+- name: upsert_service_item
+  friendly: Upsert Service Item
+  description: Create or update service items
+- name: delete_service_items
+  friendly: Delete Service Items
+  description: Remove service items
+- name: fetch_ad_demographics
+  friendly: Fetch Ad Demographics
+  description: Get ad targeting demographics
+- name: get_instagram_top_posts_social_profile
+  friendly: Get Instagram Top Posts
+  description: Get top Instagram posts for a brand
+- name: get_twitter_top_posts_social_profile
+  friendly: Get Twitter Top Posts
+  description: Get top Twitter posts for a brand
+- name: get_day_of_the_year_social_profile
+  friendly: Day Events (Social Profile)
+  description: Get daily events for a brand profile
+- name: get_month_long_observances_social_profile
+  friendly: Month Observances (Social)
+  description: Get monthly observances for a brand
+- name: voice_assistants_for_location
+  friendly: Voice Assistants for Location
+  description: Get voice platform settings for a location
+- name: get_interactions_site_stats
+  friendly: Interactions Site Stats
+  description: Get review metrics by platform
+- name: indexing_not_supported_sites
+  friendly: Indexing Not Supported Sites
+  description: Get sites that do not support indexation checks
+crosswalk: mcp/synup-tool-crosswalk.yml

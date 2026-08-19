@@ -1,0 +1,61 @@
+name: Synup API lifecycle
+generated: '2026-08-13'
+method: searched
+source: https://developer.synup.com/synup-local-seo-api-getting-started-doc-824500
+description: Version, deprecation and operational posture of the Synup API v4, from the provider guides
+  and the published spec. Synup publishes a product changelog but no API deprecation policy, no Sunset/Deprecation
+  header convention, no SLA and no public status page.
+versioning:
+  scheme: major version in the path
+  current: v4
+  path: /api/v4
+  published_last_updated: '2025-07-21'
+  source: https://developer.synup.com/synup-local-seo-api-getting-started-doc-824500
+  note: 'The getting-started page states "Version 4 (last updated: July 21, 2025)". No minor/date versioning
+    and no version header are published.'
+deprecation_policy:
+  published: false
+  sunset_header: false
+  deprecation_header: false
+  note: No deprecation or sunset policy, notice period, or RFC 8594 Sunset/Deprecation header convention
+    is published anywhere in the developer docs.
+deprecated_operations:
+  count: 0
+  operations: []
+  note: 'Every published operation carries deprecated: false.'
+status_page:
+  published: false
+  checked:
+  - https://status.synup.com/
+  evidence:
+    url: https://status.synup.com/
+    http_status: 200
+    redirects_to: https://status.synup.com/users/sign_in
+    finding: status.synup.com is a wildcard onto the Synup application sign-in page ("Synup | Sign In
+      ... Welcome to Synup Social!"), not a status page. It answers 200 with a login form and publishes
+      no component or incident state.
+    probed: '2026-08-13'
+  note: A prior apis.yml carried a StatusPage pointer at https://status.synup.com/. Synup itself links
+    "Synup Status" from the help-center footer to that host, but the host serves the Synup application
+    sign-in page, not a status page. The pointer was removed rather than credited — a 200 on a login form
+    is not a published status page.
+  linked_from: https://help.synup.com/ footer links "Synup Status" to https://status.synup.com
+sla:
+  published: false
+  note: No uptime or support SLA is published on the public site or developer docs.
+changelog:
+  published: true
+  url: https://www.synup.com/en/changelog
+  scope: product-wide, not API-specific
+  detail: changelog/synup-changelog.yml
+support:
+  help_center: https://support.synup.com/portal/en/kb
+  contact: https://www.synup.com/en/contact
+  note: The MCP and webhooks guides both route unresolved issues to "your Synup account team" rather than
+    a public developer support channel.
+gaps:
+- No API deprecation policy
+- No Sunset/Deprecation headers
+- No public status page or incident history
+- No published SLA
+- The changelog covers the product UI; API-affecting changes are not called out as such

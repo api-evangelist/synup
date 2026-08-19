@@ -1,18 +1,37 @@
-name: Synup API Rate Limits
-description: Rate limiting information for the Synup REST API v4. Synup does not publicly publish specific rate limit thresholds; limits are enforced per API key and may vary by plan tier. Contact Synup support or consult the developer portal for plan-specific limits.
+name: Synup API rate limits
+generated: '2026-08-13'
+method: searched
+source: https://developer.synup.com/
+description: Synup publishes no rate limits for the v4 API. The developer portal, the getting-started
+  guide, the MCP guides and all 210 published operations contain no request quota, no window, no burst
+  allowance and no rate-limit response header. An anonymous live call returned no RateLimit-* or Retry-After
+  header either.
 url: https://developer.synup.com/
+documented: false
+limit_count: 0
+limits: []
+headers: []
+exhaustion_status: null
+evidence:
+- url: https://api.synup.com/api/v4/locations
+  http_status: 401
+  probed: '2026-08-13'
+  finding: Response carries no RateLimit-*, X-RateLimit-* or Retry-After header.
+- url: https://developer.synup.com/llms.txt
+  http_status: 200
+  probed: '2026-08-13'
+  finding: The 533-line documentation index contains no rate-limit or throttling page.
+indirect_signals:
+- signal: The first-party Node SDK synup-js documents "retries 429 + 5xx with backoff" (maxRetries default
+    2), which confirms HTTP 429 is reachable even though no threshold is published.
+  source: https://www.npmjs.com/package/synup-js
+- signal: The MCP guide advises narrowing date ranges and location counts when requests time out, and
+    the SDK default timeout is 240 seconds — long-running reads are expected.
+  source: https://developer.synup.com/synup-mcp-putting-it-to-work-doc-2223537
 notes:
-  - Rate limits are enforced per API key and vary by plan tier.
-  - Synup does not publicly document specific request-per-minute or daily call limits.
-  - Exceeding limits typically results in HTTP 429 Too Many Requests responses.
-  - Enterprise and Scale plan customers may negotiate higher rate limits.
-  - MCP access (131 tools across 6 surfaces) is available on Scale and enterprise tiers.
-headers:
-  - name: Authorization
-    description: API key authentication header required on every request.
-    format: "API <your_api_key>"
-  - name: Content-Type
-    description: Must be set to application/json for all requests.
-    value: application/json
-api_version: v4
-base_path: /api/v4
+- 'limit_count: 0 is a measured absence, not an unchecked field.'
+- A prior version of this artifact asserted per-key, plan-tier-varying limits and a 429 response. None
+  of that is published by Synup; the unsupported claims have been removed and replaced with what was actually
+  probed.
+- Agents integrating with Synup have no runtime rate-limit signal to obey — the only backpressure available
+  is the HTTP status.

@@ -1,0 +1,71 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements to the Synup API v4 OpenAPI
+  version: 1.0.0
+  x-generated: '2026-08-13'
+  x-method: generated
+  x-source: openapi/synup-api-openapi.yml
+extends: openapi/synup-api-openapi.yml
+actions:
+- target: $.info
+  description: Name and describe the API. Synup publishes info.title as an empty string on every per-endpoint
+    document.
+  update:
+    title: Synup API
+    version: '4'
+    contact:
+      name: Synup Developer Documentation
+      url: https://developer.synup.com/
+    termsOfService: https://www.synup.com/en/terms-and-conditions
+- target: $.servers
+  description: Record the tenant workspace-domain variant of the base URL alongside the published api.synup.com
+    host.
+  update:
+  - url: https://api.synup.com/api/v4
+    description: Base ENV, as published in every Synup doc fragment.
+  - url: https://{workspace}.synup.com/api/v4
+    description: Tenant workspace domain; the getting-started guide writes it as <your_domain_url>/api/v4.
+    variables:
+      workspace:
+        default: app
+        description: Your Synup workspace subdomain.
+- target: $.components.securitySchemes
+  description: Declare the credential the docs describe. Synup ships an empty components.securitySchemes
+    and declares Authorization as a per-operation header parameter instead, so no generator can discover
+    the auth model from the spec.
+  update:
+    SynupApiKey:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Synup API key, sent as "API <your_api_key>" (note the literal "API " prefix — this
+        is not Bearer). Generated in the Synup workspace under Settings -> Integrations.
+- target: $
+  description: Apply the API key globally, matching the documented requirement that Authorization is required
+    on every request.
+  update:
+    security:
+    - SynupApiKey: []
+- target: $.externalDocs
+  description: Point at the developer portal and the machine-readable index Synup publishes.
+  update:
+    description: Synup developer documentation (source of every operation in this document)
+    url: https://developer.synup.com/
+- target: $.paths['/posts'].post
+  description: 'Flag a real collision in the published documentation: three separate doc pages define
+    POST /posts (standard post, Event post, Offer post) with the same path and method. Only the first
+    survives a merge into one document.'
+  update:
+    x-api-evangelist-note: Synup documents POST /posts three times — see https://developer.synup.com/create-an-event-post-api-33169313
+      and https://developer.synup.com/create-an-offer-post-api-33169317 for the Event and Offer variants
+      that could not be represented in a single OpenAPI document.
+- target: $.info
+  description: Record the duplicate operationIds published by the provider so generated SDKs can be checked
+    against them.
+  update:
+    x-api-evangelist-duplicate-operation-ids:
+    - analyzeReferenceImage
+    - connectGoogleAccount
+    - disconnectGoogleAccount
+    - respondToInteraction
+    - createLocation

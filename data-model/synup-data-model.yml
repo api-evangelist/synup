@@ -1,0 +1,849 @@
+name: Synup API v4 data model
+generated: '2026-08-13'
+method: derived
+source: openapi/synup-api-openapi.yml
+description: 'Entity-relationship graph derived from the $ref links and id-reference fields across the
+  222 component schemas Synup publishes. The graph is anchored on Location: almost every other entity
+  hangs off a location, and the account/folder/tag layer is the organizational hierarchy above it.'
+root_entity: Location
+hierarchy:
+- Account
+- Folder (nestable; every account has a root folder that cannot be deleted)
+- Location (also groupable by Tag, max 10 tags per location)
+- Listing (one per directory site, 80+ sites)
+- Interaction (review or Q&A) / Ranking / Post / Menu / ConnectedAccount
+id_conventions:
+  location_id: integer in most REST payloads; delivered as a NUMERIC STRING in webhook envelopes
+  interaction_id: UUID string
+  account_id: integer
+  cursor: opaque base64 of "<Type>:<id>" (e.g. TG9jYXRpb246MTAw = "Location:100")
+entity_count: 222
+most_referenced:
+- entity: Error
+  inbound_refs: 10
+- entity: PageInfo
+  inbound_refs: 8
+- entity: LocalError
+  inbound_refs: 7
+- entity: EmailTemplate
+  inbound_refs: 4
+- entity: MutationError
+  inbound_refs: 3
+- entity: ReviewSite
+  inbound_refs: 3
+- entity: MetricWithDelta
+  inbound_refs: 3
+- entity: CustomerInput
+  inbound_refs: 2
+- entity: GridReport
+  inbound_refs: 2
+- entity: SitePublisherCategory
+  inbound_refs: 2
+- entity: ActionChip
+  inbound_refs: 2
+- entity: LocationInfo
+  inbound_refs: 2
+- entity: LocationAddStatus
+  inbound_refs: 1
+- entity: CoordinateInput
+  inbound_refs: 1
+- entity: RankPoint
+  inbound_refs: 1
+- entity: AppleConfirmedMatch
+  inbound_refs: 1
+- entity: ChatSession
+  inbound_refs: 1
+- entity: LocalChatSession
+  inbound_refs: 1
+- entity: ChatMessage
+  inbound_refs: 1
+- entity: ConnectedAccount
+  inbound_refs: 1
+- entity: SuggestedLocationInfo
+  inbound_refs: 1
+- entity: ConnectionSuggestion
+  inbound_refs: 1
+- entity: Folder
+  inbound_refs: 1
+- entity: LandingPageTemplate
+  inbound_refs: 1
+- entity: SMSTemplate
+  inbound_refs: 1
+entities:
+- entity: AddCustomersRequest
+  relationships:
+  - target: CustomerInput
+    kind: has_many
+    via: locationCustomers
+- entity: AddKeywordRequest
+  id_fields:
+  - accountId
+  - locationId
+  - placeId
+  relationships:
+  - target: CoordinateInput
+    kind: has_many
+    via: coordinates
+- entity: AddKeywordResult
+  id_fields:
+  - keywordId
+- entity: AddLocationsInput
+  id_fields:
+  - locationIds
+  - userId
+- entity: AddLocationsResponse
+  relationships:
+  - target: LocationAddStatus
+    kind: has_many
+    via: status
+- entity: AddOnCount
+  id_fields:
+  - id
+- entity: AllGridReportsResponse
+  relationships:
+  - target: GridReport
+    kind: has_many
+    via: gridrankReportsByLocationId
+- entity: AppleConfirmedMatch
+  id_fields:
+  - appleBusinessId
+  - connectedAccountId
+  - connectedAccountsLocationId
+  - id
+  - lakeRecordId
+  - synupLocationId
+- entity: AppleConfirmedMatches
+  relationships:
+  - target: AppleConfirmedMatch
+    kind: has_many
+    via: matches
+- entity: AppleOauthBulkPayload
+  id_fields:
+  - clientMutationId
+  relationships:
+  - target: MutationError
+    kind: has_many
+    via: errors
+- entity: AppleOauthPayload
+  id_fields:
+  - clientMutationId
+  relationships:
+  - target: MutationError
+    kind: has_many
+    via: errors
+- entity: AppleRenewOauthPayload
+  id_fields:
+  - clientMutationId
+  relationships:
+  - target: MutationError
+    kind: has_many
+    via: errors
+- entity: ArchiveIdeaRequest
+  id_fields:
+  - ideaId
+- entity: ArchiveLocalIdeaRequest
+  id_fields:
+  - ideaId
+- entity: ArchiveLocalSeriesRequest
+  id_fields:
+  - seriesId
+- entity: ArchiveSeriesRequest
+  id_fields:
+  - seriesId
+- entity: BranchChatSessionRequest
+  id_fields:
+  - parentSessionId
+  - subjectId
+- entity: BranchLocalChatSessionRequest
+  id_fields:
+  - parentSessionId
+  - subjectId
+- entity: BrandInfo
+  id_fields:
+  - id
+- entity: ChatMessage
+  id_fields:
+  - id
+- entity: ChatMessageResponse
+  relationships:
+  - target: ChatMessage
+    kind: has_one
+    via: message
+  - target: ActionChip
+    kind: has_many
+    via: actionChips
+  - target: Error
+    kind: has_one
+    via: error
+- entity: ChatSession
+  id_fields:
+  - id
+  - socialProfileId
+- entity: ChatSessionResponse
+  relationships:
+  - target: ChatSession
+    kind: has_one
+    via: session
+  - target: Error
+    kind: has_one
+    via: error
+- entity: CloseChatSessionRequest
+  id_fields:
+  - sessionId
+- entity: CloseLocalChatSessionRequest
+  id_fields:
+  - sessionId
+- entity: ConnectedAccount
+  id_fields:
+  - connectedAccountId
+- entity: ConnectedAccountsResponse
+  relationships:
+  - target: PageInfo
+    kind: has_one
+    via: pageInfo
+  - target: ConnectedAccount
+    kind: has_many
+    via: records
+- entity: ConnectionSuggestion
+  id_fields:
+  - connectedAccountId
+  - locationId
+  - matchedDataDatabaseId
+  relationships:
+  - target: LocationInfo
+    kind: has_one
+    via: locationInfo
+  - target: SuggestedLocationInfo
+    kind: has_one
+    via: suggestedLocationInfo
+- entity: ConnectionSuggestionsResponse
+  relationships:
+  - target: PageInfo
+    kind: has_one
+    via: pageInfo
+  - target: ConnectionSuggestion
+    kind: has_many
+    via: records
+- entity: ContentSeries
+  id_fields:
+  - chatSessionId
+  - id
+  - socialProfileId
+- entity: CreateContentSeriesRequest
+  id_fields:
+  - postIdeaIds
+  - socialProfileId
+- entity: CreateFolderResponse
+  relationships:
+  - target: Error
+    kind: has_many
+    via: errors
+  - target: Folder
+    kind: has_one
+    via: folder
+- entity: CreateGridReportInput
+  id_fields:
+  - locationId
+- entity: CreateReviewCampaignRequest
+  relationships:
+  - target: CustomerInput
+    kind: has_many
+    via: locationCustomers
+  - target: LandingPageTemplate
+    kind: has_one
+    via: landingPageTemplate
+  - target: EmailTemplate
+    kind: has_one
+    via: openingEmailTemplate
+  - target: SMSTemplate
+    kind: has_one
+    via: smsTemplate
+- entity: CreateUserInput
+  id_fields:
+  - roleId
+- entity: CreateUserResponse
+  relationships:
+  - target: CreatedUser
+    kind: has_one
+    via: user
+- entity: CreatedUser
+  id_fields:
+  - accountId
+  - id
+- entity: DefaultFolderType
+  id_fields:
+  - id
+- entity: EmailTemplate
+  relationships:
+  - target: ReviewSite
+    kind: has_many
+    via: reviewSiteHash
+- entity: ExtendedBrandConfig
+  id_fields:
+  - id
+  - socialProfileId
+- entity: ExtendedLocationConfig
+  id_fields:
+  - id
+  - locationId
+- entity: FetchListingsRequest
+  id_fields:
+  - connectedAccountId
+- entity: FetchListingsResponse
+  relationships:
+  - target: PageInfo
+    kind: has_one
+    via: pageInfo
+  - target: LocationListing
+    kind: has_many
+    via: records
+- entity: Folder
+  id_fields:
+  - accountId
+  - id
+- entity: FolderInfo
+  id_fields:
+  - id
+  - parentFolderId
+- entity: FolderNode
+  id_fields:
+  - id
+  relationships:
+  - target: FolderNode
+    kind: has_many
+    via: subFolders
+- entity: GenerateAllLocalSeriesPostsRequest
+  id_fields:
+  - locationId
+  - seriesId
+- entity: GenerateAllSeriesPostsRequest
+  id_fields:
+  - seriesId
+  - socialProfileId
+- entity: GenerateAllSeriesPostsResponse
+  relationships:
+  - target: Error
+    kind: has_one
+    via: error
+- entity: GenerateCalendarDayRequest
+  id_fields:
+  - ideaId
+- entity: GenerateHolidayIdeaVariantRequest
+  id_fields:
+  - socialProfileId
+- entity: GenerateIdeaVisualRequest
+  id_fields:
+  - ideaId
+- entity: GenerateIdeasResponse
+  id_fields:
+  - pipelineId
+  relationships:
+  - target: Error
+    kind: has_one
+    via: error
+- entity: GenerateLocalHolidayIdeaVariantRequest
+  id_fields:
+  - locationId
+- entity: GenerateLocalSeriesPostRequest
+  id_fields:
+  - seriesId
+- entity: GenerateObservanceIdeaRequest
+  id_fields:
+  - socialProfileId
+- entity: GenerateSeriesPostRequest
+  id_fields:
+  - seriesId
+  - socialProfileId
+- entity: GridReport
+  id_fields:
+  - accountId
+  - id
+  - locationId
+  - placeId
+  relationships:
+  - target: RankPoint
+    kind: has_many
+    via: ranks
+- entity: GridReportResponse
+  relationships:
+  - target: GridReport
+    kind: has_one
+    via: gridrankReportById
+- entity: ImageCredits
+  id_fields:
+  - socialProfileId
+- entity: Interaction
+  id_fields:
+  - id
+- entity: InteractionEdge
+  relationships:
+  - target: Interaction
+    kind: has_one
+    via: node
+- entity: InteractionsResponse
+  relationships:
+  - target: PageInfo
+    kind: has_one
+    via: pageInfo
+  - target: InteractionEdge
+    kind: has_many
+    via: edges
+- entity: Keyword
+  id_fields:
+  - id
+- entity: LandingPageTemplate
+  relationships:
+  - target: ReviewSite
+    kind: has_many
+    via: reviewSiteHash
+- entity: LinkPostIdeaToSocialPostRequest
+  id_fields:
+  - postIdeaId
+  - socialPostId
+- entity: LinkPostIdeaToSocialPostResponse
+  relationships:
+  - target: Error
+    kind: has_one
+    via: error
+- entity: ListFoldersResponse
+  relationships:
+  - target: FolderInfo
+    kind: has_many
+    via: getUserFolders
+- entity: Listing
+  id_fields:
+  - id
+  relationships:
+  - target: Site
+    kind: has_one
+    via: site
+- entity: ListingRecord
+  id_fields:
+  - id
+- entity: ListingsResponse
+  relationships:
+  - target: Listing
+    kind: has_many
+    via: listingsForLocation
+- entity: LocalChatMessage
+  id_fields:
+  - id
+- entity: LocalChatMessageResponse
+  relationships:
+  - target: LocalChatMessage
+    kind: has_one
+    via: message
+  - target: ActionChip
+    kind: has_many
+    via: actionChips
+  - target: LocalError
+    kind: has_one
+    via: error
+- entity: LocalChatSession
+  id_fields:
+  - id
+  - locationId
+  - subjectId
+- entity: LocalChatSessionResponse
+  relationships:
+  - target: LocalChatSession
+    kind: has_one
+    via: session
+  - target: LocalError
+    kind: has_one
+    via: error
+- entity: LocalContentSeries
+  id_fields:
+  - chatSessionId
+  - id
+  - locationId
+- entity: LocalGenerateIdeasResponse
+  id_fields:
+  - pipelineId
+  relationships:
+  - target: LocalError
+    kind: has_one
+    via: error
+- entity: LocalImageCredits
+  id_fields:
+  - locationId
+- entity: LocalLocationInfo
+  id_fields:
+  - id
+- entity: LocalMutationResponse
+  relationships:
+  - target: LocalError
+    kind: has_one
+    via: error
+- entity: LocalObservance
+  id_fields:
+  - id
+- entity: LocalObservanceWithIdea
+  id_fields:
+  - id
+  - postIdeaId
+- entity: LocalPipelineStatus
+  id_fields:
+  - id
+  - locationId
+- entity: LocalPostIdea
+  id_fields:
+  - generationBatchId
+  - generationJobId
+  - id
+  - localPostId
+  - locationId
+  - seriesId
+  relationships:
+  - target: ReferenceImageOption
+    kind: has_many
+    via: referenceImageOptions
+- entity: LocalRegenerateResponse
+  relationships:
+  - target: LocalError
+    kind: has_one
+    via: error
+- entity: LocalScheduleSeriesResponse
+  relationships:
+  - target: LocalError
+    kind: has_one
+    via: error
+- entity: LocalTriggerPipelineResponse
+  id_fields:
+  - pipelineId
+  relationships:
+  - target: LocalError
+    kind: has_one
+    via: error
+- entity: LocationAddOnCount
+  relationships:
+  - target: AddOnCount
+    kind: has_many
+    via: othersEnabled
+- entity: LocationAddStatus
+  id_fields:
+  - locationId
+- entity: LocationConnectInfo
+  id_fields:
+  - accountId
+  - connectedAccountId
+  - listingSiteId
+  - locationId
+  - providerId
+  - publisherAccountId
+  relationships:
+  - target: LocationInfo
+    kind: has_one
+    via: locationInfo
+  - target: GmbConnectedListingInfo
+    kind: has_one
+    via: connectedListingInfo
+  - target: FbConnectedListingInfo
+    kind: has_one
+    via: connectedListingInfo
+  - target: AppleConnectedListingInfo
+    kind: has_one
+    via: connectedListingInfo
+- entity: LocationConnectionsResponse
+  relationships:
+  - target: PageInfo
+    kind: has_one
+    via: pageInfo
+  - target: LocationConnectInfo
+    kind: has_many
+    via: records
+- entity: LocationListing
+  id_fields:
+  - id
+- entity: LocationPhoto
+  id_fields:
+  - databaseId
+  - id
+- entity: LocationResponseSchema
+  id_fields:
+  - accountId
+  - additionalCategoryIds
+  - categoryId
+  - databaseId
+  - folderId
+  - id
+  - planId
+  - storeId
+  - subCategoryId
+- entity: LocationSearchFilterType
+  relationships:
+  - target: SitePublisherCategory
+    kind: has_many
+    via: primaryGbpSiteCategories
+  - target: SitePublisherCategory
+    kind: has_many
+    via: additionalGbpSiteCategories
+- entity: LocationSummaryConnectionType
+  relationships:
+  - target: LocationSummaryEdge
+    kind: has_many
+    via: edges
+  - target: PageInfo
+    kind: has_one
+    via: pageInfo
+- entity: MutationResponse
+  relationships:
+  - target: Error
+    kind: has_one
+    via: error
+- entity: Observance
+  id_fields:
+  - id
+  - postIdeaId
+- entity: ObservanceWithIdea
+  id_fields:
+  - id
+  - postIdeaId
+- entity: PipelineStatus
+  id_fields:
+  - id
+  - socialProfileId
+- entity: PostIdea
+  id_fields:
+  - fluxJobId
+  - generationBatchId
+  - id
+  - seriesId
+  - socialPostId
+  - socialProfileId
+- entity: PremiumListing
+  id_fields:
+  - id
+- entity: RefreshIdeasRequest
+  id_fields:
+  - socialProfileId
+- entity: RefreshLocalIdeasRequest
+  id_fields:
+  - locationId
+- entity: RegenerateIdeaContentRequest
+  id_fields:
+  - ideaId
+- entity: RegenerateIdeaImageRequest
+  id_fields:
+  - ideaId
+- entity: RegenerateIdeaRequest
+  id_fields:
+  - ideaId
+- entity: RegenerateLocalIdeaContentRequest
+  id_fields:
+  - ideaId
+- entity: RegenerateLocalIdeaImageRequest
+  id_fields:
+  - ideaId
+- entity: RegenerateLocalIdeaRequest
+  id_fields:
+  - ideaId
+- entity: RegenerateResponse
+  relationships:
+  - target: Error
+    kind: has_one
+    via: error
+- entity: Response
+  id_fields:
+  - id
+- entity: ResponseInteraction
+  id_fields:
+  - interactionId
+- entity: ReviewCampaign
+  id_fields:
+  - id
+  - locationId
+  relationships:
+  - target: EmailTemplate
+    kind: has_one
+    via: openingEmailTemplate
+  - target: SmsTemplate
+    kind: has_one
+    via: smsTemplate
+  - target: EmailTemplate
+    kind: has_one
+    via: firstFollowUpTemplate
+  - target: EmailTemplate
+    kind: has_one
+    via: secondFollowUpTemplate
+  - target: CampaignStat
+    kind: has_many
+    via: stats
+- entity: ReviewCampaignCustomersResponse
+  relationships:
+  - target: ReviewCampaignInfo
+    kind: has_one
+    via: reviewCampaignInfo
+- entity: ReviewCampaignInfo
+  relationships:
+  - target: ReviewCampaignCustomer
+    kind: has_many
+    via: reviewCampaignCustomers
+- entity: ReviewCampaignsResponse
+  relationships:
+  - target: ReviewCampaign
+    kind: has_many
+    via: reviewCampaigns
+- entity: SMSTemplate
+  relationships:
+  - target: ReviewSite
+    kind: has_many
+    via: reviewSiteHash
+- entity: ScheduleLocalSeriesRequest
+  id_fields:
+  - seriesId
+- entity: ScheduleSeriesRequest
+  id_fields:
+  - seriesId
+- entity: ScheduleSeriesResponse
+  relationships:
+  - target: Error
+    kind: has_one
+    via: error
+- entity: ScrapeBrandRequest
+  id_fields:
+  - socialProfileId
+- entity: ScrapeLocationRequest
+  id_fields:
+  - locationId
+- entity: ScrapedBrandContext
+  id_fields:
+  - id
+  - socialProfileId
+- entity: ScrapedLocationContext
+  id_fields:
+  - id
+  - locationId
+- entity: SearchResponse
+  relationships:
+  - target: LocationEdge
+    kind: has_many
+    via: edges
+  - target: PageInfo
+    kind: has_one
+    via: pageInfo
+- entity: SendChatMessageRequest
+  id_fields:
+  - sessionId
+- entity: SendLocalChatMessageRequest
+  id_fields:
+  - sessionId
+- entity: SetBrandImageCreditsRequest
+  id_fields:
+  - socialProfileId
+- entity: SetLocationImageCreditsRequest
+  id_fields:
+  - locationId
+- entity: Site
+  id_fields:
+  - id
+- entity: SitePublisherCategory
+  id_fields:
+  - id
+- entity: SiteWiseAnalytics
+  relationships:
+  - target: MetricWithDelta
+    kind: has_one
+    via: averageRating
+  - target: MetricWithDelta
+    kind: has_one
+    via: totalInteractions
+  - target: MetricWithDelta
+    kind: has_one
+    via: newInteractions
+- entity: StartChatSessionRequest
+  id_fields:
+  - socialProfileId
+  - subjectId
+- entity: StartLocalChatSessionRequest
+  id_fields:
+  - locationId
+  - subjectId
+- entity: SubCategory
+  id_fields:
+  - id
+- entity: Subscription
+  id_fields:
+  - paymentSubscriptionId
+  - planId
+- entity: SubscriptionsResponse
+  relationships:
+  - target: Subscription
+    kind: has_many
+    via: activeSubscriptions
+- entity: SuggestLocalPostsForDateRequest
+  id_fields:
+  - locationId
+- entity: SuggestPostsForDateRequest
+  id_fields:
+  - socialProfileId
+- entity: SuggestedLocationInfo
+  id_fields:
+  - mainAccountId
+- entity: SwitchChatModeRequest
+  id_fields:
+  - sessionId
+- entity: SwitchLocalChatModeRequest
+  id_fields:
+  - sessionId
+- entity: Tag
+  id_fields:
+  - id
+- entity: TriggerLocalPipelineRequest
+  id_fields:
+  - locationId
+- entity: TriggerPipelineRequest
+  id_fields:
+  - socialProfileId
+- entity: TriggerPipelineResponse
+  id_fields:
+  - pipelineId
+  relationships:
+  - target: Error
+    kind: has_one
+    via: error
+- entity: UpdateExtendedBrandConfigRequest
+  id_fields:
+  - socialProfileId
+- entity: UpdateIdeaRequest
+  id_fields:
+  - ideaId
+- entity: UpdateLocalIdeaRequest
+  id_fields:
+  - ideaId
+- entity: UpsertExtendedLocationConfigRequest
+  id_fields:
+  - locationId
+- entity: User
+  id_fields:
+  - id
+- entity: UserDetail
+  id_fields:
+  - id
+- entity: UserEdge
+  relationships:
+  - target: User
+    kind: has_one
+    via: node
+- entity: UserRole
+  id_fields:
+  - id
+- entity: UsersByIdsResponse
+  relationships:
+  - target: UserDetail
+    kind: has_many
+    via: usersByIds
+- entity: UsersResponse
+  relationships:
+  - target: PageInfo
+    kind: has_one
+    via: pageInfo
+  - target: UserEdge
+    kind: has_many
+    via: edges
+render: null
+notes:
+- Derived mechanically from $ref edges; kind is has_many when the $ref sits under an array items, has_one
+  otherwise.
+- Synup does not publish an object reference page with id prefixes; the cursor encoding is the only id-typing
+  signal in the contract.

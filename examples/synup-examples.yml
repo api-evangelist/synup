@@ -1,0 +1,947 @@
+name: Synup API v4 in-spec examples
+generated: '2026-08-13'
+method: derived
+source: openapi/synup-api-openapi.yml
+description: Index of Synup API v4 operations that carry request and/or response examples inside the OpenAPI
+  document Synup publishes per endpoint on developer.synup.com. Examples are verbatim provider content
+  and live inside openapi/synup-api-openapi.yml; this file is the index of where they are.
+spec: openapi/synup-api-openapi.yml
+operation_count: 210
+operations_with_examples: 143
+examples:
+- operationId: activateLocations
+  method: POST
+  path: /locations/activate
+  summary: Activate archived locations
+  request_example: true
+  response_examples:
+  - '200'
+- operationId: null
+  method: POST
+  path: /menus/{menuId}/items
+  summary: Add an item to an existing section
+  request_example: true
+  response_examples: []
+- operationId: addCustomersToReviewCampaign
+  method: POST
+  path: /locations/review-campaigns/customers
+  summary: Add customers to a review campaign
+  request_example: true
+  response_examples: []
+- operationId: null
+  method: GET
+  path: /locations/reviews/settings/edit
+  summary: Add / Edit interaction source
+  request_example: true
+  response_examples:
+  - '200'
+- operationId: null
+  method: POST
+  path: /users/folders/add
+  summary: Add folders to user
+  request_example: true
+  response_examples: []
+- operationId: null
+  method: POST
+  path: /locations/keywords
+  summary: Add keywords
+  request_example: true
+  response_examples:
+  - '200'
+- operationId: addLocationToTag
+  method: POST
+  path: /locations/tags
+  summary: Add location to a tag
+  request_example: true
+  response_examples:
+  - '200'
+- operationId: null
+  method: POST
+  path: /locations/folders
+  summary: Add locations to a folder
+  request_example: true
+  response_examples: []
+- operationId: addLocationsToUser
+  method: POST
+  path: /users/locations/add
+  summary: Add Locations to User
+  request_example: true
+  response_examples:
+  - '200'
+- operationId: null
+  method: POST
+  path: /review_widget/add
+  summary: Add Review Widget
+  request_example: true
+  response_examples:
+  - '200'
+- operationId: null
+  method: POST
+  path: /users/add_user_and_folder
+  summary: Add User and folder
+  request_example: true
+  response_examples: []
+- operationId: null
+  method: POST
+  path: /locations/keywords/archive
+  summary: Archive a keyword
+  request_example: true
+  response_examples: []
+- operationId: archiveIdea
+  method: POST
+  path: /social-post-ideas/archive-idea
+  summary: Archive idea
+  request_example: true
+  response_examples: []
+- operationId: archiveLocalIdea
+  method: POST
+  path: /local-post-ideas/archive-idea
+  summary: Archive local idea
+  request_example: true
+  response_examples: []
+- operationId: archiveLocalSeries
+  method: POST
+  path: /local-post-ideas/archive-series
+  summary: Archive local series
+  request_example: true
+  response_examples: []
+- operationId: archiveLocations
+  method: POST
+  path: /locations/archive
+  summary: Archive multiple locations
+  request_example: true
+  response_examples:
+  - '200'
+- operationId: respondToInteraction
+  method: POST
+  path: /locations/reviews/respond/archive
+  summary: Archive Response for Interaction
+  request_example: true
+  response_examples:
+  - '200'
+- operationId: archiveSeries
+  method: POST
+  path: /social-post-ideas/archive-series
+  summary: Archive series
+  request_example: true
+  response_examples: []
+- operationId: null
+  method: POST
+  path: /menus/{menuId}/assign-location
+  summary: Assign a menu to a location
+  request_example: true
+  response_examples: []
+- operationId: null
+  method: PUT
+  path: /social/brands/{brandId}
+  summary: Assign a user to a single brand
+  request_example: true
+  response_examples: []
+- operationId: null
+  method: PUT
+  path: /api/v4/social/brands/{brandId1},{brandId2},{brandId3}
+  summary: Assign multiple brands
+  request_example: true
+  response_examples: []
+- operationId: branchChatSession
+  method: POST
+  path: /social-post-ideas/branch-chat-session
+  summary: Branch chat session
+  request_example: true
+  response_examples: []
+- operationId: branchLocalChatSession
+  method: POST
+  path: /local-post-ideas/branch-chat-session
+  summary: Branch local chat session
+  request_example: true
+  response_examples: []
+- operationId: bulkConnectLinkForApple
+  method: POST
+  path: /connected-accounts/connect-apple/bulk
+  summary: Bulk connect link for Apple
+  request_example: true
+  response_examples: []
+- operationId: cancelLocationsArchive
+  method: POST
+  path: /locations/cancel_archive
+  summary: Cancel scheduled location archival
+  request_example: true
+  response_examples:
+  - '200'
+- operationId: checkBulkPhotoUploadStatus
+  method: GET
+  path: /locations/photos/requests/{requestId}
+  summary: Check Bulk Photo Upload Status
+  request_example: false
+  response_examples:
+  - '200'
+- operationId: closeChatSession
+  method: POST
+  path: /social-post-ideas/close-chat-session
+  summary: Close chat session
+  request_example: true
+  response_examples: []
+- operationId: closeLocalChatSession
+  method: POST
+  path: /local-post-ideas/close-chat-session
+  summary: Close local chat session
+  request_example: true
+  response_examples: []
+- operationId: null
+  method: POST
+  path: /connected-accounts/confirm-matches
+  summary: Confirm Connected Account Matches
+  request_example: true
+  response_examples:
+  - '200'
+- operationId: null
+  method: POST
+  path: /connected-accounts/connect-listing
+  summary: Connect a location with a listing of a connected account
+  request_example: true
+  response_examples:
+  - '200'
+- operationId: connectFacebookAccount
+  method: POST
+  path: /connected-accounts/connect-facebook
+  summary: Connect Facebook Page to Account
+  request_example: true
+  response_examples:
+  - '200'
+- operationId: connectGoogleAccount
+  method: POST
+  path: /connected-accounts/connect-google
+  summary: Connect Google Profile to Account
+  request_example: true
+  response_examples:
+  - '200'
+- operationId: connectLinkForApple
+  method: POST
+  path: /connected-accounts/connect-apple
+  summary: Connect link for Apple
+  request_example: true
+  response_examples: []
+- operationId: null
+  method: POST
+  path: /social/brands
+  summary: Create a brand
+  request_example: true
+  response_examples: []
+- operationId: null
+  method: POST
+  path: /bulk-posts
+  summary: Create a bulk post
+  request_example: true
+  response_examples: []
+- operationId: null
+  method: POST
+  path: /menus
+  summary: Create a menu
+  request_example: true
+  response_examples: []
+- operationId: createLocation
+  method: POST
+  path: /locations
+  summary: Create a new business location
+  request_example: true
+  response_examples:
+  - '200'
+- operationId: listLocations
+  method: GET
+  path: /locations
+  summary: List all locations
+  request_example: false
+  response_examples:
+  - '200'
+- operationId: createFolder
+  method: POST
+  path: /folders/create
+  summary: Create a new folder
+  request_example: true
+  response_examples:
+  - '200'
+- operationId: createReviewCampaign
+  method: POST
+  path: /locations/review-campaigns
+  summary: Create a review campaign
+  request_example: true
+  response_examples: []
+- operationId: null
+  method: POST
+  path: /posts
+  summary: Create an Announcement post
+  request_example: true
+  response_examples: []
+- operationId: createContentSeries
+  method: POST
+  path: /social-post-ideas/create-content-series
+  summary: Create content series
+  request_example: true
+  response_examples: []
+- operationId: null
+  method: POST
+  path: /locations/create/gmb-listing
+  summary: Create GMB Listing
+  request_example: false
+  response_examples:
+  - '200'
+- operationId: connectGoogleAccount
+  method: POST
+  path: /connected-accounts/create-location-from-listing
+  summary: create location from connected account listing
+  request_example: true
+  response_examples:
+  - '200'
+- operationId: createGridReport
+  method: POST
+  path: /create-grid-report
+  summary: Create Rank Grid Report
+  request_example: true
+  response_examples:
+  - '200'
+- operationId: createUser
+  method: POST
+  path: /users/create
+  summary: Create User with Role
+  request_example: true
+  response_examples:
+  - '200'
+- operationId: deleteFolder
+  method: POST
+  path: /folders/delete
+  summary: Delete a folder
+  request_example: true
+  response_examples:
+  - '200'
+- operationId: deleteLocationPhotos
+  method: POST
+  path: /locations/photos/remove
+  summary: Delete Location Photos
+  request_example: true
+  response_examples:
+  - '200'
+- operationId: disconnectGoogleAccount
+  method: POST
+  path: /connected-accounts/disconnect-facebook
+  summary: Disconnect Facebook Account
+  request_example: true
+  response_examples:
+  - '200'
+- operationId: disconnectGoogleAccount
+  method: POST
+  path: /connected-accounts/disconnect-google
+  summary: Disconnect GMB Profile
+  request_example: true
+  response_examples:
+  - '200'
+- operationId: null
+  method: POST
+  path: /connected-accounts/disconnect-listing
+  summary: Disconnect Location from Listing
+  request_example: true
+  response_examples:
+  - '200'
+- operationId: respondToInteraction
+  method: POST
+  path: /locations/reviews/respond/edit
+  summary: Edit Response for Interaction
+  request_example: true
+  response_examples:
+  - '200'
+- operationId: null
+  method: POST
+  path: /review_widget/edit
+  summary: Edit Review Widget
+  request_example: true
+  response_examples:
+  - '200'
+- operationId: getAllGridReports
+  method: GET
+  path: /locations/{locationId}/grid-reports
+  summary: Fetch All Grid Reports for Location
+  request_example: false
+  response_examples:
+  - '200'
+- operationId: null
+  method: GET
+  path: /locations/{locationId}/reviews
+  summary: Fetch all interactions
+  request_example: false
+  response_examples:
+  - '200'
+- operationId: getConnectedAccountDetails
+  method: GET
+  path: /connected-accounts/{connectedAccountId}/details
+  summary: Fetch Connected Account Details
+  request_example: false
+  response_examples:
+  - '200'
+- operationId: null
+  method: POST
+  path: /connected-accounts/connected-account-listings
+  summary: Fetch Connected Account Listings
+  request_example: true
+  response_examples: []
+- operationId: getGridReport
+  method: GET
+  path: /grid-report/{reportId}
+  summary: Fetch Rank Grid Report By ID
+  request_example: false
+  response_examples:
+  - '200'
+- operationId: generateAllLocalSeriesPosts
+  method: POST
+  path: /local-post-ideas/generate-all-series-posts
+  summary: Generate all local series posts
+  request_example: true
+  response_examples: []
+- operationId: generateAllSeriesPosts
+  method: POST
+  path: /social-post-ideas/generate-all-series-posts
+  summary: Generate all series posts
+  request_example: true
+  response_examples: []
+- operationId: generateCalendarDay
+  method: POST
+  path: /social-post-ideas/generate-calendar-day
+  summary: Generate calendar day
+  request_example: true
+  response_examples: []
+- operationId: generateHolidayIdeaVariant
+  method: POST
+  path: /social-post-ideas/generate-holiday-idea-variant
+  summary: Generate holiday idea variant
+  request_example: true
+  response_examples: []
+- operationId: generateIdeaVisual
+  method: POST
+  path: /social-post-ideas/generate-idea-visual
+  summary: Generate idea visual
+  request_example: true
+  response_examples: []
+- operationId: generateLocalHolidayIdeaVariant
+  method: POST
+  path: /local-post-ideas/generate-holiday-idea-variant
+  summary: Generate local holiday idea variant
+  request_example: true
+  response_examples: []
+- operationId: generateLocalSeriesPost
+  method: POST
+  path: /local-post-ideas/generate-series-post
+  summary: Generate local series post
+  request_example: true
+  response_examples: []
+- operationId: generateObservanceIdea
+  method: POST
+  path: /social-post-ideas/generate-observance-idea
+  summary: Generate observance idea
+  request_example: true
+  response_examples: []
+- operationId: generateSeriesPost
+  method: POST
+  path: /social-post-ideas/generate-series-post
+  summary: Generate series post
+  request_example: true
+  response_examples: []
+- operationId: null
+  method: GET
+  path: /reviews/site-config
+  summary: Get a list of interaction sources for account
+  request_example: false
+  response_examples:
+  - '200'
+- operationId: null
+  method: GET
+  path: /locations/{location_id}/reviews/settings
+  summary: Get a list of interaction sources for location
+  request_example: false
+  response_examples:
+  - '200'
+- operationId: null
+  method: GET
+  path: /locations/{locationId}/ai-listings
+  summary: Get AI listings
+  request_example: false
+  response_examples:
+  - '200'
+- operationId: getAccountDuplicateListings
+  method: GET
+  path: /locations/listings/duplicates
+  summary: Get all duplicate listings for an account
+  request_example: false
+  response_examples:
+  - '200'
+- operationId: getDuplicateListings
+  method: GET
+  path: /locations/{locationId}/listings/duplicates
+  summary: Get duplicate listings for a location
+  request_example: false
+  response_examples:
+  - '200'
+- operationId: getAnalytics
+  method: GET
+  path: /locations/{locationId}/{type}
+  summary: Get Interaction Analytics
+  request_example: false
+  response_examples:
+  - '200'
+- operationId: null
+  method: GET
+  path: /locations/{locationId}/keywords-performance
+  summary: Get keywords performance
+  request_example: false
+  response_examples:
+  - '200'
+- operationId: getLocationsByStoreCodes
+  method: GET
+  path: /locations-by-store-codes
+  summary: Get locations by store codes
+  request_example: false
+  response_examples:
+  - '200'
+- operationId: null
+  method: GET
+  path: /locations/{locationId}/photos
+  summary: Get Photos by Location IDs
+  request_example: false
+  response_examples:
+  - '200'
+  - x-200:Example Response (Over 30 Photos)
+- operationId: null
+  method: POST
+  path: /locations/ranking-sitewise-histogram
+  summary: Get Rankings Distribution By Time
+  request_example: true
+  response_examples: []
+- operationId: null
+  method: POST
+  path: /locations/ranking-analytics-timeline
+  summary: Get Rollup Keyword Performance
+  request_example: true
+  response_examples: []
+- operationId: null
+  method: GET
+  path: /plan-sites
+  summary: Get Site Details for Your Plan
+  request_example: false
+  response_examples:
+  - '200'
+- operationId: null
+  method: GET
+  path: /sub-categories
+  summary: Get SubCategories and AdditionalCategories
+  request_example: false
+  response_examples:
+  - '200'
+- operationId: getVoiceListings
+  method: GET
+  path: /locations/{locationId}/voice-assistants
+  summary: Get voice listings for a location
+  request_example: false
+  response_examples:
+  - '200'
+- operationId: linkPostIdeaToSocialPost
+  method: POST
+  path: /social-post-ideas/link-post-idea-to-social-post
+  summary: Link post idea to social post
+  request_example: true
+  response_examples: []
+- operationId: null
+  method: GET
+  path: /subscriptions
+  summary: List Active Subscriptions
+  request_example: false
+  response_examples:
+  - '200'
+- operationId: listFolders
+  method: GET
+  path: /folders/flat
+  summary: List all folders
+  request_example: false
+  response_examples:
+  - '200'
+- operationId: listAllTags
+  method: GET
+  path: /tags
+  summary: List all tags
+  request_example: false
+  response_examples:
+  - '200'
+- operationId: listConnectionSuggestions
+  method: GET
+  path: /connected-accounts/{connectedAccountId}/connection-suggestions
+  summary: List Connection Suggestions
+  request_example: false
+  response_examples:
+  - '200'
+- operationId: null
+  method: GET
+  path: /connected-accounts/{connectedAccountId}/folders
+  summary: List folders under a Google account
+  request_example: false
+  response_examples:
+  - '200'
+- operationId: listInteractionsByIds
+  method: GET
+  path: /reviewDetails
+  summary: List Interactions by IDs
+  request_example: false
+  response_examples:
+  - '200'
+- operationId: listKeywords
+  method: GET
+  path: /locations/{locationId}/keywords
+  summary: List Keywords
+  request_example: false
+  response_examples:
+  - '200'
+  - '400'
+  - '401'
+- operationId: getLocationsByTags
+  method: GET
+  path: /tags/locations
+  summary: List locations by tags
+  request_example: false
+  response_examples:
+  - '200'
+- operationId: getLocationsByIds
+  method: GET
+  path: /locations-by-ids
+  summary: List particular locations
+  request_example: false
+  response_examples:
+  - '200'
+- operationId: listReviewCampaignCustomers
+  method: GET
+  path: /locations/review-campaigns/{reviewCampaignId}/customers
+  summary: List review campaign customers
+  request_example: false
+  response_examples:
+  - '200'
+- operationId: listReviewCampaigns
+  method: GET
+  path: /locations/{locationId}/review-campaigns
+  summary: List review campaigns
+  request_example: false
+  response_examples:
+  - '200'
+- operationId: null
+  method: GET
+  path: /api/v4/users/{userId}/resources
+  summary: List User Resources
+  request_example: false
+  response_examples:
+  - '200'
+- operationId: listUserRoles
+  method: GET
+  path: /roles
+  summary: List User Roles
+  request_example: false
+  response_examples:
+  - '200'
+- operationId: listUsers
+  method: GET
+  path: /users
+  summary: List Users
+  request_example: false
+  response_examples:
+  - '200'
+- operationId: listUsersByIds
+  method: GET
+  path: /users-by-ids
+  summary: List Users by ID
+  request_example: false
+  response_examples:
+  - '200'
+- operationId: markAsDuplicate
+  method: POST
+  path: /locations/listings/mark-as-duplicate
+  summary: Mark listings as duplicates
+  request_example: true
+  response_examples:
+  - '200'
+- operationId: markAsNotDuplicate
+  method: POST
+  path: /locations/listings/mark-as-not-duplicate
+  summary: Mark listings as not duplicates
+  request_example: true
+  response_examples:
+  - '200'
+- operationId: refreshIdeas
+  method: POST
+  path: /social-post-ideas/refresh-ideas
+  summary: Refresh ideas
+  request_example: true
+  response_examples: []
+- operationId: refreshLocalIdeas
+  method: POST
+  path: /local-post-ideas/refresh-ideas
+  summary: Refresh local ideas
+  request_example: true
+  response_examples: []
+- operationId: regenerateIdea
+  method: POST
+  path: /social-post-ideas/regenerate-idea
+  summary: Regenerate idea
+  request_example: true
+  response_examples: []
+- operationId: regenerateIdeaContent
+  method: POST
+  path: /social-post-ideas/regenerate-idea-content
+  summary: Regenerate idea content
+  request_example: true
+  response_examples: []
+- operationId: regenerateIdeaImage
+  method: POST
+  path: /social-post-ideas/regenerate-idea-image
+  summary: Regenerate idea image
+  request_example: true
+  response_examples: []
+- operationId: regenerateLocalIdea
+  method: POST
+  path: /local-post-ideas/regenerate-idea
+  summary: Regenerate local idea
+  request_example: true
+  response_examples: []
+- operationId: regenerateLocalIdeaContent
+  method: POST
+  path: /local-post-ideas/regenerate-idea-content
+  summary: Regenerate local idea content
+  request_example: true
+  response_examples: []
+- operationId: regenerateLocalIdeaImage
+  method: POST
+  path: /local-post-ideas/regenerate-idea-image
+  summary: Regenerate local idea image
+  request_example: true
+  response_examples: []
+- operationId: null
+  method: POST
+  path: /users/folders/remove
+  summary: Remove Folders for User
+  request_example: true
+  response_examples:
+  - '200'
+- operationId: removeLocationFromTag
+  method: POST
+  path: /locations/tags/remove
+  summary: Remove location from a tag
+  request_example: true
+  response_examples:
+  - '200'
+- operationId: null
+  method: POST
+  path: /users/locations/remove
+  summary: Remove Locations for User
+  request_example: true
+  response_examples:
+  - '200'
+- operationId: null
+  method: POST
+  path: /locations/folders/remove
+  summary: Remove locations from a folder
+  request_example: true
+  response_examples:
+  - '200'
+- operationId: null
+  method: POST
+  path: /locations/folders/rename
+  summary: Rename a folder
+  request_example: true
+  response_examples:
+  - '200'
+- operationId: renewConnectLinkForApple
+  method: POST
+  path: /connected-accounts/connect-apple/renew
+  summary: Renew connect link for Apple
+  request_example: true
+  response_examples: []
+- operationId: respondToInteraction
+  method: POST
+  path: /locations/reviews/respond
+  summary: Respond to an Interaction
+  request_example: true
+  response_examples:
+  - '200'
+- operationId: null
+  method: GET
+  path: /rollup_interactions
+  summary: Rollup Review API
+  request_example: true
+  response_examples: []
+- operationId: scheduleLocalSeries
+  method: POST
+  path: /local-post-ideas/schedule-series
+  summary: Schedule local series
+  request_example: true
+  response_examples: []
+- operationId: scheduleSeries
+  method: POST
+  path: /social-post-ideas/schedule-series
+  summary: Schedule series
+  request_example: true
+  response_examples: []
+- operationId: scrapeBrand
+  method: POST
+  path: /social-post-ideas/scrape-brand
+  summary: Scrape brand
+  request_example: true
+  response_examples: []
+- operationId: scrapeLocation
+  method: POST
+  path: /local-post-ideas/scrape-location
+  summary: Scrape location
+  request_example: true
+  response_examples: []
+- operationId: searchLocations
+  method: GET
+  path: /locations/search
+  summary: Search locations
+  request_example: false
+  response_examples:
+  - '200'
+- operationId: sendChatMessage
+  method: POST
+  path: /social-post-ideas/send-chat-message
+  summary: Send chat message
+  request_example: true
+  response_examples: []
+- operationId: sendLocalChatMessage
+  method: POST
+  path: /local-post-ideas/send-chat-message
+  summary: Send local chat message
+  request_example: true
+  response_examples: []
+- operationId: setBrandImageCredits
+  method: POST
+  path: /social-post-ideas/set-brand-image-credits
+  summary: Set brand image credits
+  request_example: true
+  response_examples: []
+- operationId: setLocationImageCredits
+  method: POST
+  path: /local-post-ideas/set-location-image-credits
+  summary: Set location image credits
+  request_example: true
+  response_examples: []
+- operationId: startChatSession
+  method: POST
+  path: /social-post-ideas/start-chat-session
+  summary: Start chat session
+  request_example: true
+  response_examples: []
+- operationId: startLocalChatSession
+  method: POST
+  path: /local-post-ideas/start-chat-session
+  summary: Start local chat session
+  request_example: true
+  response_examples: []
+- operationId: starUnstarLocationPhotos
+  method: POST
+  path: /locations/photos/star
+  summary: Star/Unstar Location Photos
+  request_example: true
+  response_examples:
+  - '200'
+- operationId: suggestLocalPostsForDate
+  method: POST
+  path: /local-post-ideas/suggest-posts-for-date
+  summary: Suggest local posts for date
+  request_example: true
+  response_examples: []
+- operationId: suggestPostsForDate
+  method: POST
+  path: /social-post-ideas/suggest-posts-for-date
+  summary: Suggest posts for date
+  request_example: true
+  response_examples: []
+- operationId: switchChatMode
+  method: POST
+  path: /social-post-ideas/switch-chat-mode
+  summary: Switch chat mode
+  request_example: true
+  response_examples: []
+- operationId: switchLocalChatMode
+  method: POST
+  path: /local-post-ideas/switch-chat-mode
+  summary: Switch local chat mode
+  request_example: true
+  response_examples: []
+- operationId: null
+  method: POST
+  path: /api/v4/automations/temporary-close-location-with-reopening-date
+  summary: Temporary Close Location with a reopening date
+  request_example: true
+  response_examples:
+  - '200'
+- operationId: triggerLocalPipeline
+  method: POST
+  path: /local-post-ideas/trigger-pipeline
+  summary: Trigger local pipeline
+  request_example: true
+  response_examples: []
+- operationId: null
+  method: POST
+  path: /connected-accounts/trigger-matches
+  summary: Trigger New Matches
+  request_example: true
+  response_examples:
+  - '200'
+- operationId: triggerPipeline
+  method: POST
+  path: /social-post-ideas/trigger-pipeline
+  summary: Trigger pipeline
+  request_example: true
+  response_examples: []
+- operationId: null
+  method: POST
+  path: /users/update
+  summary: Update a User
+  request_example: true
+  response_examples:
+  - '200'
+- operationId: createLocation
+  method: POST
+  path: /locations/update
+  summary: Update  business location
+  request_example: true
+  response_examples:
+  - '200'
+- operationId: updateExtendedBrandConfig
+  method: POST
+  path: /social-post-ideas/update-extended-brand-config
+  summary: Update extended brand config
+  request_example: true
+  response_examples: []
+- operationId: updateIdea
+  method: POST
+  path: /social-post-ideas/update-idea
+  summary: Update idea
+  request_example: true
+  response_examples: []
+- operationId: updateLocalIdea
+  method: POST
+  path: /local-post-ideas/update-idea
+  summary: Update local idea
+  request_example: true
+  response_examples: []
+- operationId: null
+  method: PUT
+  path: /menus/{menuId}/currency
+  summary: Update menu currency
+  request_example: true
+  response_examples: []
+- operationId: uploadSingleLocationPhoto
+  method: POST
+  path: /locations/photos
+  summary: Upload Photos to a Location
+  request_example: true
+  response_examples:
+  - '200'
+  - x-200:Example Response (Over 30 Photos)
+- operationId: upsertExtendedLocationConfig
+  method: POST
+  path: /local-post-ideas/upsert-extended-location-config
+  summary: Upsert extended location config
+  request_example: true
+  response_examples: []

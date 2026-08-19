@@ -1,0 +1,104 @@
+name: Synup client libraries and packages
+generated: '2026-08-13'
+method: searched
+source: registry.npmjs.org, pypi.org, rubygems.org, github.com/synup
+description: 'Synup does not link SDKs from developer.synup.com. Two first-party packages were found by
+  registry search: a Node.js SDK published under the npm account whose maintainer email is dev@synup.com,
+  and a React component library under the @synup npm scope. Two PyPI packages carry the same SDK shape
+  and README voice but PyPI does not expose an uploader, so their first-party status is recorded as unverified
+  rather than asserted.'
+official_count: 2
+packages:
+- name: synup-js
+  registry: npm
+  url: https://www.npmjs.com/package/synup-js
+  language: JavaScript/TypeScript
+  official: true
+  version: 0.2.0
+  published: '2026-04-08'
+  install: npm install synup-js
+  evidence: npm maintainer is {"name":"synup","email":"dev@synup.com"}; README describes the Synup v4
+    API client (SynupClient, fetchAllLocations, SYNUP_API_KEY env var, 429 + 5xx retry with backoff).
+  note: Covers locations, listings, reviews and analytics. Auto-paginates the cursor connections; default
+    timeout 240s, maxRetries 2.
+- name: '@synup/locator-components'
+  registry: npm
+  url: https://www.npmjs.com/package/@synup/locator-components
+  language: JavaScript/React
+  official: true
+  version: 1.11.2
+  published: '2023-03-10'
+  install: npm install @synup/locator-components
+  repository: https://github.com/synup/locator
+  evidence: Published under the @synup npm scope with repository git+https://github.com/synup/locator.git.
+  note: Store-locator React components rather than an API client. Last release 2023-03-10 — more than
+    three years before the current v4 API surface and the 2026 MCP launch, so it is not maintained alongside
+    the API.
+- name: synup
+  registry: pypi
+  url: https://pypi.org/project/synup/
+  language: Python
+  official: unverified
+  version: 0.4.2
+  published: '2026-04-01'
+  install: pip install synup
+  evidence: Summary "Python SDK for the Synup API"; README matches the synup-js SDK in shape and voice
+    (SYNUP_API_KEY env var, workflows.auto_reply_to_reviews, workflows.listings_health_audit). PyPI publishes
+    no author, author_email, maintainer or project_urls for this package, so first-party status cannot
+    be proved from the registry.
+  note: Released within a week of the PyPI package synup-sdk and four months before this probe.
+- name: synup-sdk
+  registry: pypi
+  url: https://pypi.org/project/synup-sdk/
+  language: Python
+  official: unverified
+  version: 0.4.0
+  published: '2026-03-31'
+  install: pip install synup-sdk
+  evidence: Summary "Python SDK for the Synup API". No author or project URLs published.
+  note: Appears to be superseded by the shorter name `synup`, published one day later and at a higher
+    version.
+- name: synup
+  registry: npm
+  url: https://www.npmjs.com/package/synup
+  language: JavaScript
+  official: false
+  version: 1.0.1
+  published: '2016-06-30'
+  repository: https://github.com/princesoni1989/synup
+  note: Community package, abandoned for ten years. Predates the v4 API entirely.
+- name: synupapi
+  registry: npm
+  url: https://www.npmjs.com/package/synupapi
+  language: JavaScript
+  official: false
+  version: 1.0.4
+  published: '2020-10-08'
+  repository: https://github.com/rakeshf/synupapi
+  note: Community package, unmaintained.
+- name: '@mx-inventor/synup'
+  registry: npm
+  url: https://www.npmjs.com/package/@mx-inventor/synup
+  language: JavaScript
+  official: false
+  version: 1.1.2
+  published: '2021-11-25'
+  repository: https://github.com/mx-inventor/synup
+  note: Third-party agency client, unmaintained.
+not_found:
+- registry: rubygems
+  query: synup
+  result: no packages
+- registry: pypi
+  name: synup-api
+  result: '404'
+currency_finding: The one unambiguous first-party API client, synup-js, sits at 0.2.0 and was last published
+  2026-04-08 — four months before this probe, and after the v4 API's own published "last updated" date
+  of 2025-07-21. It is current relative to the REST surface. @synup/locator-components has not been released
+  since 2023 and should be read as dormant.
+gaps:
+- No SDK is linked from developer.synup.com, so a developer reading the docs would not find synup-js at
+  all.
+- No first-party Ruby, PHP, Java, Go, .NET or C# client exists.
+- The two PyPI packages publish no author/maintainer metadata, which is why they cannot be credited as
+  official.

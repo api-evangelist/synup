@@ -1,0 +1,307 @@
+name: Synup webhook event catalog
+generated: '2026-08-13'
+method: searched
+source: https://developer.synup.com/synup-webhooks-doc-2259000
+description: Synup publishes 43 account webhook events as OpenAPI 3.1 webhook documents (one page per
+  event) plus a delivery guide. There is no AsyncAPI document — this catalog and openapi/synup-webhooks-openapi.yml
+  are the machine-readable capture. Payload schemas are verbatim provider content and live in the OpenAPI
+  file.
+spec: openapi/synup-webhooks-openapi.yml
+asyncapi_published: false
+delivery:
+  transport: HTTPS POST with a JSON body
+  subscription_model: account-wide; a single Webhooks URL per account receives every event — there is
+    no per-event subscription
+  configuration: Synup workspace -> Settings -> Notifications -> Configure Webhooks
+  endpoint_requirements:
+  - HTTPS only, plain HTTP rejected
+  - Publicly resolvable host; loopback, RFC-1918, link-local and cloud metadata IPs are refused
+  - Respond within 10 seconds
+  - Be duplicate-tolerant — de-duplicate on the stable IDs inside data
+  ack: Return 2xx to acknowledge; any non-2xx or timeout is a failed attempt
+  ordering: not guaranteed
+  retries: Synup records attempt count, last attempt time and HTTP response code per delivery
+  gates:
+  - webhooks feature enabled on the account
+  - a Webhooks URL is set
+  - a signing secret has been generated
+  - the endpoint has passed verification
+security:
+  signature_header: X-Synup-Signature
+  algorithm: sha256=base64(HMAC-SHA256(signing_secret, raw_request_body))
+  verification_guidance:
+  - Use the raw request body bytes; re-serializing parsed JSON breaks the HMAC
+  - Compare in constant time
+  - Reject with 401 on mismatch
+  secret_rotation: Regenerating the secret invalidates the old one immediately and resets verified status;
+    changing the Webhooks URL also resets it
+  handshake:
+    event: endpoint.verification
+    request: '{"event":"endpoint.verification","nonce":"<random hex>","timestamp":"<ISO-8601 UTC>"}'
+    expected_response: HTTP 200 whose body is HMAC-SHA256(secret, nonce) as a lowercase hex string (a
+      JSON-quoted hex string is also accepted)
+envelope:
+  event: string — the dotted event name
+  timestamp: ISO-8601 UTC datetime the event was emitted
+  account_id: integer — the Synup account
+  location_id: string | null — numeric string for location-scoped events, null for brand-scoped events
+  data: object — event-specific payload
+  agency_account_id: integer — present only when the account is managed by a parent agency account
+  scope: string — present only on AI post idea events; "local" or "social"
+event_count: 43
+event_groups:
+- prefix: campaign
+  events: 6
+- prefix: connection
+  events: 6
+- prefix: endpoint
+  events: 1
+- prefix: idea
+  events: 2
+- prefix: idea_image
+  events: 2
+- prefix: idea_pipeline
+  events: 2
+- prefix: idea_series
+  events: 1
+- prefix: interaction
+  events: 2
+- prefix: listing
+  events: 1
+- prefix: profile
+  events: 3
+- prefix: rankings
+  events: 2
+- prefix: review_analytics
+  events: 2
+- prefix: social_connection
+  events: 4
+- prefix: social_post
+  events: 9
+events:
+- event: campaign.feedback_submitted
+  summary: Campaign feedback submitted
+  scope: location
+  description: 'A customer submitted a rating/feedback on the campaign''s review-funnel page. Scope: location-scoped.
+    Delivered as a signed HTTP POST to your Webhooks URL.'
+- event: campaign.recipients_added
+  summary: Campaign recipients added
+  scope: location
+  description: 'A batch of customers was enrolled into a campaign. Scope: location-scoped. Delivered as
+    a signed HTTP POST to your Webhooks URL.'
+- event: campaign.review_posted
+  summary: Review posted (campaign-attributed)
+  scope: location
+  description: 'A new review landed at a location with at least one active campaign within the 30-day
+    attribution window. Attribution is location-level. Scope: location-scoped. Delivered as a signed HTTP
+    POST to your Webhooks URL.'
+- event: campaign.send_rejected
+  summary: Campaign message send rejected
+  scope: location
+  description: 'A message could not be sent (insufficient credits, invalid contact, or provider rejection).
+    Scope: location-scoped. Delivered as a signed HTTP POST to your Webhooks URL.'
+- event: campaign.sent
+  summary: Review campaign sent
+  scope: location
+  description: 'A campaign was launched and invites started going out. Scope: location-scoped. Delivered
+    as a signed HTTP POST to your Webhooks URL.'
+- event: campaign.status_change
+  summary: Campaign message status changed
+  scope: location
+  description: 'A recipient''s message engagement changed (delivered / opened / clicked / bounced / dropped
+    / unsubscribed). Scope: location-scoped. Delivered as a signed HTTP POST to your Webhooks URL.'
+- event: connection.google_verification_failed
+  summary: Google verification failed
+  scope: location
+  description: 'A Google Business Profile verification reached a terminal failure (suspended, duplicate,
+    or fetch error). In-progress states do not fire. Scope: location-scoped. Delivered as a signed HTTP
+    POST to your Webhooks URL.'
+- event: connection.google_verification_verified
+  summary: Google verification passed
+  scope: location
+  description: 'A location''s Google Business Profile passed verification. Scope: location-scoped. Delivered
+    as a signed HTTP POST to your Webhooks URL.'
+- event: connection.listing_inaccessible
+  summary: Listing became inaccessible
+  scope: location
+  description: 'The connected account can no longer access the location''s listing (access lost even though
+    credentials may still be valid). Scope: location-scoped. Delivered as a signed HTTP POST to your Webhooks
+    URL.'
+- event: connection.location_connected
+  summary: Listing connected
+  scope: location
+  description: 'A Google or Facebook listing is newly linked to a location. Scope: location-scoped. Delivered
+    as a signed HTTP POST to your Webhooks URL.'
+- event: connection.location_disconnected
+  summary: Listing disconnected
+  scope: location
+  description: 'A Google or Facebook listing is unlinked/removed from a location. Scope: location-scoped.
+    Delivered as a signed HTTP POST to your Webhooks URL.'
+- event: connection.reauth_required
+  summary: Listing re-authorization required
+  scope: location
+  description: 'The connected account''s credentials were invalidated; the customer must reconnect / re-authorize.
+    Scope: location-scoped. Delivered as a signed HTTP POST to your Webhooks URL.'
+- event: endpoint.verification
+  summary: Endpoint verification handshake
+  scope: location
+  description: 'Endpoint-verification handshake. Sent when a customer saves or clicks "Verify" on a Webhooks
+    URL. Your endpoint must reply HTTP 200 with the lowercase hex HMAC-SHA256 of the nonce, keyed by your
+    signing secret: hex(HMAC-SHA256(signing_secret, nonce)). Synup accepts the URL only if the returned
+    digest matches. This request carries no location_id and no data object.'
+- event: idea.generated
+  summary: AI post idea generated
+  scope: brand
+  description: 'A new AI post idea was generated. Scope: local or social (see the top-level scope field).
+    Delivered as a signed HTTP POST to your Webhooks URL.'
+- event: idea.scheduled_as_post
+  summary: AI idea scheduled as post
+  scope: brand
+  description: 'An idea was linked to a published social post (social only). Scope: social (see the top-level
+    scope field). Delivered as a signed HTTP POST to your Webhooks URL.'
+- event: idea_image.generation_job_completed
+  summary: AI idea image generated
+  scope: brand
+  description: 'An AI image for an idea finished generating. Scope: local or social (see the top-level
+    scope field). Delivered as a signed HTTP POST to your Webhooks URL.'
+- event: idea_image.generation_job_failed
+  summary: AI idea image generation failed
+  scope: brand
+  description: 'An AI image for an idea failed generating. Scope: local or social (see the top-level scope
+    field). Delivered as a signed HTTP POST to your Webhooks URL.'
+- event: idea_pipeline.scrape_completed
+  summary: AI idea scrape completed
+  scope: brand
+  description: 'A website-analysis scrape job for idea generation completed. Scope: local or social (see
+    the top-level scope field). Delivered as a signed HTTP POST to your Webhooks URL.'
+- event: idea_pipeline.scrape_failed
+  summary: AI idea scrape failed
+  scope: brand
+  description: 'A website-analysis scrape job for idea generation failed terminally. Scope: local or social
+    (see the top-level scope field). Delivered as a signed HTTP POST to your Webhooks URL.'
+- event: idea_series.all_posts_generated
+  summary: AI idea series completed
+  scope: brand
+  description: 'All slots in a content series finished generating. Scope: local or social (see the top-level
+    scope field). Delivered as a signed HTTP POST to your Webhooks URL.'
+- event: interaction.response
+  summary: New response to a review received
+  scope: location
+  description: Sent when Synup detects a new response to an existing review — including responses posted
+    through Synup and responses detected directly on the platform. Responses arrive asynchronously, often
+    well after the original review. Delivered to your Webhooks URL (Reviews webhook). Location-scoped.
+    Use data.interaction.parent_id to link the response to the review it answers.
+- event: interaction.review
+  summary: New review received for a location
+  scope: location
+  description: Sent when Synup detects a new review for one of your locations on any monitored platform
+    (Google, Yelp, TripAdvisor, etc.). Delivered to your Webhooks URL (Reviews webhook — requires the
+    reviews webhook permission). Location-scoped. Social-category interactions are not delivered.
+- event: listing.submission
+  summary: Directory listing synced (success/incomplete)
+  scope: location
+  description: 'Sent when Synup finishes attempting to sync a business listing to a directory (Google,
+    Facebook, etc.), triggered by profile updates or new directory submissions. Delivered to your Webhooks
+    URL (Listings webhook). One delivery per status change — a move from incomplete to success sends two
+    separate calls. Note the compact envelope: there is no top-level timestamp or account_id, and the
+    location is'
+- event: profile.created
+  summary: Location created
+  scope: location
+  description: 'A new business location was created (customer-initiated only). Scope: location-scoped.
+    Delivered as a signed HTTP POST to your Webhooks URL.'
+- event: profile.deleted
+  summary: Location deleted
+  scope: location
+  description: 'A location was archived (soft delete; there is no hard delete). Scope: location-scoped.
+    Delivered as a signed HTTP POST to your Webhooks URL.'
+- event: profile.updated
+  summary: Location updated
+  scope: location
+  description: 'An existing location''s details were edited. Debounced to at most one delivery per location
+    per 60 seconds. Scope: location-scoped. Delivered as a signed HTTP POST to your Webhooks URL.'
+- event: rankings.gridrank_report_ready
+  summary: Grid rank report ready
+  scope: location
+  description: 'A Grid (local-rank map) report finished generating. Scope: location-scoped. Delivered
+    as a signed HTTP POST to your Webhooks URL.'
+- event: rankings.sov_snapshot_completed
+  summary: Share-of-Voice snapshot completed
+  scope: location
+  description: 'A Share-of-Voice snapshot was stored for a keyword (one event per keyword). Scope: location-scoped.
+    Delivered as a signed HTTP POST to your Webhooks URL.'
+- event: review_analytics.daily_snapshot
+  summary: Daily review analytics snapshot
+  scope: location
+  description: 'The daily review-analytics roll-up for a location. Scope: location-scoped. Delivered as
+    a signed HTTP POST to your Webhooks URL.'
+- event: review_analytics.weekly_snapshot
+  summary: Weekly review analytics snapshot
+  scope: location
+  description: 'The weekly review-analytics roll-up for a location. Scope: location-scoped. Delivered
+    as a signed HTTP POST to your Webhooks URL.'
+- event: social_connection.ad_account_status_changed
+  summary: Ad account status changed
+  scope: brand
+  description: 'A connected ad account''s status changed. Scope: brand-scoped (location_id is null). Delivered
+    as a signed HTTP POST to your Webhooks URL.'
+- event: social_connection.archived
+  summary: Social channel archived
+  scope: brand
+  description: 'A social channel connection was archived. Scope: brand-scoped (location_id is null). Delivered
+    as a signed HTTP POST to your Webhooks URL.'
+- event: social_connection.connected
+  summary: Social channel connected
+  scope: brand
+  description: 'A social channel was connected (or reconnected) to a brand. Scope: brand-scoped (location_id
+    is null). Delivered as a signed HTTP POST to your Webhooks URL.'
+- event: social_connection.disconnected
+  summary: Social channel disconnected
+  scope: brand
+  description: 'A social channel was disconnected from a brand. Scope: brand-scoped (location_id is null).
+    Delivered as a signed HTTP POST to your Webhooks URL.'
+- event: social_post.boost_active
+  summary: Boost active
+  scope: brand
+  description: 'A boost went live and is actively spending. Scope: brand-scoped (location_id is null).
+    Delivered as a signed HTTP POST to your Webhooks URL.'
+- event: social_post.boost_created
+  summary: Boost created
+  scope: brand
+  description: 'A boost (paid promotion) was created for a social post. Scope: brand-scoped (location_id
+    is null). Delivered as a signed HTTP POST to your Webhooks URL.'
+- event: social_post.boost_rejected
+  summary: Boost rejected
+  scope: brand
+  description: 'A boost was rejected by the ad platform. Scope: brand-scoped (location_id is null). Delivered
+    as a signed HTTP POST to your Webhooks URL.'
+- event: social_post.boost_stopped
+  summary: Boost stopped
+  scope: brand
+  description: 'A boost was stopped / completed. Scope: brand-scoped (location_id is null). Delivered
+    as a signed HTTP POST to your Webhooks URL.'
+- event: social_post.created
+  summary: Social post created
+  scope: brand
+  description: 'A social post was created (draft or scheduled) in Synup. Scope: brand-scoped (location_id
+    is null). Delivered as a signed HTTP POST to your Webhooks URL.'
+- event: social_post.deleted
+  summary: Social post deleted
+  scope: brand
+  description: 'A social post was archived/removed. Scope: brand-scoped (location_id is null). Delivered
+    as a signed HTTP POST to your Webhooks URL.'
+- event: social_post.failed
+  summary: Social post failed
+  scope: brand
+  description: 'A social post failed to publish on one or more platforms. Scope: brand-scoped (location_id
+    is null). Delivered as a signed HTTP POST to your Webhooks URL.'
+- event: social_post.published
+  summary: Social post published
+  scope: brand
+  description: 'A social post was published to its platforms. Scope: brand-scoped (location_id is null).
+    Delivered as a signed HTTP POST to your Webhooks URL.'
+- event: social_post.rejected
+  summary: Social post rejected
+  scope: brand
+  description: 'A social post was rejected in an approval workflow. Scope: brand-scoped (location_id is
+    null). Delivered as a signed HTTP POST to your Webhooks URL.'

@@ -1,0 +1,37 @@
+name: Synup embeddable components
+generated: '2026-08-13'
+method: derived
+source: openapi/synup-api-openapi.yml + https://www.synup.dev/
+description: 'Client-side surfaces Synup exposes for embedding in a customer or agency property, distinct
+  from the SDKs in packages/. Two families: API-configured review widgets, and a React store-locator component
+  library.'
+families:
+- family: Review widgets
+  type: hosted/embeddable widget
+  description: Configurable review display widgets that an agency embeds on a client site. Created and
+    managed through the API rather than only the dashboard.
+  configured_via: REST API v4
+  operations:
+  - POST /review_widget/add
+  options: Widget name, site sources, ratings filter (1-5) and location scope are validated server-side
+    (see SY50101, SY50110, SY50111, SY50117-SY50119 in errors/synup-error-codes.yml).
+  source: https://www.synup.dev/
+- family: Store locator components
+  type: React component library
+  package: '@synup/locator-components'
+  registry: npm
+  version: 1.11.2
+  published: '2023-03-10'
+  repository: https://github.com/synup/locator
+  description: React components that fetch and render location data from the Synup platform.
+  note: Dormant — no release since 2023.
+- family: Campaign landing pages
+  type: hosted page
+  description: Branded review-request landing pages generated per review campaign, with click and conversion
+    tracking.
+  configured_via: REST API v4 (review campaign endpoints) and the dashboard
+  source: https://www.synup.dev/
+loader_libraries: []
+notes:
+- No web-component or JS embed loader is documented on developer.synup.com; the widget surface is configured
+  through the API and rendered by Synup.

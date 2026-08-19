@@ -1,0 +1,38 @@
+name: Synup changelog
+generated: '2026-08-13'
+method: searched
+source: https://www.synup.com/en/changelog
+description: 'Synup publishes a dated product changelog ("Synup Changelog: What''s New") on its marketing
+  site, organized by week and grouped by product area. It is a PRODUCT changelog — API and webhook changes
+  are not separated out, and there is no versioned API changelog on developer.synup.com.'
+url: https://www.synup.com/en/changelog
+scheme: weekly dated posts, grouped by product area (Listings, Reputation, Analytics, Social, Agency OS)
+api_specific: false
+current_api_version: v4
+entries:
+- title: April Week 2
+  date: '2026-04-13'
+  url: https://www.synup.com/en/changelog/april-week-2
+  breaking: false
+  highlights:
+  - Automated daily/weekly/monthly client digest emails with SMTP, tone, frequency and signature configuration
+  - Brand Signals available as the first third-party app in the Synup marketplace (grid rank + SEO/AI
+    analysis)
+  - Client details page reorganized; churn risk scoring now shown as percentages across profile, reviews,
+    SEO and social
+  - Google import opened to all master client portal users regardless of pro app installation
+  - Rankings page regrouped from Top 50 into Top 10 / Above 10
+  - Expanded directory support for Indonesia
+- title: March Week 3
+  date: '2026-03-20'
+  url: https://www.synup.com/en/changelog/march-week-3
+  breaking: false
+  highlights:
+  - Earlier weekly release post; entry retained for the recent window.
+entry_count: 2
+window: the two entries the changelog index renders as of 2026-08-13
+notes:
+- The changelog index is a Webflow CMS collection; only the two most recent weekly entries are rendered
+  on the index page.
+- No RSS/Atom feed is published for the changelog.
+- API-affecting changes (new endpoints, new webhook events) are not distinguished from UI changes.

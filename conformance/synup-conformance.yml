@@ -1,0 +1,105 @@
+name: Synup standards conformance
+generated: '2026-08-13'
+method: derived
+source: openapi/synup-api-openapi.yml + https://developer.synup.com/ + live probes
+description: What Synup does and does not conform to, asserted only where there is evidence. Synup publishes
+  no compliance program, no certifications and no trust center; the strongest standards posture is on
+  the MCP surface, which implements OAuth 2.1 discovery correctly.
+standards:
+- id: openapi
+  name: OpenAPI 3.0.1 / 3.1.0
+  conforms: true
+  evidence: Synup publishes a valid OpenAPI document per endpoint (3.0.1 for REST, 3.1.0 for webhooks)
+    on developer.synup.com; 210 operations and 222 component schemas assembled into openapi/.
+- id: openapi-single-document
+  name: A single downloadable OpenAPI document
+  conforms: false
+  evidence: No /openapi.json, /openapi.yaml, /swagger.json or export URL is served on developer.synup.com,
+    api.synup.com, app.synup.com or www.synup.dev (all 404/403 as of 2026-08-13). www.synup.dev advertises
+    a "full OpenAPI 3 spec for SDK generation" that is not retrievable as one file.
+- id: oauth2
+  name: OAuth 2.0 / 2.1
+  conforms: true
+  surface: MCP only
+  evidence: https://mcp-agent.synup.com/.well-known/oauth-authorization-server (200) declares authorization_code
+    + refresh_token, PKCE S256, dynamic client registration, revocation and require_state_parameter.
+- id: rfc8414
+  name: RFC 8414 OAuth Authorization Server Metadata
+  conforms: true
+  evidence: 200 at https://mcp-agent.synup.com/.well-known/oauth-authorization-server with issuer, authorization_endpoint,
+    token_endpoint, registration_endpoint, revocation_endpoint, jwks_uri, scopes_supported.
+- id: rfc9728
+  name: RFC 9728 OAuth Protected Resource Metadata
+  conforms: true
+  evidence: 200 at https://mcp-agent.synup.com/mcp/.well-known/oauth-protected-resource, advertised from
+    the WWW-Authenticate header on an anonymous MCP call.
+- id: rfc7636
+  name: RFC 7636 PKCE
+  conforms: true
+  evidence: 'code_challenge_methods_supported: ["S256"].'
+- id: rfc7591
+  name: RFC 7591 Dynamic Client Registration
+  conforms: true
+  evidence: registration_endpoint published at https://mcp-agent.synup.com/oauth/mcp/register.
+- id: mcp
+  name: Model Context Protocol
+  conforms: true
+  evidence: Live streamable-HTTP MCP endpoint at https://mcp-agent.synup.com/mcp returning a spec-shaped
+    401 with a WWW-Authenticate resource_metadata challenge; 131 tools across 6 surfaces documented by
+    the provider.
+- id: oidc
+  name: OpenID Connect
+  conforms: false
+  evidence: /.well-known/openid-configuration is 404 on every Synup host.
+- id: rfc9457
+  name: RFC 9457 Problem Details
+  conforms: false
+  evidence: Errors are returned as {"data":..., "errors":[{"message","context","code"}]}; no application/problem+json
+    media type appears in any published operation.
+- id: rfc9116
+  name: RFC 9116 security.txt
+  conforms: false
+  evidence: /.well-known/security.txt 404 on www.synup.com, api.synup.com, developer.synup.com, www.synup.dev
+    and mcp-agent.synup.com; 403 on app.synup.com.
+- id: rfc8594
+  name: RFC 8594 Sunset header
+  conforms: false
+  evidence: No Sunset or Deprecation header convention is published; no operation is marked deprecated.
+- id: idempotency
+  name: Idempotency keys (draft-ietf-httpapi-idempotency-key)
+  conforms: false
+  evidence: No idempotency key or header appears in any of the 210 published operations.
+- id: ratelimit-headers
+  name: draft-ietf-httpapi-ratelimit-headers
+  conforms: false
+  evidence: No RateLimit-* or X-RateLimit-* header is documented or observed on live responses.
+- id: webhook-signing
+  name: HMAC webhook signing
+  conforms: true
+  evidence: 'X-Synup-Signature: sha256=base64(HMAC-SHA256(secret, raw_body)) on every delivery, plus a
+    challenge-response endpoint verification handshake.'
+- id: a2a
+  name: A2A Agent Card
+  conforms: false
+  evidence: /.well-known/agent-card.json and /.well-known/agent.json 404 on every Synup host.
+- id: graphql
+  name: GraphQL (public surface)
+  conforms: false
+  evidence: The v4 REST API is a facade over a GraphQL core — cursor connections, the data/errors envelope
+    and mutation-shaped error codes all show it — but no public /graphql endpoint or SDL is published.
+- id: llmstxt
+  name: llms.txt
+  conforms: true
+  evidence: https://developer.synup.com/llms.txt returns 200 with a 533-line index of every doc and API
+    page (no llms-full.txt).
+compliance_programs:
+  published: false
+  checked:
+  - https://www.synup.com/en/security
+  - https://www.synup.com/en/trust
+  - https://trust.synup.com/
+  - https://www.synup.com/en/gdpr
+  finding: No SOC 2, ISO 27001, PCI, HIPAA or FedRAMP claim is published. trust.synup.com 200s but redirects
+    to the application sign-in page, not a trust center.
+conforms_count: 10
+not_conforms_count: 8

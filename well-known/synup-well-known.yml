@@ -1,0 +1,189 @@
+name: Synup /.well-known/ probe
+generated: '2026-08-13'
+method: probed
+source: live HTTP probes of every Synup host in apis.yml plus the MCP host
+description: 'Result of probing the standard /.well-known/ discovery paths across every Synup host. Synup
+  serves OAuth discovery documents on its MCP host and nothing else: no security.txt, no api-catalog,
+  no ai-plugin.json, no A2A agent card on any host.'
+hits: 2
+probes:
+- host: mcp-agent.synup.com
+  path: /.well-known/oauth-authorization-server
+  url: https://mcp-agent.synup.com/.well-known/oauth-authorization-server
+  http_status: 200
+  document: true
+  file: synup-oauth-authorization-server.json
+  note: RFC 8414 authorization server metadata for the Synup MCP server. Real JSON document.
+- host: mcp-agent.synup.com
+  path: /mcp/.well-known/oauth-protected-resource
+  url: https://mcp-agent.synup.com/mcp/.well-known/oauth-protected-resource
+  http_status: 200
+  document: true
+  file: synup-oauth-protected-resource.json
+  note: RFC 9728 protected resource metadata, discovered from the WWW-Authenticate header on an anonymous
+    MCP call.
+- host: mcp-agent.synup.com
+  path: /.well-known/jwks.json
+  url: https://mcp-agent.synup.com/.well-known/jwks.json
+  http_status: 200
+  document: true
+  note: 'JWKS for the MCP OAuth issuer (RSA RS256). Not saved: rotating key material.'
+- host: mcp-agent.synup.com
+  path: /.well-known/oauth-protected-resource
+  url: https://mcp-agent.synup.com/.well-known/oauth-protected-resource
+  http_status: 404
+  document: false
+  note: Root-level PRM is not served; the RFC 9728 resource-scoped path is.
+- host: mcp-agent.synup.com
+  path: /.well-known/security.txt
+  url: https://mcp-agent.synup.com/.well-known/security.txt
+  http_status: 404
+  document: false
+- host: mcp-agent.synup.com
+  path: /.well-known/openid-configuration
+  url: https://mcp-agent.synup.com/.well-known/openid-configuration
+  http_status: 404
+  document: false
+- host: mcp-agent.synup.com
+  path: /.well-known/api-catalog
+  url: https://mcp-agent.synup.com/.well-known/api-catalog
+  http_status: 404
+  document: false
+- host: mcp-agent.synup.com
+  path: /.well-known/ai-plugin.json
+  url: https://mcp-agent.synup.com/.well-known/ai-plugin.json
+  http_status: 404
+  document: false
+- host: mcp-agent.synup.com
+  path: /.well-known/agent-card.json
+  url: https://mcp-agent.synup.com/.well-known/agent-card.json
+  http_status: 404
+  document: false
+- host: mcp-agent.synup.com
+  path: /.well-known/agent.json
+  url: https://mcp-agent.synup.com/.well-known/agent.json
+  http_status: 404
+  document: false
+- host: api.synup.com
+  path: /.well-known/security.txt
+  url: https://api.synup.com/.well-known/security.txt
+  http_status: 404
+  document: false
+- host: api.synup.com
+  path: /.well-known/openid-configuration
+  url: https://api.synup.com/.well-known/openid-configuration
+  http_status: 404
+  document: false
+- host: api.synup.com
+  path: /.well-known/oauth-authorization-server
+  url: https://api.synup.com/.well-known/oauth-authorization-server
+  http_status: 404
+  document: false
+- host: api.synup.com
+  path: /.well-known/api-catalog
+  url: https://api.synup.com/.well-known/api-catalog
+  http_status: 404
+  document: false
+- host: api.synup.com
+  path: /.well-known/ai-plugin.json
+  url: https://api.synup.com/.well-known/ai-plugin.json
+  http_status: 404
+  document: false
+- host: api.synup.com
+  path: /.well-known/agent-card.json
+  url: https://api.synup.com/.well-known/agent-card.json
+  http_status: 404
+  document: false
+- host: api.synup.com
+  path: /.well-known/agent.json
+  url: https://api.synup.com/.well-known/agent.json
+  http_status: 404
+  document: false
+- host: app.synup.com
+  path: /.well-known/security.txt
+  url: https://app.synup.com/.well-known/security.txt
+  http_status: 403
+  document: false
+  note: WAF returns {"message":"Forbidden"} for every path on this host.
+- host: app.synup.com
+  path: /.well-known/oauth-authorization-server
+  url: https://app.synup.com/.well-known/oauth-authorization-server
+  http_status: 403
+  document: false
+- host: app.synup.com
+  path: /.well-known/agent-card.json
+  url: https://app.synup.com/.well-known/agent-card.json
+  http_status: 403
+  document: false
+- host: www.synup.com
+  path: /.well-known/security.txt
+  url: https://www.synup.com/.well-known/security.txt
+  http_status: 404
+  document: false
+  note: Webflow site returns an "Invalid path" stub.
+- host: www.synup.com
+  path: /.well-known/openid-configuration
+  url: https://www.synup.com/.well-known/openid-configuration
+  http_status: 404
+  document: false
+- host: www.synup.com
+  path: /.well-known/api-catalog
+  url: https://www.synup.com/.well-known/api-catalog
+  http_status: 404
+  document: false
+- host: www.synup.com
+  path: /.well-known/ai-plugin.json
+  url: https://www.synup.com/.well-known/ai-plugin.json
+  http_status: 404
+  document: false
+- host: www.synup.com
+  path: /.well-known/agent-card.json
+  url: https://www.synup.com/.well-known/agent-card.json
+  http_status: 404
+  document: false
+- host: www.synup.com
+  path: /.well-known/agent.json
+  url: https://www.synup.com/.well-known/agent.json
+  http_status: 404
+  document: false
+- host: developer.synup.com
+  path: /.well-known/security.txt
+  url: https://developer.synup.com/.well-known/security.txt
+  http_status: 404
+  document: false
+  note: Apidog docs host answers 404 with a rendered HTML shell.
+- host: developer.synup.com
+  path: /.well-known/api-catalog
+  url: https://developer.synup.com/.well-known/api-catalog
+  http_status: 404
+  document: false
+- host: developer.synup.com
+  path: /.well-known/agent-card.json
+  url: https://developer.synup.com/.well-known/agent-card.json
+  http_status: 404
+  document: false
+- host: developer.synup.com
+  path: /.well-known/agent.json
+  url: https://developer.synup.com/.well-known/agent.json
+  http_status: 404
+  document: false
+- host: www.synup.dev
+  path: /.well-known/security.txt
+  url: https://www.synup.dev/.well-known/security.txt
+  http_status: 404
+  document: false
+- host: www.synup.dev
+  path: /.well-known/agent-card.json
+  url: https://www.synup.dev/.well-known/agent-card.json
+  http_status: 404
+  document: false
+- host: www.synup.dev
+  path: /.well-known/agent.json
+  url: https://www.synup.dev/.well-known/agent.json
+  http_status: 404
+  document: false
+notes:
+- A 200 on mcp-agent.synup.com/.well-known/oauth-authorization-server carries a real RFC 8414 document
+  — that is the WellKnown pointer.
+- No security.txt is served anywhere, so no SecurityTxt pointer is emitted.
+- No agent card was found on any host, so no a2a/ artifact and no AgentCard pointer is emitted.

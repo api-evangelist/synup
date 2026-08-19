@@ -1,0 +1,24 @@
+name: Synup OAuth scopes
+generated: '2026-08-13'
+method: probed
+source: https://mcp-agent.synup.com/.well-known/oauth-authorization-server
+docs: https://developer.synup.com/synup-mcp-getting-connected-doc-2070739
+description: The only OAuth surface Synup publishes is the MCP server. Its authorization-server metadata
+  declares two coarse scopes. The REST API v4 has no OAuth and therefore no scopes — it is API-key authenticated.
+issuer: https://mcp-agent.synup.com
+applies_to: https://mcp-agent.synup.com/mcp (and every tenant workspace domain + /mcp)
+scope_count: 2
+scopes:
+- scope: mcp:read
+  description: 'Read-only access to the Synup MCP tool surface: look up locations, reviews, rankings,
+    listings, analytics. Equivalent to X-access-mode: read for key-authenticated sessions.'
+- scope: mcp:write
+  description: 'Create, update and delete through the Synup MCP tool surface. Equivalent to X-access-mode:
+    write. Synup guidance is to start in read and switch to write deliberately.'
+granularity: coarse
+notes:
+- Both scopes were read from the live RFC 8414 document and confirmed in the WWW-Authenticate challenge
+  on an anonymous tools/list call (scope="mcp:read mcp:write").
+- There is no per-domain or per-resource scope; the X-tags-include/X-tags-exclude headers narrow which
+  tools are surfaced but are not an authorization boundary.
+- REST API v4 keys are unscoped — see authentication/synup-authentication.yml.
