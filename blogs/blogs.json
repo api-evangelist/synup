@@ -13,11 +13,17 @@
       "feed_url": "https://www.linkedin.com/company/synup",
       "title": "",
       "saved": 0,
-      "method": "none",
-      "error": "parse_failed"
+      "method": "none"
+    },
+    {
+      "source": "https://x.com/synupinc",
+      "feed_url": "https://x.com/synupinc",
+      "title": "",
+      "saved": 0,
+      "method": "none"
     }
   ],
   "post_count": 0,
-  "fetched": "2026-08-15T12:11:08Z",
+  "fetched": "2026-08-22T20:20:02Z",
   "note": "2026-08-13: https://www.synup.com/blog/ now 404s; Synup moved its content library to /en/learn."
 }
