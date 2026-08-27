@@ -42,59 +42,449 @@ tags_raw:
   - Review Management
   - Agency Software
 apis:
-  - aid: synup:synup-api
-    name: Synup API
-    description: REST API v4 for managing business locations, syndicating listings to 80+ directories, aggregating and responding to reviews, running review campaigns, tracking local search rankings with grid-rank heatmaps, publishing local and social posts, and retrieving unified profile analytics. 210 operations across 208 paths with 222 component schemas, published one OpenAPI document per endpoint on developer.synup.com.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://developer.synup.com/
-    baseURL: https://api.synup.com/api/v4
-    tags:
-      - Locations
-      - Listings
-      - Reviews
-      - Rankings
-      - Analytics
-      - Review Campaigns
-      - Posts
-      - Connected Accounts
-    properties:
-      - type: OpenAPI
-        url: openapi/synup-api-openapi.yml
-      - type: Documentation
-        url: https://developer.synup.com/
-      - type: APIReference
-        url: https://developer.synup.com/
-      - type: GettingStarted
-        url: https://developer.synup.com/synup-local-seo-api-getting-started-doc-824500
-      - type: Overlay
-        url: overlays/synup-api-overlay.yaml
-      - type: Examples
-        url: examples/synup-examples.yml
-      - type: JSONSchema
-        url: json-schema/synup-schemas.json
-      - type: Webhooks
-        url: openapi/synup-webhooks-openapi.yml
-  - aid: synup:synup-mcp
-    name: Synup MCP Server
-    description: First-party remote Model Context Protocol server enumerating 126 tools in its published tool table across six surfaces (Locations, Listings, Reviews, Rankings, Posts & Social, Account & Insights). Tenant-routed — the canonical endpoint is your own Synup workspace domain with /mcp appended. Authenticates with OAuth 2.1 (PKCE, dynamic client registration) or the same Synup API key via X-api-key.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://developer.synup.com/synup-mcp-getting-connected-doc-2070739
-    baseURL: https://mcp-agent.synup.com/mcp
-    tags:
-      - MCP
-      - AI Agents
-      - Local Marketing
-    properties:
-      - type: MCPServer
-        url: mcp/synup-mcp.yml
-      - type: ToolCrosswalk
-        url: mcp/synup-tool-crosswalk.yml
-      - type: OAuthScopes
-        url: scopes/synup-scopes.yml
-      - type: Documentation
-        url: https://developer.synup.com/synup-mcp-getting-connected-doc-2070739
-      - type: APIReference
-        url: https://synup.github.io/synup-mcp-agent/
+- aid: synup:synup-mcp
+  name: Synup MCP Server
+  description: >-
+    First-party remote Model Context Protocol server enumerating 126 tools in its published tool table
+    across six surfaces (Locations, Listings, Reviews, Rankings, Posts & Social, Account & Insights).
+    Tenant-routed — the canonical endpoint is your own Synup workspace domain with /mcp appended. Authenticates
+    with OAuth 2.1 (PKCE, dynamic client registration) or the same Synup API key via X-api-key.
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://developer.synup.com/synup-mcp-getting-connected-doc-2070739
+  baseURL: https://mcp-agent.synup.com/mcp
+  tags:
+  - MCP
+  - AI Agents
+  - Local Marketing
+  properties:
+  - type: MCPServer
+    url: mcp/synup-mcp.yml
+  - type: ToolCrosswalk
+    url: mcp/synup-tool-crosswalk.yml
+  - type: OAuthScopes
+    url: scopes/synup-scopes.yml
+  - type: Documentation
+    url: https://developer.synup.com/synup-mcp-getting-connected-doc-2070739
+  - type: APIReference
+    url: https://synup.github.io/synup-mcp-agent/
+- aid: synup:synup-automations-api
+  name: Synup Automations API
+  description: The Automations API from Synup — 1 operation(s) for automations.
+  humanURL: https://developer.synup.com/
+  baseURL: https://api.synup.com/api/v4
+  tags:
+  - Automations
+  properties:
+  - type: OpenAPI
+    url: openapi/synup-automations-api-openapi.yml
+  - type: Documentation
+    url: https://developer.synup.com/
+  - type: APIReference
+    url: https://developer.synup.com/
+  - type: GettingStarted
+    url: https://developer.synup.com/synup-local-seo-api-getting-started-doc-824500
+  - type: Examples
+    url: examples/synup-examples.yml
+  - type: JSONSchema
+    url: json-schema/synup-schemas.json
+  - type: Webhooks
+    url: openapi/synup-webhooks-openapi.yml
+- aid: synup:synup-connected-accounts-api
+  name: Synup Connected Accounts API
+  description: The Connected Accounts API from Synup — 20 operation(s) for connected accounts.
+  humanURL: https://developer.synup.com/
+  baseURL: https://api.synup.com/api/v4
+  tags:
+  - Connected Accounts
+  properties:
+  - type: OpenAPI
+    url: openapi/synup-connected-accounts-api-openapi.yml
+  - type: Documentation
+    url: https://developer.synup.com/
+  - type: APIReference
+    url: https://developer.synup.com/
+  - type: GettingStarted
+    url: https://developer.synup.com/synup-local-seo-api-getting-started-doc-824500
+  - type: Examples
+    url: examples/synup-examples.yml
+  - type: JSONSchema
+    url: json-schema/synup-schemas.json
+  - type: Webhooks
+    url: openapi/synup-webhooks-openapi.yml
+- aid: synup:synup-grid-rank-api
+  name: Synup Grid Rank API
+  description: The Grid Rank API from Synup — 3 operation(s) for grid rank.
+  humanURL: https://developer.synup.com/
+  baseURL: https://api.synup.com/api/v4
+  tags:
+  - Grid Rank
+  properties:
+  - type: OpenAPI
+    url: openapi/synup-grid-rank-api-openapi.yml
+  - type: Documentation
+    url: https://developer.synup.com/
+  - type: APIReference
+    url: https://developer.synup.com/
+  - type: GettingStarted
+    url: https://developer.synup.com/synup-local-seo-api-getting-started-doc-824500
+  - type: Examples
+    url: examples/synup-examples.yml
+  - type: JSONSchema
+    url: json-schema/synup-schemas.json
+  - type: Webhooks
+    url: openapi/synup-webhooks-openapi.yml
+- aid: synup:synup-listings-api
+  name: Synup Listings API
+  description: The Listings API from Synup — 7 operation(s) for listings.
+  humanURL: https://developer.synup.com/
+  baseURL: https://api.synup.com/api/v4
+  tags:
+  - Listings
+  properties:
+  - type: OpenAPI
+    url: openapi/synup-listings-api-openapi.yml
+  - type: Documentation
+    url: https://developer.synup.com/
+  - type: APIReference
+    url: https://developer.synup.com/
+  - type: GettingStarted
+    url: https://developer.synup.com/synup-local-seo-api-getting-started-doc-824500
+  - type: Examples
+    url: examples/synup-examples.yml
+  - type: JSONSchema
+    url: json-schema/synup-schemas.json
+  - type: Webhooks
+    url: openapi/synup-webhooks-openapi.yml
+- aid: synup:synup-local-post-ideas-api
+  name: Synup Local Post Ideas API
+  description: The Local Post Ideas API from Synup — 41 operation(s) for local post ideas.
+  humanURL: https://developer.synup.com/
+  baseURL: https://api.synup.com/api/v4
+  tags:
+  - Local Post Ideas
+  properties:
+  - type: OpenAPI
+    url: openapi/synup-local-post-ideas-api-openapi.yml
+  - type: Documentation
+    url: https://developer.synup.com/
+  - type: APIReference
+    url: https://developer.synup.com/
+  - type: GettingStarted
+    url: https://developer.synup.com/synup-local-seo-api-getting-started-doc-824500
+  - type: Examples
+    url: examples/synup-examples.yml
+  - type: JSONSchema
+    url: json-schema/synup-schemas.json
+  - type: Webhooks
+    url: openapi/synup-webhooks-openapi.yml
+- aid: synup:synup-locations-api
+  name: Synup Locations API
+  description: The Locations API from Synup — 25 operation(s) for locations.
+  humanURL: https://developer.synup.com/
+  baseURL: https://api.synup.com/api/v4
+  tags:
+  - Locations
+  properties:
+  - type: OpenAPI
+    url: openapi/synup-locations-api-openapi.yml
+  - type: Documentation
+    url: https://developer.synup.com/
+  - type: APIReference
+    url: https://developer.synup.com/
+  - type: GettingStarted
+    url: https://developer.synup.com/synup-local-seo-api-getting-started-doc-824500
+  - type: Examples
+    url: examples/synup-examples.yml
+  - type: JSONSchema
+    url: json-schema/synup-schemas.json
+  - type: Webhooks
+    url: openapi/synup-webhooks-openapi.yml
+- aid: synup:synup-menus-api
+  name: Synup Menus API
+  description: The Menus API from Synup — 5 operation(s) for menus.
+  humanURL: https://developer.synup.com/
+  baseURL: https://api.synup.com/api/v4
+  tags:
+  - Menus
+  properties:
+  - type: OpenAPI
+    url: openapi/synup-menus-api-openapi.yml
+  - type: Documentation
+    url: https://developer.synup.com/
+  - type: APIReference
+    url: https://developer.synup.com/
+  - type: GettingStarted
+    url: https://developer.synup.com/synup-local-seo-api-getting-started-doc-824500
+  - type: Examples
+    url: examples/synup-examples.yml
+  - type: JSONSchema
+    url: json-schema/synup-schemas.json
+  - type: Webhooks
+    url: openapi/synup-webhooks-openapi.yml
+- aid: synup:synup-organizing-locations-api
+  name: Synup Organizing locations API
+  description: The Organizing locations API from Synup — 14 operation(s) for organizing locations.
+  humanURL: https://developer.synup.com/
+  baseURL: https://api.synup.com/api/v4
+  tags:
+  - Organizing locations
+  properties:
+  - type: OpenAPI
+    url: openapi/synup-organizing-locations-api-openapi.yml
+  - type: Documentation
+    url: https://developer.synup.com/
+  - type: APIReference
+    url: https://developer.synup.com/
+  - type: GettingStarted
+    url: https://developer.synup.com/synup-local-seo-api-getting-started-doc-824500
+  - type: Examples
+    url: examples/synup-examples.yml
+  - type: JSONSchema
+    url: json-schema/synup-schemas.json
+  - type: Webhooks
+    url: openapi/synup-webhooks-openapi.yml
+- aid: synup:synup-posts-api
+  name: Synup Posts API
+  description: The Posts API from Synup — 6 operation(s) for posts.
+  humanURL: https://developer.synup.com/
+  baseURL: https://api.synup.com/api/v4
+  tags:
+  - Posts
+  properties:
+  - type: OpenAPI
+    url: openapi/synup-posts-api-openapi.yml
+  - type: Documentation
+    url: https://developer.synup.com/
+  - type: APIReference
+    url: https://developer.synup.com/
+  - type: GettingStarted
+    url: https://developer.synup.com/synup-local-seo-api-getting-started-doc-824500
+  - type: Examples
+    url: examples/synup-examples.yml
+  - type: JSONSchema
+    url: json-schema/synup-schemas.json
+  - type: Webhooks
+    url: openapi/synup-webhooks-openapi.yml
+- aid: synup:synup-profile-analytics-api
+  name: Synup Profile Analytics API
+  description: The Profile Analytics API from Synup — 3 operation(s) for profile analytics.
+  humanURL: https://developer.synup.com/
+  baseURL: https://api.synup.com/api/v4
+  tags:
+  - Profile Analytics
+  properties:
+  - type: OpenAPI
+    url: openapi/synup-profile-analytics-api-openapi.yml
+  - type: Documentation
+    url: https://developer.synup.com/
+  - type: APIReference
+    url: https://developer.synup.com/
+  - type: GettingStarted
+    url: https://developer.synup.com/synup-local-seo-api-getting-started-doc-824500
+  - type: Examples
+    url: examples/synup-examples.yml
+  - type: JSONSchema
+    url: json-schema/synup-schemas.json
+  - type: Webhooks
+    url: openapi/synup-webhooks-openapi.yml
+- aid: synup:synup-rankings-api
+  name: Synup Rankings API
+  description: The Rankings API from Synup — 6 operation(s) for rankings.
+  humanURL: https://developer.synup.com/
+  baseURL: https://api.synup.com/api/v4
+  tags:
+  - Rankings
+  properties:
+  - type: OpenAPI
+    url: openapi/synup-rankings-api-openapi.yml
+  - type: Documentation
+    url: https://developer.synup.com/
+  - type: APIReference
+    url: https://developer.synup.com/
+  - type: GettingStarted
+    url: https://developer.synup.com/synup-local-seo-api-getting-started-doc-824500
+  - type: Examples
+    url: examples/synup-examples.yml
+  - type: JSONSchema
+    url: json-schema/synup-schemas.json
+  - type: Webhooks
+    url: openapi/synup-webhooks-openapi.yml
+- aid: synup:synup-review-campaigns-api
+  name: Synup Review Campaigns API
+  description: The Review Campaigns API from Synup — 4 operation(s) for review campaigns.
+  humanURL: https://developer.synup.com/
+  baseURL: https://api.synup.com/api/v4
+  tags:
+  - Review Campaigns
+  properties:
+  - type: OpenAPI
+    url: openapi/synup-review-campaigns-api-openapi.yml
+  - type: Documentation
+    url: https://developer.synup.com/
+  - type: APIReference
+    url: https://developer.synup.com/
+  - type: GettingStarted
+    url: https://developer.synup.com/synup-local-seo-api-getting-started-doc-824500
+  - type: Examples
+    url: examples/synup-examples.yml
+  - type: JSONSchema
+    url: json-schema/synup-schemas.json
+  - type: Webhooks
+    url: openapi/synup-webhooks-openapi.yml
+- aid: synup:synup-reviews-api
+  name: Synup Reviews API
+  description: The Reviews API from Synup — 9 operation(s) for reviews.
+  humanURL: https://developer.synup.com/
+  baseURL: https://api.synup.com/api/v4
+  tags:
+  - Reviews
+  properties:
+  - type: OpenAPI
+    url: openapi/synup-reviews-api-openapi.yml
+  - type: Documentation
+    url: https://developer.synup.com/
+  - type: APIReference
+    url: https://developer.synup.com/
+  - type: GettingStarted
+    url: https://developer.synup.com/synup-local-seo-api-getting-started-doc-824500
+  - type: Examples
+    url: examples/synup-examples.yml
+  - type: JSONSchema
+    url: json-schema/synup-schemas.json
+  - type: Webhooks
+    url: openapi/synup-webhooks-openapi.yml
+- aid: synup:synup-reviews-review-sources-api
+  name: Synup Reviews/Review Sources API
+  description: The Reviews/Review Sources API from Synup — 3 operation(s) for reviews/review sources.
+  humanURL: https://developer.synup.com/
+  baseURL: https://api.synup.com/api/v4
+  tags:
+  - Reviews/Review Sources
+  properties:
+  - type: OpenAPI
+    url: openapi/synup-reviews-review-sources-api-openapi.yml
+  - type: Documentation
+    url: https://developer.synup.com/
+  - type: APIReference
+    url: https://developer.synup.com/
+  - type: GettingStarted
+    url: https://developer.synup.com/synup-local-seo-api-getting-started-doc-824500
+  - type: Examples
+    url: examples/synup-examples.yml
+  - type: JSONSchema
+    url: json-schema/synup-schemas.json
+  - type: Webhooks
+    url: openapi/synup-webhooks-openapi.yml
+- aid: synup:synup-social-api
+  name: Synup Social API
+  description: The Social API from Synup — 3 operation(s) for social.
+  humanURL: https://developer.synup.com/
+  baseURL: https://api.synup.com/api/v4
+  tags:
+  - Social
+  properties:
+  - type: OpenAPI
+    url: openapi/synup-social-api-openapi.yml
+  - type: Documentation
+    url: https://developer.synup.com/
+  - type: APIReference
+    url: https://developer.synup.com/
+  - type: GettingStarted
+    url: https://developer.synup.com/synup-local-seo-api-getting-started-doc-824500
+  - type: Examples
+    url: examples/synup-examples.yml
+  - type: JSONSchema
+    url: json-schema/synup-schemas.json
+  - type: Webhooks
+    url: openapi/synup-webhooks-openapi.yml
+- aid: synup:synup-social-post-ideas-api
+  name: Synup Social Post Ideas API
+  description: The Social Post Ideas API from Synup — 47 operation(s) for social post ideas.
+  humanURL: https://developer.synup.com/
+  baseURL: https://api.synup.com/api/v4
+  tags:
+  - Social Post Ideas
+  properties:
+  - type: OpenAPI
+    url: openapi/synup-social-post-ideas-api-openapi.yml
+  - type: Documentation
+    url: https://developer.synup.com/
+  - type: APIReference
+    url: https://developer.synup.com/
+  - type: GettingStarted
+    url: https://developer.synup.com/synup-local-seo-api-getting-started-doc-824500
+  - type: Examples
+    url: examples/synup-examples.yml
+  - type: JSONSchema
+    url: json-schema/synup-schemas.json
+  - type: Webhooks
+    url: openapi/synup-webhooks-openapi.yml
+- aid: synup:synup-user-management-api
+  name: Synup User Management API
+  description: The User Management API from Synup — 11 operation(s) for user management.
+  humanURL: https://developer.synup.com/
+  baseURL: https://api.synup.com/api/v4
+  tags:
+  - User Management
+  properties:
+  - type: OpenAPI
+    url: openapi/synup-user-management-api-openapi.yml
+  - type: Documentation
+    url: https://developer.synup.com/
+  - type: APIReference
+    url: https://developer.synup.com/
+  - type: GettingStarted
+    url: https://developer.synup.com/synup-local-seo-api-getting-started-doc-824500
+  - type: Examples
+    url: examples/synup-examples.yml
+  - type: JSONSchema
+    url: json-schema/synup-schemas.json
+  - type: Webhooks
+    url: openapi/synup-webhooks-openapi.yml
+- aid: synup:synup-webhooks-api
+  name: Synup Webhooks API
+  description: The Webhooks API from Synup — 0 operation(s) for webhooks.
+  humanURL: https://developer.synup.com/
+  baseURL: https://api.synup.com/api/v4
+  tags:
+  - Webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/synup-webhooks-api-openapi.yml
+  - type: Documentation
+    url: https://developer.synup.com/
+  - type: APIReference
+    url: https://developer.synup.com/
+  - type: GettingStarted
+    url: https://developer.synup.com/synup-local-seo-api-getting-started-doc-824500
+  - type: Examples
+    url: examples/synup-examples.yml
+  - type: JSONSchema
+    url: json-schema/synup-schemas.json
+  - type: Webhooks
+    url: openapi/synup-webhooks-openapi.yml
+- aid: synup:synup-webhooks-webhooks-api
+  name: Synup Webhooks/Webhooks API
+  description: The Webhooks/Webhooks API from Synup — 0 operation(s) for webhooks/webhooks.
+  humanURL: https://developer.synup.com/
+  baseURL: https://api.synup.com/api/v4
+  tags:
+  - Webhooks/Webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/synup-webhooks-webhooks-api-openapi.yml
+  - type: Documentation
+    url: https://developer.synup.com/
+  - type: APIReference
+    url: https://developer.synup.com/
+  - type: GettingStarted
+    url: https://developer.synup.com/synup-local-seo-api-getting-started-doc-824500
+  - type: Examples
+    url: examples/synup-examples.yml
+  - type: JSONSchema
+    url: json-schema/synup-schemas.json
+  - type: Webhooks
+    url: openapi/synup-webhooks-openapi.yml
 common:
   - type: Website
     url: https://www.synup.com/
