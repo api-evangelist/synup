@@ -1,6 +1,18 @@
 aid: synup
 name: Synup
 description: Synup is a local marketing platform for agencies and multi-location brands, providing a REST API (v4) for managing business locations, syndicating listing data to 80+ directories including Google, Apple, Bing and Facebook, aggregating and responding to reviews across every connected platform, running SMS and email review campaigns, tracking local search rankings with grid-rank heatmaps, publishing local and social posts, and pulling unified profile analytics. The platform serves marketing agencies with white-label tooling covering listings sync, reputation management, social media, local SEO and reporting, and ships a first-party remote MCP server so AI agents can drive the same surface as the dashboard.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: paid
   onboarding: unknown
