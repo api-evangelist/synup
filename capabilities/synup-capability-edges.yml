@@ -1,0 +1,70 @@
+slug: synup
+provider: Synup
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Media, Entertainment & Telecom Content
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 5
+edges:
+- tag: Rankings
+  spec_file: synup-rankings-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.78
+  evidence: '"Add keywords", "Get keywords performance", "Get Rankings Distribution By Time" — vendor:
+    "tracking local search rankings with grid-rank heatmaps"'
+  reason: Keyword and local search rank tracking is SEO measurement, explicitly in scope of Digital Marketing
+    Management ("Web, SEO, paid media, social"). No competing reading of 'rankings' fits these operations.
+- tag: Connected Accounts
+  spec_file: synup-connected-accounts-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.75
+  evidence: POST /connected-accounts/connect-google connectGoogleAccount Connect Google Profile to Account;
+    POST /connected-accounts/connect-facebook Connect Facebook Page to Account; POST /locations/create/gmb-listing
+    Create GMB Listing
+  reason: Operations link business locations to Google Business Profile, Apple and Facebook listings and
+    manage those listing connections — management of the brand's web/social/local-search presence, i.e.
+    digital marketing management. Not identity federation for enterprise users.
+- tag: Grid Rank
+  spec_file: synup-grid-rank-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.75
+  evidence: 'POST /create-grid-report createGridReport Create Rank Grid Report; schemas: RankPoint, GridReport;
+    ''tracking local search rankings with grid-rank heatmaps'''
+  reason: Produces geographic local search ranking reports for a location — SEO/local-search performance
+    tracking, which sits under Digital Marketing Management. Could arguably be marketing measurement,
+    hence 0.75 rather than higher.
+- tag: Local Post Ideas
+  spec_file: synup-local-post-ideas-api-openapi.yml
+  capability_id: BC-400.70
+  capability_id_l1: BC-400
+  capability_name: Content Marketing Management
+  confidence: 0.7
+  evidence: '"Generate all local series posts", "Generate local holiday idea variant", "Local calendar",
+    schema "RegenerateLocalIdeaContentRequest"'
+  reason: AI-assisted ideation, generation and calendaring of marketing posts for local business profiles
+    — editorial planning and content production for marketing, i.e. Content Marketing Management. Not
+    media production (BC-3700), which concerns audiovisual productions, not social post copy.
+- tag: Reviews
+  spec_file: synup-reviews-api-openapi.yml
+  capability_id: BC-430.50
+  capability_id_l1: BC-430
+  capability_name: Customer Feedback Management
+  confidence: 0.7
+  evidence: '"Fetch all interactions", "Respond to an Interaction", "Get Interaction Analytics", "Add
+    Review Widget", schema "Interaction"'
+  reason: Aggregation, response and analytics of customer reviews across connected platforms — collection
+    and handling of customer feedback/voice-of-customer. Not media content moderation (BC-3780.40), which
+    concerns UGC policy enforcement rather than replying to business reviews.

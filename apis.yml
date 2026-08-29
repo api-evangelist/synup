@@ -498,6 +498,9 @@ apis:
   - type: Webhooks
     url: openapi/synup-webhooks-openapi.yml
 common:
+  - type: CapabilityMap
+    url: capabilities/synup-capability-edges.yml
+    name: Synup Business Capability Map
   - type: Website
     url: https://www.synup.com/
   - type: DeveloperPortal
