@@ -1,0 +1,4269 @@
+openapi: 3.2.0
+info:
+  title: Synup Local Post Ideas API
+  version: '4'
+  description: 'REST API v4 for the Synup local marketing platform: business locations, listing syndication to 80+ directories, review/interaction aggregation and response, review campaigns, local rank tracking and grid-rank heatmaps, local and social posts, AI post ideas, menus, connected accounts, users and profile analytics.
+
+
+    ASSEMBLED BY API EVANGELIST from the per-endpoint OpenAPI documents Synup publishes on its own documentation host (developer.synup.com, Apidog project 797384). Every operation, parameter, response, example and schema below is verbatim provider content; only the merge into a single document is ours. Source index: https://developer.synup.com/llms.txt'
+  contact:
+    name: Synup Developer Documentation
+    url: https://developer.synup.com/
+  x-assembled-by: api-evangelist enrichment pipeline (local-v1)
+  x-assembled-from: 506 per-endpoint OpenAPI fragments published at https://developer.synup.com/<slug>.md
+  x-assembled-date: '2026-08-13'
+servers:
+- url: https://api.synup.com/api/v4
+  description: Base ENV (as published in every Synup doc fragment). Tenant workspace domains (https://<workspace>.synup.com/api/v4) also serve the same API.
+tags:
+- name: Local Post Ideas
+paths:
+  /local-post-ideas/analyze-reference-image:
+    get:
+      summary: Analyze reference image
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Analyzes a reference image at the given URL and returns a textual description that can be used to ground post-idea generation. Optionally pass a `category` hint to focus the analysis.
+
+        </span>'
+      operationId: analyzeReferenceImage
+      tags:
+      - Local Post Ideas
+      parameters:
+      - name: imageUrl
+        in: query
+        description: URL of the image to analyze.
+        required: true
+        example: https://cdn.example.com/photo.jpg
+        schema:
+          type: string
+      - name: category
+        in: query
+        description: Optional category hint to focus the analysis.
+        required: false
+        example: ''
+        schema:
+          type: string
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      analyzeReferenceImage:
+                        $ref: '#/components/schemas/ReferenceImageAnalysis'
+                    x-apidog-orders:
+                    - analyzeReferenceImage
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Local Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40052170-run
+  /local-post-ideas/archive-idea:
+    post:
+      summary: Archive local idea
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Archives a post idea so it no longer appears in active idea listings.
+
+        </span>'
+      operationId: archiveLocalIdea
+      tags:
+      - Local Post Ideas
+      parameters:
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ArchiveLocalIdeaRequest'
+            example:
+              ideaId: 91b2...
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      archiveLocalIdea:
+                        $ref: '#/components/schemas/LocalMutationResponse'
+                    x-apidog-orders:
+                    - archiveLocalIdea
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Local Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40052176-run
+  /local-post-ideas/archive-series:
+    post:
+      summary: Archive local series
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Archives a content series so it no longer appears in active series listings.
+
+        </span>'
+      operationId: archiveLocalSeries
+      tags:
+      - Local Post Ideas
+      parameters:
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ArchiveLocalSeriesRequest'
+            example:
+              seriesId: 3a1f...
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      archiveLocalSeries:
+                        $ref: '#/components/schemas/LocalMutationResponse'
+                    x-apidog-orders:
+                    - archiveLocalSeries
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Local Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40052177-run
+  /local-post-ideas/branch-chat-session:
+    post:
+      summary: Branch local chat session
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Creates a new chat session branched from an existing one (`parentSessionId`), optionally anchored to a subject (`subjectType`/`subjectId`). Use this to explore an alternative direction without losing the original conversation.
+
+        </span>'
+      operationId: branchLocalChatSession
+      tags:
+      - Local Post Ideas
+      parameters:
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BranchLocalChatSessionRequest'
+            example:
+              parentSessionId: 7f3c1a2e-...
+              subjectType: idea
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      branchLocalChatSession:
+                        $ref: '#/components/schemas/LocalChatSessionResponse'
+                    x-apidog-orders:
+                    - branchLocalChatSession
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Local Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40052178-run
+  /local-post-ideas/close-chat-session:
+    post:
+      summary: Close local chat session
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Closes an active AI post-idea chat session. Once closed, the session is no longer returned as the active session for the location.
+
+        </span>'
+      operationId: closeLocalChatSession
+      tags:
+      - Local Post Ideas
+      parameters:
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CloseLocalChatSessionRequest'
+            example:
+              sessionId: 7f3c1a2e-...
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      closeLocalChatSession:
+                        $ref: '#/components/schemas/LocalMutationResponse'
+                    x-apidog-orders:
+                    - closeLocalChatSession
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Local Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40052180-run
+  /local-post-ideas/generate-all-series-posts:
+    post:
+      summary: Generate all local series posts
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Generates all remaining posts for a content series in one call. Returns the generated ideas and a count.
+
+        </span>'
+      operationId: generateAllLocalSeriesPosts
+      tags:
+      - Local Post Ideas
+      parameters:
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenerateAllLocalSeriesPostsRequest'
+            example:
+              locationId: TG9jYXRpb246MQ==
+              seriesId: 3a1f...
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      generateAllLocalSeriesPosts:
+                        $ref: '#/components/schemas/LocalGenerateIdeasResponse'
+                    x-apidog-orders:
+                    - generateAllLocalSeriesPosts
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Local Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40052188-run
+  /local-post-ideas/generate-holiday-idea-variant:
+    post:
+      summary: Generate local holiday idea variant
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Generates a new post-idea variant for a given observance/holiday at a location. Optionally steer with an `observanceDate` and `topic`.
+
+        </span>'
+      operationId: generateLocalHolidayIdeaVariant
+      tags:
+      - Local Post Ideas
+      parameters:
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenerateLocalHolidayIdeaVariantRequest'
+            example:
+              locationId: TG9jYXRpb246MQ==
+              observanceName: Mother's Day
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      generateLocalHolidayIdeaVariant:
+                        $ref: '#/components/schemas/LocalRegenerateResponse'
+                    x-apidog-orders:
+                    - generateLocalHolidayIdeaVariant
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Local Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40052189-run
+  /local-post-ideas/generate-series-post:
+    post:
+      summary: Generate local series post
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Generates a single post for a content series at the given slot index.
+
+        </span>'
+      operationId: generateLocalSeriesPost
+      tags:
+      - Local Post Ideas
+      parameters:
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenerateLocalSeriesPostRequest'
+            example:
+              seriesId: 3a1f...
+              slotIndex: '0'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      generateLocalSeriesPost:
+                        $ref: '#/components/schemas/LocalRegenerateResponse'
+                    x-apidog-orders:
+                    - generateLocalSeriesPost
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Local Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40052190-run
+  /local-post-ideas/active-chat-session:
+    get:
+      summary: Local active chat session
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Returns the currently active AI post-idea chat session for a location, if one exists. Use this to resume an in-progress conversation. Set `excludeSeries` to skip sessions that belong to a content series.
+
+        </span>'
+      operationId: localActiveChatSession
+      tags:
+      - Local Post Ideas
+      parameters:
+      - name: locationId
+        in: query
+        description: Relay-encoded location ID.
+        required: true
+        example: TG9jYXRpb246MQ==
+        schema:
+          type: string
+      - name: excludeSeries
+        in: query
+        description: Exclude sessions that belong to a content series.
+        required: false
+        example: ''
+        schema:
+          type: boolean
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      localActiveChatSession:
+                        $ref: '#/components/schemas/LocalChatSession'
+                    x-apidog-orders:
+                    - localActiveChatSession
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Local Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40052193-run
+  /local-post-ideas/calendar:
+    get:
+      summary: Local calendar
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Returns the content calendar for a location — each day with its scheduled/suggested post ideas.
+
+        </span>'
+      operationId: localCalendar
+      tags:
+      - Local Post Ideas
+      parameters:
+      - name: locationId
+        in: query
+        description: Relay-encoded location ID.
+        required: true
+        example: TG9jYXRpb246MQ==
+        schema:
+          type: string
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      localCalendar:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/LocalCalendarDay'
+                    x-apidog-orders:
+                    - localCalendar
+                    x--orders:
+                    - localCalendar
+                    x--ignore-properties: []
+                x-apidog-orders:
+                - data
+                x--orders:
+                - data
+                x--ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x--orders: []
+                x--ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Local Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40052194-run
+  /local-post-ideas/chat-history:
+    get:
+      summary: Local chat history
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Returns the messages for a given AI post-idea chat session, in sequence. Use `limit` to cap the number of messages returned.
+
+        </span>'
+      operationId: localChatHistory
+      tags:
+      - Local Post Ideas
+      parameters:
+      - name: sessionId
+        in: query
+        description: Chat session ID.
+        required: true
+        example: 7f3c1a2e-...
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: Maximum number of messages to return.
+        required: false
+        example: 50
+        schema:
+          type: integer
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      localChatHistory:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/LocalChatMessage'
+                    x-apidog-orders:
+                    - localChatHistory
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Local Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40052196-run
+  /local-post-ideas/chat-sessions:
+    get:
+      summary: Local chat sessions
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Returns the AI post-idea chat sessions for a location, most recent first. Use `limit` to cap the number of sessions returned.
+
+        </span>'
+      operationId: localChatSessions
+      tags:
+      - Local Post Ideas
+      parameters:
+      - name: locationId
+        in: query
+        description: Relay-encoded location ID.
+        required: true
+        example: TG9jYXRpb246MQ==
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: Maximum number of sessions to return.
+        required: false
+        example: 20
+        schema:
+          type: integer
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      localChatSessions:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/LocalChatSession'
+                    x-apidog-orders:
+                    - localChatSessions
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Local Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40052241-run
+  /local-post-ideas/content-series-detail:
+    get:
+      summary: Local content series detail
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Returns a single content series by ID, including its posts, theme, status, and post counts.
+
+        </span>'
+      operationId: localContentSeriesDetail
+      tags:
+      - Local Post Ideas
+      parameters:
+      - name: seriesId
+        in: query
+        description: ID of the content series.
+        required: true
+        example: 3a1f...
+        schema:
+          type: string
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      localContentSeriesDetail:
+                        $ref: '#/components/schemas/LocalContentSeries'
+                    x-apidog-orders:
+                    - localContentSeriesDetail
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Local Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40052244-run
+  /local-post-ideas/content-series-list:
+    get:
+      summary: Local content series list
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Returns the content series for a location — multi-post campaigns with a shared theme, including post counts and status.
+
+        </span>'
+      operationId: localContentSeriesList
+      tags:
+      - Local Post Ideas
+      parameters:
+      - name: locationId
+        in: query
+        description: Relay-encoded location ID.
+        required: true
+        example: TG9jYXRpb246MQ==
+        schema:
+          type: string
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      localContentSeriesList:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/LocalContentSeries'
+                    x-apidog-orders:
+                    - localContentSeriesList
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Local Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40052297-run
+  /local-post-ideas/extended-config:
+    get:
+      summary: Local extended config
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Returns the extended generation config for a location — brand tone, target customers, contact/address, brand colors and logos, and the services/products/content-rules used to ground post-idea generation.
+
+        </span>'
+      operationId: localExtendedConfig
+      tags:
+      - Local Post Ideas
+      parameters:
+      - name: locationId
+        in: query
+        description: Relay-encoded location ID.
+        required: true
+        example: TG9jYXRpb246MQ==
+        schema:
+          type: string
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      localExtendedConfig:
+                        $ref: '#/components/schemas/ExtendedLocationConfig'
+                    x-apidog-orders:
+                    - localExtendedConfig
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Local Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40052300-run
+  /local-post-ideas/holiday-idea-variants:
+    get:
+      summary: Local holiday idea variants
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Returns the generated post-idea variants for a given observance/holiday at a location. Each item is a post idea (see Local post idea for the full shape).
+
+        </span>'
+      operationId: localHolidayIdeaVariants
+      tags:
+      - Local Post Ideas
+      parameters:
+      - name: locationId
+        in: query
+        description: Relay-encoded location ID.
+        required: true
+        example: TG9jYXRpb246MQ==
+        schema:
+          type: string
+      - name: observanceName
+        in: query
+        description: Name of the observance/holiday.
+        required: true
+        example: Mother's Day
+        schema:
+          type: string
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      localHolidayIdeaVariants:
+                        type: array
+                        description: Post ideas (see Local post idea for the full shape).
+                        items:
+                          type: object
+                          x-apidog-orders: []
+                    x-apidog-orders:
+                    - localHolidayIdeaVariants
+                x-apidog-orders:
+                - data
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Local Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40052301-run
+  /local-post-ideas/idea-job-status:
+    get:
+      summary: Local idea job status
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Returns the async job status for a post idea (used to poll image generation) — the current status and, when ready, the generated image URL.
+
+        </span>'
+      operationId: localIdeaJobStatus
+      tags:
+      - Local Post Ideas
+      parameters:
+      - name: ideaId
+        in: query
+        description: ID of the post idea.
+        required: true
+        example: 91b2...
+        schema:
+          type: string
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      localIdeaJobStatus:
+                        $ref: '#/components/schemas/LocalIdeaJobStatus'
+                    x-apidog-orders:
+                    - localIdeaJobStatus
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Local Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40052552-run
+  /local-post-ideas/image-credits:
+    get:
+      summary: Local image credits
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Returns the image-generation credit status for a location — monthly limit, used/remaining this month, and any add-on credit pool.
+
+        </span>'
+      operationId: localImageCredits
+      tags:
+      - Local Post Ideas
+      parameters:
+      - name: locationId
+        in: query
+        description: Relay-encoded location ID.
+        required: true
+        example: TG9jYXRpb246MQ==
+        schema:
+          type: string
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      localImageCredits:
+                        $ref: '#/components/schemas/LocalImageCredits'
+                    x-apidog-orders:
+                    - localImageCredits
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Local Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40052720-run
+  /local-post-ideas/location-info:
+    get:
+      summary: Local location info
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Returns the basic location profile used by post-idea generation — name, site URL, categories, and contact/address details.
+
+        </span>'
+      operationId: localLocationInfo
+      tags:
+      - Local Post Ideas
+      parameters:
+      - name: locationId
+        in: query
+        description: Relay-encoded location ID.
+        required: true
+        example: TG9jYXRpb246MQ==
+        schema:
+          type: string
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      localLocationInfo:
+                        $ref: '#/components/schemas/LocalLocationInfo'
+                    x-apidog-orders:
+                    - localLocationInfo
+                    x--orders:
+                    - localLocationInfo
+                    x--ignore-properties: []
+                x-apidog-orders:
+                - data
+                x--orders:
+                - data
+                x--ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x--orders: []
+                x--ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Local Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40052818-run
+  /local-post-ideas/observances:
+    get:
+      summary: Local observances
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Returns the observances (holidays, awareness days, etc.) for a given month, optionally narrowed to a specific day of the month.
+
+        </span>'
+      operationId: localObservances
+      tags:
+      - Local Post Ideas
+      parameters:
+      - name: month
+        in: query
+        description: Month number (1-12).
+        required: true
+        example: 5
+        schema:
+          type: integer
+      - name: date
+        in: query
+        description: Day of the month to narrow to.
+        required: false
+        example: 0
+        schema:
+          type: integer
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      localObservances:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/LocalObservance'
+                    x-apidog-orders:
+                    - localObservances
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Local Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40052821-run
+  /local-post-ideas/observances-with-ideas:
+    get:
+      summary: Local observances with ideas
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Returns the observances for a month for a location, each joined with its generated post idea (if any) — including whether ideas are ready and the idea''s title/content/image.
+
+        </span>'
+      operationId: localObservancesWithIdeas
+      tags:
+      - Local Post Ideas
+      parameters:
+      - name: locationId
+        in: query
+        description: Relay-encoded location ID.
+        required: true
+        example: TG9jYXRpb246MQ==
+        schema:
+          type: string
+      - name: month
+        in: query
+        description: Month number (1-12).
+        required: true
+        example: 5
+        schema:
+          type: integer
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      localObservancesWithIdeas:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/LocalObservanceWithIdea'
+                    x-apidog-orders:
+                    - localObservancesWithIdeas
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Local Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40052823-run
+  /local-post-ideas/pipeline-status:
+    get:
+      summary: Local pipeline status
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Returns the status of the post-idea generation pipeline for a location — current step, steps completed/remaining, and any error.
+
+        </span>'
+      operationId: localPipelineStatus
+      tags:
+      - Local Post Ideas
+      parameters:
+      - name: locationId
+        in: query
+        description: Relay-encoded location ID.
+        required: true
+        example: TG9jYXRpb246MQ==
+        schema:
+          type: string
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      localPipelineStatus:
+                        $ref: '#/components/schemas/LocalPipelineStatus'
+                    x-apidog-orders:
+                    - localPipelineStatus
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Local Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40052824-run
+  /local-post-ideas/post-idea:
+    get:
+      summary: Local post idea
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Returns a single AI post idea by its ID, including its content, image, scheduling, call-to-action, and generation metadata.
+
+        </span>'
+      operationId: localPostIdea
+      tags:
+      - Local Post Ideas
+      parameters:
+      - name: ideaId
+        in: query
+        description: ID of the post idea.
+        required: true
+        example: 91b2...
+        schema:
+          type: string
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      localPostIdea:
+                        $ref: '#/components/schemas/LocalPostIdea'
+                    x-apidog-orders:
+                    - localPostIdea
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Local Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40052825-run
+  /local-post-ideas/post-idea-counts:
+    get:
+      summary: Local post idea counts
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Returns post-idea counts for a location, broken down by bucket: AI- generated (`ai`), user-created (`mine`), series (`series`), and the total (`all`).
+
+        </span>'
+      operationId: localPostIdeaCounts
+      tags:
+      - Local Post Ideas
+      parameters:
+      - name: locationId
+        in: query
+        description: Relay-encoded location ID.
+        required: true
+        example: TG9jYXRpb246MQ==
+        schema:
+          type: string
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      localPostIdeaCounts:
+                        $ref: '#/components/schemas/PostIdeaCounts'
+                    x-apidog-orders:
+                    - localPostIdeaCounts
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Local Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40053202-run
+  /local-post-ideas/post-ideas:
+    get:
+      summary: Local post ideas
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Returns the AI post ideas for a location. Filter by `bucket` (e.g. idea, calendar, series) and `filter` (e.g. ai vs mine), and page with `limit`/`offset`.
+
+        </span>'
+      operationId: localPostIdeas
+      tags:
+      - Local Post Ideas
+      parameters:
+      - name: locationId
+        in: query
+        description: Relay-encoded location ID.
+        required: true
+        example: TG9jYXRpb246MQ==
+        schema:
+          type: string
+      - name: bucket
+        in: query
+        description: Bucket to filter by (e.g. idea, calendar, series). Defaults to idea.
+        required: false
+        example: ''
+        schema:
+          type: string
+      - name: filter
+        in: query
+        description: Source filter (e.g. ai or mine).
+        required: false
+        example: ''
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: Maximum number of ideas to return.
+        required: false
+        example: 12
+        schema:
+          type: integer
+      - name: offset
+        in: query
+        description: Number of ideas to skip.
+        required: false
+        example: 0
+        schema:
+          type: integer
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      localPostIdeas:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/LocalPostIdea'
+                    x-apidog-orders:
+                    - localPostIdeas
+                    x--orders:
+                    - localPostIdeas
+                    x--ignore-properties: []
+                x-apidog-orders:
+                - data
+                x--orders:
+                - data
+                x--ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x--orders: []
+                x--ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Local Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40053207-run
+  /local-post-ideas/reference-images:
+    get:
+      summary: Local reference images
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Returns the available reference image options for a location — images that can be used to ground post-idea image generation.
+
+        </span>'
+      operationId: localReferenceImages
+      tags:
+      - Local Post Ideas
+      parameters:
+      - name: locationId
+        in: query
+        description: Relay-encoded location ID.
+        required: true
+        example: TG9jYXRpb246MQ==
+        schema:
+          type: string
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      localReferenceImages:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/ReferenceImageOption'
+                    x-apidog-orders:
+                    - localReferenceImages
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Local Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40053209-run
+  /local-post-ideas/scraped-context:
+    get:
+      summary: Local scraped context
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Returns the context scraped from the location''s website that grounds post-idea generation — business name/description, services, products, pricing, brand colors/logo, tone, and target customers.
+
+        </span>'
+      operationId: localScrapedContext
+      tags:
+      - Local Post Ideas
+      parameters:
+      - name: locationId
+        in: query
+        description: Relay-encoded location ID.
+        required: true
+        example: TG9jYXRpb246MQ==
+        schema:
+          type: string
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      localScrapedContext:
+                        $ref: '#/components/schemas/ScrapedLocationContext'
+                    x-apidog-orders:
+                    - localScrapedContext
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Local Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40053257-run
+  /local-post-ideas/refresh-ideas:
+    post:
+      summary: Refresh local ideas
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Regenerates the set of AI post ideas for a location. Returns a pipeline ID; poll Local pipeline status for progress.
+
+        </span>'
+      operationId: refreshLocalIdeas
+      tags:
+      - Local Post Ideas
+      parameters:
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RefreshLocalIdeasRequest'
+            example:
+              locationId: TG9jYXRpb246MQ==
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      refreshLocalIdeas:
+                        $ref: '#/components/schemas/LocalTriggerPipelineResponse'
+                    x-apidog-orders:
+                    - refreshLocalIdeas
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Local Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40053261-run
+  /local-post-ideas/regenerate-idea:
+    post:
+      summary: Regenerate local idea
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Regenerates an entire post idea — both content and image. Optionally steer the result with a `topic`.
+
+        </span>'
+      operationId: regenerateLocalIdea
+      tags:
+      - Local Post Ideas
+      parameters:
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegenerateLocalIdeaRequest'
+            example:
+              ideaId: 91b2...
+              topic: weekend sale
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      regenerateLocalIdea:
+                        $ref: '#/components/schemas/LocalRegenerateResponse'
+                    x-apidog-orders:
+                    - regenerateLocalIdea
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Local Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40053275-run
+  /local-post-ideas/regenerate-idea-content:
+    post:
+      summary: Regenerate local idea content
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Regenerates the text content (title/copy) of an existing post idea, keeping its image. Optionally steer the result with a `topic`.
+
+        </span>'
+      operationId: regenerateLocalIdeaContent
+      tags:
+      - Local Post Ideas
+      parameters:
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegenerateLocalIdeaContentRequest'
+            example:
+              ideaId: 91b2...
+              topic: weekend sale
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      regenerateLocalIdeaContent:
+                        $ref: '#/components/schemas/LocalRegenerateResponse'
+                    x-apidog-orders:
+                    - regenerateLocalIdeaContent
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Local Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40053278-run
+  /local-post-ideas/regenerate-idea-image:
+    post:
+      summary: Regenerate local idea image
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Regenerates the image of an existing post idea, keeping its text content. Image generation is asynchronous — poll the idea (or its job status) for the new image URL.
+
+        </span>'
+      operationId: regenerateLocalIdeaImage
+      tags:
+      - Local Post Ideas
+      parameters:
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegenerateLocalIdeaImageRequest'
+            example:
+              ideaId: 91b2...
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      regenerateLocalIdeaImage:
+                        $ref: '#/components/schemas/LocalRegenerateResponse'
+                    x-apidog-orders:
+                    - regenerateLocalIdeaImage
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Local Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40053282-run
+  /local-post-ideas/schedule-series:
+    post:
+      summary: Schedule local series
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Schedules a content series'' posts starting from a given date. Returns the scheduled posts.
+
+        </span>'
+      operationId: scheduleLocalSeries
+      tags:
+      - Local Post Ideas
+      parameters:
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScheduleLocalSeriesRequest'
+            example:
+              seriesId: 3a1f...
+              startDate: '2026-05-01'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      scheduleLocalSeries:
+                        $ref: '#/components/schemas/LocalScheduleSeriesResponse'
+                    x-apidog-orders:
+                    - scheduleLocalSeries
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Local Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40053284-run
+  /local-post-ideas/scrape-location:
+    post:
+      summary: Scrape location
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Triggers a scrape of the location''s website to refresh the context used for post-idea generation. Provide the `siteUrl` to scrape; `trigger` optionally records what initiated the scrape.
+
+        </span>'
+      operationId: scrapeLocation
+      tags:
+      - Local Post Ideas
+      parameters:
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScrapeLocationRequest'
+            example:
+              locationId: TG9jYXRpb246MQ==
+              siteUrl: https://example.com
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      scrapeLocation:
+                        $ref: '#/components/schemas/LocalMutationResponse'
+                    x-apidog-orders:
+                    - scrapeLocation
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Local Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40053286-run
+  /local-post-ideas/send-chat-message:
+    post:
+      summary: Send local chat message
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Sends a message to an AI post-idea chat session and returns the assistant''s reply. The response may include a generated post idea card (`postCard`), follow-up action chips, and a series plan when relevant. Optionally attach `referenceImageUrls` for image-grounded generation.
+
+        </span>'
+      operationId: sendLocalChatMessage
+      tags:
+      - Local Post Ideas
+      parameters:
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SendLocalChatMessageRequest'
+            example:
+              sessionId: 7f3c1a2e-...
+              message: Give me a post idea for our weekend sale
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      sendLocalChatMessage:
+                        $ref: '#/components/schemas/LocalChatMessageResponse'
+                    x-apidog-orders:
+                    - sendLocalChatMessage
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Local Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40053287-run
+  /local-post-ideas/set-location-image-credits:
+    post:
+      summary: Set location image credits
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Sets the monthly image-generation credit limit for a location and whether image-credit metering is active. Returns the updated credit status.
+
+        </span>'
+      operationId: setLocationImageCredits
+      tags:
+      - Local Post Ideas
+      parameters:
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetLocationImageCreditsRequest'
+            example:
+              locationId: TG9jYXRpb246MQ==
+              monthlyLimit: 100
+              isActive: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      setLocationImageCredits:
+                        $ref: '#/components/schemas/LocalImageCredits'
+                    x-apidog-orders:
+                    - setLocationImageCredits
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Local Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40053288-run
+  /local-post-ideas/start-chat-session:
+    post:
+      summary: Start local chat session
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Starts a new AI post-idea chat session for a location. Optionally seed the session with an `intent`, a `mode` (e.g. fast), and a subject (`subjectType`/`subjectId`) to anchor the conversation to an existing idea or series.
+
+        </span>'
+      operationId: startLocalChatSession
+      tags:
+      - Local Post Ideas
+      parameters:
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StartLocalChatSessionRequest'
+            example:
+              locationId: TG9jYXRpb246MQ==
+              mode: fast
+              intent: idea
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      startLocalChatSession:
+                        $ref: '#/components/schemas/LocalChatSessionResponse'
+                    x-apidog-orders:
+                    - startLocalChatSession
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Local Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40053319-run
+  /local-post-ideas/suggest-posts-for-date:
+    post:
+      summary: Suggest local posts for date
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Generates suggested post ideas for a location on a specific date. Returns the generated ideas and a count.
+
+        </span>'
+      operationId: suggestLocalPostsForDate
+      tags:
+      - Local Post Ideas
+      parameters:
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SuggestLocalPostsForDateRequest'
+            example:
+              locationId: TG9jYXRpb246MQ==
+              date: '2026-05-01'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      suggestLocalPostsForDate:
+                        $ref: '#/components/schemas/LocalGenerateIdeasResponse'
+                    x-apidog-orders:
+                    - suggestLocalPostsForDate
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Local Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40053321-run
+  /local-post-ideas/switch-chat-mode:
+    post:
+      summary: Switch local chat mode
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Switches the generation mode of an existing AI post-idea chat session (for example between a fast and a more thorough mode).
+
+        </span>'
+      operationId: switchLocalChatMode
+      tags:
+      - Local Post Ideas
+      parameters:
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SwitchLocalChatModeRequest'
+            example:
+              sessionId: 7f3c1a2e-...
+              mode: thorough
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      switchLocalChatMode:
+                        $ref: '#/components/schemas/LocalMutationResponse'
+                    x-apidog-orders:
+                    - switchLocalChatMode
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Local Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40053323-run
+  /local-post-ideas/trigger-pipeline:
+    post:
+      summary: Trigger local pipeline
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Triggers the full post-idea generation pipeline for a location. Returns a pipeline ID; poll Local pipeline status for progress.
+
+        </span>'
+      operationId: triggerLocalPipeline
+      tags:
+      - Local Post Ideas
+      parameters:
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TriggerLocalPipelineRequest'
+            example:
+              locationId: TG9jYXRpb246MQ==
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      triggerLocalPipeline:
+                        $ref: '#/components/schemas/LocalTriggerPipelineResponse'
+                    x-apidog-orders:
+                    - triggerLocalPipeline
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Local Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40053325-run
+  /local-post-ideas/update-idea:
+    post:
+      summary: Update local idea
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Updates an existing post idea''s editable fields — title, content, status, call-to-action, scheduling, bucket, note, and target platforms. Only the fields you send are changed.
+
+        </span>'
+      operationId: updateLocalIdea
+      tags:
+      - Local Post Ideas
+      parameters:
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateLocalIdeaRequest'
+            example:
+              ideaId: 91b2...
+              title: Weekend Sale!
+              status: scheduled
+              scheduledDate: '2026-05-01'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      updateLocalIdea:
+                        $ref: '#/components/schemas/LocalRegenerateResponse'
+                    x-apidog-orders:
+                    - updateLocalIdea
+                    x--orders:
+                    - updateLocalIdea
+                    x--ignore-properties: []
+                x-apidog-orders:
+                - data
+                x--orders:
+                - data
+                x--ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x--orders: []
+                x--ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Local Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40053326-run
+  /local-post-ideas/upsert-extended-location-config:
+    post:
+      summary: Upsert extended location config
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Creates or updates the extended generation config for a location — brand tone, target customers, contact/address, brand colors and logos, and the services/products/content-rules that ground post-idea generation. Only the fields you send are changed. `services`, `products`, and `contentRules` are JSON values.
+
+        </span>'
+      operationId: upsertExtendedLocationConfig
+      tags:
+      - Local Post Ideas
+      parameters:
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpsertExtendedLocationConfigRequest'
+            example:
+              locationId: TG9jYXRpb246MQ==
+              tone: friendly
+              targetCustomers: families
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      upsertExtendedLocationConfig:
+                        $ref: '#/components/schemas/LocalMutationResponse'
+                    x-apidog-orders:
+                    - upsertExtendedLocationConfig
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Local Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40053377-run
+components:
+  schemas:
+    ArchiveLocalSeriesRequest:
+      type: object
+      required:
+      - seriesId
+      properties:
+        seriesId:
+          type: string
+      x-apidog-orders:
+      - seriesId
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    RegenerateLocalIdeaContentRequest:
+      type: object
+      required:
+      - ideaId
+      properties:
+        ideaId:
+          type: string
+        topic:
+          type: string
+      x-apidog-orders:
+      - ideaId
+      - topic
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    ReferenceImageOption:
+      type: object
+      properties:
+        url:
+          type: string
+        category:
+          type: string
+      x-apidog-orders:
+      - url
+      - category
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    LocalObservance:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        description:
+          type: string
+        date:
+          type: string
+        imageUrl:
+          type: string
+        isMonthLong:
+          type: boolean
+      x-apidog-orders:
+      - id
+      - title
+      - description
+      - date
+      - imageUrl
+      - isMonthLong
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    LocalLocationInfo:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        siteUrl:
+          type: string
+        primaryCategory:
+          type: string
+        categories:
+          type: array
+          items:
+            type: string
+        country:
+          type: string
+        phone:
+          type: string
+        address:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+      x-apidog-orders:
+      - id
+      - name
+      - siteUrl
+      - primaryCategory
+      - categories
+      - country
+      - phone
+      - address
+      - city
+      - state
+      x--orders:
+      - id
+      - name
+      - siteUrl
+      - primaryCategory
+      - categories
+      - country
+      - phone
+      - address
+      - city
+      - state
+      x--ignore-properties: []
+      x-apidog-folder: ''
+    LocalImageCredits:
+      type: object
+      properties:
+        locationId:
+          type: string
+        monthlyLimit:
+          type: integer
+        isActive:
+          type: boolean
+        usedThisMonth:
+          type: integer
+        remainingThisMonth:
+          type: integer
+        addonPurchased:
+          type: integer
+        addonConsumed:
+          type: integer
+        addonRemaining:
+          type: integer
+      x-apidog-orders:
+      - locationId
+      - monthlyLimit
+      - isActive
+      - usedThisMonth
+      - remainingThisMonth
+      - addonPurchased
+      - addonConsumed
+      - addonRemaining
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    RegenerateLocalIdeaRequest:
+      type: object
+      required:
+      - ideaId
+      properties:
+        ideaId:
+          type: string
+        topic:
+          type: string
+      x-apidog-orders:
+      - ideaId
+      - topic
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    ScheduleLocalSeriesRequest:
+      type: object
+      required:
+      - seriesId
+      - startDate
+      properties:
+        seriesId:
+          type: string
+        startDate:
+          type: string
+          description: Series start date (YYYY-MM-DD).
+      x-apidog-orders:
+      - seriesId
+      - startDate
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    CloseLocalChatSessionRequest:
+      type: object
+      required:
+      - sessionId
+      properties:
+        sessionId:
+          type: string
+      x-apidog-orders:
+      - sessionId
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    LocalChatMessageResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          $ref: '#/components/schemas/LocalChatMessage'
+        postCard:
+          type: object
+          description: Generated post idea card (see Local post ideas), when produced.
+          x-apidog-orders: []
+        seriesPlan:
+          type: object
+          description: Content-series plan, when produced.
+          x-apidog-orders: []
+        actionChips:
+          type: array
+          items:
+            $ref: '#/components/schemas/ActionChip'
+        error:
+          $ref: '#/components/schemas/LocalError'
+      x-apidog-orders:
+      - success
+      - message
+      - postCard
+      - seriesPlan
+      - actionChips
+      - error
+      x-apidog-folder: ''
+    UpsertExtendedLocationConfigRequest:
+      type: object
+      required:
+      - locationId
+      properties:
+        locationId:
+          type: string
+        tone:
+          type: string
+        targetCustomers:
+          type: string
+        country:
+          type: string
+        phone:
+          type: string
+        address:
+          type: string
+        location:
+          type: string
+        primaryColor:
+          type: string
+        secondaryColor:
+          type: string
+        logoLight:
+          type: string
+        logoDark:
+          type: string
+        services:
+          type: object
+          description: Free-form JSON describing services.
+          x-apidog-orders: []
+          properties: {}
+          x-apidog-ignore-properties: []
+        products:
+          type: object
+          description: Free-form JSON describing products.
+          x-apidog-orders: []
+          properties: {}
+          x-apidog-ignore-properties: []
+        contentRules:
+          type: object
+          description: Free-form JSON content rules.
+          x-apidog-orders: []
+          properties: {}
+          x-apidog-ignore-properties: []
+        additionalContext:
+          type: string
+      x-apidog-orders:
+      - locationId
+      - tone
+      - targetCustomers
+      - country
+      - phone
+      - address
+      - location
+      - primaryColor
+      - secondaryColor
+      - logoLight
+      - logoDark
+      - services
+      - products
+      - contentRules
+      - additionalContext
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    ActionChip:
+      type: object
+      properties:
+        label:
+          type: string
+        emoji:
+          type: string
+        action:
+          type: string
+      x-apidog-orders:
+      - label
+      - emoji
+      - action
+      x-apidog-folder: ''
+    LocalError:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+        contextInfo:
+          type: array
+          items:
+            type: object
+            properties:
+              key:
+                type: string
+              value:
+                type: string
+            x-apidog-orders:
+            - key
+            - value
+            x-apidog-ignore-properties: []
+      x-apidog-orders:
+      - message
+      - code
+      - contextInfo
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    GenerateLocalHolidayIdeaVariantRequest:
+      type: object
+      required:
+      - locationId
+      - observanceName
+      properties:
+        locationId:
+          type: string
+        observanceName:
+          type: string
+        observanceDate:
+          type: string
+        topic:
+          type: string
+      x-apidog-orders:
+      - locationId
+      - observanceName
+      - observanceDate
+      - topic
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    SetLocationImageCreditsRequest:
+      type: object
+      required:
+      - locationId
+      properties:
+        locationId:
+          type: string
+        monthlyLimit:
+          type: integer
+        isActive:
+          type: boolean
+      x-apidog-orders:
+      - locationId
+      - monthlyLimit
+      - isActive
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    LocalRegenerateResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        idea:
+          type: object
+          description: The updated post idea (see Local post idea for the full shape).
+          x-apidog-orders: []
+          properties: {}
+          x-apidog-ignore-properties: []
+        error:
+          $ref: '#/components/schemas/LocalError'
+      x-apidog-orders:
+      - success
+      - idea
+      - error
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    LocalObservanceWithIdea:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        description:
+          type: string
+        date:
+          type: string
+        imageUrl:
+          type: string
+        isMonthLong:
+          type: boolean
+        ideasReady:
+          type: boolean
+        isRelevant:
+          type: boolean
+        postIdeaId:
+          type: string
+        postImageUrl:
+          type: string
+        postTitle:
+          type: string
+        postType:
+          type: string
+        postContent:
+          type: string
+        postImagePrompt:
+          type: string
+      x-apidog-orders:
+      - id
+      - title
+      - description
+      - date
+      - imageUrl
+      - isMonthLong
+      - ideasReady
+      - isRelevant
+      - postIdeaId
+      - postImageUrl
+      - postTitle
+      - postType
+      - postContent
+      - postImagePrompt
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    StartLocalChatSessionRequest:
+      type: object
+      required:
+      - locationId
+      properties:
+        locationId:
+          type: string
+          description: Relay-encoded location ID.
+        intent:
+          type: string
+          description: Conversation intent (e.g. idea).
+        mode:
+          type: string
+          description: Generation mode (e.g. fast).
+        subjectType:
+          type: string
+        subjectId:
+          type: string
+      x-apidog-orders:
+      - locationId
+      - intent
+      - mode
+      - subjectType
+      - subjectId
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    LocalIdeaJobStatus:
+      type: object
+      properties:
+        status:
+          type: string
+        imageUrl:
+          type: string
+      x-apidog-orders:
+      - status
+      - imageUrl
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    GenerateLocalSeriesPostRequest:
+      type: object
+      required:
+      - seriesId
+      - slotIndex
+      properties:
+        seriesId:
+          type: string
+        slotIndex:
+          type: string
+      x-apidog-orders:
+      - seriesId
+      - slotIndex
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    LocalPipelineStatus:
+      type: object
+      properties:
+        id:
+          type: string
+        locationId:
+          type: integer
+        pipelineType:
+          type: string
+        status:
+          type: string
+        currentStep:
+          type: string
+        stepsCompleted:
+          type: array
+          items:
+            type: string
+        stepsRemaining:
+          type: array
+          items:
+            type: string
+        errorMessage:
+          type: string
+        startedAt:
+          type: string
+        completedAt:
+          type: string
+      x-apidog-orders:
+      - id
+      - locationId
+      - pipelineType
+      - status
+      - currentStep
+      - stepsCompleted
+      - stepsRemaining
+      - errorMessage
+      - startedAt
+      - completedAt
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    ReferenceImageAnalysis:
+      type: object
+      properties:
+        description:
+          type: string
+          description: Textual description of the analyzed image.
+      x-apidog-orders:
+      - description
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    PostIdeaCounts:
+      type: object
+      properties:
+        ai:
+          type: integer
+        mine:
+          type: integer
+        series:
+          type: integer
+        all:
+          type: integer
+      x-apidog-orders:
+      - ai
+      - mine
+      - series
+      - all
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    TriggerLocalPipelineRequest:
+      type: object
+      required:
+      - locationId
+      properties:
+        locationId:
+          type: string
+      x-apidog-orders:
+      - locationId
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    ExtendedLocationConfig:
+      type: object
+      properties:
+        id:
+          type: string
+        locationId:
+          type: integer
+        tone:
+          type: string
+        targetCustomers:
+          type: string
+        country:
+          type: string
+        phone:
+          type: string
+        address:
+          type: string
+        location:
+          type: string
+        primaryColor:
+          type: string
+        secondaryColor:
+          type: string
+        logoLight:
+          type: string
+        logoDark:
+          type: string
+        services:
+          type: object
+          description: Free-form JSON describing services.
+          x-apidog-orders: []
+        products:
+          type: object
+          description: Free-form JSON describing products.
+          x-apidog-orders: []
+        contentRules:
+          type: object
+          description: Free-form JSON content rules.
+          x-apidog-orders: []
+        additionalContext:
+          type: string
+        insights:
+          type: object
+          description: Free-form JSON insights.
+          x-apidog-orders: []
+      x-apidog-orders:
+      - id
+      - locationId
+      - tone
+      - targetCustomers
+      - country
+      - phone
+      - address
+      - location
+      - primaryColor
+      - secondaryColor
+      - logoLight
+      - logoDark
+      - services
+      - products
+      - contentRules
+      - additionalContext
+      - insights
+      x-apidog-folder: ''
+    LocalChatSessionResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        session:
+          $ref: '#/components/schemas/LocalChatSession'
+        suggestions:
+          type: array
+          items:
+            type: string
+        error:
+          $ref: '#/components/schemas/LocalError'
+      x-apidog-orders:
+      - success
+      - session
+      - suggestions
+      - error
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    LocalGenerateIdeasResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        ideas:
+          type: array
+          description: Generated post ideas (see Local post idea for the full shape).
+          items:
+            type: object
+            x-apidog-orders: []
+            properties: {}
+            x-apidog-ignore-properties: []
+        pipelineId:
+          type: string
+        generatedCount:
+          type: integer
+        error:
+          $ref: '#/components/schemas/LocalError'
+      x-apidog-orders:
+      - success
+      - ideas
+      - pipelineId
+      - generatedCount
+      - error
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    ScrapeLocationRequest:
+      type: object
+      required:
+      - locationId
+      - siteUrl
+      properties:
+        locationId:
+          type: string
+        siteUrl:
+          type: string
+        trigger:
+          type: string
+      x-apidog-orders:
+      - locationId
+      - siteUrl
+      - trigger
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    ScrapedLocationContext:
+      type: object
+      properties:
+        id:
+          type: string
+        locationId:
+          type: integer
+        businessName:
+          type: string
+        category:
+          type: string
+        businessDescription:
+          type: string
+        location:
+          type: string
+        services:
+          type: object
+          description: Free-form JSON.
+          x-apidog-orders: []
+          properties: {}
+          x-apidog-ignore-properties: []
+        products:
+          type: object
+          description: Free-form JSON.
+          x-apidog-orders: []
+          properties: {}
+          x-apidog-ignore-properties: []
+        subcategories:
+          type: object
+          description: Free-form JSON.
+          x-apidog-orders: []
+          properties: {}
+          x-apidog-ignore-properties: []
+        pricing:
+          type: object
+          description: Free-form JSON.
+          x-apidog-orders: []
+          properties: {}
+          x-apidog-ignore-properties: []
+        availability:
+          type: object
+          description: Free-form JSON.
+          x-apidog-orders: []
+          properties: {}
+          x-apidog-ignore-properties: []
+        uniqueSellingPoints:
+          type: object
+          description: Free-form JSON.
+          x-apidog-orders: []
+          properties: {}
+          x-apidog-ignore-properties: []
+        tone:
+          type: string
+        targetCustomers:
+          type: string
+        scrapedImages:
+          type: object
+          description: Free-form JSON.
+          x-apidog-orders: []
+          properties: {}
+          x-apidog-ignore-properties: []
+        insights:
+          type: object
+          description: Free-form JSON.
+          x-apidog-orders: []
+          properties: {}
+          x-apidog-ignore-properties: []
+        brandPrimaryColor:
+          type: string
+        brandSecondaryColor:
+          type: string
+        brandLogoUrl:
+          type: string
+        scrapedContext:
+          type: string
+        visualContext:
+          type: object
+          description: Free-form JSON.
+          x-apidog-orders: []
+          properties: {}
+          x-apidog-ignore-properties: []
+      x-apidog-orders:
+      - id
+      - locationId
+      - businessName
+      - category
+      - businessDescription
+      - location
+      - services
+      - products
+      - subcategories
+      - pricing
+      - availability
+      - uniqueSellingPoints
+      - tone
+      - targetCustomers
+      - scrapedImages
+      - insights
+      - brandPrimaryColor
+      - brandSecondaryColor
+      - brandLogoUrl
+      - scrapedContext
+      - visualContext
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    GenerateAllLocalSeriesPostsRequest:
+      type: object
+      required:
+      - locationId
+      - seriesId
+      properties:
+        locationId:
+          type: string
+        seriesId:
+          type: string
+      x-apidog-orders:
+      - locationId
+      - seriesId
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    SwitchLocalChatModeRequest:
+      type: object
+      required:
+      - sessionId
+      - mode
+      properties:
+        sessionId:
+          type: string
+        mode:
+          type: string
+      x-apidog-orders:
+      - sessionId
+      - mode
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    LocalChatSession:
+      type: object
+      properties:
+        id:
+          type: string
+        locationId:
+          type: integer
+        mode:
+          type: string
+        status:
+          type: string
+        messageCount:
+          type: integer
+        title:
+          type: string
+        subjectType:
+          type: string
+        subjectId:
+          type: string
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+      x-apidog-orders:
+      - id
+      - locationId
+      - mode
+      - status
+      - messageCount
+      - title
+      - subjectType
+      - subjectId
+      - createdAt
+      - updatedAt
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    LocalPostIdea:
+      type: object
+      properties:
+        id:
+          type: string
+        locationId:
+          type: integer
+        title:
+          type: string
+        content:
+          type: string
+        imagePrompt:
+          type: string
+        imageUrl:
+          type: string
+        type:
+          type: string
+        status:
+          type: string
+        platforms:
+          type: array
+          items:
+            type: string
+        bucket:
+          type: string
+        calendarDay:
+          type: integer
+        scheduledDate:
+          type: string
+        scheduledTime:
+          type: string
+        ctaText:
+          type: string
+        ctaUrl:
+          type: string
+        note:
+          type: string
+        seriesId:
+          type: string
+        localPostId:
+          type: string
+        isRecurring:
+          type: boolean
+        isUserGenerated:
+          type: boolean
+        observanceName:
+          type: string
+        observanceDate:
+          type: string
+        language:
+          type: string
+        generationBatchId:
+          type: string
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+        referenceImageOptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReferenceImageOption'
+        generationState:
+          type: string
+        relevanceScore:
+          type: number
+        theme:
+          type: string
+        isRelevant:
+          type: boolean
+        generationJobId:
+          type: string
+      x-apidog-orders:
+      - id
+      - locationId
+      - title
+      - content
+      - imagePrompt
+      - imageUrl
+      - type
+      - status
+      - platforms
+      - bucket
+      - calendarDay
+      - scheduledDate
+      - scheduledTime
+      - ctaText
+      - ctaUrl
+      - note
+      - seriesId
+      - localPostId
+      - isRecurring
+      - isUserGenerated
+      - observanceName
+      - observanceDate
+      - language
+      - generationBatchId
+      - createdAt
+      - updatedAt
+      - referenceImageOptions
+      - generationState
+      - relevanceScore
+      - theme
+      - isRelevant
+      - generationJobId
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    LocalCalendarDay:
+      type: object
+      properties:
+        day:
+          type: integer
+        posts:
+          type: array
+          description: Post ideas for the day (see Local post idea for the full shape).
+          items:
+            type: object
+            x-apidog-orders: []
+            x--orders: []
+            properties: {}
+            x--ignore-properties: []
+      x-apidog-orders:
+      - day
+      - posts
+      x--orders:
+      - day
+      - posts
+      x--ignore-properties: []
+      x-apidog-folder: ''
+    RegenerateLocalIdeaImageRequest:
+      type: object
+      required:
+      - ideaId
+      properties:
+        ideaId:
+          type: string
+      x-apidog-orders:
+      - ideaId
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    SendLocalChatMessageRequest:
+      type: object
+      required:
+      - sessionId
+      - message
+      properties:
+        sessionId:
+          type: string
+        message:
+          type: string
+        referenceImageUrls:
+          type: array
+          items:
+            type: string
+      x-apidog-orders:
+      - sessionId
+      - message
+      - referenceImageUrls
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    LocalContentSeries:
+      type: object
+      properties:
+        id:
+          type: string
+        locationId:
+          type: integer
+        name:
+          type: string
+        theme:
+          type: string
+        status:
+          type: string
+        postCount:
+          type: integer
+        publishedCount:
+          type: integer
+        unpublishedCount:
+          type: integer
+        posts:
+          type: array
+          description: Posts in the series (see Local post idea for the full shape).
+          items:
+            type: object
+            x-apidog-orders: []
+            properties: {}
+            x-apidog-ignore-properties: []
+        chatSessionId:
+          type: string
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+      x-apidog-orders:
+      - id
+      - locationId
+      - name
+      - theme
+      - status
+      - postCount
+      - publishedCount
+      - unpublishedCount
+      - posts
+      - chatSessionId
+      - createdAt
+      - updatedAt
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    ArchiveLocalIdeaRequest:
+      type: object
+      required:
+      - ideaId
+      properties:
+        ideaId:
+          type: string
+      x-apidog-orders:
+      - ideaId
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    SuggestLocalPostsForDateRequest:
+      type: object
+      required:
+      - locationId
+      - date
+      properties:
+        locationId:
+          type: string
+        date:
+          type: string
+          description: Target date (YYYY-MM-DD).
+      x-apidog-orders:
+      - locationId
+      - date
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    RefreshLocalIdeasRequest:
+      type: object
+      required:
+      - locationId
+      properties:
+        locationId:
+          type: string
+      x-apidog-orders:
+      - locationId
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    UpdateLocalIdeaRequest:
+      type: object
+      required:
+      - ideaId
+      properties:
+        ideaId:
+          type: string
+        title:
+          type: string
+        content:
+          type: string
+        status:
+          type: string
+        ctaText:
+          type: string
+        ctaUrl:
+          type: string
+        scheduledDate:
+          type: string
+        scheduledTime:
+          type: string
+        bucket:
+          type: string
+        note:
+          type: string
+        platforms:
+          type: array
+          items:
+            type: string
+      x-apidog-orders:
+      - ideaId
+      - title
+      - content
+      - status
+      - ctaText
+      - ctaUrl
+      - scheduledDate
+      - scheduledTime
+      - bucket
+      - note
+      - platforms
+      x--orders:
+      - ideaId
+      - title
+      - content
+      - status
+      - ctaText
+      - ctaUrl
+      - scheduledDate
+      - scheduledTime
+      - bucket
+      - note
+      - platforms
+      x--ignore-properties: []
+      x-apidog-folder: ''
+    LocalMutationResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        error:
+          $ref: '#/components/schemas/LocalError'
+      x-apidog-orders:
+      - success
+      - error
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    BranchLocalChatSessionRequest:
+      type: object
+      required:
+      - parentSessionId
+      properties:
+        parentSessionId:
+          type: string
+        subjectType:
+          type: string
+        subjectId:
+          type: string
+      x-apidog-orders:
+      - parentSessionId
+      - subjectType
+      - subjectId
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    LocalTriggerPipelineResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        pipelineId:
+          type: string
+        error:
+          $ref: '#/components/schemas/LocalError'
+      x-apidog-orders:
+      - success
+      - pipelineId
+      - error
+      x-apidog-folder: ''
+    LocalChatMessage:
+      type: object
+      properties:
+        id:
+          type: string
+        role:
+          type: string
+        content:
+          type: string
+        messageType:
+          type: string
+        metadata:
+          type: object
+          x-apidog-orders: []
+          properties: {}
+          x-apidog-ignore-properties: []
+        sequence:
+          type: integer
+        createdAt:
+          type: string
+      x-apidog-orders:
+      - id
+      - role
+      - content
+      - messageType
+      - metadata
+      - sequence
+      - createdAt
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    LocalScheduleSeriesResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        scheduledPosts:
+          type: array
+          description: The scheduled posts (see Local post idea for the full shape).
+          items:
+            type: object
+            x-apidog-orders: []
+        error:
+          $ref: '#/components/schemas/LocalError'
+      x-apidog-orders:
+      - success
+      - scheduledPosts
+      - error
+      x-apidog-folder: ''

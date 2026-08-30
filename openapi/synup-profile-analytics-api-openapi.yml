@@ -1,0 +1,451 @@
+openapi: 3.2.0
+info:
+  title: Synup Profile Analytics API
+  version: '4'
+  description: 'REST API v4 for the Synup local marketing platform: business locations, listing syndication to 80+ directories, review/interaction aggregation and response, review campaigns, local rank tracking and grid-rank heatmaps, local and social posts, AI post ideas, menus, connected accounts, users and profile analytics.
+
+
+    ASSEMBLED BY API EVANGELIST from the per-endpoint OpenAPI documents Synup publishes on its own documentation host (developer.synup.com, Apidog project 797384). Every operation, parameter, response, example and schema below is verbatim provider content; only the merge into a single document is ours. Source index: https://developer.synup.com/llms.txt'
+  contact:
+    name: Synup Developer Documentation
+    url: https://developer.synup.com/
+  x-assembled-by: api-evangelist enrichment pipeline (local-v1)
+  x-assembled-from: 506 per-endpoint OpenAPI fragments published at https://developer.synup.com/<slug>.md
+  x-assembled-date: '2026-08-13'
+servers:
+- url: https://api.synup.com/api/v4
+  description: Base ENV (as published in every Synup doc fragment). Tenant workspace domains (https://<workspace>.synup.com/api/v4) also serve the same API.
+tags:
+- name: Profile Analytics
+paths:
+  /locations/{locationId}/bing-analytics:
+    get:
+      summary: Get Bing Analytics
+      deprecated: false
+      description: Fetch profile analytics for Bing data for a specific location
+      tags:
+      - Profile Analytics
+      parameters:
+      - name: locationId
+        in: path
+        description: Location ID
+        required: true
+        example: ''
+        schema:
+          type: string
+          examples:
+          - TG9jYXRpb246MTI5Njkw
+      - name: fromDate
+        in: query
+        description: Start date of date range filter (YYYY-MM-DD)
+        required: false
+        schema:
+          type: string
+          format: date
+          examples:
+          - '2018-12-17'
+      - name: toDate
+        in: query
+        description: End date of date range filter (YYYY-MM-DD)
+        required: false
+        schema:
+          type: string
+          format: date
+          examples:
+          - '2019-01-31'
+      - name: Authorization
+        in: header
+        description: API key for authentication
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      bingInsights:
+                        type: object
+                        properties:
+                          views:
+                            type: array
+                            description: The number of views the Bing profile has received
+                            items:
+                              type: object
+                              properties:
+                                startTime:
+                                  type: string
+                                  format: date-time
+                                  description: Start time of the analytics period
+                                  examples:
+                                  - '2018-12-17T00:00:00+00:00'
+                                value:
+                                  type: integer
+                                  description: Number of views for the period
+                                  examples:
+                                  - 73
+                              x-apidog-orders:
+                              - startTime
+                              - value
+                              x-apidog-ignore-properties: []
+                        x-apidog-orders:
+                        - views
+                        x-apidog-ignore-properties: []
+                    x-apidog-orders:
+                    - bingInsights
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: OK
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
+          headers: {}
+          x-apidog-name: Unauthorized
+        '404':
+          description: Location not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+          headers: {}
+          x-apidog-name: Record Not Found
+      security: []
+      x-apidog-folder: Profile Analytics
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-13695983-run
+  /locations/{locationId}/facebook-analytics:
+    get:
+      summary: Get Facebook Page Analytics
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        This API retrieves profile analytics data from Facebook for a specific location.
+
+        </span>'
+      tags:
+      - Profile Analytics
+      parameters:
+      - name: locationId
+        in: path
+        description: Location ID
+        required: true
+        example: ''
+        schema:
+          type: string
+          examples:
+          - TG9jYXRpb246MTI5Njkw
+      - name: fromDate
+        in: query
+        description: Start date of date range filter (YYYY-MM-DD)
+        required: false
+        schema:
+          type: string
+          format: date
+          examples:
+          - '2018-01-01'
+      - name: toDate
+        in: query
+        description: End date of date range filter (YYYY-MM-DD)
+        required: false
+        schema:
+          type: string
+          format: date
+          examples:
+          - '2018-12-31'
+      - name: Authorization
+        in: header
+        description: API key for authentication
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      facebookInsights:
+                        type: object
+                        properties:
+                          ctaAction:
+                            type: array
+                            description: The number of times the CTA on the page was clicked
+                            items:
+                              $ref: '#/components/schemas/InsightMetric'
+                          directionsAction:
+                            type: array
+                            description: The number of times directions for the particular location was requested
+                            items:
+                              $ref: '#/components/schemas/InsightMetric'
+                          phoneAction:
+                            type: array
+                            description: The number of times the call number for the location was requested
+                            items:
+                              $ref: '#/components/schemas/InsightMetric'
+                          views:
+                            type: array
+                            description: The number of times the page was viewed
+                            items:
+                              $ref: '#/components/schemas/InsightMetric'
+                          websiteAction:
+                            type: array
+                            description: The number of times the website URL for the location was requested
+                            items:
+                              $ref: '#/components/schemas/InsightMetric'
+                        x-apidog-orders:
+                        - ctaAction
+                        - directionsAction
+                        - phoneAction
+                        - views
+                        - websiteAction
+                        x-apidog-ignore-properties: []
+                    x-apidog-orders:
+                    - facebookInsights
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: OK
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
+          headers: {}
+          x-apidog-name: Unauthorized
+        '404':
+          description: Location not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+          headers: {}
+          x-apidog-name: Record Not Found
+      security: []
+      x-apidog-folder: Profile Analytics
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-13695985-run
+  /locations/{locationId}/google-analytics:
+    get:
+      summary: Get Google My Business Analytics
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        This API retrieves a specific location''s profile analytics data from Google Business Profile (GBP).
+
+        </span>'
+      tags:
+      - Profile Analytics
+      parameters:
+      - name: locationId
+        in: path
+        description: Location ID
+        required: true
+        example: ''
+        schema:
+          type: string
+          examples:
+          - TG9jYXRpb246MTI5Njkw
+      - name: fromDate
+        in: query
+        description: Start date of date range filter (YYYY-MM-DD)
+        required: false
+        schema:
+          type: string
+          format: date
+          examples:
+          - '2018-01-01'
+      - name: toDate
+        in: query
+        description: End date of date range filter (YYYY-MM-DD)
+        required: false
+        schema:
+          type: string
+          format: date
+          examples:
+          - '2018-12-31'
+      - name: Authorization
+        in: header
+        description: API key for authentication
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      googleInsights:
+                        type: object
+                        properties:
+                          directionsAction:
+                            type: array
+                            description: The number of times directions for the particular location was requested
+                            items:
+                              $ref: '#/components/schemas/InsightMetric'
+                          maps:
+                            type: array
+                            description: The number of times the location showed up on Google Maps
+                            items:
+                              $ref: '#/components/schemas/InsightMetric'
+                          phoneAction:
+                            type: array
+                            description: The number of times the call number for the location was requested
+                            items:
+                              $ref: '#/components/schemas/InsightMetric'
+                          search:
+                            type: array
+                            description: The number of times the location showed up on Google Search results
+                            items:
+                              $ref: '#/components/schemas/InsightMetric'
+                          websiteAction:
+                            type: array
+                            description: The number of times the website URL for the location was requested
+                            items:
+                              $ref: '#/components/schemas/InsightMetric'
+                          total:
+                            type: array
+                            description: The total sum of all the above interactions
+                            items:
+                              $ref: '#/components/schemas/InsightMetric'
+                        x-apidog-orders:
+                        - directionsAction
+                        - maps
+                        - phoneAction
+                        - search
+                        - websiteAction
+                        - total
+                        x-apidog-ignore-properties: []
+                    x-apidog-orders:
+                    - googleInsights
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: OK
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
+          headers: {}
+          x-apidog-name: Unauthorized
+        '404':
+          description: Location not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+          headers: {}
+          x-apidog-name: Record Not Found
+      security: []
+      x-apidog-folder: Profile Analytics
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-13695987-run
+components:
+  schemas:
+    UnauthorizedError:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            archiveKeyword:
+              type: null
+          x-apidog-orders:
+          - archiveKeyword
+          x-apidog-ignore-properties: []
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+                examples:
+                - 'SY90001: Not authorized to access this resource'
+            x-apidog-orders:
+            - message
+            x-apidog-ignore-properties: []
+      x-apidog-orders:
+      - data
+      - errors
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    InsightMetric:
+      type: object
+      properties:
+        startTime:
+          type: string
+          format: date-time
+          description: Start time of the analytics period
+          examples:
+          - '2018-11-13T00:00:00+00:00'
+        value:
+          type: integer
+          description: Metric value for the period
+          examples:
+          - 0
+      x-apidog-orders:
+      - startTime
+      - value
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    NotFoundError:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            bingInsights:
+              type: null
+          x-apidog-orders:
+          - bingInsights
+          x-apidog-ignore-properties: []
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+                examples:
+                - Location not found
+            x-apidog-orders:
+            - message
+            x-apidog-ignore-properties: []
+      x-apidog-orders:
+      - data
+      - errors
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''

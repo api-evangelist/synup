@@ -1,0 +1,436 @@
+openapi: 3.2.0
+info:
+  title: Synup Reviews/Review Sources API
+  version: '4'
+  description: 'REST API v4 for the Synup local marketing platform: business locations, listing syndication to 80+ directories, review/interaction aggregation and response, review campaigns, local rank tracking and grid-rank heatmaps, local and social posts, AI post ideas, menus, connected accounts, users and profile analytics.
+
+
+    ASSEMBLED BY API EVANGELIST from the per-endpoint OpenAPI documents Synup publishes on its own documentation host (developer.synup.com, Apidog project 797384). Every operation, parameter, response, example and schema below is verbatim provider content; only the merge into a single document is ours. Source index: https://developer.synup.com/llms.txt'
+  contact:
+    name: Synup Developer Documentation
+    url: https://developer.synup.com/
+  x-assembled-by: api-evangelist enrichment pipeline (local-v1)
+  x-assembled-from: 506 per-endpoint OpenAPI fragments published at https://developer.synup.com/<slug>.md
+  x-assembled-date: '2026-08-13'
+servers:
+- url: https://api.synup.com/api/v4
+  description: Base ENV (as published in every Synup doc fragment). Tenant workspace domains (https://<workspace>.synup.com/api/v4) also serve the same API.
+tags:
+- name: Reviews/Review Sources
+paths:
+  /locations/reviews/settings/edit:
+    get:
+      summary: Add / Edit interaction source
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Use this endpoint to add a new interaction source URL.
+
+        The body of the request must contain the locationId and a siteUrls array.
+
+
+
+        <TipInfo>Interaction sources for connected Google and Facebook accounts cannot be modified/added to. These interaction sources are automatically added when you connect your Google and Facebook accounts.</TipInfo>
+
+
+
+
+        </span>'
+      tags:
+      - Reviews/Review Sources
+      parameters:
+      - name: Authorization
+        in: header
+        description: API key for authentication
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                locationId:
+                  type: string
+                siteUrls:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                      url:
+                        type: string
+                    x-apidog-orders:
+                    - name
+                    - url
+              required:
+              - locationId
+              - siteUrls
+              x-apidog-orders:
+              - locationId
+              - siteUrls
+            example:
+              locationId: TG9jYXRpb246MTY4MDU=
+              siteUrls:
+              - name: trulia.com
+                url: test.com
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      editInteractionsSetting:
+                        type: object
+                        properties:
+                          errors:
+                            type: 'null'
+                          interactionSetting:
+                            type: object
+                            properties:
+                              positiveInteractionThreshold:
+                                type: integer
+                              siteSettings:
+                                type: array
+                                items:
+                                  type: object
+                                  properties:
+                                    name:
+                                      type: string
+                                    url:
+                                      type:
+                                      - string
+                                      - 'null'
+                                    connected:
+                                      type: boolean
+                                  required:
+                                  - name
+                                  - url
+                                  - connected
+                                  x-apidog-orders:
+                                  - name
+                                  - url
+                                  - connected
+                              id:
+                                type: string
+                            required:
+                            - positiveInteractionThreshold
+                            - siteSettings
+                            - id
+                            x-apidog-orders:
+                            - positiveInteractionThreshold
+                            - siteSettings
+                            - id
+                        required:
+                        - errors
+                        - interactionSetting
+                        x-apidog-orders:
+                        - errors
+                        - interactionSetting
+                      interactionSiteConfig:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            site:
+                              type: string
+                            siteUrl:
+                              type: string
+                          required:
+                          - site
+                          - siteUrl
+                          x-apidog-orders:
+                          - site
+                          - siteUrl
+                      interactionsSetting:
+                        type: object
+                        properties:
+                          siteSettings:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                name:
+                                  type: string
+                                url:
+                                  type:
+                                  - string
+                                  - 'null'
+                              required:
+                              - name
+                              - url
+                              x-apidog-orders:
+                              - name
+                              - url
+                        required:
+                        - siteSettings
+                        x-apidog-orders:
+                        - siteSettings
+                    required:
+                    - editInteractionsSetting
+                    - interactionSiteConfig
+                    - interactionsSetting
+                    x-apidog-orders:
+                    - editInteractionsSetting
+                    - interactionSiteConfig
+                    - interactionsSetting
+                required:
+                - data
+                x-apidog-orders:
+                - data
+              example:
+                data:
+                  editInteractionsSetting:
+                    errors: null
+                    interactionSetting:
+                      positiveInteractionThreshold: 2
+                      siteSettings:
+                      - name: trulia.com
+                        url: test.com
+                        connected: false
+                      - name: google.com
+                        url: test.com
+                        connected: false
+                      - name: foursquare.com
+                        url: test.com
+                        connected: false
+                      - name: yelp.com
+                        url: https://www.yelp.com/biz/yelp-san-francisco?sort_by=date_desc
+                        connected: false
+                      - name: facebook.com
+                        url: https://www.facebook.com/Om-book-shop-613976075648984/
+                        connected: true
+                      - name: maps.google.com
+                        url: https://maps.google.com/maps?cid=11886702604501862703
+                        connected: true
+                      - name: zillow.com
+                        url: null
+                        connected: false
+                      - name: realtor.com
+                        url: null
+                        connected: false
+                      - name: reach150.com
+                        url: null
+                        connected: false
+                      - name: yelloyello.com
+                        url: https://www.yelloyello.com/places/tryvexan-review-new-york
+                        connected: false
+                      id: 743c8f7e-cc47-42ff-a640-3c4d072dcb86
+          headers: {}
+          x-apidog-name: Success
+      security: []
+      x-apidog-folder: Reviews/Review Sources
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-19357403-run
+  /reviews/site-config:
+    get:
+      summary: Get a list of interaction sources for account
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Use this endpoint to list the interaction sources for a particular account as per the account''s subscription.
+
+        </span>'
+      tags:
+      - Reviews/Review Sources
+      parameters:
+      - name: Authorization
+        in: header
+        description: API key for authentication
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      interactionSiteConfig:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            site:
+                              type: string
+                            siteUrl:
+                              type: string
+                          required:
+                          - site
+                          - siteUrl
+                          x-apidog-orders:
+                          - site
+                          - siteUrl
+                      interactionsSetting:
+                        type: object
+                        properties:
+                          siteSettings:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                name:
+                                  type: string
+                                url:
+                                  type:
+                                  - string
+                                  - 'null'
+                              required:
+                              - name
+                              - url
+                              x-apidog-orders:
+                              - name
+                              - url
+                        required:
+                        - siteSettings
+                        x-apidog-orders:
+                        - siteSettings
+                    required:
+                    - interactionSiteConfig
+                    - interactionsSetting
+                    x-apidog-orders:
+                    - interactionSiteConfig
+                    - interactionsSetting
+                required:
+                - data
+                x-apidog-orders:
+                - data
+              example: "{\n   \"data\": {\n      \"interactionSiteConfig\": [\n         {\n            \"site\": \"Google\",\n            \"siteUrl\": \"maps.google.com\"\n         },\n         {\n            \"site\": \"Facebook\",\n            \"siteUrl\": \"facebook.com\"\n         },\n         {\n            \"site\": \"Yelp\",\n            \"siteUrl\": \"yelp.com\"\n         },\n         {\n            \"site\": \"Zillow\",\n            \"siteUrl\": \"zillow.com\"\n         },\n         {\n            \"site\": \"Dealerrater\",\n            \"siteUrl\": \"dealerrater.com\"\n         },\n         {\n            \"site\": \"Cars.com\",\n            \"siteUrl\": \"cars.com\",\n         },\n         {\n            \"site\": \"Edmunds\",\n            \"siteUrl\": \"edmunds.com\"\n         },\n         {\n            \"site\": \"Foursquare\",\n            \"siteUrl\": \"foursquare.com\"\n         },\n         {\n            \"site\": \"Trustpilot\",\n            \"siteUrl\": \"trustpilot.com\"\n         },\n         {\n            \"site\": \"BBB\",\n            \"siteUrl\": \"bbb.org\"\n         },\n         {\n            \"site\": \"Indeed\",\n            \"siteUrl\": \"indeed.com\"\n         },\n         {\n            \"site\": \"Judysbook\",\n            \"siteUrl\": \"judysbook.com\"\n         },\n         {\n            \"site\": \"Cargurus\",\n            \"siteUrl\": \"cargurus.com\"\n         },\n         {\n            \"site\": \"Tripadvisor\",\n            \"siteUrl\": \"tripadvisor.com\"\n         },\n         {\n            \"site\": \"Tripadvisor Attractions\",\n            \"siteUrl\": \"tripadvisor-attractions.com\"\n         },\n         {\n            \"site\": \"Glassdoor\",\n            \"siteUrl\": \"glassdoor.com\"\n         },\n         {\n            \"site\": \"OpenTable\",\n            \"siteUrl\": \"opentable.com\"\n         },\n         {\n            \"site\": \"Yellowpages\",\n            \"siteUrl\": \"yellowpages.com\"\n         },\n         {\n            \"site\": \"Zomato\",\n            \"siteUrl\": \"zomato.com\"\n         }\n      ]\n   }\n}"
+          headers: {}
+          x-apidog-name: Success
+      security: []
+      x-apidog-folder: Reviews/Review Sources
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-19357376-run
+  /locations/{location_id}/reviews/settings:
+    get:
+      summary: Get a list of interaction sources for location
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Review sources are used to pull in reviews from the supported review partners. Each interaction source should have an associated valid URL to pull in reviews from.
+
+
+        Use this endpoint to list the interaction sources for a particular location. This API will return the interaction sources and the associated URL for each source. If the URL is present it means its connected to the location, if the URL is null it means its not connected to the location. It will also return the eligible interaction sources for the location as per the account''s subscription.
+
+
+
+
+        </span>'
+      tags:
+      - Reviews/Review Sources
+      parameters:
+      - name: location_id
+        in: path
+        description: Base64 encoded location ID
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      interactionsSetting:
+                        type: object
+                        properties:
+                          siteSettings:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                name:
+                                  type: string
+                                url:
+                                  type:
+                                  - string
+                                  - 'null'
+                              required:
+                              - name
+                              - url
+                              x-apidog-orders:
+                              - name
+                              - url
+                        required:
+                        - siteSettings
+                        x-apidog-orders:
+                        - siteSettings
+                    required:
+                    - interactionsSetting
+                    x-apidog-orders:
+                    - interactionsSetting
+                required:
+                - data
+                x-apidog-orders:
+                - data
+              example:
+                data:
+                  interactionsSetting:
+                    siteSettings:
+                    - name: maps.google.com
+                      url: null
+                    - name: facebook.com
+                      url: https://www.facebook.com/Restaurant12-1655954454665117/
+                    - name: yelp.com
+                      url: null
+                    - name: foursquare.com
+                      url: null
+                    - name: tripadvisor.com
+                      url: null
+                    - name: tripadvisor-attractions.com
+                      url: null
+                    - name: dealerrater.com
+                      url: null
+                    - name: judysbook.com
+                      url: null
+                    - name: merchantcircle.com
+                      url: null
+                    - name: opentable.com
+                      url: null
+                    - name: yellowbook.com
+                      url: null
+                    - name: yellowpages.com
+                      url: null
+                    - name: trulia.com
+                      url: null
+                    - name: reach150.com
+                      url: null
+                    - name: realtor.com
+                      url: null
+                    - name: zillow.com
+                      url: null
+                    - name: citysearch.com
+                      url: null
+          headers: {}
+          x-apidog-name: Success
+      security: []
+      x-apidog-folder: Reviews/Review Sources
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-19357317-run

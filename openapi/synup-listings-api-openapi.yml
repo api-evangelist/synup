@@ -1,0 +1,1543 @@
+openapi: 3.2.0
+info:
+  title: Synup Listings API
+  version: '4'
+  description: 'REST API v4 for the Synup local marketing platform: business locations, listing syndication to 80+ directories, review/interaction aggregation and response, review campaigns, local rank tracking and grid-rank heatmaps, local and social posts, AI post ideas, menus, connected accounts, users and profile analytics.
+
+
+    ASSEMBLED BY API EVANGELIST from the per-endpoint OpenAPI documents Synup publishes on its own documentation host (developer.synup.com, Apidog project 797384). Every operation, parameter, response, example and schema below is verbatim provider content; only the merge into a single document is ours. Source index: https://developer.synup.com/llms.txt'
+  contact:
+    name: Synup Developer Documentation
+    url: https://developer.synup.com/
+  x-assembled-by: api-evangelist enrichment pipeline (local-v1)
+  x-assembled-from: 506 per-endpoint OpenAPI fragments published at https://developer.synup.com/<slug>.md
+  x-assembled-date: '2026-08-13'
+servers:
+- url: https://api.synup.com/api/v4
+  description: Base ENV (as published in every Synup doc fragment). Tenant workspace domains (https://<workspace>.synup.com/api/v4) also serve the same API.
+tags:
+- name: Listings
+paths:
+  /locations/{locationId}/ai-listings:
+    get:
+      summary: Get AI listings
+      deprecated: false
+      description: 'This API retrieves all premium listings associated with a specific location.
+
+
+        Response Includes: Business Advice ,  Visibility Score and Sites Results'
+      tags:
+      - Listings
+      parameters:
+      - name: locationId
+        in: path
+        description: ID of the location in base-64 enconded format
+        required: true
+        example: TG9jYXRpb246MTI0MjE=
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: 'API key for authentication
+
+
+          Example:
+
+          API T9V35W3xxxxxxxxxxx'
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        description: 'Example:
+
+          application/json'
+        required: true
+        example: application/json
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      fetchAiListings:
+                        type: object
+                        properties:
+                          aiBusinessAdvice:
+                            type: object
+                            properties:
+                              footer:
+                                type: string
+                              header:
+                                type: string
+                              tips:
+                                type: array
+                                items:
+                                  type: string
+                              __typename:
+                                type: string
+                            required:
+                            - footer
+                            - header
+                            - tips
+                            - __typename
+                            x-apidog-orders:
+                            - footer
+                            - header
+                            - tips
+                            - __typename
+                          aiVisibilityScore:
+                            type: integer
+                          aiSitesResults:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                siteUrl:
+                                  type: string
+                                liveLink:
+                                  type:
+                                  - string
+                                  - 'null'
+                                aiScore:
+                                  type: object
+                                  properties:
+                                    addressSimilarity:
+                                      type: number
+                                    phoneSimilarity:
+                                      type: integer
+                                    overallSimilarity:
+                                      type: number
+                                    websiteSimilarity:
+                                      type: integer
+                                  required:
+                                  - addressSimilarity
+                                  - phoneSimilarity
+                                  - overallSimilarity
+                                  - websiteSimilarity
+                                  x-apidog-orders:
+                                  - addressSimilarity
+                                  - phoneSimilarity
+                                  - overallSimilarity
+                                  - websiteSimilarity
+                                aiResponse:
+                                  type: object
+                                  properties:
+                                    name:
+                                      type: string
+                                    address:
+                                      type: string
+                                    website:
+                                      type: string
+                                    phone:
+                                      type: string
+                                  required:
+                                  - name
+                                  - address
+                                  - website
+                                  - phone
+                                  x-apidog-orders:
+                                  - name
+                                  - address
+                                  - website
+                                  - phone
+                                customerPrompt:
+                                  type: string
+                              required:
+                              - siteUrl
+                              - liveLink
+                              - aiScore
+                              - aiResponse
+                              - customerPrompt
+                              x-apidog-orders:
+                              - siteUrl
+                              - liveLink
+                              - aiScore
+                              - aiResponse
+                              - customerPrompt
+                        required:
+                        - aiBusinessAdvice
+                        - aiVisibilityScore
+                        - aiSitesResults
+                        x-apidog-orders:
+                        - aiBusinessAdvice
+                        - aiVisibilityScore
+                        - aiSitesResults
+                    required:
+                    - fetchAiListings
+                    x-apidog-orders:
+                    - fetchAiListings
+                required:
+                - data
+                x-apidog-orders:
+                - data
+              example:
+                data:
+                  fetchAiListings:
+                    aiBusinessAdvice:
+                      footer: By focusing on these locally inspired tips, you can enhance your business's appeal and attract more customers in Winter Park.
+                      header: 'Winter Park is a popular destination known for its stunning mountain views, outdoor recreational activities, and vibrant local culture. Based on the local trends and traditions, here are some suggestions to improve your bicycle rental business:'
+                      tips:
+                      - 'Local Partnerships :: Collaborate with nearby hotels and resorts to offer exclusive rental deals.'
+                      - 'Trail Maps :: Provide detailed maps of popular biking trails and scenic routes.'
+                      - 'Guided Tours :: Offer guided bike tours showcasing local landmarks and hidden gems.'
+                      - 'Seasonal Events :: Host biking events or races during peak tourist seasons.'
+                      - 'Loyalty Programs :: Implement a rewards program for repeat customers and referrals.'
+                      - 'Social Media Presence :: Share customer stories and local biking highlights on social platforms.'
+                      - 'Merchandise Sales :: Sell branded gear and souvenirs to enhance the customer experience.'
+                      - 'Maintenance Workshops :: Offer bike maintenance workshops to attract biking enthusiasts.'
+                      - 'Eco-Friendly Options :: Introduce eco-friendly bike options and promote sustainable practices.'
+                      - 'Community Engagement :: Participate in local festivals and sponsor community events.'
+                      __typename: AiBusinessAdvice
+                    aiVisibilityScore: 40
+                    aiSitesResults:
+                    - siteUrl: openai.com
+                      liveLink: https://ai-listing-chatgpt.vercel.app/listing/4140924
+                      aiScore:
+                        addressSimilarity: 0.7952201644509336
+                        phoneSimilarity: 1
+                        overallSimilarity: 0.5
+                        websiteSimilarity: 1
+                        __typename: AiListingsScore
+                      aiResponse:
+                        name: Christy Sports
+                        address: 78902 US-40, Winter Park, CO 80482, USA
+                        website: https://www.christysports.com
+                        phone: +1 970-726-8873
+                        __typename: AiListingsResponse
+                      customerPrompt: What is the Address, Phone Number, Business Website, Opening Hours of Christy Sports located in Winter Park as of today.
+                      __typename: AiListingsData
+                    - siteUrl: gemini.google.com
+                      liveLink: https://ai-listing-gemini.vercel.app/listing/4141628
+                      aiScore:
+                        addressSimilarity: 0.7952201644509336
+                        phoneSimilarity: 1
+                        overallSimilarity: 0.5
+                        websiteSimilarity: 1
+                        __typename: AiListingsScore
+                      aiResponse:
+                        name: Christy Sports
+                        address: 78902 US-40, Winter Park, CO 80482, USA
+                        website: https://www.christysports.com
+                        phone: +1 970-726-8873
+                        __typename: AiListingsResponse
+                      customerPrompt: What is the Address, Phone Number, Business Website, Opening Hours of Christy Sports located in Winter Park as of today.
+                      __typename: AiListingsData
+                    - siteUrl: perplexity.ai
+                      liveLink: null
+                      aiScore:
+                        addressSimilarity: 0.7952201644509336
+                        phoneSimilarity: 1
+                        overallSimilarity: 0
+                        websiteSimilarity: 1
+                        __typename: AiListingsScore
+                      aiResponse:
+                        name: Christy Sports
+                        address: 78902 US-40, Winter Park, CO 80482, USA
+                        website: https://www.christysports.com
+                        phone: +1 970-726-8873
+                        __typename: AiListingsResponse
+                      customerPrompt: What is the Address, Phone Number, Business Website, Opening Hours of Christy Sports located in Winter Park as of today.
+                      __typename: AiListingsData
+                    - siteUrl: copilot.microsoft.com
+                      liveLink: null
+                      aiScore:
+                        addressSimilarity: 0.7952201644509336
+                        phoneSimilarity: 1
+                        overallSimilarity: 0
+                        websiteSimilarity: 1
+                        __typename: AiListingsScore
+                      aiResponse:
+                        name: Christy Sports
+                        address: 78902 US-40, Winter Park, CO 80482, USA
+                        website: https://www.christysports.com
+                        phone: +1 970-726-8873
+                        __typename: AiListingsResponse
+                      customerPrompt: What is the Address, Phone Number, Business Website, Opening Hours of Christy Sports located in Winter Park as of today.
+                      __typename: AiListingsData
+                    - siteUrl: intellychat.com
+                      liveLink: https://ai-listing-intellychat.vercel.app/listing/4141631
+                      aiScore:
+                        addressSimilarity: 0.7952201644509336
+                        phoneSimilarity: 1
+                        overallSimilarity: 0
+                        websiteSimilarity: 1
+                        __typename: AiListingsScore
+                      aiResponse:
+                        name: Christy Sports
+                        address: 78902 US-40, Winter Park, CO 80482, USA
+                        website: https://www.christysports.com
+                        phone: +1 970-726-8873
+                        __typename: AiListingsResponse
+                      customerPrompt: What is the Address, Phone Number, Business Website, Opening Hours of Christy Sports located in Winter Park as of today.
+                      __typename: AiListingsData
+                    - siteUrl: myndmeld.com
+                      liveLink: https://ai-listing-myndmeld.vercel.app/listing/4141630
+                      aiScore:
+                        addressSimilarity: 0.7952201644509336
+                        phoneSimilarity: 1
+                        overallSimilarity: 0.5
+                        websiteSimilarity: 1
+                        __typename: AiListingsScore
+                      aiResponse:
+                        name: Christy Sports
+                        address: 78902 US-40, Winter Park, CO 80482, USA
+                        website: https://www.christysports.com
+                        phone: +1 970-726-8873
+                        __typename: AiListingsResponse
+                      customerPrompt: What is the Address, Phone Number, Business Website, Opening Hours of Christy Sports located in Winter Park as of today.
+                      __typename: AiListingsData
+                    __typename: AiListings
+          headers: {}
+          x-apidog-name: Success
+      security: []
+      x-apidog-folder: Listings
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-19356815-run
+  /locations/listings/duplicates:
+    get:
+      summary: Get all duplicate listings for an account
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+
+        This API retrieves a paginated list of all duplicate listings detected within the account, with optional filtering
+
+
+        </span>'
+      operationId: getAccountDuplicateListings
+      tags:
+      - Listings
+      parameters:
+      - name: tag
+        in: query
+        description: Filter duplicates by location tag
+        required: false
+        example: test
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: Page number for pagination
+        required: false
+        example: 1
+        schema:
+          type: integer
+          minimum: 1
+      - name: Authorization
+        in: header
+        description: API key for authentication
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        description: ''
+        required: true
+        example: application/json
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Duplicate listings retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      duplicateListingsRollup:
+                        type: object
+                        properties:
+                          pageInfo:
+                            type: object
+                            properties:
+                              hasNextPage:
+                                type: boolean
+                                description: Indicates if there are more pages after the current one
+                              hasPreviousPage:
+                                type: boolean
+                                description: Indicates if there are previous pages
+                              totalPages:
+                                type: integer
+                                description: Total number of pages available
+                              totalRecords:
+                                type: integer
+                                description: Total number of duplicate listings
+                            x-apidog-orders:
+                            - hasNextPage
+                            - hasPreviousPage
+                            - totalPages
+                            - totalRecords
+                          records:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                addressValid:
+                                  type: boolean
+                                  description: Indicates if the address matches the primary listing
+                                categoryValid:
+                                  type:
+                                  - boolean
+                                  - 'null'
+                                  description: Indicates if the business category matches
+                                city:
+                                  type: string
+                                  description: City name
+                                countryCode:
+                                  type:
+                                  - string
+                                  - 'null'
+                                  description: ISO country code
+                                duplicateProcessingState:
+                                  type: string
+                                  enum:
+                                  - POTENTIAL
+                                  description: Current state of duplicate processing
+                                id:
+                                  type: string
+                                  description: Unique identifier for the duplicate listing
+                                liveLink:
+                                  type: string
+                                  description: URL of the duplicate listing
+                                locationId:
+                                  type: string
+                                  description: ID of the associated location
+                                name:
+                                  type: string
+                                  description: Business name
+                                nameValid:
+                                  type: boolean
+                                  description: Indicates if the business name matches
+                                originalLiveLink:
+                                  type: string
+                                  description: URL of the primary listing
+                                phone:
+                                  type:
+                                  - string
+                                  - 'null'
+                                  description: Phone number
+                                phoneValid:
+                                  type: boolean
+                                  description: Indicates if the phone number matches
+                                postalCode:
+                                  type: string
+                                  description: Postal/ZIP code
+                                siteName:
+                                  type: string
+                                  description: Name of the directory site
+                                siteUrl:
+                                  type: string
+                                  description: Base URL of the directory site
+                                state:
+                                  type:
+                                  - string
+                                  - 'null'
+                                  description: State/province code
+                                street:
+                                  type: string
+                                  description: Street address
+                              x-apidog-orders:
+                              - addressValid
+                              - categoryValid
+                              - city
+                              - countryCode
+                              - duplicateProcessingState
+                              - id
+                              - liveLink
+                              - locationId
+                              - name
+                              - nameValid
+                              - originalLiveLink
+                              - phone
+                              - phoneValid
+                              - postalCode
+                              - siteName
+                              - siteUrl
+                              - state
+                              - street
+                        x-apidog-orders:
+                        - pageInfo
+                        - records
+                    x-apidog-orders:
+                    - duplicateListingsRollup
+                x-apidog-orders:
+                - data
+              example:
+                data:
+                  duplicateListingsRollup:
+                    pageInfo:
+                      hasNextPage: true
+                      hasPreviousPage: false
+                      totalPages: 2
+                      totalRecords: 89
+                    records:
+                    - addressValid: false
+                      categoryValid: null
+                      city: Chicago
+                      countryCode: null
+                      duplicateProcessingState: POTENTIAL
+                      id: '43843437'
+                      liveLink: https://www.judysbook.com/Buffalo-Wild-Wings-Restaurants-chicago-r14401354.htm
+                      locationId: '203040'
+                      name: Buffalo Wild Wings
+                      nameValid: true
+                      originalLiveLink: https://www.judysbook.com/Buffalo-Wild-Wings-BtoB%7eAccountants-Business-chicago-r39915056.htm
+                      phone: '--- ''7738689453''
+
+                        '
+                      phoneValid: true
+                      postalCode: '60614'
+                      siteName: Judys Book
+                      siteUrl: judysbook.com
+                      state: IL
+                      street: 2464 North Lincoln Avenue
+          headers: {}
+          x-apidog-name: OK
+        '400':
+          description: Bad request - invalid parameters
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: Bad Request
+        '401':
+          description: Unauthorized - invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: Unauthorized
+        '403':
+          description: Forbidden - insufficient permissions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                      examples:
+                      - Insufficient permissions to access duplicate listings
+                x-apidog-orders:
+                - errors
+          headers: {}
+          x-apidog-name: Forbidden
+      security: []
+      x-apidog-folder: Listings
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-13672026-run
+  /locations/{locationId}/listings/duplicates:
+    get:
+      summary: Get duplicate listings for a location
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+
+        This API retrieves all duplicate listings identified for a specific location across various directories.
+
+        </span>'
+      operationId: getDuplicateListings
+      tags:
+      - Listings
+      parameters:
+      - name: locationId
+        in: path
+        description: The unique identifier of the location
+        required: true
+        example: TG9jYXRpb246MjcyODc2
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        description: ''
+        required: true
+        example: application/json
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Duplicate listings retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      duplicateListingsForLocation:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            primaryListingUrl:
+                              type: string
+                              description: URL of the primary business listing
+                            siteId:
+                              type: string
+                              description: Unique identifier for the directory site
+                            siteName:
+                              type: string
+                              description: Name of the directory site
+                            siteUrl:
+                              type: string
+                              description: Base URL of the directory site
+                            duplicateListings:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  addressValid:
+                                    type: boolean
+                                    description: Indicates if the address matches the primary listing
+                                  city:
+                                    type: string
+                                    description: City name
+                                  street:
+                                    type: string
+                                    description: Street address
+                                  state:
+                                    type:
+                                    - string
+                                    - 'null'
+                                    description: State/province code
+                                  postalCode:
+                                    type: string
+                                    description: Postal/ZIP code
+                                  phone:
+                                    type:
+                                    - string
+                                    - 'null'
+                                    description: Phone number
+                                  phoneValid:
+                                    type: boolean
+                                    description: Indicates if the phone number matches the primary listing
+                                  name:
+                                    type: string
+                                    description: Business name
+                                  nameValid:
+                                    type: boolean
+                                    description: Indicates if the business name matches the primary listing
+                                  duplicateProcessingState:
+                                    type: string
+                                    enum:
+                                    - POTENTIAL
+                                    description: Current state of duplicate processing
+                                  liveLink:
+                                    type: string
+                                    description: URL of the duplicate listing
+                                  id:
+                                    type: string
+                                    description: Unique identifier for the duplicate listing
+                                  countryCode:
+                                    type:
+                                    - string
+                                    - 'null'
+                                    description: ISO country code
+                                x-apidog-orders:
+                                - addressValid
+                                - city
+                                - street
+                                - state
+                                - postalCode
+                                - phone
+                                - phoneValid
+                                - name
+                                - nameValid
+                                - duplicateProcessingState
+                                - liveLink
+                                - id
+                                - countryCode
+                          x-apidog-orders:
+                          - primaryListingUrl
+                          - siteId
+                          - siteName
+                          - siteUrl
+                          - duplicateListings
+                    x-apidog-orders:
+                    - duplicateListingsForLocation
+                x-apidog-orders:
+                - data
+              example:
+                data:
+                  duplicateListingsForLocation:
+                  - primaryListingUrl: https://chicago.opendi.us/9170659.html
+                    siteId: U2l0ZToxNjI=
+                    siteName: OpenDi.us
+                    siteUrl: opendi.us
+                    duplicateListings:
+                    - addressValid: false
+                      city: Chicago
+                      street: 111/1123 N Elston Ave street 2
+                      state: null
+                      postalCode: '60603'
+                      phone: null
+                      phoneValid: false
+                      name: Jr consultants
+                      nameValid: true
+                      duplicateProcessingState: POTENTIAL
+                      liveLink: https://chicago.opendi.us/8773423.html
+                      id: TGlzdGluZ0l0ZW06NDMzODcxMzE=
+                      countryCode: US
+          headers: {}
+          x-apidog-name: OK
+        '400':
+          description: Bad request - invalid location ID
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: Bad Request
+        '401':
+          description: Unauthorized - invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: Unauthorized
+        '403':
+          description: Forbidden - insufficient permissions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                      examples:
+                      - Insufficient permissions to access duplicate listings
+                x-apidog-orders:
+                - errors
+          headers: {}
+          x-apidog-name: Forbidden
+        '404':
+          description: Location not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: Record Not Found
+      security: []
+      x-apidog-folder: Listings
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-13671710-run
+  /locations/{locationId}/listings/premium:
+    get:
+      summary: Get premium listings
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+
+        This API retrieves all premium listings associated with a specific location.
+
+
+        **Response Includes:**
+
+        - Sync status – Indicates whether the listing is synced successfully.
+
+        - Display status – Shows whether the listing is live on the platform.
+
+        - Platform details – Includes directories such as Google Maps, Apple Maps, and other listing sites.
+
+        </span>'
+      operationId: getPremiumListings
+      tags:
+      - Listings
+      parameters:
+      - name: locationId
+        in: path
+        description: Node ID of the location
+        required: true
+        example: TG9jYXRpb246MTI0MjE=
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        description: ''
+        required: true
+        example: application/json
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Premium listings retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      listingsForLocation:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              description: Node ID of the listing
+                            databaseId:
+                              type: string
+                              description: Database ID of the listing
+                            site:
+                              type: object
+                              properties:
+                                id:
+                                  type: string
+                                  description: Node ID of the directory site
+                                databaseId:
+                                  type: string
+                                  description: Database ID of the directory site
+                                name:
+                                  type: string
+                                  description: Name of the directory site
+                                url:
+                                  type: string
+                                  description: URL of the directory site
+                                syScore:
+                                  type: string
+                                  description: Synup score for the directory
+                              x-apidog-orders:
+                              - id
+                              - databaseId
+                              - name
+                              - url
+                              - syScore
+                            syncStatus:
+                              type: string
+                              description: Current sync status of the listing
+                              enum:
+                              - IN_PROGRESS
+                              - SYNCED
+                              - FAILED
+                              - REQUIRING_ACTION
+                              - AVAILABLE
+                              - COMPLETED
+                              - PENDING_APPROVAL
+                            displayStatus:
+                              type:
+                              - string
+                              - 'null'
+                              description: Human-readable status message
+                            actionRequired:
+                              type: boolean
+                              description: Whether user action is required
+                            listingUrl:
+                              type: string
+                              description: URL of the live listing
+                            connectedAccountId:
+                              type: string
+                              description: gives the connected_account_id its mapped to
+                            lastUpdate:
+                              type: string
+                              description: last updated at date
+                            indexStatus:
+                              type: boolean
+                              description: SOV index status
+                            syncIssue:
+                              type: string
+                              description: error while syncing
+                            verfied:
+                              type: boolean
+                              description: check if this listing is verified
+                          x-apidog-orders:
+                          - id
+                          - databaseId
+                          - site
+                          - syncStatus
+                          - displayStatus
+                          - actionRequired
+                          - listingUrl
+                          - connectedAccountId
+                          - lastUpdate
+                          - indexStatus
+                          - syncIssue
+                          - verfied
+                          required:
+                          - connectedAccountId
+                          - lastUpdate
+                          - indexStatus
+                          - syncIssue
+                          - verfied
+                    x-apidog-orders:
+                    - listingsForLocation
+                x-apidog-orders:
+                - data
+          headers: {}
+          x-apidog-name: OK
+      security: []
+      x-apidog-folder: Listings
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-13671527-run
+  /locations/{locationId}/voice-assistants:
+    get:
+      summary: Get voice listings for a location
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        This API retrieves all voice assistant listings associated with a specific location.
+
+
+        **Available Voice Assistants:**
+
+        - Google Assistant
+
+        - Cortana
+
+        - Alexa
+
+        - Siri
+
+        - Bixby
+
+
+        **Response Includes:**
+
+        - Sync status – Indicates whether the listing is successfully synced.
+
+        - Connection details – Provides integration status with each voice assistant.
+
+        - Potential issues – Highlights any errors preventing successful sync.
+
+        </span>'
+      operationId: getVoiceListings
+      tags:
+      - Listings
+      parameters:
+      - name: locationId
+        in: path
+        description: The unique identifier of the location
+        required: true
+        example: TG9jYXRpb246MTA2MDY4Mw==
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        description: ''
+        required: true
+        example: application/json
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Voice listings retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      voiceAssistantsForLocation:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            databaseId:
+                              type: string
+                              description: Internal database identifier
+                            actionRequired:
+                              type: boolean
+                              description: Indicates if user action is needed
+                            connectedAccountId:
+                              type:
+                              - string
+                              - 'null'
+                              description: ID of the connected account if available
+                            errors:
+                              type: array
+                              items:
+                                type: string
+                              description: Array of error messages if any
+                            voiceIdentifier:
+                              type: string
+                              enum:
+                              - GOOGLE_ASSISTANT
+                              - CORTANA
+                              - ALEXA
+                              - SIRI
+                              - BIXBY
+                              description: Unique identifier for the voice assistant
+                            name:
+                              type: string
+                              description: Display name of the voice assistant
+                            syncStatus:
+                              type: string
+                              enum:
+                              - IN_PROGRESS
+                              - COMPLETED
+                              - FAILED
+                              description: Current sync status
+                            syncIssue:
+                              type:
+                              - string
+                              - 'null'
+                              description: Description of any sync issues
+                            __typename:
+                              type: string
+                              description: GraphQL type name
+                          x-apidog-orders:
+                          - databaseId
+                          - actionRequired
+                          - connectedAccountId
+                          - errors
+                          - voiceIdentifier
+                          - name
+                          - syncStatus
+                          - syncIssue
+                          - __typename
+                    x-apidog-orders:
+                    - voiceAssistantsForLocation
+                x-apidog-orders:
+                - data
+              example:
+                data:
+                  voiceAssistantsForLocation:
+                  - databaseId: '72246903'
+                    actionRequired: false
+                    connectedAccountId: 2311f31a-ad73-4e2c-a063-6ae4a9d4c705
+                    errors: []
+                    voiceIdentifier: GOOGLE_ASSISTANT
+                    name: Google Assistant
+                    syncStatus: IN_PROGRESS
+                    syncIssue: null
+                    __typename: VoiceAssistant
+                  - databaseId: '72246683'
+                    actionRequired: false
+                    connectedAccountId: null
+                    errors: []
+                    voiceIdentifier: CORTANA
+                    name: Cortana
+                    syncStatus: IN_PROGRESS
+                    syncIssue: null
+                    __typename: VoiceAssistant
+          headers: {}
+          x-apidog-name: OK
+        '400':
+          description: Bad request - invalid location ID
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: Bad Request
+        '401':
+          description: Unauthorized - invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: Unauthorized
+        '403':
+          description: Forbidden - insufficient permissions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                      examples:
+                      - Insufficient permissions to access voice listings
+                x-apidog-orders:
+                - errors
+          headers: {}
+          x-apidog-name: Forbidden
+        '404':
+          description: Location not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: Record Not Found
+      security: []
+      x-apidog-folder: Listings
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-13671591-run
+  /locations/listings/mark-as-duplicate:
+    post:
+      summary: Mark listings as duplicates
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+
+        This API flags one or more listings as duplicates for a specific location.
+
+
+        **Behavior:**
+
+        - Identifies listings that represent the same business but appear separately across different directories.
+
+        - Helps maintain data consistency by marking duplicate entries for review or removal.
+
+        </span>'
+      operationId: markAsDuplicate
+      tags:
+      - Listings
+      parameters:
+      - name: Authorization
+        in: header
+        description: API key for authentication
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        description: ''
+        required: true
+        example: application/json
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - input
+              properties:
+                input:
+                  type: object
+                  required:
+                  - locationId
+                  - listingItemIds
+                  properties:
+                    locationId:
+                      type: string
+                      description: The unique identifier of the location
+                    listingItemIds:
+                      type: array
+                      description: Array of listing IDs to mark as duplicates
+                      items:
+                        type: string
+                  x-apidog-orders:
+                  - locationId
+                  - listingItemIds
+              x-apidog-orders:
+              - input
+            example:
+              input:
+                locationId: TG9jYXRpb246MjcyODc2
+                listingItemIds:
+                - TGlzdGluZ0l0ZW06NDMzODcxMjY=
+                - TGlzdGluZ0l0ZW06NDMzODcxMzE=
+      responses:
+        '200':
+          description: Listings marked as duplicates successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      markAsDuplicate:
+                        type: object
+                        properties:
+                          clientMutationId:
+                            type:
+                            - string
+                            - 'null'
+                            description: Optional client-provided mutation identifier
+                          errors:
+                            type:
+                            - array
+                            - 'null'
+                            items:
+                              type: string
+                            description: Array of error messages if any occurred
+                          success:
+                            type: boolean
+                            description: Indicates if the operation was successful
+                          warnings:
+                            type:
+                            - array
+                            - 'null'
+                            items:
+                              type: string
+                            description: Array of warning messages if any occurred
+                        x-apidog-orders:
+                        - clientMutationId
+                        - errors
+                        - success
+                        - warnings
+                    x-apidog-orders:
+                    - markAsDuplicate
+                x-apidog-orders:
+                - data
+              examples:
+                '1':
+                  summary: Success
+                  value:
+                    data:
+                      markAsDuplicate:
+                        clientMutationId: null
+                        errors: null
+                        success: true
+                        warnings: null
+                '2':
+                  summary: invalidLocation
+                  value:
+                    data:
+                      markAsDuplicate: null
+                    errors:
+                    - message: SY90002:Invalid Id
+                '3':
+                  summary: listingItemNotFound
+                  value:
+                    data:
+                      markAsDuplicate: null
+                    errors:
+                    - message: SY00002:Listing item ID not found
+          headers: {}
+          x-apidog-name: OK
+        '400':
+          description: Bad request - invalid input parameters
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                      examples:
+                      - Invalid listing IDs provided
+                x-apidog-orders:
+                - errors
+          headers: {}
+          x-apidog-name: Bad Request
+        '401':
+          description: Unauthorized - invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: Unauthorized
+        '403':
+          description: Forbidden - insufficient permissions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                      examples:
+                      - Insufficient permissions to mark listings as duplicates
+                x-apidog-orders:
+                - errors
+          headers: {}
+          x-apidog-name: Forbidden
+        '404':
+          description: Location or listings not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                      examples:
+                      - Location or listing items not found
+                x-apidog-orders:
+                - errors
+          headers: {}
+          x-apidog-name: Record Not Found
+      security: []
+      x-apidog-folder: Listings
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-13672183-run
+  /locations/listings/mark-as-not-duplicate:
+    post:
+      summary: Mark listings as not duplicates
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+
+        This API removes the duplicate flag from one or more listings for a specific location.
+
+
+        **Behavior:**
+
+        - Allows correction of incorrectly flagged duplicates.
+
+        - Ensures that distinct business locations remain separately listed.
+
+        </span>'
+      operationId: markAsNotDuplicate
+      tags:
+      - Listings
+      parameters:
+      - name: Authorization
+        in: header
+        description: API key for authentication
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        description: ''
+        required: true
+        example: application/json
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - input
+              properties:
+                input:
+                  type: object
+                  required:
+                  - locationId
+                  - listingItemIds
+                  properties:
+                    locationId:
+                      type: string
+                      description: The unique identifier of the location
+                    listingItemIds:
+                      type: array
+                      description: Array of listing IDs to mark as not duplicates
+                      items:
+                        type: string
+                  x-apidog-orders:
+                  - locationId
+                  - listingItemIds
+              x-apidog-orders:
+              - input
+            example:
+              input:
+                locationId: TG9jYXRpb246MjcyODc2
+                listingItemIds:
+                - TGlzdGluZ0l0ZW06NDMzODcxMjY=
+                - TGlzdGluZ0l0ZW06NDMzODcxMzE=
+      responses:
+        '200':
+          description: Operation completed successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      markAsNotDuplicate:
+                        type:
+                        - object
+                        - 'null'
+                        properties:
+                          clientMutationId:
+                            type:
+                            - string
+                            - 'null'
+                            description: Optional client-provided mutation identifier
+                          errors:
+                            type:
+                            - array
+                            - 'null'
+                            items:
+                              type: string
+                            description: Array of error messages if any occurred
+                          success:
+                            type: boolean
+                            description: Indicates if the operation was successful
+                          warnings:
+                            type:
+                            - array
+                            - 'null'
+                            items:
+                              type: string
+                            description: Array of warning messages if any occurred
+                        x-apidog-orders:
+                        - clientMutationId
+                        - errors
+                        - success
+                        - warnings
+                    x-apidog-orders:
+                    - markAsNotDuplicate
+                  errors:
+                    type:
+                    - array
+                    - 'null'
+                    items:
+                      type: object
+                      properties:
+                        message:
+                          type: string
+                          description: Error message details
+                      x-apidog-orders:
+                      - message
+                x-apidog-orders:
+                - data
+                - errors
+              examples:
+                '1':
+                  summary: success
+                  value:
+                    data:
+                      markAsNotDuplicate:
+                        clientMutationId: null
+                        errors: null
+                        success: true
+                        warnings: null
+                '2':
+                  summary: listingNotFound
+                  value:
+                    data:
+                      markAsNotDuplicate: null
+                    errors:
+                    - message: SY00002:Listing item ID not found
+                '3':
+                  summary: invalidLocation
+                  value:
+                    data:
+                      markAsNotDuplicate: null
+                    errors:
+                    - message: SY90002:Invalid Id
+          headers: {}
+          x-apidog-name: OK
+        '400':
+          description: Bad request - invalid input parameters
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      markAsNotDuplicate:
+                        type: 'null'
+                    x-apidog-orders:
+                    - markAsNotDuplicate
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        message:
+                          type: string
+                      x-apidog-orders:
+                      - message
+                x-apidog-orders:
+                - data
+                - errors
+                examples:
+                - data:
+                    markAsNotDuplicate: null
+                  errors:
+                  - message: SY90002:Invalid Id
+          headers: {}
+          x-apidog-name: Bad Request
+        '401':
+          description: Unauthorized - invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: Unauthorized
+        '403':
+          description: Forbidden - insufficient permissions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                      examples:
+                      - Insufficient permissions to modify listing status
+                x-apidog-orders:
+                - errors
+          headers: {}
+          x-apidog-name: Forbidden
+      security: []
+      x-apidog-folder: Listings
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-13672206-run

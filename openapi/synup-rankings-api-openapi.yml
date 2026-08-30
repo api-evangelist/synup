@@ -1,0 +1,1029 @@
+openapi: 3.2.0
+info:
+  title: Synup Rankings API
+  version: '4'
+  description: 'REST API v4 for the Synup local marketing platform: business locations, listing syndication to 80+ directories, review/interaction aggregation and response, review campaigns, local rank tracking and grid-rank heatmaps, local and social posts, AI post ideas, menus, connected accounts, users and profile analytics.
+
+
+    ASSEMBLED BY API EVANGELIST from the per-endpoint OpenAPI documents Synup publishes on its own documentation host (developer.synup.com, Apidog project 797384). Every operation, parameter, response, example and schema below is verbatim provider content; only the merge into a single document is ours. Source index: https://developer.synup.com/llms.txt'
+  contact:
+    name: Synup Developer Documentation
+    url: https://developer.synup.com/
+  x-assembled-by: api-evangelist enrichment pipeline (local-v1)
+  x-assembled-from: 506 per-endpoint OpenAPI fragments published at https://developer.synup.com/<slug>.md
+  x-assembled-date: '2026-08-13'
+servers:
+- url: https://api.synup.com/api/v4
+  description: Base ENV (as published in every Synup doc fragment). Tenant workspace domains (https://<workspace>.synup.com/api/v4) also serve the same API.
+tags:
+- name: Rankings
+paths:
+  /locations/keywords:
+    post:
+      summary: Add keywords
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        This API allows you to add keywords that you want to track, for a specific location.
+
+
+
+        </span>
+
+
+        :::caution[]
+
+        <span style="font-size: 14px;"> **Limitations:** The number of keywords that can be added for a location is subject to your subscription plan. Please consult the support team to determine the exact number applicable to your account.</span>
+
+        :::'
+      tags:
+      - Rankings
+      parameters:
+      - name: Authorization
+        in: header
+        description: API key for authentication. Must be prefixed with 'API '
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        description: ''
+        required: true
+        example: application/json
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                locationId:
+                  type: string
+                inputKeywords:
+                  type: array
+                  items:
+                    type: string
+              required:
+              - locationId
+              - inputKeywords
+              x-apidog-orders:
+              - locationId
+              - inputKeywords
+            example:
+              locationId: TG9jYXRpb246MTM5OTg=
+              inputKeywords:
+              - road paving
+              - road building
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      addKeywords:
+                        type: object
+                        properties:
+                          keywords:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                id:
+                                  type: string
+                                primary:
+                                  type: 'null'
+                                archived:
+                                  type: boolean
+                                archiveReasonId:
+                                  type: 'null'
+                                databaseId:
+                                  type: integer
+                                name:
+                                  type: string
+                              required:
+                              - id
+                              - primary
+                              - archived
+                              - archiveReasonId
+                              - databaseId
+                              - name
+                              x-apidog-orders:
+                              - id
+                              - primary
+                              - archived
+                              - archiveReasonId
+                              - databaseId
+                              - name
+                          errors:
+                            type: 'null'
+                        required:
+                        - keywords
+                        - errors
+                        x-apidog-orders:
+                        - keywords
+                        - errors
+                    required:
+                    - addKeywords
+                    x-apidog-orders:
+                    - addKeywords
+                required:
+                - data
+                x-apidog-orders:
+                - data
+              examples:
+                '1':
+                  summary: Success
+                  value:
+                    data:
+                      addKeywords:
+                        keywords:
+                        - id: S2V5d29yZDoxOTM2Nzk1
+                          primary: null
+                          archived: false
+                          archiveReasonId: null
+                          databaseId: 1936795
+                          name: road paving
+                        - id: S2V5d29yZDoxOTM2Nzk2
+                          primary: null
+                          archived: false
+                          archiveReasonId: null
+                          databaseId: 1936796
+                          name: road building
+                        errors: null
+                '2':
+                  summary: If keyword already exists
+                  value:
+                    data:
+                      addKeywords:
+                        keywords: null
+                        errors:
+                        - message: Keyword with name road paving already exists
+                          contextInfo:
+                          - key: keyword
+                            value: road paving
+                          code: SY20106
+          headers: {}
+          x-apidog-name: Success
+      security: []
+      x-apidog-folder: Rankings
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-13687734-run
+  /locations/keywords/archive:
+    post:
+      summary: Archive a keyword
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        This API removes a keyword from the list of tracked keywords for a specific location by archiving it.
+
+        </span>'
+      tags:
+      - Rankings
+      parameters:
+      - name: Authorization
+        in: header
+        description: API key for authentication
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - id
+              properties:
+                id:
+                  type: string
+                  description: Keyword ID to archive
+                  examples:
+                  - S2V5d29yZDo3NjQzMTE=
+              x-apidog-orders:
+              - id
+              x-apidog-ignore-properties: []
+            example: ''
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      archiveKeyword:
+                        type: object
+                        properties:
+                          keyword:
+                            type: object
+                            properties:
+                              id:
+                                type: string
+                                description: The unique ID attached to the keyword
+                                examples:
+                                - S2V5d29yZDo3NjQzMTE=
+                              archived:
+                                type: boolean
+                                description: Indicates if the keyword has been archived
+                                examples:
+                                - true
+                              name:
+                                type: string
+                                description: The text value of the keyword
+                                examples:
+                                - road building
+                            x-apidog-orders:
+                            - id
+                            - archived
+                            - name
+                            x-apidog-ignore-properties: []
+                        x-apidog-orders:
+                        - keyword
+                        x-apidog-ignore-properties: []
+                    x-apidog-orders:
+                    - archiveKeyword
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: OK
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
+          headers: {}
+          x-apidog-name: Bad Request
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
+          headers: {}
+          x-apidog-name: Unauthorized
+      security: []
+      x-apidog-folder: Rankings
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-13695580-run
+  /locations/{locationId}/keywords-performance:
+    get:
+      summary: Get keywords performance
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        This API retrieves the ranking performance of all keywords associated with a specific location.
+
+        </span>'
+      tags:
+      - Rankings
+      parameters:
+      - name: locationId
+        in: path
+        description: Location ID
+        required: true
+        example: ''
+        schema:
+          type: string
+          examples:
+          - TG9jYXRpb246OTUzMTUw
+      - name: fromDate
+        in: query
+        description: Start date to fetch rankings from (YYYY-MM-DD)
+        required: false
+        schema:
+          type: string
+          format: date
+          examples:
+          - '2025-02-01'
+      - name: toDate
+        in: query
+        description: End date to fetch rankings until (YYYY-MM-DD)
+        required: false
+        schema:
+          type: string
+          format: date
+          examples:
+          - '2025-02-07'
+      - name: Authorization
+        in: header
+        description: API key for authentication
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      keywordsByLocationId:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              examples:
+                              - S2V5d29yZDoxODQ1OTY4
+                            databaseId:
+                              type: string
+                              examples:
+                              - '1845968'
+                            name:
+                              type: string
+                              examples:
+                              - local business
+                            sites:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  name:
+                                    type: string
+                                    enum:
+                                    - Google
+                                    - Yahoo
+                                    - Google Maps
+                                    - Bing
+                                    examples:
+                                    - Google
+                                  rankings:
+                                    type: array
+                                    items:
+                                      type: object
+                                      properties:
+                                        rank:
+                                          type: integer
+                                          examples:
+                                          - 5
+                                        rankedAt:
+                                          type: string
+                                          format: date-time
+                                          examples:
+                                          - '2025-02-04T03:28:57.931518'
+                                        matchType:
+                                          type:
+                                          - string
+                                          - 'null'
+                                          examples:
+                                          - location_url
+                                        matchUrl:
+                                          type:
+                                          - string
+                                          - 'null'
+                                          examples:
+                                          - https://example.com/location
+                                      x-apidog-orders:
+                                      - rank
+                                      - rankedAt
+                                      - matchType
+                                      - matchUrl
+                                x-apidog-orders:
+                                - name
+                                - rankings
+                          x-apidog-orders:
+                          - id
+                          - databaseId
+                          - name
+                          - sites
+                    x-apidog-orders:
+                    - keywordsByLocationId
+                x-apidog-orders:
+                - data
+              examples:
+                '1':
+                  summary: success
+                  value:
+                    data:
+                      keywordsByLocationId:
+                      - id: S2V5d29yZDoxODQ1OTY4
+                        databaseId: '1845968'
+                        name: local business
+                        sites:
+                        - name: Google
+                          rankings:
+                          - rank: 5
+                            rankedAt: '2025-02-04T03:28:57.931518'
+                            matchType: location_url
+                            matchUrl: https://example.com/location
+                '2':
+                  summary: noKeywords
+                  value:
+                    data:
+                      keywordsByLocationId: []
+                '3':
+                  summary: noRankings
+                  value:
+                    data:
+                      keywordsByLocationId:
+                      - id: S2V5d29yZDoxODg2NDQ5
+                        databaseId: '1886449'
+                        name: local business near me
+                        sites:
+                        - name: Google
+                          rankings:
+                          - rank: 0
+                            rankedAt: '2025-01-13T12:22:19.409968'
+                            matchType: null
+                            matchUrl: null
+          headers: {}
+          x-apidog-name: OK
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      keywordsByLocationId:
+                        type: null
+                    x-apidog-orders:
+                    - keywordsByLocationId
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        message:
+                          type: string
+                          examples:
+                          - 'SY90001: Not authorized to access this resource'
+                      x-apidog-orders:
+                      - message
+                x-apidog-orders:
+                - data
+                - errors
+          headers: {}
+          x-apidog-name: Unauthorized
+      security: []
+      x-apidog-folder: Rankings
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-13695557-run
+  /locations/ranking-sitewise-histogram:
+    post:
+      summary: Get Rankings Distribution By Time
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        This API provides the weekly distribution of keyword rankings across four predefined rank buckets (1-3, 3-10, 10-20, 20-50) for each site. It returns the number of keywords falling within each rank range on specific dates for these sites. This helps track keyword performance trends over a time period.
+
+        </span>'
+      tags:
+      - Rankings
+      parameters:
+      - name: Authorization
+        in: header
+        description: API key for authentication
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - fromDate
+              - toDate
+              - locationIds
+              - source
+              properties:
+                fromDate:
+                  type: string
+                  format: date
+                  description: Date from where data has to be fetched
+                  examples:
+                  - '2023-03-11'
+                toDate:
+                  type: string
+                  format: date
+                  description: Date till where data has to be fetched
+                  examples:
+                  - '2023-03-15'
+                locationIds:
+                  type: array
+                  description: IDs to fetch data
+                  items:
+                    type: string
+                  examples:
+                  - - TG9jYXRpb246NzkwODQ=
+                source:
+                  type: array
+                  description: List of sources
+                  items:
+                    type: string
+                    enum:
+                    - Google
+                    - Bing
+                    - Yahoo
+                    - Google Maps
+                  examples:
+                  - - Google
+              x-apidog-orders:
+              - fromDate
+              - toDate
+              - locationIds
+              - source
+              x-apidog-ignore-properties: []
+            example: ''
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      rankingsRollupByKeywordCount:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            site:
+                              type: string
+                              description: Source name
+                              examples:
+                              - Google
+                            keywordCountByBucket:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  rankRange:
+                                    type: string
+                                    description: Rank range bucket
+                                    enum:
+                                    - rank_from_1_to_3
+                                    - rank_from_3_to_10
+                                    - rank_from_10_to_20
+                                    - rank_from_20_to_50
+                                    examples:
+                                    - rank_from_1_to_3
+                                  dailyKeywordCount:
+                                    type: array
+                                    items:
+                                      type: object
+                                      properties:
+                                        rankDate:
+                                          type: string
+                                          format: date
+                                          description: Specific date
+                                          examples:
+                                          - '2023-03-06'
+                                        keywordCount:
+                                          type: integer
+                                          description: The value for the date
+                                          examples:
+                                          - 0
+                                      x-apidog-orders:
+                                      - rankDate
+                                      - keywordCount
+                                      x-apidog-ignore-properties: []
+                                x-apidog-orders:
+                                - rankRange
+                                - dailyKeywordCount
+                                x-apidog-ignore-properties: []
+                          x-apidog-orders:
+                          - site
+                          - keywordCountByBucket
+                          x-apidog-ignore-properties: []
+                    x-apidog-orders:
+                    - rankingsRollupByKeywordCount
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: OK
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
+          headers: {}
+          x-apidog-name: Bad Request
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
+          headers: {}
+          x-apidog-name: Unauthorized
+      security: []
+      x-apidog-folder: Rankings
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-13695783-run
+  /locations/ranking-analytics-timeline:
+    post:
+      summary: Get Rollup Keyword Performance
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        This API allows you to fetch ranking analytics data for multiple locations in your account within a single API call for a specific period. You can also specify the sources you want to filter the results for. The sources include Google maps and Google search.
+
+        </span>'
+      tags:
+      - Rankings
+      parameters:
+      - name: Authorization
+        in: header
+        description: API key for authentication
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - fromDate
+              - toDate
+              - locationIds
+              - source
+              properties:
+                fromDate:
+                  type: string
+                  format: date
+                  description: Date from where data has to be fetched
+                  examples:
+                  - '2023-03-11'
+                toDate:
+                  type: string
+                  format: date
+                  description: Date till where data has to be fetched
+                  examples:
+                  - '2023-03-15'
+                locationIds:
+                  type: array
+                  description: IDs to fetch data
+                  items:
+                    type: string
+                  examples:
+                  - - TG9jYXRpb246NzkwODQ=
+                source:
+                  type: array
+                  description: List of sources
+                  items:
+                    type: string
+                    enum:
+                    - Google
+                    - Bing
+                    - Yahoo
+                    - Google Maps
+                  examples:
+                  - - Google
+              x-apidog-orders:
+              - fromDate
+              - toDate
+              - locationIds
+              - source
+              x-apidog-ignore-properties: []
+            example: ''
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      rankingsRollupByDate:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            siteAverageRanking:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  site:
+                                    type: string
+                                    description: Source of rankings
+                                    examples:
+                                    - Google
+                                    enum:
+                                    - Google
+                                    - Bing
+                                    - Yahoo
+                                    - Google Maps
+                                    x-apidog-enum:
+                                    - value: Google
+                                      name: ''
+                                      description: ''
+                                    - value: Bing
+                                      name: ''
+                                      description: ''
+                                    - value: Yahoo
+                                      name: ''
+                                      description: ''
+                                    - value: Google Maps
+                                      name: ''
+                                      description: ''
+                                  averageRankings:
+                                    type: array
+                                    items:
+                                      type: object
+                                      properties:
+                                        date:
+                                          type: string
+                                          format: date
+                                          description: Specific date
+                                          examples:
+                                          - '2023-03-11'
+                                        averageRank:
+                                          type: integer
+                                          description: The value for the date
+                                          examples:
+                                          - 0
+                                      x-apidog-orders:
+                                      - date
+                                      - averageRank
+                                      x-apidog-ignore-properties: []
+                                x-apidog-orders:
+                                - site
+                                - averageRankings
+                                x-apidog-ignore-properties: []
+                          x-apidog-orders:
+                          - siteAverageRanking
+                          x-apidog-ignore-properties: []
+                    x-apidog-orders:
+                    - rankingsRollupByDate
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: OK
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
+          headers: {}
+          x-apidog-name: Bad Request
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
+          headers: {}
+          x-apidog-name: Unauthorized
+      security: []
+      x-apidog-folder: Rankings
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-13695712-run
+  /locations/{locationId}/keywords:
+    get:
+      summary: List Keywords
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        This API retrieves all keywords associated with a specific location.
+
+
+        **Behavior:**
+
+        - Returns a complete list of keywords linked to the location.
+
+        - Includes unique keyword IDs and names.
+
+
+        </span>'
+      operationId: listKeywords
+      tags:
+      - Rankings
+      parameters:
+      - name: locationId
+        in: path
+        description: Base64 encoded ID of the location to fetch keywords for
+        required: true
+        example: TG9jYXRpb246MjE5MjMx
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication. Must be prefixed with 'API '
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successfully retrieved keywords
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      keywordsByLocationId:
+                        type: array
+                        description: List of keywords associated with the location. Returns empty array if no keywords exist.
+                        items:
+                          $ref: '#/components/schemas/Keyword'
+                    x-apidog-orders:
+                    - keywordsByLocationId
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+              examples:
+                '1':
+                  summary: Response with keywords
+                  value:
+                    data:
+                      keywordsByLocationId:
+                      - id: S2V5d29yZDoxOTM2ODAx
+                        name: road paving
+                      - id: S2V5d29yZDoxOTM2Nzk5
+                        name: road building1
+                '2':
+                  summary: Response with no keywords
+                  value:
+                    data:
+                      keywordsByLocationId: []
+                '3':
+                  summary: Invalid location Id
+                  value:
+                    data:
+                      keywordsByLocationId: null
+                    errors:
+                    - message: 'SY90002: Invalid Id'
+                '4':
+                  summary: Invalid token
+                  value:
+                    data:
+                      keywordsByLocationId: null
+                    errors:
+                    - message: 'SY90001: Not authorized to access this resource'
+          headers: {}
+          x-apidog-name: OK
+        '400':
+          description: Invalid location ID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                data:
+                  keywordsByLocationId: null
+                errors:
+                - message: 'SY90002: Invalid Id'
+          headers: {}
+          x-apidog-name: Bad Request
+        '401':
+          description: Unauthorized access
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                data:
+                  keywordsByLocationId: null
+                errors:
+                - message: 'SY90001: Not authorized to access this resource'
+          headers: {}
+          x-apidog-name: Unauthorized
+      security: []
+      x-apidog-folder: Rankings
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-13695476-run
+components:
+  schemas:
+    UnauthorizedError:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            archiveKeyword:
+              type: null
+          x-apidog-orders:
+          - archiveKeyword
+          x-apidog-ignore-properties: []
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+                examples:
+                - 'SY90001: Not authorized to access this resource'
+            x-apidog-orders:
+            - message
+            x-apidog-ignore-properties: []
+      x-apidog-orders:
+      - data
+      - errors
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    Keyword:
+      type: object
+      required:
+      - id
+      - name
+      properties:
+        id:
+          type: string
+          description: The unique ID attached to the keyword
+        name:
+          type: string
+          description: The text value of the keyword
+      x-apidog-orders:
+      - id
+      - name
+      x-apidog-folder: ''
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+        contextInfo:
+          type: array
+          items:
+            type: object
+            properties:
+              key:
+                type: string
+              value:
+                type: string
+            x-apidog-orders:
+            - key
+            - value
+            x-apidog-ignore-properties: []
+      x-apidog-orders:
+      - message
+      - code
+      - contextInfo
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    BadRequestError:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            archiveKeyword:
+              type: null
+          x-apidog-orders:
+          - archiveKeyword
+          x-apidog-ignore-properties: []
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+                examples:
+                - Invalid keyword ID provided
+            x-apidog-orders:
+            - message
+            x-apidog-ignore-properties: []
+      x-apidog-orders:
+      - data
+      - errors
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''

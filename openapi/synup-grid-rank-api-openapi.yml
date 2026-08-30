@@ -1,0 +1,550 @@
+openapi: 3.2.0
+info:
+  title: Synup Grid Rank API
+  version: '4'
+  description: 'REST API v4 for the Synup local marketing platform: business locations, listing syndication to 80+ directories, review/interaction aggregation and response, review campaigns, local rank tracking and grid-rank heatmaps, local and social posts, AI post ideas, menus, connected accounts, users and profile analytics.
+
+
+    ASSEMBLED BY API EVANGELIST from the per-endpoint OpenAPI documents Synup publishes on its own documentation host (developer.synup.com, Apidog project 797384). Every operation, parameter, response, example and schema below is verbatim provider content; only the merge into a single document is ours. Source index: https://developer.synup.com/llms.txt'
+  contact:
+    name: Synup Developer Documentation
+    url: https://developer.synup.com/
+  x-assembled-by: api-evangelist enrichment pipeline (local-v1)
+  x-assembled-from: 506 per-endpoint OpenAPI fragments published at https://developer.synup.com/<slug>.md
+  x-assembled-date: '2026-08-13'
+servers:
+- url: https://api.synup.com/api/v4
+  description: Base ENV (as published in every Synup doc fragment). Tenant workspace domains (https://<workspace>.synup.com/api/v4) also serve the same API.
+tags:
+- name: Grid Rank
+paths:
+  /create-grid-report:
+    post:
+      summary: Create Rank Grid Report
+      deprecated: false
+      description: "\n\n<span style=\"font-size: 14px;\">\nThis API generates a new rank grid report to analyze business rankings across specified keywords.\n\n**Behavior:**\n- Evaluates business rankings in a defined geographic grid.\n- Supports multiple keywords for ranking analysis.\n- The response includes report IDs, which can be used to fetch report details.\n   \n    \n</span>\n"
+      operationId: createGridReport
+      tags:
+      - Grid Rank
+      parameters:
+      - name: Authorization
+        in: header
+        description: API key for authentication
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateGridReportInput'
+            example:
+              locationId: TG9jYXRpb246OTI2MDMw
+              keywords:
+              - grill
+              gridSize: 3
+              distanceUnit: mi
+              latitude: '33.8937913'
+              longitude: '35.5017767'
+              distance: 2.5
+              businessName: The Grill
+              businessStreet: 1418 Professor Wafic Sinno Avenue, Beirut, LB
+              businessCity: Beirut
+              businessState: ''
+              businessCountry: Lebanon
+      responses:
+        '200':
+          description: Grid rank report created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateGridReportResponse'
+              example:
+                data:
+                  createGridrankReport:
+                    data:
+                      reportIds:
+                      - 79a2773e-17ab-4209-b8d2-8261478f655f
+                    errors: null
+          headers: {}
+          x-apidog-name: OK
+        '400':
+          description: Bad Request - Invalid input parameters
+          headers: {}
+          x-apidog-name: Bad Request
+        '401':
+          description: Unauthorized - Valid API key required
+          headers: {}
+          x-apidog-name: Unauthorized
+        '403':
+          description: Forbidden - Insufficient permissions
+          headers: {}
+          x-apidog-name: Forbidden
+      security: []
+      x-apidog-folder: Grid Rank
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-13932561-run
+  /locations/{locationId}/grid-reports:
+    get:
+      summary: Fetch All Grid Reports for Location
+      deprecated: false
+      description: "<span style=\"font-size: 14px;\">\nThis API generates a new rank grid report to analyze business rankings for specified keywords across a grid specified by the user using grid distance and the number of grid coordinates to be analyzed.\n**Behavior:**\n- Returns a list of reports generated for the given location.\n- Includes report IDs, keywords analyzed, and timestamps.\n- Can be used to track ranking trends over time.\n   \n    \n</span>\n\n"
+      operationId: getAllGridReports
+      tags:
+      - Grid Rank
+      parameters:
+      - name: locationId
+        in: path
+        description: Location ID should be provided in Base64 encoded format. Must be in the format Location:<Location ID>
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Grid rank reports retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AllGridReportsResponse'
+              example:
+                data:
+                  gridrankReportsByLocationId:
+                  - id: df996f3d-1c0e-48da-be74-8cfec452984b
+                    locationId: '84703'
+                    accountId: '15004'
+                    keyword: italian restaurant
+                    businessName: Chianti, Koramangala
+                    businessStreet: No 12, 5th Block, Koramangala
+                    businessCity: Bengaluru
+                    businessState: Karnataka
+                    businessCountry: India
+                    gridSize: 3
+                    gridDistance: 20
+                    gridDistanceUnit: km
+                    gridDistanceInKm: 20
+                    ranks:
+                    - rank: 6
+                      latitude: 12.80803271879746
+                      longitude: 77.4894662571528
+                    averageRank: 8.25
+                    topOneShare: 0
+                    topTwoShare: 0
+                    status: COMPLETED
+                    latitude: 12.935216
+                    longitude: 77.619961
+                    placeId: null
+                    createdAt: '1719372126514'
+          headers: {}
+          x-apidog-name: OK
+        '400':
+          description: Bad Request - Invalid location ID format
+          headers: {}
+          x-apidog-name: Bad Request
+        '401':
+          description: Unauthorized - Valid API key required
+          headers: {}
+          x-apidog-name: Unauthorized
+        '403':
+          description: Forbidden - Insufficient permissions
+          headers: {}
+          x-apidog-name: Forbidden
+        '404':
+          description: Location not found
+          headers: {}
+          x-apidog-name: Record Not Found
+      security: []
+      x-apidog-folder: Grid Rank
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-13932576-run
+  /grid-report/{reportId}:
+    get:
+      summary: Fetch Rank Grid Report By ID
+      deprecated: false
+      description: "\n<span style=\"font-size: 14px;\">\n    \nThis API retrieves all grid rank reports associated with a specific location.\n\n**Behaviour:**\n- Business details – It returns a list of reports generated for the given location.\n- Grid configuration – Grid size, geographic coordinates, and search parameters.\n- Ranking results – Performance across specified keywords within the grid.\n    \n</span>"
+      operationId: getGridReport
+      tags:
+      - Grid Rank
+      parameters:
+      - name: reportId
+        in: path
+        description: UUID of the report to fetch
+        required: true
+        example: ''
+        schema:
+          type: string
+          format: uuid
+      - name: Authorization
+        in: header
+        description: API key for authentication
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Grid rank report retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GridReportResponse'
+              example:
+                data:
+                  gridrankReportById:
+                    id: df996f3d-1c0e-48da-be74-8cfec452984b
+                    locationId: '84703'
+                    accountId: '15004'
+                    keyword: italian restaurant
+                    businessName: Chianti, Koramangala
+                    businessStreet: No 12, 5th Block, Koramangala
+                    businessCity: Bengaluru
+                    businessState: Karnataka
+                    businessCountry: India
+                    gridSize: 3
+                    gridDistance: 20
+                    gridDistanceUnit: km
+                    gridDistanceInKm: 20
+                    ranks:
+                    - rank: 6
+                      latitude: 12.80803271879746
+                      longitude: 77.4894662571528
+                    averageRank: 8.25
+                    topOneShare: 0
+                    topTwoShare: 0
+                    status: COMPLETED
+                    latitude: 12.935216
+                    longitude: 77.619961
+                    placeId: null
+                    createdAt: '1719372126514'
+          headers: {}
+          x-apidog-name: OK
+        '400':
+          description: Bad Request - Invalid report ID format
+          headers: {}
+          x-apidog-name: Bad Request
+        '401':
+          description: Unauthorized - Valid API key required
+          headers: {}
+          x-apidog-name: Unauthorized
+        '403':
+          description: Forbidden - Insufficient permissions
+          headers: {}
+          x-apidog-name: Forbidden
+        '404':
+          description: Report not found
+          headers: {}
+          x-apidog-name: Record Not Found
+      security: []
+      x-apidog-folder: Grid Rank
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-13932585-run
+components:
+  schemas:
+    RankPoint:
+      type: object
+      properties:
+        rank:
+          type: number
+          description: Rank at this coordinate (-1 if not ranked)
+        latitude:
+          type: number
+          format: float
+          description: Latitude of the grid point
+        longitude:
+          type: number
+          format: float
+          description: Longitude of the grid point
+      x-apidog-orders:
+      - rank
+      - latitude
+      - longitude
+      x-apidog-folder: ''
+    GridReport:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Report ID
+        locationId:
+          type: string
+          description: Location ID
+        accountId:
+          type: string
+          description: Account ID
+        keyword:
+          type: string
+          description: Keyword used for rank analysis
+        businessName:
+          type: string
+          description: Exact name of the business in Google Maps
+        businessStreet:
+          type: string
+          description: Street address of the business
+        businessCity:
+          type: string
+          description: City of the business
+        businessState:
+          type: string
+          description: State of the business
+        businessCountry:
+          type: string
+          description: Country of the business
+        gridSize:
+          type: integer
+          enum:
+          - 3
+          - 5
+          - 7
+          description: Size of the grid used for analysis
+        gridDistance:
+          type: number
+          description: Grid distance value
+        gridDistanceUnit:
+          type: string
+          enum:
+          - mi
+          - km
+          description: Unit of grid distance measurement
+        gridDistanceInKm:
+          type: number
+          format: float
+          description: Grid distance converted to kilometers
+        ranks:
+          type: array
+          items:
+            $ref: '#/components/schemas/RankPoint'
+          description: Array of ranking results for each coordinate
+        averageRank:
+          type: number
+          format: float
+          description: Average rank across all grid points
+        topOneShare:
+          type: number
+          format: float
+          description: Percentage of coordinates with rank <= 3
+        topTwoShare:
+          type: number
+          format: float
+          description: Percentage of coordinates with rank <= 10
+        status:
+          type: string
+          enum:
+          - PROCESSING
+          - COMPLETED
+          description: Current status of the report
+        latitude:
+          type: number
+          format: float
+          description: Business latitude coordinate
+        longitude:
+          type: number
+          format: float
+          description: Business longitude coordinate
+        placeId:
+          type:
+          - string
+          - 'null'
+          description: Google Place ID of the business
+        createdAt:
+          type: string
+          description: Epoch timestamp in milliseconds
+      x-apidog-orders:
+      - id
+      - locationId
+      - accountId
+      - keyword
+      - businessName
+      - businessStreet
+      - businessCity
+      - businessState
+      - businessCountry
+      - gridSize
+      - gridDistance
+      - gridDistanceUnit
+      - gridDistanceInKm
+      - ranks
+      - averageRank
+      - topOneShare
+      - topTwoShare
+      - status
+      - latitude
+      - longitude
+      - placeId
+      - createdAt
+      x-apidog-folder: ''
+    CreateGridReportResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            createGridrankReport:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    reportIds:
+                      type: array
+                      items:
+                        type: string
+                        format: uuid
+                      description: Array of created report IDs
+                  x-apidog-orders:
+                  - reportIds
+                  x--orders:
+                  - reportIds
+                  x--ignore-properties: []
+                errors:
+                  type:
+                  - string
+                  - 'null'
+                  description: Error message if request failed
+              x-apidog-orders:
+              - data
+              - errors
+              x--orders:
+              - data
+              - errors
+              x--ignore-properties: []
+          x-apidog-orders:
+          - createGridrankReport
+          x--orders:
+          - createGridrankReport
+          x--ignore-properties: []
+      x-apidog-orders:
+      - data
+      x--orders:
+      - data
+      x--ignore-properties: []
+      x-apidog-folder: ''
+    CreateGridReportInput:
+      type: object
+      required:
+      - locationId
+      - keywords
+      - businessName
+      - businessStreet
+      - businessCity
+      - businessState
+      - businessCountry
+      - latitude
+      - longitude
+      - distance
+      - distanceUnit
+      - gridSize
+      properties:
+        locationId:
+          type: string
+          description: Base64 encoded location ID
+        keywords:
+          type: array
+          items:
+            type: string
+          maxItems: 25
+          description: Keywords for analysis of rank for the business (maximum 25)
+        businessName:
+          type: string
+          description: Exact name of the business in Google Maps
+        businessStreet:
+          type: string
+          description: Street address of the business
+        businessCity:
+          type: string
+          description: City of the business
+        businessState:
+          type: string
+          description: State of the business
+        businessCountry:
+          type: string
+          description: Country of the business
+        latitude:
+          type: number
+          format: float
+          description: Latitude coordinate of the business
+        longitude:
+          type: number
+          format: float
+          description: Longitude coordinate of the business
+        distance:
+          type: number
+          description: Grid Distance
+        distanceUnit:
+          type: string
+          enum:
+          - mi
+          - km
+          description: Distance unit (mi for Miles, km for Kilometers)
+        gridSize:
+          type: integer
+          enum:
+          - 3
+          - 5
+          - 7
+          description: Size of the grid for analysis
+      x-apidog-orders:
+      - locationId
+      - keywords
+      - businessName
+      - businessStreet
+      - businessCity
+      - businessState
+      - businessCountry
+      - latitude
+      - longitude
+      - distance
+      - distanceUnit
+      - gridSize
+      x--orders:
+      - locationId
+      - keywords
+      - businessName
+      - businessStreet
+      - businessCity
+      - businessState
+      - businessCountry
+      - latitude
+      - longitude
+      - distance
+      - distanceUnit
+      - gridSize
+      x--ignore-properties: []
+      x-apidog-folder: ''
+    GridReportResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            gridrankReportById:
+              $ref: '#/components/schemas/GridReport'
+          x-apidog-orders:
+          - gridrankReportById
+          x-apidog-ignore-properties: []
+      x-apidog-orders:
+      - data
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    AllGridReportsResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            gridrankReportsByLocationId:
+              type: array
+              items:
+                $ref: '#/components/schemas/GridReport'
+          x-apidog-orders:
+          - gridrankReportsByLocationId
+      x-apidog-orders:
+      - data
+      x-apidog-folder: ''

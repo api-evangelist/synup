@@ -1,0 +1,234 @@
+openapi: 3.2.0
+info:
+  title: Synup Social API
+  version: '4'
+  description: 'REST API v4 for the Synup local marketing platform: business locations, listing syndication to 80+ directories, review/interaction aggregation and response, review campaigns, local rank tracking and grid-rank heatmaps, local and social posts, AI post ideas, menus, connected accounts, users and profile analytics.
+
+
+    ASSEMBLED BY API EVANGELIST from the per-endpoint OpenAPI documents Synup publishes on its own documentation host (developer.synup.com, Apidog project 797384). Every operation, parameter, response, example and schema below is verbatim provider content; only the merge into a single document is ours. Source index: https://developer.synup.com/llms.txt'
+  contact:
+    name: Synup Developer Documentation
+    url: https://developer.synup.com/
+  x-assembled-by: api-evangelist enrichment pipeline (local-v1)
+  x-assembled-from: 506 per-endpoint OpenAPI fragments published at https://developer.synup.com/<slug>.md
+  x-assembled-date: '2026-08-13'
+servers:
+- url: https://api.synup.com/api/v4
+  description: Base ENV (as published in every Synup doc fragment). Tenant workspace domains (https://<workspace>.synup.com/api/v4) also serve the same API.
+tags:
+- name: Social
+paths:
+  /social/brands/{brandId}:
+    put:
+      summary: Assign a user to a single brand
+      deprecated: false
+      description: ''
+      tags:
+      - Social
+      parameters:
+      - name: brandId
+        in: path
+        description: ''
+        required: true
+        example: ''
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        description: ''
+        required: true
+        example: application/json
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: ''
+        required: true
+        example: API VGLYvxxxxxxxxxxxxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                input:
+                  type: object
+                  properties:
+                    userId:
+                      type: string
+                  required:
+                  - userId
+              required:
+              - input
+            example:
+              input:
+                userId: '{userId}'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+          headers: {}
+          x-apidog-name: Success
+      security: []
+      x-apidog-folder: Social
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-33169859-run
+  /api/v4/social/brands/{brandId1},{brandId2},{brandId3}:
+    put:
+      summary: Assign multiple brands
+      deprecated: false
+      description: ''
+      tags:
+      - Social
+      parameters:
+      - name: brandId1
+        in: path
+        description: ''
+        required: true
+        example: ''
+        schema:
+          type: string
+      - name: brandId2
+        in: path
+        description: ''
+        required: true
+        example: ''
+        schema:
+          type: string
+      - name: brandId3
+        in: path
+        description: ''
+        required: true
+        example: ''
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        description: ''
+        required: true
+        example: application/json
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: ''
+        required: true
+        example: API VGLYvxxxxxxxxxxxxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                input:
+                  type: object
+                  properties:
+                    userId:
+                      type: string
+                  required:
+                  - userId
+              required:
+              - input
+            example:
+              input:
+                userId: '{userId}'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+          headers: {}
+          x-apidog-name: Success
+      security: []
+      x-apidog-folder: Social
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-33169860-run
+  /social/brands:
+    post:
+      summary: Create a brand
+      deprecated: false
+      description: ''
+      tags:
+      - Social
+      parameters:
+      - name: Content-Type
+        in: header
+        description: ''
+        required: true
+        example: application/json
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: ''
+        required: true
+        example: API VGLYvxxxxxxxxxxxxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                input:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    businessIntent:
+                      type: string
+                    categories:
+                      type: array
+                      items:
+                        type: string
+                    website:
+                      type: string
+                    phone:
+                      type: string
+                    description:
+                      type: string
+                  required:
+                  - name
+                  - businessIntent
+                  - categories
+                  - website
+                  - phone
+                  - description
+              required:
+              - input
+            example:
+              input:
+                name: Acme Coffee Co.
+                businessIntent: LOCAL_BUSINESS
+                categories:
+                - FOOD_AND_BEVERAGE
+                - CAFE
+                website: https://acmecoffee.com
+                phone: +1-555-000-1234
+                description: Specialty coffee roasters since 2010
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+          headers: {}
+          x-apidog-name: Success
+      security: []
+      x-apidog-folder: Social
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-33169855-run

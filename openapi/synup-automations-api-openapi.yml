@@ -1,0 +1,130 @@
+openapi: 3.2.0
+info:
+  title: Synup Automations API
+  version: '4'
+  description: 'REST API v4 for the Synup local marketing platform: business locations, listing syndication to 80+ directories, review/interaction aggregation and response, review campaigns, local rank tracking and grid-rank heatmaps, local and social posts, AI post ideas, menus, connected accounts, users and profile analytics.
+
+
+    ASSEMBLED BY API EVANGELIST from the per-endpoint OpenAPI documents Synup publishes on its own documentation host (developer.synup.com, Apidog project 797384). Every operation, parameter, response, example and schema below is verbatim provider content; only the merge into a single document is ours. Source index: https://developer.synup.com/llms.txt'
+  contact:
+    name: Synup Developer Documentation
+    url: https://developer.synup.com/
+  x-assembled-by: api-evangelist enrichment pipeline (local-v1)
+  x-assembled-from: 506 per-endpoint OpenAPI fragments published at https://developer.synup.com/<slug>.md
+  x-assembled-date: '2026-08-13'
+servers:
+- url: https://api.synup.com/api/v4
+  description: Base ENV (as published in every Synup doc fragment). Tenant workspace domains (https://<workspace>.synup.com/api/v4) also serve the same API.
+tags:
+- name: Automations
+paths:
+  /api/v4/automations/temporary-close-location-with-reopening-date:
+    post:
+      summary: Temporary Close Location with a reopening date
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Temporary close a location with a reopening date.
+
+        Note : Ensure your account has automation part of your subscriptions. This functionality is supported only for Google and Facebook Listings.
+
+        </span>
+
+
+        '
+      tags:
+      - Automations
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                input:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    startDate:
+                      type: string
+                    startTime:
+                      type: string
+                    endDate:
+                      type: string
+                    locationId:
+                      type: string
+                  required:
+                  - name
+                  - startDate
+                  - startTime
+                  - endDate
+                  - locationId
+                  x-apidog-orders:
+                  - name
+                  - startDate
+                  - startTime
+                  - endDate
+                  - locationId
+              required:
+              - input
+              x-apidog-orders:
+              - input
+            example:
+              input:
+                name: Automation to temporary close a Location
+                startDate: '2025-02-25'
+                startTime: '10:59:51'
+                endDate: '2025-02-28'
+                locationId: '85006'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      createFlowFromRecipe:
+                        type: object
+                        properties:
+                          success:
+                            type: boolean
+                          flow:
+                            type: object
+                            properties:
+                              id:
+                                type: string
+                            required:
+                            - id
+                            x-apidog-orders:
+                            - id
+                        required:
+                        - success
+                        - flow
+                        x-apidog-orders:
+                        - success
+                        - flow
+                    required:
+                    - createFlowFromRecipe
+                    x-apidog-orders:
+                    - createFlowFromRecipe
+                required:
+                - data
+                x-apidog-orders:
+                - data
+              example:
+                data:
+                  createFlowFromRecipe:
+                    success: true
+                    flow:
+                      id: 52d903f2-6736-4012-930d-ec5872a690b3
+          headers: {}
+          x-apidog-name: Success
+      security: []
+      x-apidog-folder: Automations
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-19519030-run

@@ -1,0 +1,691 @@
+openapi: 3.2.0
+info:
+  title: Synup Review Campaigns API
+  version: '4'
+  description: 'REST API v4 for the Synup local marketing platform: business locations, listing syndication to 80+ directories, review/interaction aggregation and response, review campaigns, local rank tracking and grid-rank heatmaps, local and social posts, AI post ideas, menus, connected accounts, users and profile analytics.
+
+
+    ASSEMBLED BY API EVANGELIST from the per-endpoint OpenAPI documents Synup publishes on its own documentation host (developer.synup.com, Apidog project 797384). Every operation, parameter, response, example and schema below is verbatim provider content; only the merge into a single document is ours. Source index: https://developer.synup.com/llms.txt'
+  contact:
+    name: Synup Developer Documentation
+    url: https://developer.synup.com/
+  x-assembled-by: api-evangelist enrichment pipeline (local-v1)
+  x-assembled-from: 506 per-endpoint OpenAPI fragments published at https://developer.synup.com/<slug>.md
+  x-assembled-date: '2026-08-13'
+servers:
+- url: https://api.synup.com/api/v4
+  description: Base ENV (as published in every Synup doc fragment). Tenant workspace domains (https://<workspace>.synup.com/api/v4) also serve the same API.
+tags:
+- name: Review Campaigns
+paths:
+  /locations/review-campaigns/customers:
+    post:
+      summary: Add customers to a review campaign
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        This API adds new customers to an existing review campaign, allowing them to receive review requests.
+
+
+        **Behavior:**
+
+        - Supports batch addition of multiple customers in a single request.
+
+        - Customers will receive review requests via the configured delivery method (email, SMS, or both).
+
+        - Ensures duplicate entries are not added to the same campaign.
+
+        </span>'
+      operationId: addCustomersToReviewCampaign
+      tags:
+      - Review Campaigns
+      parameters:
+      - name: Authorization
+        in: header
+        description: API key for authentication
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddCustomersRequest'
+            example: ''
+      responses:
+        '200':
+          description: Successfully added customers
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: OK
+      security: []
+      x-apidog-folder: Review Campaigns
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-14003757-run
+  /locations/review-campaigns:
+    post:
+      summary: Create a review campaign
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        This API creates a review campaign to request customer reviews for a specific location.
+
+
+        **Behavior:**
+
+        - Sends review requests to customers via supported channels (e.g., email, SMS).
+
+        - Allows customization of campaign message and branding.
+
+        - Supports targeting options, such as specific customer segments.
+
+
+
+        </span>'
+      operationId: createReviewCampaign
+      tags:
+      - Review Campaigns
+      parameters:
+      - name: Authorization
+        in: header
+        description: API key for authentication
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateReviewCampaignRequest'
+            example:
+              input:
+                locationId: TG9jYXRpb246MTQwMjQ=
+                name: Christmas Sale Feedback
+                locationCustomers:
+                - name: John
+                  email: xyz@gmail.com
+                  phone: '3863443131'
+                screening: true
+                landingPageTemplate:
+                  content: Please take a moment to review your experience with us on one of these review sites.
+                  heading: Thank you. We are glad to hear that you had a great experience with us.
+                  reviewSiteHash:
+                  - name: Google
+                    url: maps.google.com
+                  - name: Yelp
+                    url: www.yelp.com/biz
+                openingEmailTemplate:
+                  replyTo: user@domain.com
+                  subject: Tell us how we did
+                  heading: ASD is committed to providing the best experience and service possible!
+                  content: Please take 5 minutes to share some feedback on your experience!
+                smsTemplate:
+                  content: Hi, Thank you for visiting ASD. Can you take a few seconds to review your experience with us? {{short_url}}
+      responses:
+        '200':
+          description: Successfully created review campaign
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: OK
+        '403':
+          description: Insufficient permissions to create campaigns
+          headers: {}
+          x-apidog-name: Forbidden
+      security: []
+      x-apidog-folder: Review Campaigns
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-14003756-run
+  /locations/review-campaigns/{reviewCampaignId}/customers:
+    get:
+      summary: List review campaign customers
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Retrieves a list of customers associated with a specific review campaign, along with their response status.
+
+
+        **Behavior:**
+
+        - Returns customer details, including name, email/phone, and response status.
+
+        - Indicates whether a review was submitted, ignored, or pending.
+
+        - Supports filtering by response type (e.g., responded, not responded).
+
+        </span>'
+      operationId: listReviewCampaignCustomers
+      tags:
+      - Review Campaigns
+      parameters:
+      - name: reviewCampaignId
+        in: path
+        description: Review campaign ID to list customers for
+        required: true
+        example: 3e0d82f7-054e-48cb-ab66-3f75306f1ee6
+        schema:
+          type: string
+          format: uuid
+      - name: Authorization
+        in: header
+        description: API key for authentication
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReviewCampaignCustomersResponse'
+              example:
+                data:
+                  reviewCampaignInfo:
+                    campaignName: Joe
+                    reviewCampaignCustomers:
+                    - name: Jack
+                      phone: '9876543210'
+                      email: jack@domain.com
+                      rating: 5
+                      response: Great Service provided
+                      date: '2018-04-12'
+                      followUpSent: 2
+                      smsDeliveredAt: '2018-04-04 01:00:12'
+                      smsOpenedAt: '2018-04-04 01:00:57'
+                      emailDeliveredAt: '2018-04-04 01:00:12'
+                      emailLastOpenedAt: '2018-04-04 01:00:57'
+                      emailLastClickedAt: '2018-04-04 01:00:57'
+                      firstFollowUpAt: '2018-04-07 18:34:06'
+                      firstFollowUpDeliveredAt: '2018-04-08 20:34:06'
+                      secondFollowUpAt: '2018-04-10 18:34:06'
+                      secondFollowUpDeliveredAt: '2018-04-11 18:34:06'
+          headers: {}
+          x-apidog-name: OK
+      security: []
+      x-apidog-folder: Review Campaigns
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-14026088-run
+  /locations/{locationId}/review-campaigns:
+    get:
+      summary: List review campaigns
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        This API retrieves a list of review campaigns associated with a specific location.
+
+
+        **Behavior:**
+
+        - Returns campaign details, including campaign ID, name, status, start date, and delivery method.
+
+        - Supports pagination for large datasets.
+
+        - Allows filtering by campaign status (active, completed, scheduled).
+
+
+
+        </span>
+
+        '
+      operationId: listReviewCampaigns
+      tags:
+      - Review Campaigns
+      parameters:
+      - name: locationId
+        in: path
+        description: Location ID to list review campaigns for
+        required: true
+        example: TG9jYXRpb246MTQwMjQ=
+        schema:
+          type: string
+      - name: startDate
+        in: query
+        description: Start date of a date range to get review campaigns
+        required: false
+        schema:
+          type: string
+          format: date
+      - name: endDate
+        in: query
+        description: End date of a date range to get review campaigns
+        required: false
+        schema:
+          type: string
+          format: date
+      - name: Authorization
+        in: header
+        description: API key for authentication
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReviewCampaignsResponse'
+              example:
+                data:
+                  listReviewCampaigns:
+                    reviewCampaigns:
+                    - id: 126dc120-acea-4bcb-8a83-74c80f6f807d
+                      locationId: TG9jYXRpb246MTQwMjQ=
+                      name: Christmas Sale Feedback
+                      screening: false
+                      createdAt: '2019-01-21T04:29:49Z'
+          headers: {}
+          x-apidog-name: OK
+      security: []
+      x-apidog-folder: Review Campaigns
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-14026077-run
+components:
+  schemas:
+    EmailTemplate:
+      type: object
+      properties:
+        replyTo:
+          type: string
+          format: email
+        subject:
+          type: string
+        heading:
+          type: string
+        content:
+          type: string
+        reviewSiteHash:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReviewSite'
+          description: Not required when screening is true
+      x-apidog-orders:
+      - replyTo
+      - subject
+      - heading
+      - content
+      - reviewSiteHash
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    CustomerInput:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        phone:
+          type: string
+      x-apidog-orders:
+      - name
+      - email
+      - phone
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    CreateReviewCampaignRequest:
+      type: object
+      required:
+      - input
+      properties:
+        input:
+          type: object
+          required:
+          - locationId
+          - name
+          - locationCustomers
+          properties:
+            locationId:
+              type: string
+              description: Encoded Location ID
+            name:
+              type: string
+              description: Review Campaign Name
+            locationCustomers:
+              type: array
+              items:
+                $ref: '#/components/schemas/CustomerInput'
+              description: "Campaign customers to create\t"
+            screening:
+              type: boolean
+              description: Flag for screening enabled/disabled
+            landingPageTemplate:
+              $ref: '#/components/schemas/LandingPageTemplate'
+              description: "Landing page template(Use only when screening = true).\t"
+            openingEmailTemplate:
+              $ref: '#/components/schemas/EmailTemplate'
+              description: "Template for the very first email sent out.\t"
+            smsTemplate:
+              $ref: '#/components/schemas/SMSTemplate'
+              description: "Template for the very first SMS sent out.\t"
+          x-apidog-orders:
+          - locationId
+          - name
+          - locationCustomers
+          - screening
+          - landingPageTemplate
+          - openingEmailTemplate
+          - smsTemplate
+          x-apidog-ignore-properties: []
+      x-apidog-orders:
+      - input
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    SMSTemplate:
+      type: object
+      properties:
+        content:
+          type: string
+        reviewSiteHash:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReviewSite'
+          description: 'Max 1 for smsTemplate
+
+            Not required when screening is true'
+      x-apidog-orders:
+      - content
+      - reviewSiteHash
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    AddCustomersRequest:
+      type: object
+      required:
+      - input
+      properties:
+        input:
+          type: object
+          required:
+          - reviewCampaignId
+          - locationCustomers
+          properties:
+            reviewCampaignId:
+              type: string
+            locationCustomers:
+              type: array
+              items:
+                $ref: '#/components/schemas/CustomerInput'
+          x-apidog-orders:
+          - reviewCampaignId
+          - locationCustomers
+          x-apidog-ignore-properties: []
+      x-apidog-orders:
+      - input
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    CampaignStat:
+      type: object
+      properties:
+        name:
+          type: string
+          enum:
+          - emails_sent
+          - sms_sent
+          - invite_open_rate
+          - clicks_rate
+          - customer_exp_score
+        value:
+          type: string
+      x-apidog-orders:
+      - name
+      - value
+      x-apidog-folder: ''
+    ReviewCampaignInfo:
+      type: object
+      properties:
+        campaignName:
+          type: string
+          description: Name of the review campaign
+        reviewCampaignCustomers:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReviewCampaignCustomer'
+      x-apidog-orders:
+      - campaignName
+      - reviewCampaignCustomers
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    LandingPageTemplate:
+      type: object
+      properties:
+        content:
+          type: string
+        heading:
+          type: string
+        reviewSiteHash:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReviewSite'
+      x-apidog-orders:
+      - content
+      - heading
+      - reviewSiteHash
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    ReviewCampaignsResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            listReviewCampaigns:
+              type: object
+              properties:
+                reviewCampaigns:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/ReviewCampaign'
+              x-apidog-orders:
+              - reviewCampaigns
+              x-apidog-ignore-properties: []
+          x-apidog-orders:
+          - listReviewCampaigns
+          x-apidog-ignore-properties: []
+      x-apidog-orders:
+      - data
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    ReviewSite:
+      type: object
+      properties:
+        name:
+          type: string
+        url:
+          type: string
+          description: URL for connected sites (maps.google.com, facebook.com, foursquare.com) or custom sites
+      x-apidog-orders:
+      - name
+      - url
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    ReviewCampaign:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier for the review campaign
+        locationId:
+          type: string
+          description: Location identifier
+        name:
+          type: string
+          description: Name of the campaign
+        screening:
+          type: boolean
+          description: Whether screening is enabled
+        createdAt:
+          type: string
+          format: date-time
+          description: Creation timestamp
+        openingEmailTemplate:
+          $ref: '#/components/schemas/EmailTemplate'
+        smsTemplate:
+          $ref: '#/components/schemas/SmsTemplate'
+        firstFollowUpSchedule:
+          type: string
+          enum:
+          - DAYS_2
+          - DAYS_5
+        firstFollowUpTemplate:
+          $ref: '#/components/schemas/EmailTemplate'
+        secondFollowUpSchedule:
+          type: string
+          enum:
+          - DAYS_2
+          - DAYS_5
+        secondFollowUpTemplate:
+          $ref: '#/components/schemas/EmailTemplate'
+        stats:
+          type: array
+          items:
+            $ref: '#/components/schemas/CampaignStat'
+        numberOfFeedbacks:
+          type: integer
+          description: Total number of feedbacks received
+      x-apidog-orders:
+      - id
+      - locationId
+      - name
+      - screening
+      - createdAt
+      - openingEmailTemplate
+      - smsTemplate
+      - firstFollowUpSchedule
+      - firstFollowUpTemplate
+      - secondFollowUpSchedule
+      - secondFollowUpTemplate
+      - stats
+      - numberOfFeedbacks
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    ReviewCampaignCustomer:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Customer's name
+        phone:
+          type: string
+          description: Customer's phone number
+        email:
+          type: string
+          format: email
+          description: Customer's email address
+        rating:
+          type: integer
+          minimum: 1
+          maximum: 5
+          description: Customer's rating
+        response:
+          type: string
+          description: Customer's feedback response
+        date:
+          type: string
+          format: date
+          description: Date of the response
+        followUpSent:
+          type: integer
+          description: Number of follow-ups sent
+        smsDeliveredAt:
+          type: string
+          format: date-time
+          description: Timestamp when SMS was delivered
+        smsOpenedAt:
+          type: string
+          format: date-time
+          description: Timestamp when SMS was opened
+        emailDeliveredAt:
+          type: string
+          format: date-time
+          description: Timestamp when email was delivered
+        emailLastOpenedAt:
+          type: string
+          format: date-time
+          description: Timestamp when email was last opened
+        emailLastClickedAt:
+          type: string
+          format: date-time
+          description: Timestamp when email was last clicked
+        firstFollowUpAt:
+          type: string
+          format: date-time
+          description: Timestamp when first follow-up was sent
+        firstFollowUpDeliveredAt:
+          type: string
+          format: date-time
+          description: Timestamp when first follow-up was delivered
+        secondFollowUpAt:
+          type: string
+          format: date-time
+          description: Timestamp when second follow-up was sent
+        secondFollowUpDeliveredAt:
+          type: string
+          format: date-time
+          description: Timestamp when second follow-up was delivered
+      x-apidog-orders:
+      - name
+      - phone
+      - email
+      - rating
+      - response
+      - date
+      - followUpSent
+      - smsDeliveredAt
+      - smsOpenedAt
+      - emailDeliveredAt
+      - emailLastOpenedAt
+      - emailLastClickedAt
+      - firstFollowUpAt
+      - firstFollowUpDeliveredAt
+      - secondFollowUpAt
+      - secondFollowUpDeliveredAt
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    SmsTemplate:
+      type: object
+      properties:
+        content:
+          type: string
+        reviewSiteHash:
+          type: array
+          items:
+            type: string
+      x-apidog-orders:
+      - content
+      - reviewSiteHash
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    ReviewCampaignCustomersResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            reviewCampaignInfo:
+              $ref: '#/components/schemas/ReviewCampaignInfo'
+          x-apidog-orders:
+          - reviewCampaignInfo
+          x-apidog-ignore-properties: []
+      x-apidog-orders:
+      - data
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''

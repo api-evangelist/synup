@@ -1,0 +1,1815 @@
+openapi: 3.2.0
+info:
+  title: Synup User Management API
+  version: '4'
+  description: 'REST API v4 for the Synup local marketing platform: business locations, listing syndication to 80+ directories, review/interaction aggregation and response, review campaigns, local rank tracking and grid-rank heatmaps, local and social posts, AI post ideas, menus, connected accounts, users and profile analytics.
+
+
+    ASSEMBLED BY API EVANGELIST from the per-endpoint OpenAPI documents Synup publishes on its own documentation host (developer.synup.com, Apidog project 797384). Every operation, parameter, response, example and schema below is verbatim provider content; only the merge into a single document is ours. Source index: https://developer.synup.com/llms.txt'
+  contact:
+    name: Synup Developer Documentation
+    url: https://developer.synup.com/
+  x-assembled-by: api-evangelist enrichment pipeline (local-v1)
+  x-assembled-from: 506 per-endpoint OpenAPI fragments published at https://developer.synup.com/<slug>.md
+  x-assembled-date: '2026-08-13'
+servers:
+- url: https://api.synup.com/api/v4
+  description: Base ENV (as published in every Synup doc fragment). Tenant workspace domains (https://<workspace>.synup.com/api/v4) also serve the same API.
+tags:
+- name: User Management
+paths:
+  /users/folders/add:
+    post:
+      summary: Add folders to user
+      deprecated: false
+      description: "<span style=\"font-size: 14px;\">\n    \n    This API associates one or more folders with a specified user, granting them access to manage those folders.\n\n**Behavior:**\n- Supports assigning multiple folders to a single user.\n- Updates the user's permissions based on assigned folders.\n</span>"
+      tags:
+      - User Management
+      parameters:
+      - name: Authorization
+        in: header
+        description: API key for authentication
+        required: false
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                input:
+                  type: object
+                  required:
+                  - userId
+                  - folderIds
+                  - defaultFolderId
+                  properties:
+                    userId:
+                      type: string
+                      description: Base64 encoded user ID
+                    folderIds:
+                      type: array
+                      items:
+                        type: string
+                        format: uuid
+                      description: Array of folder UUIDs to associate with the user
+                    defaultFolderId:
+                      type: string
+                  x-apidog-orders:
+                  - userId
+                  - folderIds
+                  - defaultFolderId
+              x-apidog-orders:
+              - input
+            example:
+              input:
+                userId: VXNlcjoxMDAyOA==
+                folderIds:
+                - c1d92c09-8ddd-469e-af96-0eb64a48d647
+                - a5af4f5d-41b6-4a8a-b24f-98741b021b7b
+                defaultFolderId: c1d92c09-8ddd-469e-af96-0eb64a48d647
+      responses:
+        '200':
+          description: Successfully added folders to user
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      addFoldersForUser:
+                        type: object
+                        properties:
+                          status:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                errors:
+                                  type:
+                                  - array
+                                  - 'null'
+                                  items:
+                                    type: string
+                                folderId:
+                                  type: string
+                                  format: uuid
+                                success:
+                                  type: boolean
+                              x-apidog-orders:
+                              - errors
+                              - folderId
+                              - success
+                        x-apidog-orders:
+                        - status
+                    x-apidog-orders:
+                    - addFoldersForUser
+                x-apidog-orders:
+                - data
+          headers: {}
+          x-apidog-name: OK
+      security: []
+      x-apidog-folder: User Management
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-13994432-run
+  /users/locations/add:
+    post:
+      summary: Add Locations to User
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        This API associates specific locations with a user, granting them access to manage those locations.
+
+
+        **Behavior:**
+
+        - Supports assigning multiple locations to a single user.
+
+        - Updates the user''s permissions and access scope based on assigned locations.
+
+        </span>'
+      operationId: addLocationsToUser
+      tags:
+      - User Management
+      parameters:
+      - name: Authorization
+        in: header
+        description: API key for authentication
+        required: false
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - input
+              properties:
+                input:
+                  $ref: '#/components/schemas/AddLocationsInput'
+              x-apidog-orders:
+              - input
+              x-apidog-ignore-properties: []
+            example:
+              input:
+                userId: VXNlcjoxMjMyMDE=
+                locationIds:
+                - TG9jYXRpb246MTE3NjE5NQ==
+                - TG9jYXRpb246MTE0NzgxNA==
+      responses:
+        '200':
+          description: Locations successfully added to user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddLocationsResponse'
+              example:
+                data:
+                  addLocationsForUser:
+                    status:
+                    - errors: null
+                      locationId: TG9jYXRpb246MTE3NjE5NQ==
+                      success: true
+                    - errors: null
+                      locationId: TG9jYXRpb246MTE0NzgxNA==
+                      success: true
+          headers: {}
+          x-apidog-name: OK
+        '400':
+          description: Bad Request - Invalid input parameters
+          headers: {}
+          x-apidog-name: Bad Request
+        '401':
+          description: Unauthorized - Valid API key required
+          headers: {}
+          x-apidog-name: Unauthorized
+        '403':
+          description: Forbidden - Insufficient permissions
+          headers: {}
+          x-apidog-name: Forbidden
+        '404':
+          description: Not Found - User or locations not found
+          headers: {}
+          x-apidog-name: Record Not Found
+      security: []
+      x-apidog-folder: User Management
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-13932855-run
+  /users/add_user_and_folder:
+    post:
+      summary: Add User and folder
+      deprecated: false
+      description: "<span style=\"font-size: 14px;\">\n    \nThis api is a combination of add_user and create_folder and assign_folder_to_user APIs. The API will take in all parameters of add_user API and create_folder APIs. Operations to be done are create user, create folder and assign folder to user.\n\n</span>"
+      tags:
+      - User Management
+      parameters:
+      - name: Authorization
+        in: header
+        description: API key for authentication
+        required: false
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                input:
+                  type: object
+                  properties:
+                    roleId:
+                      type: string
+                    firstName:
+                      type: string
+                    lastName:
+                      type: string
+                    email:
+                      type: string
+                    directCustomer:
+                      type: boolean
+                    locale:
+                      type: string
+                    locationIds:
+                      type: array
+                      items:
+                        type: string
+                    socialProfileIds:
+                      type: array
+                      items:
+                        type: string
+                    name:
+                      type: string
+                    userId:
+                      type: string
+                      description: Base64 encoded user ID
+                    isDefaultFolder:
+                      type: boolean
+                  required:
+                  - roleId
+                  - firstName
+                  - lastName
+                  - email
+                  - directCustomer
+                  - locale
+                  - locationIds
+                  - socialProfileIds
+                  - name
+                  - userId
+                  - isDefaultFolder
+                  x-apidog-orders:
+                  - roleId
+                  - firstName
+                  - lastName
+                  - email
+                  - directCustomer
+                  - locale
+                  - locationIds
+                  - socialProfileIds
+                  - name
+                  - userId
+                  - isDefaultFolder
+              required:
+              - input
+              x-apidog-orders:
+              - input
+            example:
+              input:
+                roleId: Q3VzdG9tUm9sZToyMDgzMQ==
+                firstName: 'testing '
+                lastName: user
+                email: sandeep.kota+918673997@synup.com
+                directCustomer: true
+                locale: ENGLISH
+                locationIds:
+                - TG9jYXRpb246ODcxMjE=
+                socialProfileIds: []
+                name: sandybroskis19
+                isDefaultFolder: true
+      responses:
+        '200':
+          description: Successfully added folders to user
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      addUserAndFolder:
+                        type: object
+                        properties:
+                          success:
+                            type: boolean
+                          assignFolder:
+                            type: boolean
+                          user:
+                            type: object
+                            properties:
+                              firstName:
+                                type: string
+                              lastName:
+                                type: string
+                              email:
+                                type: string
+                              directCustomer:
+                                type: boolean
+                              databaseId:
+                                type: integer
+                            required:
+                            - firstName
+                            - lastName
+                            - email
+                            - directCustomer
+                            - databaseId
+                            x-apidog-orders:
+                            - firstName
+                            - lastName
+                            - email
+                            - directCustomer
+                            - databaseId
+                          folder:
+                            type: object
+                            properties:
+                              id:
+                                type: string
+                              name:
+                                type: string
+                              locationCount:
+                                type: 'null'
+                            required:
+                            - id
+                            - name
+                            - locationCount
+                            x-apidog-orders:
+                            - id
+                            - name
+                            - locationCount
+                          errors:
+                            type: array
+                            items:
+                              type: string
+                        required:
+                        - success
+                        - assignFolder
+                        - user
+                        - folder
+                        - errors
+                        x-apidog-orders:
+                        - success
+                        - assignFolder
+                        - user
+                        - folder
+                        - errors
+                      addFoldersForUser:
+                        type: object
+                        properties:
+                          status:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                errors:
+                                  type:
+                                  - array
+                                  - 'null'
+                                  items:
+                                    type: string
+                                folderId:
+                                  type: string
+                                  format: uuid
+                                success:
+                                  type: boolean
+                              x-apidog-orders:
+                              - errors
+                              - folderId
+                              - success
+                        x-apidog-orders:
+                        - status
+                    required:
+                    - addUserAndFolder
+                    x-apidog-orders:
+                    - addUserAndFolder
+                    - addFoldersForUser
+                required:
+                - data
+                x-apidog-orders:
+                - data
+          headers: {}
+          x-apidog-name: OK
+      security: []
+      x-apidog-folder: User Management
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-19358677-run
+  /users/create:
+    post:
+      summary: Create User with Role
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        This API creates a new user with the specified role and attributes.
+
+
+        **Behavior:**
+
+        - Assigns the user a specific role based on permissions.
+
+        - Configures user attributes such as name, email, and access level.
+
+        </span>'
+      operationId: createUser
+      tags:
+      - User Management
+      parameters:
+      - name: Authorization
+        in: header
+        description: API key for authentication
+        required: false
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - input
+              properties:
+                input:
+                  $ref: '#/components/schemas/CreateUserInput'
+              x-apidog-orders:
+              - input
+              x-apidog-ignore-properties: []
+            example:
+              input:
+                email: user@example.com
+                roleId: Q3VzdG9tUm9sZToyMDgzMQ==
+                firstName: John
+                directCustomer: true
+      responses:
+        '200':
+          description: User created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateUserResponse'
+              example:
+                data:
+                  addUser:
+                    success: true
+                    errors: []
+                    user:
+                      id: VXNlcjoxNjUzNjA=
+                      createdAt: 2025-02-03 10:25:44 UTC
+                      directCustomer: true
+                      email: user@example.com
+                      firstName: John
+                      lastName: null
+                      inviteStatus: INVITE_SENT
+                      customRole:
+                        id: Q3VzdG9tUm9sZToyMDgzMQ==
+                        name: Admin
+                      accountId: QWNjb3VudDoxNjE1NA==
+                      preferences:
+                        locale: en-US
+                        dateFormat: null
+                        timezone: null
+                        columnOrder: null
+          headers: {}
+          x-apidog-name: OK
+        '400':
+          description: Bad Request - Invalid input parameters
+          headers: {}
+          x-apidog-name: Bad Request
+        '401':
+          description: Unauthorized - Valid API key required
+          headers: {}
+          x-apidog-name: Unauthorized
+        '403':
+          description: Forbidden - Insufficient permissions to create users
+          headers: {}
+          x-apidog-name: Forbidden
+      security: []
+      x-apidog-folder: User Management
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-13932627-run
+  /api/v4/users/{userId}/resources:
+    get:
+      summary: List User Resources
+      deprecated: false
+      description: "<span style=\"font-size: 14px;\">\n    \nThis API retrieves a list of all resources (folders and locations) associated with a user.\n\nIt includes:\n- Folders the user has access to.\n- Locations assigned to the user.\n- Access levels for each resource.\n\n\n</span>"
+      tags:
+      - User Management
+      parameters:
+      - name: userId
+        in: path
+        description: Base64 encoded user ID
+        required: true
+        example: VXNlcjoxNTUzNjE=
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication
+        required: false
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successfully retrieved user resources
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      listUserResources:
+                        type: array
+                        items:
+                          type: object
+                          required:
+                          - id
+                          - name
+                          - __typename
+                          properties:
+                            id:
+                              type: string
+                              description: Resource identifier (UUID format for folders, Base64 encoded for locations)
+                            name:
+                              type: string
+                              description: Name of the resource
+                            __typename:
+                              type: string
+                              enum:
+                              - Folder
+                              - LocationSummary
+                              description: Type discriminator for the resource
+                          x-apidog-orders:
+                          - id
+                          - name
+                          - __typename
+                    x-apidog-orders:
+                    - listUserResources
+                x-apidog-orders:
+                - data
+              examples:
+                '1':
+                  summary: default
+                  value:
+                    data:
+                      listUserResources:
+                      - id: a5af4f5d-41b6-4a8a-b24f-98741b021b7b
+                        name: automation_folder_1212
+                        __typename: Folder
+                      - id: c1d92c09-8ddd-469e-af96-0eb64a48d647
+                        name: automation_folder_133
+                        __typename: Folder
+                      - id: 67049f29-3bc6-4e82-875b-02159b4b1fea
+                        name: root
+                        __typename: Folder
+                      - id: TG9jYXRpb246NDA5ODE=
+                        name: One Tag
+                        __typename: LocationSummary
+                      - id: TG9jYXRpb246NDI1ODg=
+                        name: Hayward Appliances2
+                        __typename: LocationSummary
+                '2':
+                  summary: alternative
+                  value:
+                    data:
+                      listUserResources:
+                      - id: 891861cd-9a59-4b42-8a17-3b916b8e4296
+                        name: automation_folder_5602
+                        __typename: Folder
+                      - id: TG9jYXRpb246NDk3MjQ4
+                        name: test loc canada
+                        __typename: LocationSummary
+                      - id: TG9jYXRpb246NDk3Nzk3
+                        name: Deckow - Collier
+                        __typename: LocationSummary
+                      - id: TG9jYXRpb246NDk3MjQ3
+                        name: test location australia
+                        __typename: LocationSummary
+          headers: {}
+          x-apidog-name: OK
+      security: []
+      x-apidog-folder: User Management
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-13994825-run
+  /roles:
+    get:
+      summary: List User Roles
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        This API retrieves a list of all available user roles in the system.
+
+
+        It includes:
+
+
+        - Role names (e.g., Admin, Manager, Viewer)
+
+        - Permissions associated with each role
+
+        - Role IDs for assignment and management
+
+        </span>'
+      operationId: listUserRoles
+      tags:
+      - User Management
+      parameters:
+      - name: Authorization
+        in: header
+        description: API key for authentication
+        required: false
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successfully retrieved user roles
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      fetchAccountRoles:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/UserRole'
+                    x-apidog-orders:
+                    - fetchAccountRoles
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+              example:
+                data:
+                  fetchAccountRoles:
+                  - id: Q3VzdG9tUm9sZToxODE3NzY=
+                    name: Approval
+                    createdAt: 2025-01-21 19:05:43 UTC
+                    updatedAt: 2025-01-21 19:07:13 UTC
+                  - id: Q3VzdG9tUm9sZTo0NDUyMg==
+                    name: Admin
+                    createdAt: 2020-02-12 07:27:46 UTC
+                    updatedAt: 2025-01-22 15:24:13 UTC
+                  - id: Q3VzdG9tUm9sZTo0NTI5MQ==
+                    name: Corporate Role
+                    createdAt: 2020-02-12 07:28:05 UTC
+                    updatedAt: 2025-01-15 06:16:29 UTC
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
+          headers: {}
+          x-apidog-name: OK
+        '401':
+          description: Unauthorized - Authentication required
+          headers: {}
+          x-apidog-name: Unauthorized
+        '403':
+          description: Forbidden - Insufficient permissions
+          headers: {}
+          x-apidog-name: Forbidden
+      security: []
+      x-apidog-folder: User Management
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-13933011-run
+  /users:
+    get:
+      summary: List Users
+      deprecated: false
+      description: "<span style=\"font-size: 14px;\">\n    \nThis API retrieves a paginated list of all users in the system.\n\n**Pagination:**\n- Uses cursor-based pagination for efficient data retrieval.\n- Returns up to 50 users per request.\n- Includes pageInfo for navigating through results.\n</span>\n"
+      operationId: listUsers
+      tags:
+      - User Management
+      parameters:
+      - name: Authorization
+        in: header
+        description: API key for authentication
+        required: false
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successfully retrieved users
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsersResponse'
+              example:
+                data:
+                  users:
+                    totalCount: 342
+                    pageInfo:
+                      hasNextPage: true
+                      hasPreviousPage: false
+                      total: 50
+                      endCursor: VXNlcjoxNDYyNTM=
+                    edges:
+                    - cursor: VXNlcjoxNjUzNjA=
+                      node:
+                        id: VXNlcjoxNjUzNjA=
+                        email: user@example.com
+                        firstName: John
+                        lastName: Doe
+                        customRole:
+                          id: Q3VzdG9tUm9sZTo1OTE5
+                          name: District Manager(Read)
+                        directCustomer: true
+                        createdAt: 2025-02-03 10:25:44 UTC
+                        inviteStatus: ACTIVE
+          headers: {}
+          x-apidog-name: OK
+        '401':
+          description: Unauthorized - Valid API key required
+          headers: {}
+          x-apidog-name: Unauthorized
+        '403':
+          description: Forbidden - Insufficient permissions to list users
+          headers: {}
+          x-apidog-name: Forbidden
+      security: []
+      x-apidog-folder: User Management
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-13932639-run
+  /users-by-ids:
+    get:
+      summary: List Users by ID
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        This API retrieves user details for one or more specified user IDs in a single request.
+
+
+        **Behavior:**
+
+        - Supports fetching multiple users by providing a list of user IDs.
+
+        - Returns detailed user information, including role, status, and attributes.
+
+        </span>'
+      operationId: listUsersByIds
+      tags:
+      - User Management
+      parameters:
+      - name: userIds
+        in: query
+        description: Array of user IDs to fetch details for
+        required: true
+        schema:
+          type: array
+          items:
+            type: string
+          examples:
+          - - VXNlcjoxNjUzNjA=
+            - VXNlcjoxNjUyMDY=
+      - name: Authorization
+        in: header
+        description: API key for authentication
+        required: false
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successfully retrieved user details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsersByIdsResponse'
+              example:
+                data:
+                  usersByIds:
+                  - id: VXNlcjoxNjUyMDY=
+                    firstName: user
+                    lastName: user
+                    email: subasrisridhar879+1@gmail.com
+                    customRole:
+                      id: Q3VzdG9tUm9sZTo0NDUyMg==
+                      name: Admin
+                    directCustomer: true
+                    createdAt: 2025-02-02 06:57:41 UTC
+                    inviteStatus: RESEND_INVITE
+                    preferences:
+                      locale: en-US
+                      dateFormat: null
+                      timezone: null
+          headers: {}
+          x-apidog-name: OK
+        '400':
+          description: Bad Request - Invalid user IDs format
+          headers: {}
+          x-apidog-name: Bad Request
+        '401':
+          description: Unauthorized - Valid API key required
+          headers: {}
+          x-apidog-name: Unauthorized
+      security: []
+      x-apidog-folder: User Management
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-13932648-run
+  /users/folders/remove:
+    post:
+      summary: Remove Folders for User
+      deprecated: false
+      description: "<span style=\"font-size: 14px;\">\n    \nThis API removes specific locations associated with a user, revoking their access to those locations.\n\nBehavior:\n- Supports removing one or multiple locations from a user.\n- Updates the user’s permissions and access scope accordingly.\n</span>"
+      tags:
+      - User Management
+      parameters:
+      - name: Authorization
+        in: header
+        description: API key for authentication
+        required: false
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - input
+              properties:
+                input:
+                  type: object
+                  required:
+                  - userId
+                  - folderIds
+                  properties:
+                    userId:
+                      type: string
+                      description: Base64 encoded user ID
+                    folderIds:
+                      type: array
+                      items:
+                        type: string
+                        format: uuid
+                      description: Array of folder UUIDs to remove for the user
+                  x-apidog-orders:
+                  - userId
+                  - folderIds
+              x-apidog-orders:
+              - input
+            example:
+              input:
+                userId: VXNlcjoxMDAyOA==
+                folderIds:
+                - c1d92c09-8ddd-469e-af96-0eb64a48d647
+                - a5af4f5d-41b6-4a8a-b24f-98741b021b7b
+      responses:
+        '200':
+          description: Successfully removed folders for user
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      removeFoldersForUser:
+                        type: object
+                        properties:
+                          status:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                errors:
+                                  type:
+                                  - array
+                                  - 'null'
+                                  items:
+                                    type: string
+                                  description: Array of error messages if any
+                                folderId:
+                                  type: string
+                                  format: uuid
+                                  description: UUID of the folder being removed
+                                success:
+                                  type: boolean
+                                  description: Whether the folder was successfully removed
+                              x-apidog-orders:
+                              - errors
+                              - folderId
+                              - success
+                        x-apidog-orders:
+                        - status
+                    x-apidog-orders:
+                    - removeFoldersForUser
+                x-apidog-orders:
+                - data
+              examples:
+                '1':
+                  summary: default
+                  value:
+                    data:
+                      removeFoldersForUser:
+                        status:
+                        - errors: null
+                          folderId: c1d92c09-8ddd-469e-af96-0eb64a48d647
+                          success: true
+                        - errors: null
+                          folderId: a5af4f5d-41b6-4a8a-b24f-98741b021b7b
+                          success: true
+                '2':
+                  summary: alternative
+                  value:
+                    data:
+                      removeFoldersForUser:
+                        status:
+                        - errors: null
+                          folderId: 07011529-c5bf-4808-b4f2-32d026e9bd56
+                          success: true
+                        - errors: null
+                          folderId: 09464e8f-0fe9-45d3-8d9c-867badbdfaea
+                          success: true
+          headers: {}
+          x-apidog-name: OK
+      security: []
+      x-apidog-folder: User Management
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-13997706-run
+  /users/locations/remove:
+    post:
+      summary: Remove Locations for User
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        This API removes specific locations associated with a user, revoking their access to those locations.
+
+
+        **Behavior:**
+
+        - Supports removing one or multiple locations from a user.
+
+        - Updates the user’s permissions and access scope accordingly.
+
+        </span>
+
+        '
+      tags:
+      - User Management
+      parameters:
+      - name: Authorization
+        in: header
+        description: API key for authentication
+        required: false
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - input
+              properties:
+                input:
+                  type: object
+                  required:
+                  - userId
+                  - locationIds
+                  properties:
+                    userId:
+                      type: string
+                      description: Base64 encoded user ID
+                    locationIds:
+                      type: array
+                      items:
+                        type: string
+                        description: Base64 encoded location IDs
+                  x-apidog-orders:
+                  - userId
+                  - locationIds
+              x-apidog-orders:
+              - input
+            example:
+              input:
+                userId: VXNlcjoxMDA1Mw==
+                locationIds:
+                - TG9jYXRpb246NTE1MzA=
+                - TG9jYXRpb246NTE1MjY=
+      responses:
+        '200':
+          description: Successfully removed locations for user
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      removeLocationsForUser:
+                        type: object
+                        properties:
+                          status:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                errors:
+                                  type:
+                                  - array
+                                  - 'null'
+                                  items:
+                                    type: string
+                                  description: Array of error messages if any
+                                locationId:
+                                  type: string
+                                  description: Base64 encoded location ID that was removed
+                                success:
+                                  type: boolean
+                                  description: Whether the location was successfully removed
+                              x-apidog-orders:
+                              - errors
+                              - locationId
+                              - success
+                        x-apidog-orders:
+                        - status
+                    x-apidog-orders:
+                    - removeLocationsForUser
+                x-apidog-orders:
+                - data
+              examples:
+                '1':
+                  summary: default
+                  value:
+                    data:
+                      removeLocationsForUser:
+                        status:
+                        - errors: null
+                          locationId: TG9jYXRpb246NTE1MzA=
+                          success: true
+                        - errors: null
+                          locationId: TG9jYXRpb246NTE1MjY=
+                          success: true
+                '2':
+                  summary: alternative
+                  value:
+                    data:
+                      removeLocationsForUser:
+                        status:
+                        - errors: null
+                          locationId: TG9jYXRpb246MTE3NjE5NQ==
+                          success: true
+          headers: {}
+          x-apidog-name: OK
+      security: []
+      x-apidog-folder: User Management
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-13998778-run
+  /users/update:
+    post:
+      summary: Update a User
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        This API updates specific parameters associated with a user.
+
+
+        Behavior:
+
+        - Allows modifying user attributes such as name, email, or role.
+
+        - It supports updating permissions and access settings.
+
+        - Ensures only editable fields can be modified.
+
+
+
+        </span>'
+      tags:
+      - User Management
+      parameters:
+      - name: Authorization
+        in: header
+        description: API key for authentication
+        required: false
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                input:
+                  type: object
+                  required:
+                  - id
+                  - firstName
+                  - roleId
+                  properties:
+                    id:
+                      type: string
+                      description: Base64 encoded user ID
+                    email:
+                      type: string
+                      format: email
+                      description: User's email address
+                    firstName:
+                      type: string
+                      description: User's first name
+                    lastName:
+                      type: string
+                      description: User's last name
+                    roleId:
+                      type: string
+                      description: Base64 encoded role ID
+                    phone:
+                      type: string
+                      description: User's phone number
+                    archived:
+                      type: boolean
+                      description: User's archive status
+                    directCustomer:
+                      type: boolean
+                      description: Whether the user is a direct customer
+                  x-apidog-orders:
+                  - id
+                  - roleId
+                  - firstName
+                  - lastName
+                  - email
+                  - phone
+                  - archived
+                  - directCustomer
+              x-apidog-orders:
+              - input
+            example:
+              input:
+                id: VXNlcjo5OTY0
+                email: pttqa1+4186@gmail.com
+                roleId: Q3VzdG9tUm9sZToxNzc4Mw==
+                firstName: pttqa1+4187
+                lastName: ''
+                phone: ''
+                archived: false
+                directCustomer: true
+      responses:
+        '200':
+          description: Successfully updated user
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      updateUser:
+                        type: object
+                        properties:
+                          success:
+                            type: boolean
+                          errors:
+                            type: array
+                            items:
+                              type: string
+                          user:
+                            type: object
+                            properties:
+                              id:
+                                type: string
+                                description: Base64 encoded user ID
+                              createdAt:
+                                type: string
+                                format: date-time
+                              directCustomer:
+                                type: boolean
+                              email:
+                                type: string
+                                format: email
+                              firstName:
+                                type: string
+                              lastName:
+                                type: string
+                              inviteStatus:
+                                type: string
+                                enum:
+                                - RESEND_INVITE
+                                - INVITE_SENT
+                              customRole:
+                                type: object
+                                properties:
+                                  id:
+                                    type: string
+                                  name:
+                                    type: string
+                                x-apidog-orders:
+                                - id
+                                - name
+                              accountId:
+                                type: string
+                              preferences:
+                                type: object
+                                properties:
+                                  locale:
+                                    type: string
+                                  dateFormat:
+                                    type:
+                                    - string
+                                    - 'null'
+                                  timezone:
+                                    type:
+                                    - string
+                                    - 'null'
+                                  columnOrder:
+                                    type:
+                                    - string
+                                    - 'null'
+                                x-apidog-orders:
+                                - locale
+                                - dateFormat
+                                - timezone
+                                - columnOrder
+                            x-apidog-orders:
+                            - id
+                            - createdAt
+                            - directCustomer
+                            - email
+                            - firstName
+                            - lastName
+                            - inviteStatus
+                            - customRole
+                            - accountId
+                            - preferences
+                        x-apidog-orders:
+                        - success
+                        - errors
+                        - user
+                    x-apidog-orders:
+                    - updateUser
+                x-apidog-orders:
+                - data
+              examples:
+                '1':
+                  summary: default
+                  value:
+                    data:
+                      updateUser:
+                        success: true
+                        errors: []
+                        user:
+                          id: VXNlcjo5OTY0
+                          createdAt: 2019-12-24 00:00:00 UTC
+                          directCustomer: true
+                          email: pttqa1+4187@gmail.com
+                          firstName: pttqa1+4187
+                          lastName: ''
+                          inviteStatus: RESEND_INVITE
+                          customRole:
+                            id: Q3VzdG9tUm9sZToxNzc4Mw==
+                            name: Manager
+                          accountId: QWNjb3VudDoxMTA3Mw==
+                '2':
+                  summary: alternative
+                  value:
+                    data:
+                      updateUser:
+                        success: true
+                        errors: []
+                        user:
+                          id: VXNlcjoxNjY4ODM=
+                          createdAt: 2025-02-12 06:29:27 UTC
+                          directCustomer: true
+                          email: ritesh+000543@synup.com
+                          firstName: pttqa1+4187
+                          lastName: ''
+                          inviteStatus: RESEND_INVITE
+                          customRole:
+                            id: Q3VzdG9tUm9sZTo1OTE5
+                            name: District Manager(Read)
+                          accountId: QWNjb3VudDoxNjE1NA==
+                          preferences:
+                            locale: en-US
+                            dateFormat: null
+                            timezone: null
+                            columnOrder: null
+          headers: {}
+          x-apidog-name: OK
+      security: []
+      x-apidog-folder: User Management
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-13997390-run
+components:
+  schemas:
+    UserDetail:
+      type: object
+      required:
+      - id
+      - firstName
+      - email
+      - customRole
+      - directCustomer
+      - createdAt
+      - inviteStatus
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the user
+        firstName:
+          type: string
+          description: User's first name
+        lastName:
+          type:
+          - string
+          - 'null'
+          description: User's last name
+        email:
+          type: string
+          format: email
+          description: User's email address
+        customRole:
+          type: object
+          properties:
+            id:
+              type: string
+              description: Role identifier
+            name:
+              type: string
+              description: Role name
+          x-apidog-orders:
+          - id
+          - name
+          x-apidog-ignore-properties: []
+        directCustomer:
+          type: boolean
+          description: Indicates if the user is a direct customer
+        createdAt:
+          type: string
+          format: date-time
+          description: Timestamp when the user was created
+        inviteStatus:
+          type: string
+          enum:
+          - ACTIVE
+          - INVITE_SENT
+          - RESEND_INVITE
+          description: Current status of the user's invitation
+        preferences:
+          type: object
+          properties:
+            locale:
+              type: string
+              description: User's locale preference
+            dateFormat:
+              type:
+              - string
+              - 'null'
+              description: User's preferred date format
+            timezone:
+              type:
+              - string
+              - 'null'
+              description: User's timezone preference
+          x-apidog-orders:
+          - locale
+          - dateFormat
+          - timezone
+          x-apidog-ignore-properties: []
+      x-apidog-orders:
+      - id
+      - firstName
+      - lastName
+      - email
+      - customRole
+      - directCustomer
+      - createdAt
+      - inviteStatus
+      - preferences
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    PageInfo:
+      type: object
+      properties:
+        hasNextPage:
+          type: boolean
+          description: Indicates if there are more pages available
+        hasPreviousPage:
+          type: boolean
+          description: Indicates if there are previous pages available
+        totalPages:
+          type: integer
+          description: Total number of pages available
+        totalRecords:
+          type: integer
+          description: Total number of records across all pages
+      x-apidog-orders:
+      - hasNextPage
+      - hasPreviousPage
+      - totalPages
+      - totalRecords
+      x-apidog-folder: ''
+    Pagination:
+      type: object
+      properties:
+        total:
+          type: integer
+          description: Total number of items
+        page:
+          type: integer
+          description: Current page number
+        limit:
+          type: integer
+          description: Items per page
+        total_pages:
+          type: integer
+          description: Total number of pages
+      x-apidog-orders:
+      - total
+      - page
+      - limit
+      - total_pages
+      x-apidog-folder: ''
+    UsersByIdsResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            usersByIds:
+              type: array
+              items:
+                $ref: '#/components/schemas/UserDetail'
+          x-apidog-orders:
+          - usersByIds
+          x-apidog-ignore-properties: []
+      x-apidog-orders:
+      - data
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    UserRole:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Base64 encoded unique identifier for the role
+        name:
+          type: string
+          description: Name of the role
+        createdAt:
+          type: string
+          format: date-time
+          description: Role creation timestamp
+        updatedAt:
+          type: string
+          format: date-time
+          description: Role last update timestamp
+      required:
+      - id
+      - name
+      - createdAt
+      - updatedAt
+      x-apidog-orders:
+      - id
+      - name
+      - createdAt
+      - updatedAt
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    CreateUserInput:
+      type: object
+      required:
+      - email
+      - roleId
+      - firstName
+      - directCustomer
+      properties:
+        email:
+          type: string
+          format: email
+          description: User's email address
+        roleId:
+          type: string
+          description: ID of the role to assign to the user
+        firstName:
+          type: string
+          description: User's first name
+        directCustomer:
+          type: boolean
+          description: Indicates if the user is a direct customer
+      x-apidog-orders:
+      - email
+      - roleId
+      - firstName
+      - directCustomer
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    AddLocationsResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            addLocationsForUser:
+              type: object
+              properties:
+                status:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/LocationAddStatus'
+              x-apidog-orders:
+              - status
+              x-apidog-ignore-properties: []
+          x-apidog-orders:
+          - addLocationsForUser
+          x-apidog-ignore-properties: []
+      x-apidog-orders:
+      - data
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    CreatedUser:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the created user
+        createdAt:
+          type: string
+          format: date-time
+          description: Timestamp when the user was created
+        directCustomer:
+          type: boolean
+          description: Indicates if the user is a direct customer
+        email:
+          type: string
+          format: email
+          description: User's email address
+        firstName:
+          type: string
+          description: User's first name
+        lastName:
+          type:
+          - string
+          - 'null'
+          description: User's last name
+        inviteStatus:
+          type: string
+          enum:
+          - ACTIVE
+          - INVITE_SENT
+          - RESEND_INVITE
+          description: Current status of the user's invitation
+        customRole:
+          type: object
+          properties:
+            id:
+              type: string
+              description: Role identifier
+            name:
+              type: string
+              description: Role name
+          x-apidog-orders:
+          - id
+          - name
+          x-apidog-ignore-properties: []
+        accountId:
+          type: string
+          description: ID of the account the user belongs to
+        preferences:
+          type: object
+          properties:
+            locale:
+              type: string
+              description: User's locale preference
+            dateFormat:
+              type:
+              - string
+              - 'null'
+              description: User's preferred date format
+            timezone:
+              type:
+              - string
+              - 'null'
+              description: User's timezone preference
+            columnOrder:
+              type:
+              - string
+              - 'null'
+              description: User's column order preference
+          x-apidog-orders:
+          - locale
+          - dateFormat
+          - timezone
+          - columnOrder
+          x-apidog-ignore-properties: []
+      x-apidog-orders:
+      - id
+      - createdAt
+      - directCustomer
+      - email
+      - firstName
+      - lastName
+      - inviteStatus
+      - customRole
+      - accountId
+      - preferences
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    UsersResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            users:
+              type: object
+              properties:
+                totalCount:
+                  type: integer
+                  description: Total number of users in the system
+                pageInfo:
+                  $ref: '#/components/schemas/PageInfo'
+                edges:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/UserEdge'
+              x-apidog-orders:
+              - totalCount
+              - pageInfo
+              - edges
+              x-apidog-ignore-properties: []
+          x-apidog-orders:
+          - users
+          x-apidog-ignore-properties: []
+      x-apidog-orders:
+      - data
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    User:
+      type: object
+      required:
+      - id
+      - email
+      - firstName
+      - customRole
+      - directCustomer
+      - createdAt
+      - inviteStatus
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the user
+        email:
+          type: string
+          format: email
+          description: User's email address
+        firstName:
+          type: string
+          description: User's first name
+        lastName:
+          type:
+          - string
+          - 'null'
+          description: User's last name (optional)
+        customRole:
+          type: object
+          properties:
+            id:
+              type: string
+              description: Role identifier
+            name:
+              type: string
+              description: Role name
+          x-apidog-orders:
+          - id
+          - name
+          x-apidog-ignore-properties: []
+        directCustomer:
+          type: boolean
+          description: Indicates if the user is a direct customer
+        createdAt:
+          type: string
+          format: date-time
+          description: Timestamp when the user was created
+        inviteStatus:
+          type: string
+          enum:
+          - ACTIVE
+          - INVITE_SENT
+          - RESEND_INVITE
+          description: Current status of the user's invitation
+      x-apidog-orders:
+      - id
+      - email
+      - firstName
+      - lastName
+      - customRole
+      - directCustomer
+      - createdAt
+      - inviteStatus
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    CreateUserResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            addUser:
+              type: object
+              properties:
+                success:
+                  type: boolean
+                  description: Indicates if the user creation was successful
+                errors:
+                  type: array
+                  items:
+                    type: string
+                  description: Array of error messages if any
+                user:
+                  $ref: '#/components/schemas/CreatedUser'
+              x-apidog-orders:
+              - success
+              - errors
+              - user
+              x-apidog-ignore-properties: []
+          x-apidog-orders:
+          - addUser
+          x-apidog-ignore-properties: []
+      x-apidog-orders:
+      - data
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    UserEdge:
+      type: object
+      properties:
+        cursor:
+          type: string
+          description: Unique cursor for this user record
+        node:
+          $ref: '#/components/schemas/User'
+      x-apidog-orders:
+      - cursor
+      - node
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    LocationAddStatus:
+      type: object
+      properties:
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: Array of error messages if any occurred
+        locationId:
+          type: string
+          description: ID of the location being added
+        success:
+          type: boolean
+          description: Indicates if the location was successfully added
+      x-apidog-orders:
+      - errors
+      - locationId
+      - success
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    AddLocationsInput:
+      type: object
+      required:
+      - userId
+      - locationIds
+      properties:
+        userId:
+          type: string
+          description: ID of the user to associate locations with
+          examples:
+          - VXNlcjoxMjMyMDE=
+        locationIds:
+          type: array
+          items:
+            type: string
+          description: Array of location IDs to associate with the user
+          examples:
+          - - TG9jYXRpb246MTE3NjE5NQ==
+            - TG9jYXRpb246MTE0NzgxNA==
+      x-apidog-orders:
+      - userId
+      - locationIds
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''

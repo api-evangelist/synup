@@ -1,0 +1,1912 @@
+openapi: 3.2.0
+info:
+  title: Synup Organizing locations API
+  version: '4'
+  description: 'REST API v4 for the Synup local marketing platform: business locations, listing syndication to 80+ directories, review/interaction aggregation and response, review campaigns, local rank tracking and grid-rank heatmaps, local and social posts, AI post ideas, menus, connected accounts, users and profile analytics.
+
+
+    ASSEMBLED BY API EVANGELIST from the per-endpoint OpenAPI documents Synup publishes on its own documentation host (developer.synup.com, Apidog project 797384). Every operation, parameter, response, example and schema below is verbatim provider content; only the merge into a single document is ours. Source index: https://developer.synup.com/llms.txt'
+  contact:
+    name: Synup Developer Documentation
+    url: https://developer.synup.com/
+  x-assembled-by: api-evangelist enrichment pipeline (local-v1)
+  x-assembled-from: 506 per-endpoint OpenAPI fragments published at https://developer.synup.com/<slug>.md
+  x-assembled-date: '2026-08-13'
+servers:
+- url: https://api.synup.com/api/v4
+  description: Base ENV (as published in every Synup doc fragment). Tenant workspace domains (https://<workspace>.synup.com/api/v4) also serve the same API.
+tags:
+- name: Organizing locations
+paths:
+  /locations/tags:
+    post:
+      summary: Add location to a tag
+      deprecated: false
+      description: '
+
+        <span style="font-size: 14px;">
+
+        This API associates a location with a specified tag. If the tag does not exist, it will be automatically created before the association.
+
+
+        **Behavior:**
+
+        - Can be used to create new tags and assign existing tags to locations.
+
+        - Each location can have a maximum of 10 tags. Exceeding this limit will result in an error.
+
+
+        </span>
+
+
+
+
+
+        '
+      operationId: addLocationToTag
+      tags:
+      - Organizing locations
+      parameters:
+      - name: Authorization
+        in: header
+        description: API key for authentication
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - input
+              properties:
+                input:
+                  type: object
+                  required:
+                  - locationId
+                  - tag
+                  properties:
+                    locationId:
+                      type: string
+                      description: Unique identifier of the location
+                      examples:
+                      - TG9jYXRpb246MTY4NjA=
+                    tag:
+                      type: string
+                      description: Name of the tag to add the location to
+                      examples:
+                      - New
+                  x-apidog-orders:
+                  - locationId
+                  - tag
+              x-apidog-orders:
+              - input
+            example: ''
+      responses:
+        '200':
+          description: Operation result
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      addTag:
+                        type: object
+                        properties:
+                          clientMutationId:
+                            type: null
+                            description: Optional client-provided mutation identifier
+                          errors:
+                            type: array
+                            description: Array of errors if any occurred
+                            items:
+                              type: object
+                              properties:
+                                code:
+                                  type: string
+                                  description: Error code
+                                  examples:
+                                  - SY10040
+                                message:
+                                  type: string
+                                  description: Human-readable error message
+                                contextInfo:
+                                  type: array
+                                  description: Additional context about the error
+                                  items:
+                                    type: string
+                              x-apidog-orders:
+                              - code
+                              - message
+                              - contextInfo
+                          success:
+                            type: boolean
+                            description: Indicates if the operation was successful
+                          tag:
+                            type:
+                            - object
+                            - 'null'
+                            description: Details of the created/existing tag
+                            properties:
+                              id:
+                                type: string
+                                format: uuid
+                                description: Unique identifier of the tag
+                              name:
+                                type: string
+                                description: Name of the tag
+                            x-apidog-orders:
+                            - id
+                            - name
+                        x-apidog-orders:
+                        - clientMutationId
+                        - errors
+                        - success
+                        - tag
+                    x-apidog-orders:
+                    - addTag
+                x-apidog-orders:
+                - data
+              examples:
+                '1':
+                  summary: success
+                  value:
+                    data:
+                      addTag:
+                        clientMutationId: null
+                        errors: []
+                        success: true
+                        tag:
+                          id: 463621f0-df7c-4d5b-8b6b-8b7a23686dcf
+                          name: new10
+                '2':
+                  summary: tagLimitError
+                  value:
+                    data:
+                      addTag:
+                        clientMutationId: null
+                        errors:
+                        - code: SY10040
+                          contextInfo: []
+                          message: Cannot add more than 10 tags
+                        success: false
+                        tag: null
+          headers: {}
+          x-apidog-name: OK
+        '400':
+          description: Bad request - Invalid location ID or tag name
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: Bad Request
+        '401':
+          description: Unauthorized - Authentication required
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: Unauthorized
+        '403':
+          description: Forbidden - Insufficient permissions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: Forbidden
+        '404':
+          description: Location not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: Record Not Found
+      security: []
+      x-apidog-folder: Organizing locations
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-13660400-run
+  /locations/folders:
+    post:
+      summary: Add locations to a folder
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+
+        This API adds specified locations to a folder. If the folder does not exist, it will be created automatically.
+
+
+        Behavior:
+
+        - If `locationIds` are provided, the locations will be added to the folder.
+
+        - If ` locationIds` is omitted or empty, only the folder will be created.
+
+
+        </span>'
+      tags:
+      - Organizing locations
+      parameters:
+      - name: Authorization
+        in: header
+        description: API key for authentication
+        required: false
+        example: T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                input:
+                  type: object
+                  required:
+                  - name
+                  properties:
+                    name:
+                      type: string
+                      description: Name of the folder to add locations to
+                      examples:
+                      - Acme
+                    locationIds:
+                      type: array
+                      description: Array of location IDs to add to the folder
+                      items:
+                        type: string
+                      examples:
+                      - - TG9jYXRpb246MTY4NjE=
+                        - TG9jYXRpb246MTY4NjA=
+                  x-apidog-orders:
+                  - name
+                  - locationIds
+              x-apidog-orders:
+              - input
+            example: ''
+      responses:
+        '200':
+          description: Successfully added locations to folder
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      addLocationsToFolder:
+                        type: object
+                        properties:
+                          errors:
+                            type: null
+                            description: Array of errors if any occurred
+                          folder:
+                            type: object
+                            properties:
+                              accountId:
+                                type: integer
+                                examples:
+                                - 10072
+                              archived:
+                                type: boolean
+                                examples:
+                                - false
+                              id:
+                                type: string
+                                examples:
+                                - 0e4cc56e-45f8-4058-a713-ead264fa9318
+                              name:
+                                type: string
+                                examples:
+                                - acme
+                              root:
+                                type: boolean
+                                examples:
+                                - false
+                            x-apidog-orders:
+                            - accountId
+                            - archived
+                            - id
+                            - name
+                            - root
+                        x-apidog-orders:
+                        - errors
+                        - folder
+                    x-apidog-orders:
+                    - addLocationsToFolder
+                x-apidog-orders:
+                - data
+          headers: {}
+          x-apidog-name: OK
+      security: []
+      x-apidog-folder: Organizing locations
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-13660182-run
+  /folders/create:
+    post:
+      summary: Create a new folder
+      deprecated: false
+      description: "<span style=\"font-size: 14px;\">\nThis API **creates a new folder** to help organize locations within an account. The folder name must be unique across the account.\n    \nIf a parent folder ID `(parentFolder)` or parent folder name `(parentFolderName)` is not provided, the folder will be created under the root folder.\n    \nFolders support a hierarchical structure, allowing subfolders to be organized within parent folders.\n</span>"
+      operationId: createFolder
+      tags:
+      - Organizing locations
+      parameters:
+      - name: Authorization
+        in: header
+        description: API key for authentication
+        required: false
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        description: ''
+        required: false
+        example: application/json
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateFolderRequest'
+            example:
+              input:
+                name: franchise
+                parentFolderName: all_franchise
+      responses:
+        '200':
+          description: Folder created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateFolderResponse'
+              examples:
+                '1':
+                  summary: Successful creation
+                  value:
+                    data:
+                      createFolder:
+                        clientMutationId: null
+                        errors: null
+                        folder:
+                          accountId: 11073
+                          archived: false
+                          createdAt: 2024-04-03 10:29:49 UTC
+                          id: d6cc61b3-6da7-4b64-a7c0-340c0df25f4c
+                          locationCount: null
+                          name: franchise
+                          root: false
+                        success: true
+                '2':
+                  summary: Name already taken
+                  value:
+                    data:
+                      createFolder:
+                        clientMutationId: null
+                        errors:
+                        - code: SY10103
+                          contextInfo:
+                          - key: name
+                            value: 2feb2025855pm_2
+                          message: Name has already been taken
+                        folder: null
+                        success: false
+          headers: {}
+          x-apidog-name: OK
+      security: []
+      x-apidog-folder: Organizing locations
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-13659982-run
+  /folders/default:
+    get:
+      summary: Default folder
+      deprecated: false
+      description: '<br>
+
+        <span style="font-size: 14px;">
+
+
+        Returns the default folder (ID and name) configured for the specified user within the account. Returns null if the user has no default folder set.
+
+        </span>'
+      operationId: defaultFolder
+      tags:
+      - Organizing locations
+      parameters:
+      - name: userId
+        in: query
+        description: ID of the user whose default folder should be fetched.
+        required: true
+        example: 12345
+        schema:
+          type: integer
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      defaultFolder:
+                        $ref: '#/components/schemas/DefaultFolderType'
+                    x-apidog-orders:
+                    - defaultFolder
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Organizing locations
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40051830-run
+  /folders/delete:
+    post:
+      summary: Delete a folder
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        This API deletes a specified folder from the account. This action is irreversible.
+
+
+        **Behavior:**
+
+        - Any locations within the folder will be unassigned but not archived.
+
+        - Once deleted, the folder cannot be restored.
+
+        </span>'
+      operationId: deleteFolder
+      tags:
+      - Organizing locations
+      parameters:
+      - name: Authorization
+        in: header
+        description: API key for authentication
+        required: false
+        example: T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - input
+              properties:
+                input:
+                  type: object
+                  required:
+                  - name
+                  properties:
+                    name:
+                      type: string
+                      description: The name of the folder to delete
+                      examples:
+                      - Acme New
+                  x-apidog-orders:
+                  - name
+              x-apidog-orders:
+              - input
+            example:
+              input:
+                name: Acme New
+      responses:
+        '200':
+          description: Folder successfully deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      deleteFolder:
+                        type: object
+                        properties:
+                          errors:
+                            type: null
+                            description: Array of errors if any occurred during deletion
+                          success:
+                            type: boolean
+                            description: Indicates if the deletion was successful
+                        x-apidog-orders:
+                        - errors
+                        - success
+                    x-apidog-orders:
+                    - deleteFolder
+                x-apidog-orders:
+                - data
+              example:
+                data:
+                  deleteFolder:
+                    errors: null
+                    success: true
+          headers: {}
+          x-apidog-name: OK
+        '400':
+          description: Bad request - folder name is invalid or missing
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: Bad Request
+        '403':
+          description: Unauthorized - insufficient permissions to delete folder
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: Forbidden
+        '404':
+          description: Folder not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: Record Not Found
+      security: []
+      x-apidog-folder: Organizing locations
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-13660288-run
+  /folder-details:
+    get:
+      summary: Get details of a folder
+      deprecated: false
+      description: "<span style=\"font-size: 14px;\">\nThis API retrieves detailed information about a specific folder.\n\n\n**Response Includes:**\n- Folder details (ID, name)\n- Parent folder information (if applicable)\n- Creation date\n    \n\n:::info[]\n<span style=\"font-size: 14px;\">    \nNote: Either folderId or folderName must be provided as a query parameter.\n    </span>\n:::\n</span>"
+      tags:
+      - Organizing locations
+      parameters:
+      - name: folderId
+        in: query
+        description: Unique identifier of the folder
+        required: false
+        example: 67049f29-3bc6-4e82-875b-02159b4b1fea
+        schema:
+          type: string
+          format: uuid
+      - name: folderName
+        in: query
+        description: Name of the folder
+        required: false
+        example: franchise
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication
+        required: false
+        example: T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successfully retrieved folder details
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      getFolderDetails:
+                        type: object
+                        properties:
+                          locations:
+                            type: array
+                            description: List of locations in the folder
+                            items:
+                              type: object
+                              x-apidog-orders: []
+                              properties: {}
+                          folderName:
+                            type: string
+                            description: Name of the folder
+                            examples:
+                            - franchise
+                          parentFolderId:
+                            type: string
+                            format: uuid
+                            description: Unique identifier of the parent folder
+                            examples:
+                            - 72a9f81d-1c74-44c2-8e7d-7c51787cbc09
+                          parentFolderName:
+                            type: string
+                            description: Name of the parent folder
+                            examples:
+                            - all_franchise
+                          createdAt:
+                            type: string
+                            format: date-time
+                            description: Creation timestamp of the folder
+                            examples:
+                            - 2024-04-03 10:29:49 UTC
+                        required:
+                        - locations
+                        - folderName
+                        - parentFolderId
+                        - parentFolderName
+                        - createdAt
+                        x-apidog-orders:
+                        - locations
+                        - folderName
+                        - parentFolderId
+                        - parentFolderName
+                        - createdAt
+                    x-apidog-orders:
+                    - getFolderDetails
+                x-apidog-orders:
+                - data
+          headers: {}
+          x-apidog-name: OK
+      security: []
+      x-apidog-folder: Organizing locations
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-13660126-run
+  /folders/flat:
+    get:
+      summary: List all folders
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        This API returns a flat list of all active folders accessible to the user.
+
+
+        Response Includes:
+
+        - Basic folder information (ID, name)
+
+        - Parent folder details (if applicable)
+
+        - Number of locations within each folder
+
+        - Hierarchy level of each folder
+
+
+        </span>'
+      operationId: listFolders
+      tags:
+      - Organizing locations
+      parameters:
+      - name: Authorization
+        in: header
+        description: API key for authentication
+        required: false
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        description: ''
+        required: false
+        example: application/json
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successfully retrieved folders list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListFoldersResponse'
+              example:
+                data:
+                  getUserFolders:
+                  - id: 401228fe-8ee9-4914-a08a-db7cda490ec9
+                    level: 0
+                    locationCount: 2749
+                    name: root
+                    parentFolderId: null
+                    parentFolderName: null
+                  - id: 0360d778-1bfb-4795-8c11-b278f3a65970
+                    level: 1
+                    locationCount: 1
+                    name: demo_1
+                    parentFolderId: 401228fe-8ee9-4914-a08a-db7cda490ec9
+                    parentFolderName: root
+          headers: {}
+          x-apidog-name: OK
+      security: []
+      x-apidog-folder: Organizing locations
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-13660098-run
+  /folders/tree:
+    get:
+      summary: List all folders under an account in hierarchical structure
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        This API retrieves a complete hierarchical tree of all active folders within an account.
+
+
+        Response Includes:
+
+        - Folder hierarchy levels (parent and nested subfolders)
+
+        - Location count within each folder
+
+        - Nested subfolder details for a structured view
+
+        </span>'
+      tags:
+      - Organizing locations
+      parameters:
+      - name: Authorization
+        in: header
+        description: API key for authentication
+        required: false
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successfully retrieved folder tree structure
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      getFolderTree:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/FolderNode'
+                    x-apidog-orders:
+                    - getFolderTree
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: OK
+      security: []
+      x-apidog-folder: Organizing locations
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-13660114-run
+  /tags:
+    get:
+      summary: List all tags
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        This API retrieves all tags associated with the authenticated account. Tags serve as labels that help organize and filter locations.
+
+
+        **Response Includes:**
+
+        - Tag ID (Unique identifier)
+
+        - Tag Name (Label used for categorization)
+
+        </span>'
+      operationId: listAllTags
+      tags:
+      - Organizing locations
+      parameters:
+      - name: Authorization
+        in: header
+        description: API key for authentication
+        required: false
+        example: T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successfully retrieved list of tags
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      listAllTags:
+                        type: array
+                        description: Array of tag objects
+                        items:
+                          type: object
+                          required:
+                          - id
+                          - name
+                          properties:
+                            id:
+                              type: string
+                              format: uuid
+                              description: Unique identifier for the tag
+                              examples:
+                              - 2baeca0a-f8df-4971-9c2b-dd5013bdddb3
+                            name:
+                              type: string
+                              description: Display name of the tag
+                              examples:
+                              - 13january22
+                          x-apidog-orders:
+                          - id
+                          - name
+                    x-apidog-orders:
+                    - listAllTags
+                x-apidog-orders:
+                - data
+              example:
+                data:
+                  listAllTags:
+                  - id: 2baeca0a-f8df-4971-9c2b-dd5013bdddb3
+                    name: 13january22
+                  - id: 5a7f936d-83a0-4181-87b5-947f893f391b
+                    name: 13janunapproved
+                  - id: 0dd48e87-4e50-4a40-90eb-1db60030885b
+                    name: 15dec22
+                  - id: 0a6e6012-405a-4533-92d0-a75e7f9d4faa
+                    name: 18jan
+                  - id: e7cea330-5a50-4bcf-a591-828c108e89c4
+                    name: 19apr
+          headers: {}
+          x-apidog-name: OK
+        '401':
+          description: Unauthorized - Authentication credentials are missing or invalid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: Unauthorized
+        '403':
+          description: Forbidden - User doesn't have permission to access tags
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: Forbidden
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: Server Error
+      security: []
+      x-apidog-folder: Organizing locations
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-13660325-run
+  /tags/locations:
+    get:
+      summary: List locations by tags
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        This API retrieves **locations associated with specified tags **and supports **pagination** for efficient data retrieval.
+
+
+        **Features:**
+
+        - Supports cursor-based pagination for navigating large datasets.
+
+        - Allows filtering by archived/unarchived locations.
+
+        - Returns detailed location information, including business details and metadata.
+
+        </span>'
+      operationId: getLocationsByTags
+      tags:
+      - Organizing locations
+      parameters:
+      - name: tags
+        in: query
+        description: Array of tag names to filter locations by
+        required: true
+        example:
+        - justfortest
+        schema:
+          type: array
+          items:
+            type: string
+      - name: archived
+        in: query
+        description: 'Filter for archived status:
+
+          * If omitted - returns all locations
+
+          * If false - returns only unarchived locations
+
+          * If true - returns only archived locations
+
+          '
+        required: false
+        schema:
+          type: boolean
+      - name: after
+        in: query
+        description: Cursor for pagination - fetch records after this cursor
+        required: false
+        schema:
+          type: string
+      - name: before
+        in: query
+        description: Cursor for pagination - fetch records before this cursor
+        required: false
+        schema:
+          type: string
+      - name: first
+        in: query
+        description: Number of records to fetch from the beginning
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+      - name: last
+        in: query
+        description: Number of records to fetch from the end
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+      - name: Authorization
+        in: header
+        description: API key for authentication
+        required: false
+        example: T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successfully retrieved locations
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      searchLocationsByTag:
+                        type: object
+                        properties:
+                          edges:
+                            type: array
+                            description: Array of location edges containing cursor and node data
+                            items:
+                              type: object
+                              properties:
+                                cursor:
+                                  type: string
+                                  description: Pagination cursor for this location
+                                node:
+                                  type: object
+                                  properties:
+                                    id:
+                                      type: string
+                                      description: Unique identifier for the location
+                                    name:
+                                      type: string
+                                      description: Name of the location
+                                  x-apidog-orders:
+                                  - id
+                                  - name
+                              x-apidog-orders:
+                              - cursor
+                              - node
+                          pageInfo:
+                            type: object
+                            description: Pagination metadata
+                            properties:
+                              hasNextPage:
+                                type: boolean
+                                description: Indicates if there are more results after this page
+                              hasPreviousPage:
+                                type: boolean
+                                description: Indicates if there are more results before this page
+                              total:
+                                type: integer
+                                description: Total number of locations matching the query
+                            x-apidog-orders:
+                            - hasNextPage
+                            - hasPreviousPage
+                            - total
+                        x-apidog-orders:
+                        - edges
+                        - pageInfo
+                    x-apidog-orders:
+                    - searchLocationsByTag
+                x-apidog-orders:
+                - data
+              example:
+                data:
+                  searchLocationsByTag:
+                    edges:
+                    - cursor: TG9jYXRpb246NzMzMzA=
+                      node:
+                        name: test test
+                        id: TG9jYXRpb246NzMzMzA=
+                    - cursor: TG9jYXRpb246NzMzMTI=
+                      node:
+                        name: Bombay Cocktail Bar
+                        id: TG9jYXRpb246NzMzMTI=
+                    pageInfo:
+                      hasNextPage: false
+                      hasPreviousPage: false
+                      total: 3
+          headers: {}
+          x-apidog-name: OK
+        '400':
+          description: Bad request - Invalid parameters
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: Bad Request
+        '401':
+          description: Unauthorized - Authentication required
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: Unauthorized
+        '403':
+          description: Forbidden - Insufficient permissions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: Forbidden
+      security: []
+      x-apidog-folder: Organizing locations
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-13660360-run
+  /folder-locations:
+    get:
+      summary: List locations under a folder
+      deprecated: false
+      description: "<span style=\"font-size: 14px;\">\nThis API retrieves all locations within a specified folder and its subfolders.\n    \n**Response Includes:**\n- Business details (name, category, address)\n- Contact information (phone, email, website)\n- Metadata (tags, attributes, custom fields)\n    \n\n:::info[]\n<span style=\"font-size: 14px;\">\nNote: Either folderId or folderName must be provided.\n</span>\n:::\n</span>"
+      operationId: getFolderLocations
+      tags:
+      - Organizing locations
+      parameters:
+      - name: folderName
+        in: query
+        description: Name of the folder to fetch locations from
+        required: false
+        example: franchise
+        schema:
+          type: string
+      - name: folderId
+        in: query
+        description: Unique identifier of the folder
+        required: false
+        example: 67049f29-3bc6-4e82-875b-02159b4b1fea
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication
+        required: false
+        example: T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successfully retrieved locations
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      getLocationsForFolder:
+                        type: array
+                        items:
+                          type: object
+                          properties: {}
+                          x-apidog-orders:
+                          - 01JK3S0YX6D61ASSK4JN9PSGT4
+                          x-apidog-refs:
+                            01JK3S0YX6D61ASSK4JN9PSGT4:
+                              type: object
+                              properties: {}
+                          x-apidog-ignore-properties: []
+                    x-apidog-orders:
+                    - getLocationsForFolder
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: OK
+        '400':
+          description: Bad request - Invalid parameters
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: Bad Request
+        '403':
+          description: Unauthorized - insufficient permissions to access folder
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: Forbidden
+        '404':
+          description: Folder not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: Record Not Found
+      security: []
+      x-apidog-folder: Organizing locations
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-13660305-run
+  /locations/tags/remove:
+    post:
+      summary: Remove location from a tag
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+
+        Removes the association between a location and a specified tag. This operation:
+
+        - Only removes the association, it does not delete the tag itself
+
+        - Does not affect other locations that may be associated with the same tag
+
+        - Returns success even if the location was not previously associated with the tag
+
+        </span>'
+      operationId: removeLocationFromTag
+      tags:
+      - Organizing locations
+      parameters:
+      - name: Authorization
+        in: header
+        description: API key for authentication
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - input
+              properties:
+                input:
+                  type: object
+                  required:
+                  - locationId
+                  - tag
+                  properties:
+                    locationId:
+                      type: string
+                      description: Unique identifier of the location to remove from the tag
+                      examples:
+                      - TG9jYXRpb246MTY4NjA=
+                    tag:
+                      type: string
+                      description: Name of the tag to remove the location from
+                      examples:
+                      - Old
+                  x-apidog-orders:
+                  - locationId
+                  - tag
+              x-apidog-orders:
+              - input
+            example: ''
+      responses:
+        '200':
+          description: Operation result
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      removeTag:
+                        type: object
+                        properties:
+                          clientMutationId:
+                            type: null
+                            description: Optional client-provided mutation identifier
+                          errors:
+                            type: array
+                            description: Array of errors if any occurred during the operation
+                            items:
+                              type: object
+                              properties:
+                                code:
+                                  type: string
+                                  description: Error code
+                                message:
+                                  type: string
+                                  description: Human-readable error message
+                              x-apidog-orders:
+                              - code
+                              - message
+                          success:
+                            type: boolean
+                            description: Indicates if the removal operation was successful
+                          tag:
+                            type: object
+                            description: Details of the tag from which the location was removed
+                            properties:
+                              id:
+                                type: string
+                                format: uuid
+                                description: Unique identifier of the tag
+                                examples:
+                                - 8e1ddaa4-6230-4b29-8107-6ad1b7b33fca
+                              name:
+                                type: string
+                                description: Name of the tag
+                                examples:
+                                - Old
+                            x-apidog-orders:
+                            - id
+                            - name
+                        x-apidog-orders:
+                        - clientMutationId
+                        - errors
+                        - success
+                        - tag
+                    x-apidog-orders:
+                    - removeTag
+                x-apidog-orders:
+                - data
+              example:
+                data:
+                  removeTag:
+                    clientMutationId: null
+                    errors: []
+                    success: true
+                    tag:
+                      id: 8e1ddaa4-6230-4b29-8107-6ad1b7b33fca
+                      name: Old
+          headers: {}
+          x-apidog-name: OK
+        '400':
+          description: Bad request - Invalid location ID or tag name
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: Bad Request
+        '401':
+          description: Unauthorized - Authentication required
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: Unauthorized
+        '403':
+          description: Forbidden - Insufficient permissions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: Forbidden
+        '404':
+          description: Location or tag not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: Record Not Found
+      security: []
+      x-apidog-folder: Organizing locations
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-13660509-run
+  /locations/folders/remove:
+    post:
+      summary: Remove locations from a folder
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        This API removes specified locations from their current folder.
+
+
+        **Behavior:**
+
+        - A location can belong to only one folder at a time.
+
+        - Only the locationIds need to be provided, as the system automatically identifies their current folder.
+
+        - If a location is removed, it will no longer be associated with any folder unless reassigned.
+
+        </span>
+
+        '
+      tags:
+      - Organizing locations
+      parameters:
+      - name: Authorization
+        in: header
+        description: API key for authentication
+        required: false
+        example: T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                input:
+                  type: object
+                  required:
+                  - locationIds
+                  properties:
+                    locationIds:
+                      type: array
+                      items:
+                        type: string
+                      description: Array of location IDs to remove from their folders
+                  x-apidog-orders:
+                  - locationIds
+              x-apidog-orders:
+              - input
+            example:
+              input:
+                locationIds:
+                - TG9jYXRpb246MTY4NDY=
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      deleteLocationsFromFolder:
+                        type: object
+                        properties:
+                          clientMutationId:
+                            type: null
+                          errors:
+                            type: null
+                          locations:
+                            type: array
+                            items:
+                              type: string
+                          success:
+                            type: boolean
+                        x-apidog-orders:
+                        - clientMutationId
+                        - errors
+                        - locations
+                        - success
+                    x-apidog-orders:
+                    - deleteLocationsFromFolder
+                x-apidog-orders:
+                - data
+              example:
+                data:
+                  deleteLocationsFromFolder:
+                    clientMutationId: null
+                    errors: null
+                    locations:
+                    - bG9jYXRpb25zOjE2OTQx
+                    success: true
+                errors: []
+          headers: {}
+          x-apidog-name: OK
+      security: []
+      x-apidog-folder: Organizing locations
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-13660249-run
+  /locations/folders/rename:
+    post:
+      summary: Rename a folder
+      deprecated: false
+      description: "<span style=\"font-size: 14px;\">\nThis API updates the name of an existing folder to a new name.\n\n\n   \n\n \n**Important Notes:**\n- The new folder name must be unique within your account.\n- Root folders cannot be renamed.\n- The folder being renamed must exist in your account.\n- Special characters in the new name will be converted to underscores (_).\n\n</span>"
+      tags:
+      - Organizing locations
+      parameters:
+      - name: Authorization
+        in: header
+        description: API key for authentication
+        required: false
+        example: T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                input:
+                  type: object
+                  required:
+                  - name
+                  - oldName
+                  properties:
+                    name:
+                      type: string
+                      description: The new name for the folder
+                      minLength: 1
+                      examples:
+                      - Acme New
+                    oldName:
+                      type: string
+                      description: The current name of the folder to be renamed
+                      minLength: 1
+                      examples:
+                      - Acme
+                  x-apidog-orders:
+                  - name
+                  - oldName
+              x-apidog-orders:
+              - input
+            example: ''
+      responses:
+        '200':
+          description: Successfully renamed the folder
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      renameFolder:
+                        type: object
+                        properties:
+                          errors:
+                            type:
+                            - array
+                            - 'null'
+                            description: Array of error messages if the operation failed
+                            items:
+                              type: string
+                          folder:
+                            type: object
+                            properties:
+                              accountId:
+                                type: integer
+                                description: ID of the account that owns the folder
+                                examples:
+                                - 10072
+                              archived:
+                                type: boolean
+                                description: Indicates if the folder is archived
+                                examples:
+                                - false
+                              id:
+                                type: string
+                                format: uuid
+                                description: Unique identifier of the folder
+                                examples:
+                                - 0e4cc56e-45f8-4058-a713-ead264fa9318
+                              name:
+                                type: string
+                                description: The new name of the folder
+                                examples:
+                                - Acme_New
+                              root:
+                                type: boolean
+                                description: Indicates if this is a root folder
+                                examples:
+                                - false
+                            required:
+                            - accountId
+                            - archived
+                            - id
+                            - name
+                            - root
+                            x-apidog-orders:
+                            - accountId
+                            - archived
+                            - id
+                            - name
+                            - root
+                        x-apidog-orders:
+                        - errors
+                        - folder
+                    x-apidog-orders:
+                    - renameFolder
+                x-apidog-orders:
+                - data
+              example:
+                data:
+                  renameFolder:
+                    clientMutationId: null
+                    errors: null
+                    folder:
+                      accountId: 16154
+                      archived: false
+                      createdAt: 2025-02-02 15:27:00 UTC
+                      id: 098ba54d-3659-46fa-9c17-4af4329ce421
+                      locationCount: null
+                      name: 2feb2025855pm_2
+                      root: false
+                    success: true
+          headers: {}
+          x-apidog-name: OK
+        '400':
+          description: Bad request - invalid input parameters
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: Bad Request
+        '404':
+          description: Folder not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: Record Not Found
+        '409':
+          description: New folder name already exists
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: '409'
+      security: []
+      x-apidog-folder: Organizing locations
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-13660162-run
+components:
+  schemas:
+    CreateFolderRequest:
+      type: object
+      required:
+      - input
+      properties:
+        input:
+          type: object
+          required:
+          - name
+          properties:
+            name:
+              type: string
+              description: Unique name for the folder
+            parentFolderName:
+              type: string
+              description: Name of the parent folder (optional)
+            parentFolder:
+              type: string
+              description: UUID of the parent folder (optional)
+          x-apidog-orders:
+          - name
+          - parentFolderName
+          - parentFolder
+          x-apidog-ignore-properties: []
+      x-apidog-orders:
+      - input
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    FolderInfo:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier of the folder
+        name:
+          type: string
+          description: Name of the folder
+        level:
+          type: integer
+          description: Hierarchical level of the folder (0 for root)
+          minimum: 0
+        locationCount:
+          type: integer
+          description: Number of locations in this folder
+          minimum: 0
+        parentFolderId:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          description: ID of the parent folder (null for root folder)
+        parentFolderName:
+          type:
+          - string
+          - 'null'
+          description: Name of the parent folder (null for root folder)
+      x-apidog-orders:
+      - id
+      - name
+      - level
+      - locationCount
+      - parentFolderId
+      - parentFolderName
+      x-apidog-folder: ''
+    ListFoldersResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            getUserFolders:
+              type: array
+              items:
+                $ref: '#/components/schemas/FolderInfo'
+          x-apidog-orders:
+          - getUserFolders
+          x-apidog-ignore-properties: []
+      x-apidog-orders:
+      - data
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    Folder:
+      type: object
+      properties:
+        accountId:
+          type: integer
+          description: ID of the account owning this folder
+        archived:
+          type: boolean
+          description: Whether the folder is archived
+        createdAt:
+          type: string
+          description: UTC timestamp of folder creation
+        id:
+          type: string
+          description: Unique identifier (UUID) of the folder
+        locationCount:
+          type:
+          - integer
+          - 'null'
+          description: Number of locations in this folder
+        name:
+          type: string
+          description: Name of the folder
+        root:
+          type: boolean
+          description: Whether this is the root folder
+      x-apidog-orders:
+      - accountId
+      - archived
+      - createdAt
+      - id
+      - locationCount
+      - name
+      - root
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    FolderNode:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier for the folder
+          examples:
+          - 67049f29-3bc6-4e82-875b-02159b4b1fea
+        name:
+          type: string
+          description: Name of the folder
+          examples:
+          - root
+        level:
+          type: integer
+          description: Hierarchical level of the folder (0 being root)
+          minimum: 0
+          examples:
+          - 0
+        locationCount:
+          type: integer
+          description: Number of locations contained within this folder
+          minimum: 0
+          examples:
+          - 25
+        subFolders:
+          type: array
+          description: List of child folders under this folder
+          items:
+            $ref: '#/components/schemas/FolderNode'
+      required:
+      - id
+      - name
+      - level
+      - locationCount
+      - subFolders
+      x-apidog-orders:
+      - id
+      - name
+      - level
+      - locationCount
+      - subFolders
+      x-apidog-folder: ''
+    CreateFolderResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            createFolder:
+              type: object
+              properties:
+                clientMutationId:
+                  type:
+                  - string
+                  - 'null'
+                errors:
+                  type:
+                  - array
+                  - 'null'
+                  items:
+                    $ref: '#/components/schemas/Error'
+                folder:
+                  $ref: '#/components/schemas/Folder'
+                success:
+                  type: boolean
+              x-apidog-orders:
+              - clientMutationId
+              - errors
+              - folder
+              - success
+              x-apidog-ignore-properties: []
+          x-apidog-orders:
+          - createFolder
+          x-apidog-ignore-properties: []
+      x-apidog-orders:
+      - data
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+        contextInfo:
+          type: array
+          items:
+            type: object
+            properties:
+              key:
+                type: string
+              value:
+                type: string
+            x-apidog-orders:
+            - key
+            - value
+            x-apidog-ignore-properties: []
+      x-apidog-orders:
+      - message
+      - code
+      - contextInfo
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    DefaultFolderType:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Default folder ID.
+        name:
+          type: string
+          description: Default folder name.
+      x-apidog-orders:
+      - id
+      - name
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''

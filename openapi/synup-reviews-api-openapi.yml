@@ -1,0 +1,1280 @@
+openapi: 3.2.0
+info:
+  title: Synup Reviews API
+  version: '4'
+  description: 'REST API v4 for the Synup local marketing platform: business locations, listing syndication to 80+ directories, review/interaction aggregation and response, review campaigns, local rank tracking and grid-rank heatmaps, local and social posts, AI post ideas, menus, connected accounts, users and profile analytics.
+
+
+    ASSEMBLED BY API EVANGELIST from the per-endpoint OpenAPI documents Synup publishes on its own documentation host (developer.synup.com, Apidog project 797384). Every operation, parameter, response, example and schema below is verbatim provider content; only the merge into a single document is ours. Source index: https://developer.synup.com/llms.txt'
+  contact:
+    name: Synup Developer Documentation
+    url: https://developer.synup.com/
+  x-assembled-by: api-evangelist enrichment pipeline (local-v1)
+  x-assembled-from: 506 per-endpoint OpenAPI fragments published at https://developer.synup.com/<slug>.md
+  x-assembled-date: '2026-08-13'
+servers:
+- url: https://api.synup.com/api/v4
+  description: Base ENV (as published in every Synup doc fragment). Tenant workspace domains (https://<workspace>.synup.com/api/v4) also serve the same API.
+tags:
+- name: Reviews
+paths:
+  /review_widget/add:
+    post:
+      summary: Add Review Widget
+      deprecated: false
+      description: ''
+      tags:
+      - Reviews
+      parameters:
+      - name: Authorization
+        in: header
+        description: ''
+        required: true
+        example: API nQWIQkSj_nLpgzeSXtSjNVCxhVU
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        description: ''
+        required: true
+        example: application/json
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                locationId:
+                  type: string
+                minimumRating:
+                  type: integer
+                name:
+                  type: string
+                readOnly:
+                  type: boolean
+                reviewCount:
+                  type: integer
+                sites:
+                  type: array
+                  items:
+                    type: string
+                widgetHeight:
+                  type: string
+                widgetType:
+                  type: string
+                widgetWidth:
+                  type: string
+              required:
+              - locationId
+              - minimumRating
+              - name
+              - readOnly
+              - reviewCount
+              - sites
+              - widgetHeight
+              - widgetType
+              - widgetWidth
+            example:
+              locationId: TG9jYXRpb246NzAzNTY1
+              minimumRating: 5
+              name: 'testing functionality2 '
+              readOnly: false
+              reviewCount: 10
+              sites:
+              - maps.google.com
+              - facebook.com
+              - yelp.com
+              widgetHeight: 470px
+              widgetType: medium_slider
+              widgetWidth: 100%
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      addReviewWidget:
+                        type: object
+                        properties:
+                          widget:
+                            type: 'null'
+                          errors:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                contextInfo:
+                                  type: array
+                                  items:
+                                    type: object
+                                    properties:
+                                      key:
+                                        type: string
+                                      value:
+                                        type: string
+                                code:
+                                  type: string
+                                message:
+                                  type: string
+                        required:
+                        - widget
+                        - errors
+                    required:
+                    - addReviewWidget
+                required:
+                - data
+              example:
+                data:
+                  addReviewWidget:
+                    widget: null
+                    errors:
+                    - contextInfo:
+                      - key: name
+                        value: 'testing functionality2 '
+                      code: SY50101
+                      message: Widget name testing functionality2  already used
+          headers: {}
+          x-apidog-name: Success
+      security: []
+      x-apidog-folder: Reviews
+      x-apidog-status: developing
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-20127692-run
+  /locations/reviews/respond/archive:
+    post:
+      summary: Archive Response for Interaction
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Archive any response provided for any existing Interaction
+
+        </span>'
+      operationId: respondToInteraction
+      tags:
+      - Reviews
+      parameters:
+      - name: Authorization
+        in: header
+        description: API key for authentication
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - responseId
+              properties:
+                responseId:
+                  type: string
+                  description: "Response ID\t"
+                  format: uuid
+              x-apidog-orders:
+              - responseId
+            example:
+              responseId: 2090753a-ece6-4837-8336-8494ad308523
+      responses:
+        '200':
+          description: Response successfully posted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      archiveResponse:
+                        type: object
+                        properties:
+                          status:
+                            type: boolean
+                        x-apidog-orders:
+                        - status
+                    x-apidog-orders:
+                    - archiveResponse
+                x-apidog-orders:
+                - data
+              example: "{\n    \"data\": {\n        \"archiveResponse\": {\n            \"status\": \"true\",\n        }\n    }\n}"
+          headers: {}
+          x-apidog-name: OK
+      security: []
+      x-apidog-folder: Reviews
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-19357202-run
+  /locations/reviews/respond/edit:
+    post:
+      summary: Edit Response for Interaction
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Edit the existing response provided any Interaction
+
+        </span>'
+      operationId: respondToInteraction
+      tags:
+      - Reviews
+      parameters:
+      - name: Authorization
+        in: header
+        description: API key for authentication
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - reviewId
+              - responseContent
+              - responseId
+              properties:
+                responseContent:
+                  type: string
+                  description: Response text content
+                reviewId:
+                  type: string
+                  format: uuid
+                  description: ID of the interaction
+                responseId:
+                  type: string
+                  description: "Response ID\t"
+                  format: uuid
+              x-apidog-orders:
+              - reviewId
+              - responseContent
+              - responseId
+            example:
+              reviewId: 2090753a-ece6-4837-8336-8494ad308523
+              responseContent: This is a edited sample response
+              responseId: 2090753a-ece6-4837-8336-8494ad308523
+      responses:
+        '200':
+          description: Response successfully posted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      editResponse:
+                        type: object
+                        properties:
+                          status:
+                            type: boolean
+                          reviewId:
+                            type: string
+                            format: uuid
+                          responseId:
+                            type: string
+                            format: uuid
+                        x-apidog-orders:
+                        - status
+                        - reviewId
+                        - responseId
+                        required:
+                        - reviewId
+                        - responseId
+                    x-apidog-orders:
+                    - editResponse
+                x-apidog-orders:
+                - data
+              example:
+                data:
+                  editResponse:
+                    status: 'true'
+                    reviewId: 2090753a-ece6-4837-8336-8494ad308523
+                    responseId: 2090753a-ece6-4837-8336-8494ad308524
+          headers: {}
+          x-apidog-name: OK
+      security: []
+      x-apidog-folder: Reviews
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-19356956-run
+  /review_widget/edit:
+    post:
+      summary: Edit Review Widget
+      deprecated: false
+      description: ''
+      tags:
+      - Reviews
+      parameters:
+      - name: Authorization
+        in: header
+        description: ''
+        required: true
+        example: API nQWIQkSj_nLpgzeSXtSjNVCxhVU
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        description: ''
+        required: true
+        example: application/json
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                widgetId:
+                  type: string
+                minimumRating:
+                  type: integer
+                name:
+                  type: string
+                readOnly:
+                  type: boolean
+                reviewCount:
+                  type: integer
+                sites:
+                  type: array
+                  items:
+                    type: string
+                widgetHeight:
+                  type: string
+                widgetType:
+                  type: string
+                widgetWidth:
+                  type: string
+              required:
+              - widgetId
+              - minimumRating
+              - name
+              - readOnly
+              - reviewCount
+              - sites
+              - widgetHeight
+              - widgetType
+              - widgetWidth
+            example:
+              widgetId: e4cd2716-ab7a-4218-95f9-302c98959998
+              minimumRating: 5
+              name: 'testing functionality2 '
+              readOnly: false
+              reviewCount: 10
+              sites:
+              - maps.google.com
+              - facebook.com
+              - yelp.com
+              widgetHeight: 470px
+              widgetType: medium_slider
+              widgetWidth: 100%
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      editReviewWidget:
+                        type: object
+                        properties:
+                          widget:
+                            type: object
+                            properties:
+                              id:
+                                type: string
+                              name:
+                                type: string
+                              description:
+                                type: 'null'
+                              widgetType:
+                                type: string
+                              reviewCount:
+                                type: integer
+                              minimumRating:
+                                type: integer
+                              widgetWidth:
+                                type: string
+                              widgetHeight:
+                                type: string
+                              sites:
+                                type: array
+                                items:
+                                  type: string
+                              readOnly:
+                                type: boolean
+                              locationId:
+                                type: string
+                              archived:
+                                type: boolean
+                              createdAt:
+                                type: string
+                              updatedAt:
+                                type: string
+                            required:
+                            - id
+                            - name
+                            - description
+                            - widgetType
+                            - reviewCount
+                            - minimumRating
+                            - widgetWidth
+                            - widgetHeight
+                            - sites
+                            - readOnly
+                            - locationId
+                            - archived
+                            - createdAt
+                            - updatedAt
+                          errors:
+                            type: 'null'
+                        required:
+                        - widget
+                        - errors
+                    required:
+                    - editReviewWidget
+                required:
+                - data
+              example:
+                data:
+                  editReviewWidget:
+                    widget:
+                      id: e4cd2716-ab7a-4218-95f9-302c98959998
+                      name: 'testing functionality2 '
+                      description: null
+                      widgetType: medium slider
+                      reviewCount: 10
+                      minimumRating: 5
+                      widgetWidth: 100%
+                      widgetHeight: 470px
+                      sites:
+                      - maps.google.com
+                      - facebook.com
+                      - yelp.com
+                      readOnly: false
+                      locationId: TG9jYXRpb246NzAzNTY1
+                      archived: false
+                      createdAt: '2025-08-06 07:32:11.613863'
+                      updatedAt: '2025-08-06 07:34:28.132402'
+                    errors: null
+          headers: {}
+          x-apidog-name: Success
+      security: []
+      x-apidog-folder: Reviews
+      x-apidog-status: developing
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-20127698-run
+  /locations/{locationId}/reviews:
+    get:
+      summary: Fetch all interactions
+      deprecated: false
+      description: "<span style=\"font-size: 14px;\">\nThis API retrieves interactions for a specific location, supporting multiple filters to refine results.\n    \n    \n **Filtering Options:**\n- Date Range – Fetch interactions within a specified time frame.\n- Interaction Type – Filter by reviews, social engagements, or directory interactions.\n- Platform – Retrieve interactions from specific sources (e.g., Google, Facebook, Yelp).\n- Response Status – Show only responded or unresponded interactions.\n- Rating – Filter reviews by star ratings (if applicable).\n - Keyword – Filter reviews whose content matches a search keyword.\n</span>\n"
+      tags:
+      - Reviews
+      parameters:
+      - name: locationId
+        in: path
+        description: Base64 encoded location ID
+        required: true
+        example: ''
+        schema:
+          type: string
+      - name: siteUrls
+        in: query
+        description: Filter by source websites
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+      - name: category
+        in: query
+        description: Filter by interaction category
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - REVIEW
+      - name: startDate
+        in: query
+        description: Start date for filtering (YYYY-MM-DD)
+        required: false
+        schema:
+          type: string
+          format: date
+      - name: endDate
+        in: query
+        description: End date for filtering (YYYY-MM-DD)
+        required: false
+        schema:
+          type: string
+          format: date
+      - name: ratingFilters
+        in: query
+        description: "Filter by rating (1-5). Pass multiple values as an array. Example: [3,4]\t"
+        required: false
+        schema:
+          type: array
+          items:
+            type: integer
+            minimum: 1
+            maximum: 5
+      - name: searchString
+        in: query
+        description: 'Filter interactions by keyword. Returns only interactions whose content matches the keyword. Example: pizza'
+        required: false
+        example: pizza
+        schema:
+          type: string
+      - name: before
+        in: query
+        description: If specified, records after the cursor are returned
+        required: false
+        schema:
+          type: string
+      - name: after
+        in: query
+        description: "If specified, records before the cursor are returned\t"
+        required: false
+        schema:
+          type: string
+      - name: first
+        in: query
+        description: "Specifies the number of records to fetch from the beginning\t"
+        required: false
+        schema:
+          type: string
+      - name: last
+        in: query
+        description: Specifies the number of records to fetch from the end
+        required: false
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Interactions retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InteractionsResponse'
+              example:
+                data:
+                  interactions:
+                    pageInfo:
+                      hasNextPage: false
+                      hasPreviousPage: false
+                      endCursor: null
+                      total: null
+                    edges:
+                    - node:
+                        id: 9990178a-f119-43da-adbe-e2facad5a870
+                        source: maps.google.com
+                        authorName: Dale Rohwedder
+                        authorAvatar: https://lh6.googleusercontent.com/-rwVBMk41wg0/AAAAAAAAAAI/AAAAAAAAADc/NamFETXVIRw/w36-h36-p-mo/photo.jpg
+                        rating: 4
+                        date: '2019-01-24T06:13:15.332985+00:00'
+                        category: Review
+                      cursor: SW50ZXJhY3Rpb246OTk5MDE3OGEtZjExOS00M2RhLWFkYmUtZTJmYWNhZDVhODcw
+                    totalCount: 1
+          headers: {}
+          x-apidog-name: OK
+        '400':
+          description: Bad Request - Invalid parameters
+          headers: {}
+          x-apidog-name: Bad Request
+        '404':
+          description: Location not found
+          headers: {}
+          x-apidog-name: Record Not Found
+      security: []
+      x-apidog-folder: Reviews
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-13932709-run
+  /locations/{locationId}/{type}:
+    get:
+      summary: Get Interaction Analytics
+      deprecated: false
+      description: "<span style=\"font-size: 14px;\">\nThis API retrieves interaction analytics data based on the requested analytics type.\n\n**Available Analytics Types:**\n- `review-analytics-overview` – Provides overall statistics, including total interactions, average ratings, and response rates.\n- `review-analytics-timeline` – Returns time-based analytics, showing interaction trends over a selected period.\n- `review-analytics-sites-stats` – Provides site-wise breakdown, showing performance across platforms like Google, Facebook, and Yelp.\n\n </span>"
+      operationId: getAnalytics
+      tags:
+      - Reviews
+      parameters:
+      - name: locationId
+        in: path
+        description: Base64 encoded location ID (e.g., TG9jYXRpb246MTA1NTk0Nw==)
+        required: true
+        example: ''
+        schema:
+          type: string
+      - name: type
+        in: path
+        description: Type of analytics data to retrieve
+        required: true
+        example: ''
+        schema:
+          type: string
+          enum:
+          - review-analytics-overview
+          - review-analytics-timeline
+          - review-analytics-sites-stats
+      - name: startDate
+        in: query
+        description: Required for timeline analytics. Format YYYY-MM-DD
+        required: false
+        schema:
+          type: string
+          format: date
+      - name: endDate
+        in: query
+        description: Required for timeline analytics. Format YYYY-MM-DD
+        required: false
+        schema:
+          type: string
+          format: date
+      - name: Authorization
+        in: header
+        description: API key for authentication
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successfully retrieved analytics data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+              examples:
+                '1':
+                  summary: Overall Analytics Stats
+                  value:
+                    data:
+                      interactionsAnalyticsStats:
+                        stats:
+                        - name: total-reviews
+                          value: 24575
+                          delta: 100
+                        - name: new-reviews
+                          value: 24575
+                          delta: 100
+                        - name: overall-rating
+                          value: 1.628321464903357
+                          delta: 100
+                        - name: review-response-rate
+                          value: 0.10579857578840285
+                          delta: 100
+                '2':
+                  summary: Analytics Timeline
+                  value:
+                    data:
+                      interactionsChartData:
+                        data:
+                        - date: '2023-04-01'
+                          interactionCount: 1
+                          averageRating: 1
+                        - date: '2023-04-02'
+                          interactionCount: 1
+                          averageRating: 1
+                        - date: '2024-09-15'
+                          interactionCount: 2
+                          averageRating: 1
+                '3':
+                  summary: Site-wise Analytics
+                  value:
+                    data:
+                      interactionsSitesStats:
+                        stats:
+                        - key: Yelp
+                          siteUrl: yelp.com
+                          averageRating:
+                            value: 1.628321464903357
+                            delta: 100
+                          totalInteractions:
+                            value: 24575
+                            delta: 100
+                          newInteractions:
+                            value: 24575
+                            delta: 100
+                          recency: '1738540800000.0'
+                          baseRating: 1.629760631734803
+                          baseInteractions: 24314
+                          humanizedRecency: 1 day ago
+                        - key: Consolidated
+                          siteUrl: Consolidated
+                          averageRating:
+                            value: 1.628321464903357
+                            delta: 100
+                          totalInteractions:
+                            value: 24575
+                            delta: 100
+                          newInteractions:
+                            value: 24575
+                            delta: 100
+                          recency: '1738540800000.0'
+                          baseRating: 1.629760631734803
+                          baseInteractions: 24314
+                          humanizedRecency: 1 day ago
+          headers: {}
+          x-apidog-name: OK
+      security: []
+      x-apidog-folder: Reviews
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-13932683-run
+  /reviewDetails:
+    get:
+      summary: List Interactions by IDs
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        This API retrieves multiple interactions using their unique identifiers in a single request.
+
+
+        **Behavior:**
+
+        - Supports batch retrieval for efficiency.
+
+        - Ensures only valid interaction IDs return data.
+
+        - Returns full interaction details, including content, platform, timestamp, and response status.
+
+
+        </span>'
+      operationId: listInteractionsByIds
+      tags:
+      - Reviews
+      parameters:
+      - name: interactionIds
+        in: query
+        description: 'Array of interaction IDs to fetch.
+
+
+          Must be URL encoded array of quoted UUIDs in square brackets.
+
+          Example: `[%2258765b87-48b6-4bb5-88fa-62500842a383%22%2C%20%2280d22b99-3c57-4e50-90ca-6f38a7d43e50%22]`
+
+          '
+        required: true
+        example:
+        - 58765b87-48b6-4bb5-88fa-62500842a383
+        - 80d22b99-3c57-4e50-90ca-6f38a7d43e50
+        schema:
+          type: array
+          items:
+            type: string
+            format: uuid
+      - name: Authorization
+        in: header
+        description: API key for authentication
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      interactionDetails:
+                        type: object
+                        properties:
+                          interactions:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/Interaction'
+                        x-apidog-orders:
+                        - interactions
+                        x-apidog-ignore-properties: []
+                    x-apidog-orders:
+                    - interactionDetails
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+              example:
+                data:
+                  interactionDetails:
+                    interactions: []
+          headers: {}
+          x-apidog-name: OK
+      security: []
+      x-apidog-folder: Reviews
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-13932710-run
+  /locations/reviews/respond:
+    post:
+      summary: Respond to an Interaction
+      deprecated: false
+      description: "<span style=\"font-size: 14px;\">\n  This API posts a response to a specific interaction on the respective partner site (e.g., Google, Facebook, Yelp).\n    \n    **Behavior:**\n- The response is posted directly to the platform where the interaction originated.\n- Some platforms may have moderation policies that affect response visibility.\n- Supports text-based responses; some platforms may allow limited formatting.\n- Ensures responses comply with platform-specific guidelines.\n    \n</span>"
+      operationId: respondToInteraction
+      tags:
+      - Reviews
+      parameters:
+      - name: Authorization
+        in: header
+        description: API key for authentication
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - interactionId
+              - responseContent
+              properties:
+                interactionId:
+                  type: string
+                  format: uuid
+                  description: ID of the interaction to respond to
+                responseContent:
+                  type: string
+                  description: Response text content
+              x-apidog-orders:
+              - interactionId
+              - responseContent
+              x-apidog-ignore-properties: []
+            example:
+              interactionId: 2090753a-ece6-4837-8336-8494ad308523
+              responseContent: This is a sample response
+      responses:
+        '200':
+          description: Response successfully posted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      respondToInteraction:
+                        type: object
+                        properties:
+                          interaction:
+                            $ref: '#/components/schemas/ResponseInteraction'
+                        x-apidog-orders:
+                        - interaction
+                        x-apidog-ignore-properties: []
+                    x-apidog-orders:
+                    - respondToInteraction
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+              example:
+                data:
+                  respondToInteraction:
+                    interaction:
+                      interactionId: 7495f5f5-05c3-41f7-a498-1f9cde0d4693
+                      source: facebook.com
+                      content: This is a sample response
+                      authorName: null
+                      authorAvatar: null
+                      authorUrl: null
+                      date: '2019-01-21T05:26:30.687556+00:00'
+                      interactionStatus: Created
+          headers: {}
+          x-apidog-name: OK
+      security: []
+      x-apidog-folder: Reviews
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-13932713-run
+  /rollup_interactions:
+    get:
+      summary: Rollup Review API
+      deprecated: false
+      description: ''
+      tags:
+      - Reviews
+      parameters:
+      - name: tag
+        in: query
+        description: ''
+        required: true
+        example: all
+        schema:
+          type: string
+      - name: first
+        in: query
+        description: ''
+        required: true
+        example: '20'
+        schema:
+          type: string
+      - name: ratingFilters
+        in: query
+        description: ''
+        required: true
+        example: '[]'
+        schema:
+          type: string
+      - name: categories
+        in: query
+        description: ''
+        required: true
+        example: '[]'
+        schema:
+          type: string
+      - name: responseStatus
+        in: query
+        description: ''
+        required: true
+        example: '[]'
+        schema:
+          type: string
+      - name: siteUrls
+        in: query
+        description: ''
+        required: true
+        example: '[]'
+        schema:
+          type: string
+      - name: sortOrder
+        in: query
+        description: ''
+        required: true
+        example: NEWEST_FIRST
+        schema:
+          type: string
+      - name: searchString
+        in: query
+        description: ''
+        required: true
+        example: ''
+        schema:
+          type: string
+      - name: startDate
+        in: query
+        description: ''
+        required: true
+        example: 'null'
+        schema:
+          type: string
+      - name: endDate
+        in: query
+        description: ''
+        required: true
+        example: 'null'
+        schema:
+          type: string
+      - name: before
+        in: query
+        description: ''
+        required: true
+        example: 'null'
+        schema:
+          type: string
+      - name: after
+        in: query
+        description: ''
+        required: true
+        example: 'null'
+        schema:
+          type: string
+      - name: last
+        in: query
+        description: ''
+        required: true
+        example: 'null'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: ''
+        required: true
+        example: API nQWIQkSj_nLpgzeSXtSjNVCxhVU
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        description: ''
+        required: true
+        example: application/json
+        schema:
+          type: string
+      requestBody:
+        content:
+          text/plain:
+            schema:
+              type: string
+            examples: {}
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+          headers: {}
+          x-apidog-name: Success
+      security: []
+      x-apidog-folder: Reviews
+      x-apidog-status: developing
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-20430521-run
+components:
+  schemas:
+    ResponseInteraction:
+      type: object
+      properties:
+        interactionId:
+          type: string
+          format: uuid
+          description: Parent interaction ID for the response
+        source:
+          type: string
+          description: URL of the interaction site
+        content:
+          type: string
+          description: Interaction response content
+        authorName:
+          type:
+          - string
+          - 'null'
+          description: Name of person who responded
+        authorAvatar:
+          type:
+          - string
+          - 'null'
+          description: URL of response author's image
+        authorUrl:
+          type:
+          - string
+          - 'null'
+          description: URL of response author's profile
+        date:
+          type: string
+          format: date-time
+          description: Response timestamp
+        interactionStatus:
+          type: string
+          enum:
+          - Created
+          - Completed
+          - Confirmed
+          - Failed
+          description: 'Status of the response:
+
+            * Created - Initial creation
+
+            * Completed - Posted to partner site
+
+            * Confirmed - Verified on partner site
+
+            * Failed - Response posting failed
+
+            '
+      x-apidog-orders:
+      - interactionId
+      - source
+      - content
+      - authorName
+      - authorAvatar
+      - authorUrl
+      - date
+      - interactionStatus
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    InteractionsResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            interactions:
+              type: object
+              properties:
+                pageInfo:
+                  $ref: '#/components/schemas/PageInfo'
+                edges:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/InteractionEdge'
+                totalCount:
+                  type: integer
+                  description: Total number of interactions matching the filters
+              x-apidog-orders:
+              - pageInfo
+              - edges
+              - totalCount
+              x-apidog-ignore-properties: []
+          x-apidog-orders:
+          - interactions
+          x-apidog-ignore-properties: []
+      x-apidog-orders:
+      - data
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    PageInfo:
+      type: object
+      properties:
+        hasNextPage:
+          type: boolean
+          description: Indicates if there are more pages available
+        hasPreviousPage:
+          type: boolean
+          description: Indicates if there are previous pages available
+        totalPages:
+          type: integer
+          description: Total number of pages available
+        totalRecords:
+          type: integer
+          description: Total number of records across all pages
+      x-apidog-orders:
+      - hasNextPage
+      - hasPreviousPage
+      - totalPages
+      - totalRecords
+      x-apidog-folder: ''
+    Interaction:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier for the interaction
+        source:
+          type: string
+          description: Source website of the interaction
+        title:
+          type:
+          - string
+          - 'null'
+          description: Title of the interaction
+        content:
+          type:
+          - string
+          - 'null'
+          description: Content of the interaction
+        authorName:
+          type: string
+          description: Name of the author
+        authorAvatar:
+          type:
+          - string
+          - 'null'
+          description: URL of author's avatar
+        authorUrl:
+          type:
+          - string
+          - 'null'
+          description: URL of author's profile
+        rating:
+          type: integer
+          minimum: 1
+          maximum: 5
+          description: Rating value (1-5)
+        date:
+          type: string
+          format: date-time
+          description: Date and time of the interaction
+        permalink:
+          type:
+          - string
+          - 'null'
+          description: Permanent URL to the interaction
+        category:
+          type: string
+          description: Category of the interaction
+        type:
+          type: string
+          description: Type of the interaction
+        photoUrl:
+          type:
+          - string
+          - 'null'
+          description: URL of attached photo
+        photoThumbnailUrl:
+          type:
+          - string
+          - 'null'
+          description: URL of photo thumbnail
+        responded:
+          type: boolean
+          description: Whether the interaction has been responded to
+        notes:
+          type:
+          - string
+          - 'null'
+          description: Additional notes
+        responses:
+          type: array
+          items:
+            type: object
+            x-apidog-orders: []
+            properties: {}
+            x-apidog-ignore-properties: []
+          description: Array of responses
+        canRespond:
+          type: boolean
+          description: Whether responses are allowed
+        totalResponses:
+          type: integer
+          description: Total number of responses
+      x-apidog-orders:
+      - id
+      - source
+      - title
+      - content
+      - authorName
+      - authorAvatar
+      - authorUrl
+      - rating
+      - date
+      - permalink
+      - category
+      - type
+      - photoUrl
+      - photoThumbnailUrl
+      - responded
+      - notes
+      - responses
+      - canRespond
+      - totalResponses
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    InteractionEdge:
+      type: object
+      properties:
+        node:
+          $ref: '#/components/schemas/Interaction'
+        cursor:
+          type: string
+          description: Cursor for pagination
+      x-apidog-orders:
+      - node
+      - cursor
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''

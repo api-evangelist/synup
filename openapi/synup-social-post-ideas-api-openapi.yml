@@ -1,0 +1,4823 @@
+openapi: 3.2.0
+info:
+  title: Synup Social Post Ideas API
+  version: '4'
+  description: 'REST API v4 for the Synup local marketing platform: business locations, listing syndication to 80+ directories, review/interaction aggregation and response, review campaigns, local rank tracking and grid-rank heatmaps, local and social posts, AI post ideas, menus, connected accounts, users and profile analytics.
+
+
+    ASSEMBLED BY API EVANGELIST from the per-endpoint OpenAPI documents Synup publishes on its own documentation host (developer.synup.com, Apidog project 797384). Every operation, parameter, response, example and schema below is verbatim provider content; only the merge into a single document is ours. Source index: https://developer.synup.com/llms.txt'
+  contact:
+    name: Synup Developer Documentation
+    url: https://developer.synup.com/
+  x-assembled-by: api-evangelist enrichment pipeline (local-v1)
+  x-assembled-from: 506 per-endpoint OpenAPI fragments published at https://developer.synup.com/<slug>.md
+  x-assembled-date: '2026-08-13'
+servers:
+- url: https://api.synup.com/api/v4
+  description: Base ENV (as published in every Synup doc fragment). Tenant workspace domains (https://<workspace>.synup.com/api/v4) also serve the same API.
+tags:
+- name: Social Post Ideas
+paths:
+  /social-post-ideas/active-chat-session:
+    get:
+      summary: Active chat session
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Returns the currently active AI post-idea chat session for a brand (social profile), if one exists. Set `excludeSeries` to skip sessions that belong to a content series.
+
+        </span>'
+      operationId: activeChatSession
+      tags:
+      - Social Post Ideas
+      parameters:
+      - name: socialProfileId
+        in: query
+        description: Social profile ID.
+        required: true
+        example: 6f1c2a90-...
+        schema:
+          type: string
+      - name: excludeSeries
+        in: query
+        description: Exclude sessions that belong to a content series.
+        required: false
+        example: ''
+        schema:
+          type: boolean
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      activeChatSession:
+                        $ref: '#/components/schemas/ChatSession'
+                    x-apidog-orders:
+                    - activeChatSession
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Social Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40055529-run
+  /social-post-ideas/analyze-reference-image:
+    get:
+      summary: Analyze reference image
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Analyzes a reference image at the given URL and returns a textual description that can be used to ground social post-idea generation. Optionally pass a `category` hint to focus the analysis.
+
+        </span>'
+      operationId: analyzeReferenceImage
+      tags:
+      - Social Post Ideas
+      parameters:
+      - name: imageUrl
+        in: query
+        description: URL of the image to analyze.
+        required: true
+        example: https://cdn.example.com/photo.jpg
+        schema:
+          type: string
+      - name: category
+        in: query
+        description: Optional category hint to focus the analysis.
+        required: false
+        example: ''
+        schema:
+          type: string
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      analyzeReferenceImage:
+                        $ref: '#/components/schemas/ReferenceImageAnalysis'
+                    x-apidog-orders:
+                    - analyzeReferenceImage
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Social Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40055530-run
+  /social-post-ideas/archive-idea:
+    post:
+      summary: Archive idea
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Archives a social post idea so it no longer appears in active idea listings.
+
+        </span>'
+      operationId: archiveIdea
+      tags:
+      - Social Post Ideas
+      parameters:
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ArchiveIdeaRequest'
+            example:
+              ideaId: 91b2...
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      archiveIdea:
+                        $ref: '#/components/schemas/MutationResponse'
+                    x-apidog-orders:
+                    - archiveIdea
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Social Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40055531-run
+  /social-post-ideas/archive-series:
+    post:
+      summary: Archive series
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Archives a content series so it no longer appears in active series listings.
+
+        </span>'
+      operationId: archiveSeries
+      tags:
+      - Social Post Ideas
+      parameters:
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ArchiveSeriesRequest'
+            example:
+              seriesId: 3a1f...
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      archiveSeries:
+                        $ref: '#/components/schemas/MutationResponse'
+                    x-apidog-orders:
+                    - archiveSeries
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Social Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40055564-run
+  /social-post-ideas/branch-chat-session:
+    post:
+      summary: Branch chat session
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Creates a new chat session branched from an existing one (`parentSessionId`), anchored to a subject (`subjectType` required, `subjectId` optional). Use this to explore an alternative direction without losing the original conversation.
+
+        </span>'
+      operationId: branchChatSession
+      tags:
+      - Social Post Ideas
+      parameters:
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BranchChatSessionRequest'
+            example:
+              parentSessionId: 7f3c1a2e-...
+              subjectType: idea
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      branchChatSession:
+                        $ref: '#/components/schemas/ChatSessionResponse'
+                    x-apidog-orders:
+                    - branchChatSession
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Social Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40055575-run
+  /social-post-ideas/brand-info:
+    get:
+      summary: Brand info
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Returns the basic brand profile for a social profile — name, site URL, categories, and country — used to ground social post-idea generation.
+
+        </span>'
+      operationId: brandInfo
+      tags:
+      - Social Post Ideas
+      parameters:
+      - name: socialProfileId
+        in: query
+        description: Social profile ID.
+        required: true
+        example: 6f1c2a90-...
+        schema:
+          type: string
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      brandInfo:
+                        $ref: '#/components/schemas/BrandInfo'
+                    x-apidog-orders:
+                    - brandInfo
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Social Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40055576-run
+  /social-post-ideas/calendar:
+    get:
+      summary: Calendar
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Returns the content calendar for a brand (social profile) — each day with its scheduled/suggested post ideas.
+
+        </span>'
+      operationId: calendar
+      tags:
+      - Social Post Ideas
+      parameters:
+      - name: socialProfileId
+        in: query
+        description: Social profile ID.
+        required: true
+        example: 6f1c2a90-...
+        schema:
+          type: string
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      calendar:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/CalendarDay'
+                    x-apidog-orders:
+                    - calendar
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Social Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40055577-run
+  /social-post-ideas/chat-history:
+    get:
+      summary: Chat history
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Returns the messages for a given AI post-idea chat session, in sequence. Use `limit` to cap the number of messages returned.
+
+        </span>'
+      operationId: chatHistory
+      tags:
+      - Social Post Ideas
+      parameters:
+      - name: sessionId
+        in: query
+        description: Chat session ID.
+        required: true
+        example: 7f3c1a2e-...
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: Maximum number of messages to return.
+        required: false
+        example: 50
+        schema:
+          type: integer
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      chatHistory:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/ChatMessage'
+                    x-apidog-orders:
+                    - chatHistory
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Social Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40055578-run
+  /social-post-ideas/chat-sessions:
+    get:
+      summary: Chat sessions
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Returns the AI post-idea chat sessions for a brand (social profile), most recent first. Use `limit` to cap the number of sessions returned.
+
+        </span>'
+      operationId: chatSessions
+      tags:
+      - Social Post Ideas
+      parameters:
+      - name: socialProfileId
+        in: query
+        description: Social profile ID.
+        required: true
+        example: 6f1c2a90-...
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: Maximum number of sessions to return.
+        required: false
+        example: 20
+        schema:
+          type: integer
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      chatSessions:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/ChatSession'
+                    x-apidog-orders:
+                    - chatSessions
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Social Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40055580-run
+  /social-post-ideas/close-chat-session:
+    post:
+      summary: Close chat session
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Closes an active AI post-idea chat session. Once closed, the session is no longer returned as the active session for the brand.
+
+        </span>'
+      operationId: closeChatSession
+      tags:
+      - Social Post Ideas
+      parameters:
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CloseChatSessionRequest'
+            example:
+              sessionId: 7f3c1a2e-...
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      closeChatSession:
+                        $ref: '#/components/schemas/MutationResponse'
+                    x-apidog-orders:
+                    - closeChatSession
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Social Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40055581-run
+  /social-post-ideas/content-series-detail:
+    get:
+      summary: Content series detail
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Returns a single content series by ID, including its posts, theme, status, and post counts.
+
+        </span>'
+      operationId: contentSeriesDetail
+      tags:
+      - Social Post Ideas
+      parameters:
+      - name: seriesId
+        in: query
+        description: ID of the content series.
+        required: true
+        example: 3a1f...
+        schema:
+          type: string
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      contentSeriesDetail:
+                        $ref: '#/components/schemas/ContentSeries'
+                    x-apidog-orders:
+                    - contentSeriesDetail
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Social Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40055584-run
+  /social-post-ideas/content-series-list:
+    get:
+      summary: Content series list
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Returns the content series for a brand (social profile) — multi-post campaigns with a shared theme, including post counts and status.
+
+        </span>'
+      operationId: contentSeriesList
+      tags:
+      - Social Post Ideas
+      parameters:
+      - name: socialProfileId
+        in: query
+        description: Social profile ID.
+        required: true
+        example: 6f1c2a90-...
+        schema:
+          type: string
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      contentSeriesList:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/ContentSeries'
+                    x-apidog-orders:
+                    - contentSeriesList
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Social Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40055587-run
+  /social-post-ideas/create-content-series:
+    post:
+      summary: Create content series
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Creates a new content series for a brand (social profile) with a name and optional theme, optionally seeded from existing post ideas (`postIdeaIds`). Returns the chat session that drives the series.
+
+        </span>'
+      operationId: createContentSeries
+      tags:
+      - Social Post Ideas
+      parameters:
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateContentSeriesRequest'
+            example:
+              socialProfileId: 6f1c2a90-...
+              name: Summer Series
+              theme: seasonal
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      createContentSeries:
+                        $ref: '#/components/schemas/ChatSessionResponse'
+                    x-apidog-orders:
+                    - createContentSeries
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Social Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40055588-run
+  /social-post-ideas/extended-brand-config:
+    get:
+      summary: Extended brand config
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Returns the extended generation config for a social profile — brand tone, target customers, contact/address, brand colors and logos, and the services/products/content-rules used to ground social post-idea generation.
+
+        </span>'
+      operationId: extendedBrandConfig
+      tags:
+      - Social Post Ideas
+      parameters:
+      - name: socialProfileId
+        in: query
+        description: Social profile ID.
+        required: true
+        example: 6f1c2a90-...
+        schema:
+          type: string
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      extendedBrandConfig:
+                        $ref: '#/components/schemas/ExtendedBrandConfig'
+                    x-apidog-orders:
+                    - extendedBrandConfig
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Social Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40055590-run
+  /social-post-ideas/generate-all-series-posts:
+    post:
+      summary: Generate all series posts
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Generates all remaining posts for a content series in one call. Returns the number of posts generated.
+
+        </span>'
+      operationId: generateAllSeriesPosts
+      tags:
+      - Social Post Ideas
+      parameters:
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenerateAllSeriesPostsRequest'
+            example:
+              socialProfileId: 6f1c2a90-...
+              seriesId: 3a1f...
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      generateAllSeriesPosts:
+                        $ref: '#/components/schemas/GenerateAllSeriesPostsResponse'
+                    x-apidog-orders:
+                    - generateAllSeriesPosts
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Social Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40055591-run
+  /social-post-ideas/generate-calendar-day:
+    post:
+      summary: Generate calendar day
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Generates (or regenerates) the post idea for a specific calendar-day slot, identified by its idea ID.
+
+        </span>'
+      operationId: generateCalendarDay
+      tags:
+      - Social Post Ideas
+      parameters:
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenerateCalendarDayRequest'
+            example:
+              ideaId: 91b2...
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      generateCalendarDay:
+                        $ref: '#/components/schemas/RegenerateResponse'
+                    x-apidog-orders:
+                    - generateCalendarDay
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Social Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40055593-run
+  /social-post-ideas/generate-holiday-idea-variant:
+    post:
+      summary: Generate holiday idea variant
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Generates a new post-idea variant for a given observance/holiday for a brand. Optionally steer with an `observanceDate` and `topic`.
+
+        </span>'
+      operationId: generateHolidayIdeaVariant
+      tags:
+      - Social Post Ideas
+      parameters:
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenerateHolidayIdeaVariantRequest'
+            example:
+              socialProfileId: 6f1c2a90-...
+              observanceName: Black Friday
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      generateHolidayIdeaVariant:
+                        $ref: '#/components/schemas/RegenerateResponse'
+                    x-apidog-orders:
+                    - generateHolidayIdeaVariant
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Social Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40055594-run
+  /social-post-ideas/generate-idea-visual:
+    post:
+      summary: Generate idea visual
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Generates an on-demand visual (image) for a social post idea from a prompt, optionally grounded by up to two `referenceImageUrls` and a target `imageSize`.
+
+        </span>'
+      operationId: generateIdeaVisual
+      tags:
+      - Social Post Ideas
+      parameters:
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenerateIdeaVisualRequest'
+            example:
+              ideaId: 91b2...
+              prompt: bright storefront on a sunny day
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      generateIdeaVisual:
+                        $ref: '#/components/schemas/RegenerateResponse'
+                    x-apidog-orders:
+                    - generateIdeaVisual
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Social Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40055608-run
+  /social-post-ideas/generate-observance-idea:
+    post:
+      summary: Generate observance idea
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Generates a post idea for a given observance/holiday for a brand. Optionally steer with an `observanceDate` and a `hint`.
+
+        </span>'
+      operationId: generateObservanceIdea
+      tags:
+      - Social Post Ideas
+      parameters:
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenerateObservanceIdeaRequest'
+            example:
+              socialProfileId: 6f1c2a90-...
+              observanceName: Earth Day
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      generateObservanceIdea:
+                        $ref: '#/components/schemas/RegenerateResponse'
+                    x-apidog-orders:
+                    - generateObservanceIdea
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Social Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40055609-run
+  /social-post-ideas/generate-series-post:
+    post:
+      summary: Generate series post
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Generates a single post for a content series at the given slot index.
+
+        </span>'
+      operationId: generateSeriesPost
+      tags:
+      - Social Post Ideas
+      parameters:
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenerateSeriesPostRequest'
+            example:
+              socialProfileId: 6f1c2a90-...
+              seriesId: 3a1f...
+              slotIndex: 0
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      generateSeriesPost:
+                        $ref: '#/components/schemas/RegenerateResponse'
+                    x-apidog-orders:
+                    - generateSeriesPost
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Social Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40055610-run
+  /social-post-ideas/holiday-idea-variants:
+    get:
+      summary: Holiday idea variants
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Returns the generated post-idea variants for a given observance/holiday for a brand. Each item is a post idea (see Post idea for the full shape).
+
+        </span>'
+      operationId: holidayIdeaVariants
+      tags:
+      - Social Post Ideas
+      parameters:
+      - name: socialProfileId
+        in: query
+        description: Social profile ID.
+        required: true
+        example: 6f1c2a90-...
+        schema:
+          type: string
+      - name: observanceName
+        in: query
+        description: Name of the observance/holiday.
+        required: true
+        example: Black Friday
+        schema:
+          type: string
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      holidayIdeaVariants:
+                        type: array
+                        description: Post ideas (see Post idea for the full shape).
+                        items:
+                          type: object
+                          x-apidog-orders: []
+                    x-apidog-orders:
+                    - holidayIdeaVariants
+                x-apidog-orders:
+                - data
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Social Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40140127-run
+  /social-post-ideas/idea-job-status:
+    get:
+      summary: Idea job status
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Returns the async job status for a social post idea (used to poll image generation) — the current status and, when ready, the generated image URL.
+
+        </span>'
+      operationId: ideaJobStatus
+      tags:
+      - Social Post Ideas
+      parameters:
+      - name: ideaId
+        in: query
+        description: ID of the post idea.
+        required: true
+        example: 91b2...
+        schema:
+          type: string
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      ideaJobStatus:
+                        $ref: '#/components/schemas/IdeaJobStatus'
+                    x-apidog-orders:
+                    - ideaJobStatus
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Social Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40140134-run
+  /social-post-ideas/image-credits:
+    get:
+      summary: Image credits
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Returns the image-generation credit status for a brand (social profile) — monthly limit, used/remaining this month, and any add-on credit pool.
+
+        </span>'
+      operationId: imageCredits
+      tags:
+      - Social Post Ideas
+      parameters:
+      - name: socialProfileId
+        in: query
+        description: Social profile ID.
+        required: true
+        example: 6f1c2a90-...
+        schema:
+          type: string
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      imageCredits:
+                        $ref: '#/components/schemas/ImageCredits'
+                    x-apidog-orders:
+                    - imageCredits
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Social Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40140138-run
+  /social-post-ideas/link-post-idea-to-social-post:
+    post:
+      summary: Link post idea to social post
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Links a generated post idea to a published social post, so the idea is marked as used and tracked against the social post.
+
+        </span>'
+      operationId: linkPostIdeaToSocialPost
+      tags:
+      - Social Post Ideas
+      parameters:
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LinkPostIdeaToSocialPostRequest'
+            example:
+              postIdeaId: 91b2...
+              socialPostId: 5d7e...
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      linkPostIdeaToSocialPost:
+                        $ref: '#/components/schemas/LinkPostIdeaToSocialPostResponse'
+                    x-apidog-orders:
+                    - linkPostIdeaToSocialPost
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Social Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40140139-run
+  /social-post-ideas/observances:
+    get:
+      summary: Observances
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Returns the observances (holidays, awareness days, etc.) for a given month, optionally scoped to a social profile and narrowed to a specific day. Each item includes whether ideas are ready and any generated post idea preview.
+
+        </span>'
+      operationId: observances
+      tags:
+      - Social Post Ideas
+      parameters:
+      - name: month
+        in: query
+        description: Month number (1-12).
+        required: true
+        example: 5
+        schema:
+          type: integer
+      - name: date
+        in: query
+        description: Day of the month to narrow to.
+        required: false
+        example: 0
+        schema:
+          type: integer
+      - name: socialProfileId
+        in: query
+        description: Social profile ID to scope relevance/ideas to.
+        required: false
+        example: ''
+        schema:
+          type: string
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      observances:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Observance'
+                    x-apidog-orders:
+                    - observances
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Social Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40140152-run
+  /social-post-ideas/observances-with-ideas:
+    get:
+      summary: Observances with ideas
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Returns the observances for a month for a brand, each joined with its generated post idea (if any) — including whether ideas are ready and the idea''s title/content/image.
+
+        </span>'
+      operationId: observancesWithIdeas
+      tags:
+      - Social Post Ideas
+      parameters:
+      - name: socialProfileId
+        in: query
+        description: Social profile ID.
+        required: true
+        example: 6f1c2a90-...
+        schema:
+          type: string
+      - name: month
+        in: query
+        description: Month number (1-12).
+        required: true
+        example: 5
+        schema:
+          type: integer
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      observancesWithIdeas:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/ObservanceWithIdea'
+                    x-apidog-orders:
+                    - observancesWithIdeas
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Social Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40140160-run
+  /social-post-ideas/pipeline-status:
+    get:
+      summary: Pipeline status
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Returns the status of the post-idea generation pipeline for a brand (social profile) — current step, steps completed/remaining, and any error.
+
+        </span>'
+      operationId: pipelineStatus
+      tags:
+      - Social Post Ideas
+      parameters:
+      - name: socialProfileId
+        in: query
+        description: Social profile ID.
+        required: true
+        example: 6f1c2a90-...
+        schema:
+          type: string
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      pipelineStatus:
+                        $ref: '#/components/schemas/PipelineStatus'
+                    x-apidog-orders:
+                    - pipelineStatus
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Social Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40140173-run
+  /social-post-ideas/post-idea:
+    get:
+      summary: Post idea
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Returns a single AI social post idea by its ID, including its content, image, scheduling, call-to-action, and generation metadata.
+
+        </span>'
+      operationId: postIdea
+      tags:
+      - Social Post Ideas
+      parameters:
+      - name: ideaId
+        in: query
+        description: ID of the post idea.
+        required: true
+        example: 91b2...
+        schema:
+          type: string
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      postIdea:
+                        $ref: '#/components/schemas/PostIdea'
+                    x-apidog-orders:
+                    - postIdea
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Social Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40140182-run
+  /social-post-ideas/post-idea-counts:
+    get:
+      summary: Post idea counts
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Returns social post-idea counts for a brand, broken down by bucket: AI- generated (`ai`), user-created (`mine`), series (`series`), and the total (`all`).
+
+        </span>'
+      operationId: postIdeaCounts
+      tags:
+      - Social Post Ideas
+      parameters:
+      - name: socialProfileId
+        in: query
+        description: Social profile ID.
+        required: true
+        example: 6f1c2a90-...
+        schema:
+          type: string
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      postIdeaCounts:
+                        $ref: '#/components/schemas/PostIdeaCounts'
+                    x-apidog-orders:
+                    - postIdeaCounts
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Social Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40140183-run
+  /social-post-ideas/post-ideas:
+    get:
+      summary: Post ideas
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Returns the AI social post ideas for a brand (social profile). Filter by `bucket` (e.g. idea, calendar, series) and `filter` (e.g. ai vs mine), and page with `limit`/`offset`.
+
+        </span>'
+      operationId: postIdeas
+      tags:
+      - Social Post Ideas
+      parameters:
+      - name: socialProfileId
+        in: query
+        description: Social profile ID.
+        required: true
+        example: 6f1c2a90-...
+        schema:
+          type: string
+      - name: bucket
+        in: query
+        description: Bucket to filter by (e.g. idea, calendar, series).
+        required: false
+        example: ''
+        schema:
+          type: string
+      - name: filter
+        in: query
+        description: Source filter (e.g. ai or mine).
+        required: false
+        example: ''
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: Maximum number of ideas to return.
+        required: false
+        example: 12
+        schema:
+          type: integer
+      - name: offset
+        in: query
+        description: Number of ideas to skip.
+        required: false
+        example: 0
+        schema:
+          type: integer
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      postIdeas:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/PostIdea'
+                    x-apidog-orders:
+                    - postIdeas
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Social Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40140416-run
+  /social-post-ideas/reference-images:
+    get:
+      summary: Reference images
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Returns the available reference image options for a brand (social profile) — images that can be used to ground social post-idea image generation.
+
+        </span>'
+      operationId: referenceImages
+      tags:
+      - Social Post Ideas
+      parameters:
+      - name: socialProfileId
+        in: query
+        description: Social profile ID.
+        required: true
+        example: 6f1c2a90-...
+        schema:
+          type: string
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      referenceImages:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/ReferenceImageOption'
+                    x-apidog-orders:
+                    - referenceImages
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Social Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40140418-run
+  /social-post-ideas/refresh-ideas:
+    post:
+      summary: Refresh ideas
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Regenerates the set of AI social post ideas for a brand. Returns a pipeline ID; supply brand context (profile name, site URL, categories, hashtags, intent, content language) to steer generation.
+
+        </span>'
+      operationId: refreshIdeas
+      tags:
+      - Social Post Ideas
+      parameters:
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RefreshIdeasRequest'
+            example:
+              socialProfileId: 6f1c2a90-...
+              profileName: Acme Co
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      refreshIdeas:
+                        $ref: '#/components/schemas/TriggerPipelineResponse'
+                    x-apidog-orders:
+                    - refreshIdeas
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Social Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40140425-run
+  /social-post-ideas/regenerate-idea:
+    post:
+      summary: Regenerate idea
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Regenerates an entire social post idea — both content and image. Optionally steer with a `topic` and a `referenceImageUrl`.
+
+        </span>'
+      operationId: regenerateIdea
+      tags:
+      - Social Post Ideas
+      parameters:
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegenerateIdeaRequest'
+            example:
+              ideaId: 91b2...
+              topic: summer launch
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      regenerateIdea:
+                        $ref: '#/components/schemas/RegenerateResponse'
+                    x-apidog-orders:
+                    - regenerateIdea
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Social Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40140427-run
+  /social-post-ideas/regenerate-idea-content:
+    post:
+      summary: Regenerate idea content
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Regenerates the text content (title/copy) of an existing social post idea, keeping its image. Optionally steer with a `topic`.
+
+        </span>'
+      operationId: regenerateIdeaContent
+      tags:
+      - Social Post Ideas
+      parameters:
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegenerateIdeaContentRequest'
+            example:
+              ideaId: 91b2...
+              topic: summer launch
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      regenerateIdeaContent:
+                        $ref: '#/components/schemas/RegenerateResponse'
+                    x-apidog-orders:
+                    - regenerateIdeaContent
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Social Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40140428-run
+  /social-post-ideas/regenerate-idea-image:
+    post:
+      summary: Regenerate idea image
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Regenerates the image of an existing social post idea, keeping its text content. Optionally provide a `referenceImageUrl` to ground the new image. Image generation is asynchronous — poll the idea job status for the new image URL.
+
+        </span>'
+      operationId: regenerateIdeaImage
+      tags:
+      - Social Post Ideas
+      parameters:
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegenerateIdeaImageRequest'
+            example:
+              ideaId: 91b2...
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      regenerateIdeaImage:
+                        $ref: '#/components/schemas/RegenerateResponse'
+                    x-apidog-orders:
+                    - regenerateIdeaImage
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Social Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40140435-run
+  /social-post-ideas/schedule-series:
+    post:
+      summary: Schedule series
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Schedules a content series'' posts starting from a given date. Returns the scheduled posts.
+
+        </span>'
+      operationId: scheduleSeries
+      tags:
+      - Social Post Ideas
+      parameters:
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScheduleSeriesRequest'
+            example:
+              seriesId: 3a1f...
+              startDate: '2026-05-01'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      scheduleSeries:
+                        $ref: '#/components/schemas/ScheduleSeriesResponse'
+                    x-apidog-orders:
+                    - scheduleSeries
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Social Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40140440-run
+  /social-post-ideas/scrape-brand:
+    post:
+      summary: Scrape brand
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Triggers a scrape of the brand''s website to refresh the context used for social post-idea generation. Provide the `siteUrl` to scrape; `trigger` optionally records what initiated the scrape.
+
+        </span>'
+      operationId: scrapeBrand
+      tags:
+      - Social Post Ideas
+      parameters:
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScrapeBrandRequest'
+            example:
+              socialProfileId: 6f1c2a90-...
+              siteUrl: https://example.com
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      scrapeBrand:
+                        $ref: '#/components/schemas/MutationResponse'
+                    x-apidog-orders:
+                    - scrapeBrand
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Social Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40140472-run
+  /social-post-ideas/scraped-brand-context:
+    get:
+      summary: Scraped brand context
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Returns the context scraped from the brand''s website that grounds social post-idea generation — business name/description, services, products, pricing, brand colors/logo, tone, and target customers.
+
+        </span>'
+      operationId: scrapedBrandContext
+      tags:
+      - Social Post Ideas
+      parameters:
+      - name: socialProfileId
+        in: query
+        description: Social profile ID.
+        required: true
+        example: 6f1c2a90-...
+        schema:
+          type: string
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      scrapedBrandContext:
+                        $ref: '#/components/schemas/ScrapedBrandContext'
+                    x-apidog-orders:
+                    - scrapedBrandContext
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Social Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40140475-run
+  /social-post-ideas/send-chat-message:
+    post:
+      summary: Send chat message
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Sends a message to an AI post-idea chat session and returns the assistant''s reply. The response may include a generated post idea card (`postCard`), follow-up action chips, and a series plan when relevant. Optionally attach `referenceImageUrls` for image-grounded generation.
+
+        </span>'
+      operationId: sendChatMessage
+      tags:
+      - Social Post Ideas
+      parameters:
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SendChatMessageRequest'
+            example:
+              sessionId: 7f3c1a2e-...
+              message: Give me a post idea for our product launch
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      sendChatMessage:
+                        $ref: '#/components/schemas/ChatMessageResponse'
+                    x-apidog-orders:
+                    - sendChatMessage
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Social Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40140476-run
+  /social-post-ideas/series-posts:
+    get:
+      summary: Series posts
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Returns the posts belonging to a content series. Each item is a post idea (see Post idea for the full shape).
+
+        </span>'
+      operationId: seriesPosts
+      tags:
+      - Social Post Ideas
+      parameters:
+      - name: socialProfileId
+        in: query
+        description: Social profile ID.
+        required: true
+        example: 6f1c2a90-...
+        schema:
+          type: string
+      - name: seriesId
+        in: query
+        description: ID of the content series.
+        required: true
+        example: 3a1f...
+        schema:
+          type: string
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      seriesPosts:
+                        type: array
+                        description: Posts in the series (see Post idea for the full shape).
+                        items:
+                          type: object
+                          x-apidog-orders: []
+                    x-apidog-orders:
+                    - seriesPosts
+                x-apidog-orders:
+                - data
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Social Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40140477-run
+  /social-post-ideas/set-brand-image-credits:
+    post:
+      summary: Set brand image credits
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Sets the monthly image-generation credit limit for a brand (social profile) and whether image-credit metering is active.
+
+        </span>'
+      operationId: setBrandImageCredits
+      tags:
+      - Social Post Ideas
+      parameters:
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetBrandImageCreditsRequest'
+            example:
+              socialProfileId: 6f1c2a90-...
+              monthlyLimit: 100
+              isActive: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      setBrandImageCredits:
+                        $ref: '#/components/schemas/MutationResponse'
+                    x-apidog-orders:
+                    - setBrandImageCredits
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Social Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40140480-run
+  /social-post-ideas/start-chat-session:
+    post:
+      summary: Start chat session
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Starts a new AI post-idea chat session for a brand (social profile). Optionally seed with an `intent`, a `mode`, and a subject (`subjectType`/`subjectId`) to anchor the conversation.
+
+        </span>'
+      operationId: startChatSession
+      tags:
+      - Social Post Ideas
+      parameters:
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StartChatSessionRequest'
+            example:
+              socialProfileId: 6f1c2a90-...
+              mode: fast
+              intent: idea
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      startChatSession:
+                        $ref: '#/components/schemas/ChatSessionResponse'
+                    x-apidog-orders:
+                    - startChatSession
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Social Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40140483-run
+  /social-post-ideas/suggest-posts-for-date:
+    post:
+      summary: Suggest posts for date
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Generates suggested social post ideas for a brand on a specific date. Returns the generated ideas and a pipeline ID.
+
+        </span>'
+      operationId: suggestPostsForDate
+      tags:
+      - Social Post Ideas
+      parameters:
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SuggestPostsForDateRequest'
+            example:
+              socialProfileId: 6f1c2a90-...
+              date: '2026-05-01'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      suggestPostsForDate:
+                        $ref: '#/components/schemas/GenerateIdeasResponse'
+                    x-apidog-orders:
+                    - suggestPostsForDate
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Social Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40140486-run
+  /social-post-ideas/switch-chat-mode:
+    post:
+      summary: Switch chat mode
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Switches the generation mode of an existing AI post-idea chat session.
+
+        </span>'
+      operationId: switchChatMode
+      tags:
+      - Social Post Ideas
+      parameters:
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SwitchChatModeRequest'
+            example:
+              sessionId: 7f3c1a2e-...
+              mode: thorough
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      switchChatMode:
+                        $ref: '#/components/schemas/ChatSessionResponse'
+                    x-apidog-orders:
+                    - switchChatMode
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Social Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40140796-run
+  /social-post-ideas/trigger-pipeline:
+    post:
+      summary: Trigger pipeline
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Triggers the full social post-idea generation pipeline for a brand. Returns a pipeline ID; supply brand context (profile name, site URL, categories, hashtags, intent, content language) to steer generation.
+
+        </span>'
+      operationId: triggerPipeline
+      tags:
+      - Social Post Ideas
+      parameters:
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TriggerPipelineRequest'
+            example:
+              socialProfileId: 6f1c2a90-...
+              profileName: Acme Co
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      triggerPipeline:
+                        $ref: '#/components/schemas/TriggerPipelineResponse'
+                    x-apidog-orders:
+                    - triggerPipeline
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Social Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40140799-run
+  /social-post-ideas/update-extended-brand-config:
+    post:
+      summary: Update extended brand config
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Creates or updates the extended generation config for a social profile — brand tone, target customers, contact/address, brand colors and logos, and the services/products/content-rules that ground social post-idea generation. Only the fields you send are changed. `services`, `products`, and `contentRules` are JSON values.
+
+        </span>'
+      operationId: updateExtendedBrandConfig
+      tags:
+      - Social Post Ideas
+      parameters:
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateExtendedBrandConfigRequest'
+            example:
+              socialProfileId: 6f1c2a90-...
+              tone: playful
+              targetCustomers: gen-z shoppers
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      updateExtendedBrandConfig:
+                        $ref: '#/components/schemas/MutationResponse'
+                    x-apidog-orders:
+                    - updateExtendedBrandConfig
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Social Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40140803-run
+  /social-post-ideas/update-idea:
+    post:
+      summary: Update idea
+      deprecated: false
+      description: '<span style="font-size: 14px;">
+
+        Updates an existing social post idea''s editable fields — title, content, status, call-to-action, scheduling, bucket, note, and target platforms. Only the fields you send are changed.
+
+        </span>'
+      operationId: updateIdea
+      tags:
+      - Social Post Ideas
+      parameters:
+      - name: Synup-Version
+        in: header
+        description: API version date (YYYY-MM-DD).
+        required: true
+        example: '2026-04-17'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: API key for authentication.
+        required: true
+        example: API T9V35W3xxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateIdeaRequest'
+            example:
+              ideaId: 91b2...
+              title: Summer Launch
+              status: scheduled
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      updateIdea:
+                        $ref: '#/components/schemas/RegenerateResponse'
+                    x-apidog-orders:
+                    - updateIdea
+                    x-apidog-ignore-properties: []
+                x-apidog-orders:
+                - data
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+        '401':
+          description: Unauthorized - Invalid or missing API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+                x-apidog-orders: []
+                x-apidog-ignore-properties: []
+          headers: {}
+          x-apidog-name: ''
+      security: []
+      x-apidog-folder: Social Post Ideas
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40140804-run
+components:
+  schemas:
+    RegenerateIdeaContentRequest:
+      type: object
+      required:
+      - ideaId
+      properties:
+        ideaId:
+          type: string
+        topic:
+          type: string
+      x-apidog-orders:
+      - ideaId
+      - topic
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    ReferenceImageOption:
+      type: object
+      properties:
+        url:
+          type: string
+        category:
+          type: string
+      x-apidog-orders:
+      - url
+      - category
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    Observance:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        description:
+          type: string
+        date:
+          type: string
+        imageUrl:
+          type: string
+        isMonthLong:
+          type: boolean
+        isRelevant:
+          type: boolean
+        ideasReady:
+          type: boolean
+        postIdeaId:
+          type: string
+        postImageUrl:
+          type: string
+        postTitle:
+          type: string
+        postType:
+          type: string
+        postContent:
+          type: string
+        postImagePrompt:
+          type: string
+      x-apidog-orders:
+      - id
+      - title
+      - description
+      - date
+      - imageUrl
+      - isMonthLong
+      - isRelevant
+      - ideasReady
+      - postIdeaId
+      - postImageUrl
+      - postTitle
+      - postType
+      - postContent
+      - postImagePrompt
+      x-apidog-folder: ''
+    ExtendedBrandConfig:
+      type: object
+      properties:
+        id:
+          type: string
+        socialProfileId:
+          type: string
+        tone:
+          type: string
+        targetCustomers:
+          type: string
+        country:
+          type: string
+        phone:
+          type: string
+        address:
+          type: string
+        location:
+          type: string
+        primaryColor:
+          type: string
+        secondaryColor:
+          type: string
+        logoLight:
+          type: string
+        logoDark:
+          type: string
+        services:
+          type: object
+          description: Free-form JSON.
+          x-apidog-orders: []
+          properties: {}
+          x-apidog-ignore-properties: []
+        products:
+          type: object
+          description: Free-form JSON.
+          x-apidog-orders: []
+          properties: {}
+          x-apidog-ignore-properties: []
+        contentRules:
+          type: object
+          description: Free-form JSON.
+          x-apidog-orders: []
+          properties: {}
+          x-apidog-ignore-properties: []
+        additionalContext:
+          type: string
+        insights:
+          type: object
+          description: Free-form JSON.
+          x-apidog-orders: []
+          properties: {}
+          x-apidog-ignore-properties: []
+      x-apidog-orders:
+      - id
+      - socialProfileId
+      - tone
+      - targetCustomers
+      - country
+      - phone
+      - address
+      - location
+      - primaryColor
+      - secondaryColor
+      - logoLight
+      - logoDark
+      - services
+      - products
+      - contentRules
+      - additionalContext
+      - insights
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    SetBrandImageCreditsRequest:
+      type: object
+      required:
+      - socialProfileId
+      properties:
+        socialProfileId:
+          type: string
+        monthlyLimit:
+          type: integer
+        isActive:
+          type: boolean
+      x-apidog-orders:
+      - socialProfileId
+      - monthlyLimit
+      - isActive
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    ScrapedBrandContext:
+      type: object
+      properties:
+        id:
+          type: string
+        socialProfileId:
+          type: string
+        businessName:
+          type: string
+        category:
+          type: string
+        businessDescription:
+          type: string
+        location:
+          type: string
+        services:
+          type: object
+          description: Free-form JSON.
+          x-apidog-orders: []
+          properties: {}
+          x-apidog-ignore-properties: []
+        products:
+          type: object
+          description: Free-form JSON.
+          x-apidog-orders: []
+          properties: {}
+          x-apidog-ignore-properties: []
+        subcategories:
+          type: object
+          description: Free-form JSON.
+          x-apidog-orders: []
+          properties: {}
+          x-apidog-ignore-properties: []
+        pricing:
+          type: object
+          description: Free-form JSON.
+          x-apidog-orders: []
+          properties: {}
+          x-apidog-ignore-properties: []
+        availability:
+          type: object
+          description: Free-form JSON.
+          x-apidog-orders: []
+          properties: {}
+          x-apidog-ignore-properties: []
+        uniqueSellingPoints:
+          type: object
+          description: Free-form JSON.
+          x-apidog-orders: []
+          properties: {}
+          x-apidog-ignore-properties: []
+        tone:
+          type: string
+        targetCustomers:
+          type: string
+        scrapedImages:
+          type: object
+          description: Free-form JSON.
+          x-apidog-orders: []
+          properties: {}
+          x-apidog-ignore-properties: []
+        insights:
+          type: object
+          description: Free-form JSON.
+          x-apidog-orders: []
+          properties: {}
+          x-apidog-ignore-properties: []
+        brandPrimaryColor:
+          type: string
+        brandSecondaryColor:
+          type: string
+        brandLogoUrl:
+          type: string
+        scrapedContext:
+          type: string
+        visualContext:
+          type: object
+          description: Free-form JSON.
+          x-apidog-orders: []
+          properties: {}
+          x-apidog-ignore-properties: []
+      x-apidog-orders:
+      - id
+      - socialProfileId
+      - businessName
+      - category
+      - businessDescription
+      - location
+      - services
+      - products
+      - subcategories
+      - pricing
+      - availability
+      - uniqueSellingPoints
+      - tone
+      - targetCustomers
+      - scrapedImages
+      - insights
+      - brandPrimaryColor
+      - brandSecondaryColor
+      - brandLogoUrl
+      - scrapedContext
+      - visualContext
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    CloseChatSessionRequest:
+      type: object
+      required:
+      - sessionId
+      properties:
+        sessionId:
+          type: string
+      x-apidog-orders:
+      - sessionId
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    SendChatMessageRequest:
+      type: object
+      required:
+      - sessionId
+      - message
+      properties:
+        sessionId:
+          type: string
+        message:
+          type: string
+        referenceImageUrls:
+          type: array
+          items:
+            type: string
+      x-apidog-orders:
+      - sessionId
+      - message
+      - referenceImageUrls
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    GenerateHolidayIdeaVariantRequest:
+      type: object
+      required:
+      - socialProfileId
+      - observanceName
+      properties:
+        socialProfileId:
+          type: string
+        observanceName:
+          type: string
+        observanceDate:
+          type: string
+        topic:
+          type: string
+      x-apidog-orders:
+      - socialProfileId
+      - observanceName
+      - observanceDate
+      - topic
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    RefreshIdeasRequest:
+      type: object
+      required:
+      - socialProfileId
+      - profileName
+      properties:
+        socialProfileId:
+          type: string
+        profileName:
+          type: string
+        siteUrl:
+          type: string
+        categories:
+          type: array
+          items:
+            type: string
+        brandHashtags:
+          type: array
+          items:
+            type: string
+        businessIntent:
+          type: string
+        contentPreferredLanguage:
+          type: string
+      x-apidog-orders:
+      - socialProfileId
+      - profileName
+      - siteUrl
+      - categories
+      - brandHashtags
+      - businessIntent
+      - contentPreferredLanguage
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+        contextInfo:
+          type: array
+          items:
+            type: object
+            properties:
+              key:
+                type: string
+              value:
+                type: string
+            x-apidog-orders:
+            - key
+            - value
+            x-apidog-ignore-properties: []
+      x-apidog-orders:
+      - message
+      - code
+      - contextInfo
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    RegenerateResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        idea:
+          type: object
+          description: The updated post idea (see Post idea for the full shape).
+          x-apidog-orders: []
+          properties: {}
+          x-apidog-ignore-properties: []
+        error:
+          $ref: '#/components/schemas/Error'
+      x-apidog-orders:
+      - success
+      - idea
+      - error
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    TriggerPipelineResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        pipelineId:
+          type: string
+        error:
+          $ref: '#/components/schemas/Error'
+      x-apidog-orders:
+      - success
+      - pipelineId
+      - error
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    LinkPostIdeaToSocialPostRequest:
+      type: object
+      required:
+      - postIdeaId
+      - socialPostId
+      properties:
+        postIdeaId:
+          type: string
+        socialPostId:
+          type: string
+      x-apidog-orders:
+      - postIdeaId
+      - socialPostId
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    GenerateIdeaVisualRequest:
+      type: object
+      required:
+      - ideaId
+      properties:
+        ideaId:
+          type: string
+        prompt:
+          type: string
+        referenceImageUrls:
+          type: array
+          items:
+            type: string
+        imageSize:
+          type: string
+      x-apidog-orders:
+      - ideaId
+      - prompt
+      - referenceImageUrls
+      - imageSize
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    ImageCredits:
+      type: object
+      properties:
+        socialProfileId:
+          type: string
+        monthlyLimit:
+          type: integer
+        isActive:
+          type: boolean
+        usedThisMonth:
+          type: integer
+        remainingThisMonth:
+          type: integer
+        addonPurchased:
+          type: integer
+        addonConsumed:
+          type: integer
+        addonRemaining:
+          type: integer
+      x-apidog-orders:
+      - socialProfileId
+      - monthlyLimit
+      - isActive
+      - usedThisMonth
+      - remainingThisMonth
+      - addonPurchased
+      - addonConsumed
+      - addonRemaining
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    ScrapeBrandRequest:
+      type: object
+      required:
+      - socialProfileId
+      - siteUrl
+      properties:
+        socialProfileId:
+          type: string
+        siteUrl:
+          type: string
+        trigger:
+          type: string
+      x-apidog-orders:
+      - socialProfileId
+      - siteUrl
+      - trigger
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    RegenerateIdeaRequest:
+      type: object
+      required:
+      - ideaId
+      properties:
+        ideaId:
+          type: string
+        topic:
+          type: string
+        referenceImageUrl:
+          type: string
+      x-apidog-orders:
+      - ideaId
+      - topic
+      - referenceImageUrl
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    GenerateAllSeriesPostsResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        generatedCount:
+          type: integer
+        error:
+          $ref: '#/components/schemas/Error'
+      x-apidog-orders:
+      - success
+      - generatedCount
+      - error
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    ChatMessageResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          $ref: '#/components/schemas/ChatMessage'
+        postCard:
+          type: object
+          description: Generated post idea card (see Post idea for the full shape), when produced.
+          x-apidog-orders: []
+        seriesPlan:
+          type: object
+          description: Content-series plan, when produced.
+          x-apidog-orders: []
+        actionChips:
+          type: array
+          items:
+            $ref: '#/components/schemas/ActionChip'
+        error:
+          $ref: '#/components/schemas/Error'
+      x-apidog-orders:
+      - success
+      - message
+      - postCard
+      - seriesPlan
+      - actionChips
+      - error
+      x-apidog-folder: ''
+    PostIdea:
+      type: object
+      properties:
+        id:
+          type: string
+        socialProfileId:
+          type: string
+        title:
+          type: string
+        content:
+          type: string
+        imagePrompt:
+          type: string
+        imageUrl:
+          type: string
+        type:
+          type: string
+        status:
+          type: string
+        platforms:
+          type: array
+          items:
+            type: string
+        bucket:
+          type: string
+        calendarDay:
+          type: integer
+        scheduledDate:
+          type: string
+        scheduledTime:
+          type: string
+        ctaText:
+          type: string
+        ctaUrl:
+          type: string
+        note:
+          type: string
+        seriesId:
+          type: string
+        socialPostId:
+          type: string
+        isRecurring:
+          type: boolean
+        isUserGenerated:
+          type: boolean
+        observanceName:
+          type: string
+        observanceDate:
+          type: string
+        language:
+          type: string
+        generationBatchId:
+          type: string
+        fluxJobId:
+          type: string
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+      x-apidog-orders:
+      - id
+      - socialProfileId
+      - title
+      - content
+      - imagePrompt
+      - imageUrl
+      - type
+      - status
+      - platforms
+      - bucket
+      - calendarDay
+      - scheduledDate
+      - scheduledTime
+      - ctaText
+      - ctaUrl
+      - note
+      - seriesId
+      - socialPostId
+      - isRecurring
+      - isUserGenerated
+      - observanceName
+      - observanceDate
+      - language
+      - generationBatchId
+      - fluxJobId
+      - createdAt
+      - updatedAt
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    ActionChip:
+      type: object
+      properties:
+        label:
+          type: string
+        emoji:
+          type: string
+        action:
+          type: string
+      x-apidog-orders:
+      - label
+      - emoji
+      - action
+      x-apidog-folder: ''
+    ObservanceWithIdea:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        description:
+          type: string
+        date:
+          type: string
+        imageUrl:
+          type: string
+        isMonthLong:
+          type: boolean
+        ideasReady:
+          type: boolean
+        postIdeaId:
+          type: string
+        postImageUrl:
+          type: string
+        postTitle:
+          type: string
+        postType:
+          type: string
+        postContent:
+          type: string
+        postImagePrompt:
+          type: string
+      x-apidog-orders:
+      - id
+      - title
+      - description
+      - date
+      - imageUrl
+      - isMonthLong
+      - ideasReady
+      - postIdeaId
+      - postImageUrl
+      - postTitle
+      - postType
+      - postContent
+      - postImagePrompt
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    GenerateCalendarDayRequest:
+      type: object
+      required:
+      - ideaId
+      properties:
+        ideaId:
+          type: string
+      x-apidog-orders:
+      - ideaId
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    ChatSession:
+      type: object
+      properties:
+        id:
+          type: string
+        socialProfileId:
+          type: string
+        mode:
+          type: string
+        status:
+          type: string
+        messageCount:
+          type: integer
+        title:
+          type: string
+        createdAt:
+          type: string
+      x-apidog-orders:
+      - id
+      - socialProfileId
+      - mode
+      - status
+      - messageCount
+      - title
+      - createdAt
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    PipelineStatus:
+      type: object
+      properties:
+        id:
+          type: string
+        socialProfileId:
+          type: string
+        pipelineType:
+          type: string
+        status:
+          type: string
+        currentStep:
+          type: string
+        stepsCompleted:
+          type: array
+          items:
+            type: string
+        stepsRemaining:
+          type: array
+          items:
+            type: string
+        errorMessage:
+          type: string
+        startedAt:
+          type: string
+        completedAt:
+          type: string
+      x-apidog-orders:
+      - id
+      - socialProfileId
+      - pipelineType
+      - status
+      - currentStep
+      - stepsCompleted
+      - stepsRemaining
+      - errorMessage
+      - startedAt
+      - completedAt
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    ContentSeries:
+      type: object
+      properties:
+        id:
+          type: string
+        socialProfileId:
+          type: string
+        name:
+          type: string
+        theme:
+          type: string
+        status:
+          type: string
+        postCount:
+          type: integer
+        publishedCount:
+          type: integer
+        unpublishedCount:
+          type: integer
+        posts:
+          type: array
+          description: Posts in the series (see Post idea for the full shape).
+          items:
+            type: object
+            x-apidog-orders: []
+            properties: {}
+            x-apidog-ignore-properties: []
+        chatSessionId:
+          type: string
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+      x-apidog-orders:
+      - id
+      - socialProfileId
+      - name
+      - theme
+      - status
+      - postCount
+      - publishedCount
+      - unpublishedCount
+      - posts
+      - chatSessionId
+      - createdAt
+      - updatedAt
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    UpdateExtendedBrandConfigRequest:
+      type: object
+      required:
+      - socialProfileId
+      properties:
+        socialProfileId:
+          type: string
+        tone:
+          type: string
+        targetCustomers:
+          type: string
+        country:
+          type: string
+        phone:
+          type: string
+        address:
+          type: string
+        location:
+          type: string
+        primaryColor:
+          type: string
+        secondaryColor:
+          type: string
+        logoLight:
+          type: string
+        logoDark:
+          type: string
+        services:
+          type: object
+          description: Free-form JSON describing services.
+          x-apidog-orders: []
+          properties: {}
+          x-apidog-ignore-properties: []
+        products:
+          type: object
+          description: Free-form JSON describing products.
+          x-apidog-orders: []
+          properties: {}
+          x-apidog-ignore-properties: []
+        contentRules:
+          type: object
+          description: Free-form JSON content rules.
+          x-apidog-orders: []
+          properties: {}
+          x-apidog-ignore-properties: []
+        additionalContext:
+          type: string
+      x-apidog-orders:
+      - socialProfileId
+      - tone
+      - targetCustomers
+      - country
+      - phone
+      - address
+      - location
+      - primaryColor
+      - secondaryColor
+      - logoLight
+      - logoDark
+      - services
+      - products
+      - contentRules
+      - additionalContext
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    LinkPostIdeaToSocialPostResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        error:
+          $ref: '#/components/schemas/Error'
+      x-apidog-orders:
+      - success
+      - error
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    MutationResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        error:
+          $ref: '#/components/schemas/Error'
+      x-apidog-orders:
+      - success
+      - error
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    ChatSessionResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        session:
+          $ref: '#/components/schemas/ChatSession'
+        suggestions:
+          type: array
+          items:
+            type: string
+        error:
+          $ref: '#/components/schemas/Error'
+      x-apidog-orders:
+      - success
+      - session
+      - suggestions
+      - error
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    ReferenceImageAnalysis:
+      type: object
+      properties:
+        description:
+          type: string
+          description: Textual description of the analyzed image.
+      x-apidog-orders:
+      - description
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    PostIdeaCounts:
+      type: object
+      properties:
+        ai:
+          type: integer
+        mine:
+          type: integer
+        series:
+          type: integer
+        all:
+          type: integer
+      x-apidog-orders:
+      - ai
+      - mine
+      - series
+      - all
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    GenerateObservanceIdeaRequest:
+      type: object
+      required:
+      - socialProfileId
+      - observanceName
+      properties:
+        socialProfileId:
+          type: string
+        observanceName:
+          type: string
+        observanceDate:
+          type: string
+        hint:
+          type: string
+      x-apidog-orders:
+      - socialProfileId
+      - observanceName
+      - observanceDate
+      - hint
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    StartChatSessionRequest:
+      type: object
+      required:
+      - socialProfileId
+      properties:
+        socialProfileId:
+          type: string
+        intent:
+          type: string
+        mode:
+          type: string
+        subjectType:
+          type: string
+        subjectId:
+          type: string
+      x-apidog-orders:
+      - socialProfileId
+      - intent
+      - mode
+      - subjectType
+      - subjectId
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    TriggerPipelineRequest:
+      type: object
+      required:
+      - socialProfileId
+      - profileName
+      properties:
+        socialProfileId:
+          type: string
+        profileName:
+          type: string
+        siteUrl:
+          type: string
+        categories:
+          type: array
+          items:
+            type: string
+        brandHashtags:
+          type: array
+          items:
+            type: string
+        businessIntent:
+          type: string
+        contentPreferredLanguage:
+          type: string
+      x-apidog-orders:
+      - socialProfileId
+      - profileName
+      - siteUrl
+      - categories
+      - brandHashtags
+      - businessIntent
+      - contentPreferredLanguage
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    SuggestPostsForDateRequest:
+      type: object
+      required:
+      - socialProfileId
+      - date
+      properties:
+        socialProfileId:
+          type: string
+        date:
+          type: string
+          description: Target date (YYYY-MM-DD).
+      x-apidog-orders:
+      - socialProfileId
+      - date
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    GenerateAllSeriesPostsRequest:
+      type: object
+      required:
+      - seriesId
+      - socialProfileId
+      properties:
+        seriesId:
+          type: string
+        socialProfileId:
+          type: string
+      x-apidog-orders:
+      - seriesId
+      - socialProfileId
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    BranchChatSessionRequest:
+      type: object
+      required:
+      - parentSessionId
+      - subjectType
+      properties:
+        parentSessionId:
+          type: string
+        subjectType:
+          type: string
+        subjectId:
+          type: string
+      x-apidog-orders:
+      - parentSessionId
+      - subjectType
+      - subjectId
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    ScheduleSeriesRequest:
+      type: object
+      required:
+      - seriesId
+      - startDate
+      properties:
+        seriesId:
+          type: string
+        startDate:
+          type: string
+          description: Series start date (YYYY-MM-DD).
+      x-apidog-orders:
+      - seriesId
+      - startDate
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    GenerateSeriesPostRequest:
+      type: object
+      required:
+      - seriesId
+      - slotIndex
+      - socialProfileId
+      properties:
+        seriesId:
+          type: string
+        slotIndex:
+          type: integer
+        socialProfileId:
+          type: string
+      x-apidog-orders:
+      - seriesId
+      - slotIndex
+      - socialProfileId
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    ArchiveSeriesRequest:
+      type: object
+      required:
+      - seriesId
+      properties:
+        seriesId:
+          type: string
+      x-apidog-orders:
+      - seriesId
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    BrandInfo:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        siteUrl:
+          type: string
+        categories:
+          type: array
+          items:
+            type: string
+        country:
+          type: string
+      x-apidog-orders:
+      - id
+      - name
+      - siteUrl
+      - categories
+      - country
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    GenerateIdeasResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        ideas:
+          type: array
+          description: Generated post ideas (see Post idea for the full shape).
+          items:
+            type: object
+            x-apidog-orders: []
+        pipelineId:
+          type: string
+        error:
+          $ref: '#/components/schemas/Error'
+      x-apidog-orders:
+      - success
+      - ideas
+      - pipelineId
+      - error
+      x-apidog-folder: ''
+    UpdateIdeaRequest:
+      type: object
+      required:
+      - ideaId
+      properties:
+        ideaId:
+          type: string
+        title:
+          type: string
+        content:
+          type: string
+        status:
+          type: string
+        ctaText:
+          type: string
+        ctaUrl:
+          type: string
+        scheduledDate:
+          type: string
+        scheduledTime:
+          type: string
+        bucket:
+          type: string
+        note:
+          type: string
+        platforms:
+          type: array
+          items:
+            type: string
+      x-apidog-orders:
+      - ideaId
+      - title
+      - content
+      - status
+      - ctaText
+      - ctaUrl
+      - scheduledDate
+      - scheduledTime
+      - bucket
+      - note
+      - platforms
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    ChatMessage:
+      type: object
+      properties:
+        id:
+          type: string
+        role:
+          type: string
+        content:
+          type: string
+        messageType:
+          type: string
+        metadata:
+          type: object
+          x-apidog-orders: []
+          properties: {}
+          x-apidog-ignore-properties: []
+        sequence:
+          type: integer
+        createdAt:
+          type: string
+      x-apidog-orders:
+      - id
+      - role
+      - content
+      - messageType
+      - metadata
+      - sequence
+      - createdAt
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    ArchiveIdeaRequest:
+      type: object
+      required:
+      - ideaId
+      properties:
+        ideaId:
+          type: string
+      x-apidog-orders:
+      - ideaId
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    RegenerateIdeaImageRequest:
+      type: object
+      required:
+      - ideaId
+      properties:
+        ideaId:
+          type: string
+        referenceImageUrl:
+          type: string
+      x-apidog-orders:
+      - ideaId
+      - referenceImageUrl
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    IdeaJobStatus:
+      type: object
+      properties:
+        status:
+          type: string
+        imageUrl:
+          type: string
+      x-apidog-orders:
+      - status
+      - imageUrl
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    CreateContentSeriesRequest:
+      type: object
+      required:
+      - socialProfileId
+      - name
+      properties:
+        socialProfileId:
+          type: string
+        name:
+          type: string
+        theme:
+          type: string
+        postIdeaIds:
+          type: array
+          items:
+            type: string
+      x-apidog-orders:
+      - socialProfileId
+      - name
+      - theme
+      - postIdeaIds
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    ScheduleSeriesResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        scheduledPosts:
+          type: array
+          description: The scheduled posts (see Post idea for the full shape).
+          items:
+            type: object
+            x-apidog-orders: []
+            properties: {}
+            x-apidog-ignore-properties: []
+        error:
+          $ref: '#/components/schemas/Error'
+      x-apidog-orders:
+      - success
+      - scheduledPosts
+      - error
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    CalendarDay:
+      type: object
+      properties:
+        day:
+          type: integer
+        posts:
+          type: array
+          description: Post ideas for the day (see Post idea for the full shape).
+          items:
+            type: object
+            x-apidog-orders: []
+            properties: {}
+            x-apidog-ignore-properties: []
+      x-apidog-orders:
+      - day
+      - posts
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    SwitchChatModeRequest:
+      type: object
+      required:
+      - sessionId
+      - mode
+      properties:
+        sessionId:
+          type: string
+        mode:
+          type: string
+      x-apidog-orders:
+      - sessionId
+      - mode
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''

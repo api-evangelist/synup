@@ -1,0 +1,365 @@
+openapi: 3.2.0
+info:
+  title: Synup Menus API
+  version: '4'
+  description: 'REST API v4 for the Synup local marketing platform: business locations, listing syndication to 80+ directories, review/interaction aggregation and response, review campaigns, local rank tracking and grid-rank heatmaps, local and social posts, AI post ideas, menus, connected accounts, users and profile analytics.
+
+
+    ASSEMBLED BY API EVANGELIST from the per-endpoint OpenAPI documents Synup publishes on its own documentation host (developer.synup.com, Apidog project 797384). Every operation, parameter, response, example and schema below is verbatim provider content; only the merge into a single document is ours. Source index: https://developer.synup.com/llms.txt'
+  contact:
+    name: Synup Developer Documentation
+    url: https://developer.synup.com/
+  x-assembled-by: api-evangelist enrichment pipeline (local-v1)
+  x-assembled-from: 506 per-endpoint OpenAPI fragments published at https://developer.synup.com/<slug>.md
+  x-assembled-date: '2026-08-13'
+servers:
+- url: https://api.synup.com/api/v4
+  description: Base ENV (as published in every Synup doc fragment). Tenant workspace domains (https://<workspace>.synup.com/api/v4) also serve the same API.
+tags:
+- name: Menus
+paths:
+  /menus/{menuId}/items:
+    post:
+      summary: Add an item to an existing section
+      deprecated: false
+      description: ''
+      tags:
+      - Menus
+      parameters:
+      - name: menuId
+        in: path
+        description: ''
+        required: true
+        example: ''
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        description: ''
+        required: true
+        example: application/json
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: ''
+        required: true
+        example: API VGLYvxxxxxxxxxxxxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                input:
+                  type: object
+                  properties:
+                    sectionId:
+                      type: string
+                    offeringsItem:
+                      type: object
+                      properties:
+                        displayName:
+                          type: string
+                        description:
+                          type: string
+                        price:
+                          type: string
+                      required:
+                      - displayName
+                      - description
+                      - price
+                  required:
+                  - sectionId
+                  - offeringsItem
+              required:
+              - input
+            example:
+              input:
+                sectionId: '{sectionId}'
+                offeringsItem:
+                  displayName: Caprese
+                  description: Tomato, mozzarella, and basil
+                  price: '12.00'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+          headers: {}
+          x-apidog-name: Success
+      security: []
+      x-apidog-folder: Menus
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-33169805-run
+  /menus/{menuId}/assign-location:
+    post:
+      summary: Assign a menu to a location
+      deprecated: false
+      description: ''
+      tags:
+      - Menus
+      parameters:
+      - name: menuId
+        in: path
+        description: ''
+        required: true
+        example: ''
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        description: ''
+        required: true
+        example: application/json
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: ''
+        required: true
+        example: API VGLYvxxxxxxxxxxxxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                input:
+                  type: object
+                  properties:
+                    locationIds:
+                      type: array
+                      items:
+                        type: string
+                  required:
+                  - locationIds
+              required:
+              - input
+            example:
+              input:
+                locationIds:
+                - '{locationId}'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+          headers: {}
+          x-apidog-name: Success
+      security: []
+      x-apidog-folder: Menus
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-33169811-run
+  /menus:
+    post:
+      summary: Create a menu
+      deprecated: false
+      description: ''
+      tags:
+      - Menus
+      parameters:
+      - name: Content-Type
+        in: header
+        description: ''
+        required: true
+        example: application/json
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: ''
+        required: true
+        example: API VGLYvxxxxxxxxxxxxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                input:
+                  type: object
+                  properties:
+                    displayName:
+                      type: string
+                    currencyCode:
+                      type: string
+                    description:
+                      type: string
+                    locationId:
+                      type: string
+                    offeringsSection:
+                      type: object
+                      properties:
+                        displayName:
+                          type: string
+                        description:
+                          type: string
+                        offeringsItem:
+                          type: object
+                          properties:
+                            displayName:
+                              type: string
+                            description:
+                              type: string
+                            price:
+                              type: string
+                          required:
+                          - displayName
+                          - description
+                          - price
+                      required:
+                      - displayName
+                      - description
+                      - offeringsItem
+                  required:
+                  - displayName
+                  - currencyCode
+                  - description
+                  - locationId
+                  - offeringsSection
+              required:
+              - input
+            example:
+              input:
+                displayName: Dinner Menu
+                currencyCode: us_usd
+                description: Our full dinner menu
+                locationId: '{locationId}'
+                offeringsSection:
+                  displayName: Starters
+                  description: Appetizers and small plates
+                  offeringsItem:
+                    displayName: Bruschetta
+                    description: Grilled bread with tomato
+                    price: '8.00'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+          headers: {}
+          x-apidog-name: Success
+      security: []
+      x-apidog-folder: Menus
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-33169800-run
+  /locations/{locationId}/menus:
+    get:
+      summary: Fetch menus for a location
+      deprecated: false
+      description: ''
+      tags:
+      - Menus
+      parameters:
+      - name: locationId
+        in: path
+        description: ''
+        required: true
+        example: ''
+        schema:
+          type: string
+      - name: first
+        in: query
+        description: ''
+        required: true
+        example: '10'
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: ''
+        required: true
+        example: API VGLYvxxxxxxxxxxxxxxxxxxxxx
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+          headers: {}
+          x-apidog-name: Success
+      security: []
+      x-apidog-folder: Menus
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-33169802-run
+  /menus/{menuId}/currency:
+    put:
+      summary: Update menu currency
+      deprecated: false
+      description: ''
+      tags:
+      - Menus
+      parameters:
+      - name: menuId
+        in: path
+        description: ''
+        required: true
+        example: ''
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        description: ''
+        required: true
+        example: application/json
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: ''
+        required: true
+        example: API VGLYvxxxxxxxxxxxxxxxxxxxxx
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                input:
+                  type: object
+                  properties:
+                    currencyCode:
+                      type: string
+                  required:
+                  - currencyCode
+              required:
+              - input
+            example:
+              input:
+                currencyCode: us_usd
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+          headers: {}
+          x-apidog-name: Success
+      security: []
+      x-apidog-folder: Menus
+      x-apidog-status: released
+      x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-33169808-run
