@@ -459,6 +459,8 @@ apis:
   humanURL: https://developer.synup.com/
   baseURL: https://api.synup.com/api/v4
   tags:
+  - Webhook
+  tags_raw:
   - Webhooks
   properties:
   - type: OpenAPI
