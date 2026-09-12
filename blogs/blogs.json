@@ -9,21 +9,21 @@
   "repo": "synup",
   "feeds": [
     {
-      "source": "https://www.linkedin.com/company/synup",
-      "feed_url": "https://www.linkedin.com/company/synup",
+      "source": "https://x.com/synupinc",
+      "feed_url": "https://x.com/synupinc",
       "title": "",
       "saved": 0,
       "method": "none"
     },
     {
-      "source": "https://x.com/synupinc",
-      "feed_url": "https://x.com/synupinc",
+      "source": "https://www.linkedin.com/company/synup",
+      "feed_url": "https://www.linkedin.com/company/synup",
       "title": "",
       "saved": 0,
       "method": "none"
     }
   ],
   "post_count": 0,
-  "fetched": "2026-08-30T22:33:40Z",
+  "fetched": "2026-09-06T19:17:18Z",
   "note": "2026-08-13: https://www.synup.com/blog/ now 404s; Synup moved its content library to /en/learn."
 }
