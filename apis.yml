@@ -105,7 +105,7 @@ apis:
   - type: JSONSchema
     url: json-schema/synup-schemas.json
   - type: Webhooks
-    url: openapi/synup-webhooks-openapi.yml
+    url: openapi/_original/synup-webhooks-openapi.yml
 - aid: synup:synup-connected-accounts-api
   name: Synup Connected Accounts API
   description: The Connected Accounts API from Synup — 20 operation(s) for connected accounts.
@@ -127,7 +127,7 @@ apis:
   - type: JSONSchema
     url: json-schema/synup-schemas.json
   - type: Webhooks
-    url: openapi/synup-webhooks-openapi.yml
+    url: openapi/_original/synup-webhooks-openapi.yml
 - aid: synup:synup-grid-rank-api
   name: Synup Grid Rank API
   description: The Grid Rank API from Synup — 3 operation(s) for grid rank.
@@ -149,7 +149,7 @@ apis:
   - type: JSONSchema
     url: json-schema/synup-schemas.json
   - type: Webhooks
-    url: openapi/synup-webhooks-openapi.yml
+    url: openapi/_original/synup-webhooks-openapi.yml
 - aid: synup:synup-listings-api
   name: Synup Listings API
   description: The Listings API from Synup — 7 operation(s) for listings.
@@ -171,7 +171,7 @@ apis:
   - type: JSONSchema
     url: json-schema/synup-schemas.json
   - type: Webhooks
-    url: openapi/synup-webhooks-openapi.yml
+    url: openapi/_original/synup-webhooks-openapi.yml
 - aid: synup:synup-local-post-ideas-api
   name: Synup Local Post Ideas API
   description: The Local Post Ideas API from Synup — 41 operation(s) for local post ideas.
@@ -193,7 +193,7 @@ apis:
   - type: JSONSchema
     url: json-schema/synup-schemas.json
   - type: Webhooks
-    url: openapi/synup-webhooks-openapi.yml
+    url: openapi/_original/synup-webhooks-openapi.yml
 - aid: synup:synup-locations-api
   name: Synup Locations API
   description: The Locations API from Synup — 25 operation(s) for locations.
@@ -215,7 +215,7 @@ apis:
   - type: JSONSchema
     url: json-schema/synup-schemas.json
   - type: Webhooks
-    url: openapi/synup-webhooks-openapi.yml
+    url: openapi/_original/synup-webhooks-openapi.yml
 - aid: synup:synup-menus-api
   name: Synup Menus API
   description: The Menus API from Synup — 5 operation(s) for menus.
@@ -237,7 +237,7 @@ apis:
   - type: JSONSchema
     url: json-schema/synup-schemas.json
   - type: Webhooks
-    url: openapi/synup-webhooks-openapi.yml
+    url: openapi/_original/synup-webhooks-openapi.yml
 - aid: synup:synup-organizing-locations-api
   name: Synup Organizing locations API
   description: The Organizing locations API from Synup — 14 operation(s) for organizing locations.
@@ -259,7 +259,7 @@ apis:
   - type: JSONSchema
     url: json-schema/synup-schemas.json
   - type: Webhooks
-    url: openapi/synup-webhooks-openapi.yml
+    url: openapi/_original/synup-webhooks-openapi.yml
 - aid: synup:synup-posts-api
   name: Synup Posts API
   description: The Posts API from Synup — 6 operation(s) for posts.
@@ -281,7 +281,7 @@ apis:
   - type: JSONSchema
     url: json-schema/synup-schemas.json
   - type: Webhooks
-    url: openapi/synup-webhooks-openapi.yml
+    url: openapi/_original/synup-webhooks-openapi.yml
 - aid: synup:synup-profile-analytics-api
   name: Synup Profile Analytics API
   description: The Profile Analytics API from Synup — 3 operation(s) for profile analytics.
@@ -303,7 +303,7 @@ apis:
   - type: JSONSchema
     url: json-schema/synup-schemas.json
   - type: Webhooks
-    url: openapi/synup-webhooks-openapi.yml
+    url: openapi/_original/synup-webhooks-openapi.yml
 - aid: synup:synup-rankings-api
   name: Synup Rankings API
   description: The Rankings API from Synup — 6 operation(s) for rankings.
@@ -325,7 +325,7 @@ apis:
   - type: JSONSchema
     url: json-schema/synup-schemas.json
   - type: Webhooks
-    url: openapi/synup-webhooks-openapi.yml
+    url: openapi/_original/synup-webhooks-openapi.yml
 - aid: synup:synup-review-campaigns-api
   name: Synup Review Campaigns API
   description: The Review Campaigns API from Synup — 4 operation(s) for review campaigns.
@@ -347,7 +347,7 @@ apis:
   - type: JSONSchema
     url: json-schema/synup-schemas.json
   - type: Webhooks
-    url: openapi/synup-webhooks-openapi.yml
+    url: openapi/_original/synup-webhooks-openapi.yml
 - aid: synup:synup-reviews-api
   name: Synup Reviews API
   description: The Reviews API from Synup — 9 operation(s) for reviews.
@@ -369,7 +369,7 @@ apis:
   - type: JSONSchema
     url: json-schema/synup-schemas.json
   - type: Webhooks
-    url: openapi/synup-webhooks-openapi.yml
+    url: openapi/_original/synup-webhooks-openapi.yml
 - aid: synup:synup-reviews-review-sources-api
   name: Synup Reviews/Review Sources API
   description: The Reviews/Review Sources API from Synup — 3 operation(s) for reviews/review sources.
@@ -391,7 +391,7 @@ apis:
   - type: JSONSchema
     url: json-schema/synup-schemas.json
   - type: Webhooks
-    url: openapi/synup-webhooks-openapi.yml
+    url: openapi/_original/synup-webhooks-openapi.yml
 - aid: synup:synup-social-api
   name: Synup Social API
   description: The Social API from Synup — 3 operation(s) for social.
@@ -413,7 +413,7 @@ apis:
   - type: JSONSchema
     url: json-schema/synup-schemas.json
   - type: Webhooks
-    url: openapi/synup-webhooks-openapi.yml
+    url: openapi/_original/synup-webhooks-openapi.yml
 - aid: synup:synup-social-post-ideas-api
   name: Synup Social Post Ideas API
   description: The Social Post Ideas API from Synup — 47 operation(s) for social post ideas.
@@ -435,7 +435,7 @@ apis:
   - type: JSONSchema
     url: json-schema/synup-schemas.json
   - type: Webhooks
-    url: openapi/synup-webhooks-openapi.yml
+    url: openapi/_original/synup-webhooks-openapi.yml
 - aid: synup:synup-user-management-api
   name: Synup User Management API
   description: The User Management API from Synup — 11 operation(s) for user management.
@@ -457,7 +457,7 @@ apis:
   - type: JSONSchema
     url: json-schema/synup-schemas.json
   - type: Webhooks
-    url: openapi/synup-webhooks-openapi.yml
+    url: openapi/_original/synup-webhooks-openapi.yml
 - aid: synup:synup-webhooks-api
   name: Synup Webhooks API
   description: The Webhooks API from Synup — 0 operation(s) for webhooks.
@@ -481,7 +481,7 @@ apis:
   - type: JSONSchema
     url: json-schema/synup-schemas.json
   - type: Webhooks
-    url: openapi/synup-webhooks-openapi.yml
+    url: openapi/_original/synup-webhooks-openapi.yml
 - aid: synup:synup-webhooks-webhooks-api
   name: Synup Webhooks/Webhooks API
   description: The Webhooks/Webhooks API from Synup — 0 operation(s) for webhooks/webhooks.
@@ -503,7 +503,7 @@ apis:
   - type: JSONSchema
     url: json-schema/synup-schemas.json
   - type: Webhooks
-    url: openapi/synup-webhooks-openapi.yml
+    url: openapi/_original/synup-webhooks-openapi.yml
 common:
 - type: CapabilityMap
   url: capabilities/synup-capability-edges.yml
@@ -521,7 +521,7 @@ common:
 - type: OpenAPI
   url: openapi/_original/synup-api-openapi.yml
 - type: Webhooks
-  url: openapi/synup-webhooks-openapi.yml
+  url: openapi/_original/synup-webhooks-openapi.yml
 - type: MCPServer
   url: mcp/synup-mcp.yml
 - type: ToolCrosswalk
