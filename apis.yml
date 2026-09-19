@@ -90,6 +90,8 @@ apis:
   humanURL: https://developer.synup.com/
   baseURL: https://api.synup.com/api/v4
   tags:
+  - Automation
+  tags_raw:
   - Automations
   properties:
   - type: OpenAPI
@@ -200,6 +202,8 @@ apis:
   humanURL: https://developer.synup.com/
   baseURL: https://api.synup.com/api/v4
   tags:
+  - Location
+  tags_raw:
   - Locations
   properties:
   - type: OpenAPI
