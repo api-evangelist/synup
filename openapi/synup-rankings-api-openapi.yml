@@ -2,10 +2,7 @@ openapi: 3.2.0
 info:
   title: Synup Rankings API
   version: '4'
-  description: 'REST API v4 for the Synup local marketing platform: business locations, listing syndication to 80+ directories, review/interaction aggregation and response, review campaigns, local rank tracking and grid-rank heatmaps, local and social posts, AI post ideas, menus, connected accounts, users and profile analytics.
-
-
-    ASSEMBLED BY API EVANGELIST from the per-endpoint OpenAPI documents Synup publishes on its own documentation host (developer.synup.com, Apidog project 797384). Every operation, parameter, response, example and schema below is verbatim provider content; only the merge into a single document is ours. Source index: https://developer.synup.com/llms.txt'
+  description: 'REST API v4 for the Synup local marketing platform: business locations, listing syndication to 80+ directories, review/interaction aggregation and response, review campaigns, local rank tracking and grid-rank heatmaps, local and social posts, AI post ideas, menus, connected accounts, users and profile analytics.'
   contact:
     name: Synup Developer Documentation
     url: https://developer.synup.com/
@@ -22,18 +19,12 @@ paths:
     post:
       summary: Add keywords
       deprecated: false
-      description: '<span style="font-size: 14px;">
-
-        This API allows you to add keywords that you want to track, for a specific location.
-
-
-
-        </span>
+      description: 'This API allows you to add keywords that you want to track, for a specific location.
 
 
         :::caution[]
 
-        <span style="font-size: 14px;"> **Limitations:** The number of keywords that can be added for a location is subject to your subscription plan. Please consult the support team to determine the exact number applicable to your account.</span>
+        **Limitations:** The number of keywords that can be added for a location is subject to your subscription plan. Please consult the support team to determine the exact number applicable to your account.
 
         :::'
       tags:
@@ -175,15 +166,13 @@ paths:
       x-apidog-folder: Rankings
       x-apidog-status: released
       x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-13687734-run
+      operationId: postLocationsKeywords
+      x-operation-id-source: derived
   /locations/keywords/archive:
     post:
       summary: Archive a keyword
       deprecated: false
-      description: '<span style="font-size: 14px;">
-
-        This API removes a keyword from the list of tracked keywords for a specific location by archiving it.
-
-        </span>'
+      description: This API removes a keyword from the list of tracked keywords for a specific location by archiving it.
       tags:
       - Rankings
       parameters:
@@ -279,15 +268,13 @@ paths:
       x-apidog-folder: Rankings
       x-apidog-status: released
       x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-13695580-run
+      operationId: postLocationsKeywordsArchive
+      x-operation-id-source: derived
   /locations/{locationId}/keywords-performance:
     get:
       summary: Get keywords performance
       deprecated: false
-      description: '<span style="font-size: 14px;">
-
-        This API retrieves the ranking performance of all keywords associated with a specific location.
-
-        </span>'
+      description: This API retrieves the ranking performance of all keywords associated with a specific location.
       tags:
       - Rankings
       parameters:
@@ -482,15 +469,13 @@ paths:
       x-apidog-folder: Rankings
       x-apidog-status: released
       x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-13695557-run
+      operationId: getLocationsByLocationIdKeywordsPerformance
+      x-operation-id-source: derived
   /locations/ranking-sitewise-histogram:
     post:
       summary: Get Rankings Distribution By Time
       deprecated: false
-      description: '<span style="font-size: 14px;">
-
-        This API provides the weekly distribution of keyword rankings across four predefined rank buckets (1-3, 3-10, 10-20, 20-50) for each site. It returns the number of keywords falling within each rank range on specific dates for these sites. This helps track keyword performance trends over a time period.
-
-        </span>'
+      description: This API provides the weekly distribution of keyword rankings across four predefined rank buckets (1-3, 3-10, 10-20, 20-50) for each site. It returns the number of keywords falling within each rank range on specific dates for these sites. This helps track keyword performance trends over a time period.
       tags:
       - Rankings
       parameters:
@@ -642,15 +627,13 @@ paths:
       x-apidog-folder: Rankings
       x-apidog-status: released
       x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-13695783-run
+      operationId: postLocationsRankingSitewiseHistogram
+      x-operation-id-source: derived
   /locations/ranking-analytics-timeline:
     post:
       summary: Get Rollup Keyword Performance
       deprecated: false
-      description: '<span style="font-size: 14px;">
-
-        This API allows you to fetch ranking analytics data for multiple locations in your account within a single API call for a specific period. You can also specify the sources you want to filter the results for. The sources include Google maps and Google search.
-
-        </span>'
+      description: This API allows you to fetch ranking analytics data for multiple locations in your account within a single API call for a specific period. You can also specify the sources you want to filter the results for. The sources include Google maps and Google search.
       tags:
       - Rankings
       parameters:
@@ -809,23 +792,20 @@ paths:
       x-apidog-folder: Rankings
       x-apidog-status: released
       x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-13695712-run
+      operationId: postLocationsRankingAnalyticsTimeline
+      x-operation-id-source: derived
   /locations/{locationId}/keywords:
     get:
       summary: List Keywords
       deprecated: false
-      description: '<span style="font-size: 14px;">
-
-        This API retrieves all keywords associated with a specific location.
+      description: 'This API retrieves all keywords associated with a specific location.
 
 
         **Behavior:**
 
         - Returns a complete list of keywords linked to the location.
 
-        - Includes unique keyword IDs and names.
-
-
-        </span>'
+        - Includes unique keyword IDs and names.'
       operationId: listKeywords
       tags:
       - Rankings
@@ -929,7 +909,7 @@ paths:
       x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-13695476-run
 components:
   schemas:
-    UnauthorizedError:
+    BadRequestError:
       type: object
       properties:
         data:
@@ -948,7 +928,7 @@ components:
               message:
                 type: string
                 examples:
-                - 'SY90001: Not authorized to access this resource'
+                - Invalid keyword ID provided
             x-apidog-orders:
             - message
             x-apidog-ignore-properties: []
@@ -999,7 +979,7 @@ components:
       - contextInfo
       x-apidog-ignore-properties: []
       x-apidog-folder: ''
-    BadRequestError:
+    UnauthorizedError:
       type: object
       properties:
         data:
@@ -1018,7 +998,7 @@ components:
               message:
                 type: string
                 examples:
-                - Invalid keyword ID provided
+                - 'SY90001: Not authorized to access this resource'
             x-apidog-orders:
             - message
             x-apidog-ignore-properties: []

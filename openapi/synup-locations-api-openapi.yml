@@ -2,10 +2,7 @@ openapi: 3.2.0
 info:
   title: Synup Locations API
   version: '4'
-  description: 'REST API v4 for the Synup local marketing platform: business locations, listing syndication to 80+ directories, review/interaction aggregation and response, review campaigns, local rank tracking and grid-rank heatmaps, local and social posts, AI post ideas, menus, connected accounts, users and profile analytics.
-
-
-    ASSEMBLED BY API EVANGELIST from the per-endpoint OpenAPI documents Synup publishes on its own documentation host (developer.synup.com, Apidog project 797384). Every operation, parameter, response, example and schema below is verbatim provider content; only the merge into a single document is ours. Source index: https://developer.synup.com/llms.txt'
+  description: 'REST API v4 for the Synup local marketing platform: business locations, listing syndication to 80+ directories, review/interaction aggregation and response, review campaigns, local rank tracking and grid-rank heatmaps, local and social posts, AI post ideas, menus, connected accounts, users and profile analytics.'
   contact:
     name: Synup Developer Documentation
     url: https://developer.synup.com/
@@ -22,7 +19,20 @@ paths:
     post:
       summary: Activate archived locations
       deprecated: false
-      description: "<span style=\"font-size: 14px;\">\nUse this API to reactivate one or more previously archived locations, allowing them to be updated and managed again.\n    \n\n:::info[]\nImportant Notes:\n- <span style=\"font-size: 14px;\">Activating a location restores its functionality, enabling updates and modifications.</span>\n- <span style=\"font-size: 14px;\">Only archived locations can be activated; active locations do not require this action.</span>\n- <span style=\"font-size: 14px;\">Reactivating a location may resume billing based on your subscription plan.</span>\n:::\n</span>"
+      description: 'Use this API to reactivate one or more previously archived locations, allowing them to be updated and managed again.
+
+
+        :::info[]
+
+        Important Notes:
+
+        - Activating a location restores its functionality, enabling updates and modifications.
+
+        - Only archived locations can be activated; active locations do not require this action.
+
+        - Reactivating a location may resume billing based on your subscription plan.
+
+        :::'
       operationId: activateLocations
       tags:
       - Locations
@@ -194,7 +204,23 @@ paths:
     post:
       summary: Archive multiple locations
       deprecated: false
-      description: "<span style=\"font-size: 14px;\">\n\nThis API allows you to archive One or More Business Locations. \n\n:::info[]\n- <span style=\"font-size: 14px;\">Archiving a location does not delete it from your account.</span>\n- <span style=\"font-size: 14px;\">Archived locations cannot be updated until reactivated.</span>\n- <span style=\"font-size: 14px;\">The location will be scheduled for archival until the end of the billing cycle.</span>\n- <span style=\"font-size: 14px;\">Once the invoice for the next month is generated, the location will be archived.</span>\n- <span style=\"font-size: 14px;\">Payments for archived locations stop after the current billing cycle is completed.</span>\n\n:::\n\n</span>"
+      description: 'This API allows you to archive One or More Business Locations.
+
+
+        :::info[]
+
+        - Archiving a location does not delete it from your account.
+
+        - Archived locations cannot be updated until reactivated.
+
+        - The location will be scheduled for archival until the end of the billing cycle.
+
+        - Once the invoice for the next month is generated, the location will be archived.
+
+        - Payments for archived locations stop after the current billing cycle is completed.
+
+
+        :::'
       operationId: archiveLocations
       tags:
       - Locations
@@ -357,14 +383,7 @@ paths:
     get:
       summary: Available advanced filter values
       deprecated: false
-      description: '<br>
-
-        <span style="font-size: 14px;">
-
-
-        Returns the distinct values available for the advanced location filters across the account''s locations: countries, states, cities, postal (zip) codes, and custom attribute names. Use these values to populate the advanced filter controls before calling Filter locations.
-
-        </span>'
+      description: 'Returns the distinct values available for the advanced location filters across the account''s locations: countries, states, cities, postal (zip) codes, and custom attribute names. Use these values to populate the advanced filter controls before calling Filter locations.'
       operationId: advancedSearchFilters
       tags:
       - Locations
@@ -423,14 +442,7 @@ paths:
     get:
       summary: Available search filter values
       deprecated: false
-      description: '<br>
-
-        <span style="font-size: 14px;">
-
-
-        Returns the distinct values available for the standard location filters across the account''s accessible locations: tags, folders, categories, additional categories, and Google Business Profile (GBP) categories (primary and additional). Use these values to populate the filter controls before calling Filter locations.
-
-        </span>'
+      description: 'Returns the distinct values available for the standard location filters across the account''s accessible locations: tags, folders, categories, additional categories, and Google Business Profile (GBP) categories (primary and additional). Use these values to populate the filter controls before calling Filter locations.'
       operationId: searchFilters
       tags:
       - Locations
@@ -489,7 +501,22 @@ paths:
     post:
       summary: Cancel scheduled location archival
       deprecated: false
-      description: "<span style=\"font-size: 14px;\">\nUse this API to cancel the archival of locations that are scheduled for archival but have not yet been processed.\n    \n:::info[]\n    \n<span style=\"font-size: 14px;\">\n**Important Notes:**\n- <span style=\"font-size: 14px;\">This endpoint can only cancel archival for locations that are in **ARCHIVE_SCHEDULED** status</span>\n- <span style=\"font-size: 14px;\">Once canceled, the location will return to **ACTIVE** status and can be updated as usual.</span>\n- <span style=\"font-size: 14px;\">Billing for the location will continue as per the standard cycle.</span>\n </span>\n   \n:::\n    </span>"
+      description: 'Use this API to cancel the archival of locations that are scheduled for archival but have not yet been processed.
+
+
+        :::info[]
+
+
+        **Important Notes:**
+
+        - This endpoint can only cancel archival for locations that are in **ARCHIVE_SCHEDULED** status
+
+        - Once canceled, the location will return to **ACTIVE** status and can be updated as usual.
+
+        - Billing for the location will continue as per the standard cycle.
+
+
+        :::'
       operationId: cancelLocationsArchive
       tags:
       - Locations
@@ -664,7 +691,13 @@ paths:
     get:
       summary: Check Bulk Photo Upload Status
       deprecated: false
-      description: "<span style=\"font-size: 14px;\">\n\nThis API monitors the progress of uploading multiple photos to a location, which is particularly useful when the upload involves more than 30 photos.\n    \nRetrieve the current status of a bulk image upload request for a location. Use the requestId returned in the Upload Photos API to fetch the status.\n    \nFor more details, refer to [Manage photos for your location](https://developer.synup.com/doc-833258.md). \n</span>"
+      description: 'This API monitors the progress of uploading multiple photos to a location, which is particularly useful when the upload involves more than 30 photos.
+
+
+        Retrieve the current status of a bulk image upload request for a location. Use the requestId returned in the Upload Photos API to fetch the status.
+
+
+        For more details, refer to Manage photos for your location.'
       operationId: checkBulkPhotoUploadStatus
       tags:
       - Locations
@@ -757,7 +790,33 @@ paths:
     post:
       summary: Create a new business location
       deprecated: false
-      description: "<span style=\"font-size: 14px;\">\nA **Location** represents a physical business entity within your account and serves as the foundation for managing and interacting with the API’s features. Each Location acts as a centralized hub for managing and accessing data related to that specific business, including:\n    \n- **Listings Management**: Maintain accurate and consistent business details across multiple publishers.\n- **Review Monitoring**: Track and respond to customer feedback associated with the location.\n- **Performance Insights**: Analyze key metrics related to visibility, engagement, and growth.\n- **SEO Optimization**: Enhance local search presence and improve rankings.\n\n<br>\n    \n\n**_See the Request Section for a detailed data schema of Supported Fields. Here’s a key detail to keep in mind:_**\n</span>\n\n\n:::info []\n<span style=\"font-size: 14px;\">\n**Processing Time for Location Updates**\nUpdates to any location attributes, including `enabledSiteIds` or `submissionDisabledSiteIds`, are processed asynchronously before they are accurately reflected across all publishers and within the system.\n\n<span style=\"font-size: 14px;\"> For example, If the business hours for a location are updated in the system, the changes are processed asynchronously before being reflected across all publishers. </span>\n    \n</span>\n:::\n"
+      description: 'A **Location** represents a physical business entity within your account and serves as the foundation for managing and interacting with the API’s features. Each Location acts as a centralized hub for managing and accessing data related to that specific business, including:
+
+
+        - **Listings Management**: Maintain accurate and consistent business details across multiple publishers.
+
+        - **Review Monitoring**: Track and respond to customer feedback associated with the location.
+
+        - **Performance Insights**: Analyze key metrics related to visibility, engagement, and growth.
+
+        - **SEO Optimization**: Enhance local search presence and improve rankings.
+
+
+        **_See the Request Section for a detailed data schema of Supported Fields. Here’s a key detail to keep in mind:_**
+
+
+        :::info []
+
+
+        **Processing Time for Location Updates**
+
+        Updates to any location attributes, including `enabledSiteIds` or `submissionDisabledSiteIds`, are processed asynchronously before they are accurately reflected across all publishers and within the system.
+
+
+        For example, If the business hours for a location are updated in the system, the changes are processed asynchronously before being reflected across all publishers.
+
+
+        :::'
       operationId: createLocation
       tags:
       - Locations
@@ -2043,7 +2102,7 @@ paths:
     get:
       summary: List all locations
       deprecated: false
-      description: "<br>\n<span style=\"font-size: 14px;\">\n\nThis API retrieves a paginated list of locations within the account, allowing for efficient data retrieval when managing multiple locations.\n    \n</span>"
+      description: This API retrieves a paginated list of locations within the account, allowing for efficient data retrieval when managing multiple locations.
       operationId: listLocations
       tags:
       - Locations
@@ -3433,7 +3492,21 @@ paths:
     post:
       summary: Delete Location Photos
       deprecated: false
-      description: "<span style=\"font-size: 14px;\">\n\nThis API allows you to delete one or more photos of type ADDITIONAL from a specified location.\n\n:::info[] \n<span style=\"font-size: 14px;\"> **Note** \nOnly ADDITIONAL photo types can be removed.\nLOGO and COVER photo types cannot be deleted using this endpoint.</span>\n:::\n\nFor more details, refer to [Manage photos for your location](https://developer.synup.com/doc-833258.md).\t\n\n</span>"
+      description: 'This API allows you to delete one or more photos of type ADDITIONAL from a specified location.
+
+
+        :::info[]
+
+        **Note**
+
+        Only ADDITIONAL photo types can be removed.
+
+        LOGO and COVER photo types cannot be deleted using this endpoint.
+
+        :::
+
+
+        For more details, refer to Manage photos for your location.'
       operationId: deleteLocationPhotos
       tags:
       - Locations
@@ -3591,17 +3664,10 @@ paths:
     get:
       summary: Download locations
       deprecated: false
-      description: '<br>
-
-        <span style="font-size: 14px;">
+      description: 'Generates a CSV export of the selected locations and returns a download URL. The export runs asynchronously — the response confirms the request was accepted, and the user is notified by email when the CSV is ready.
 
 
-        Generates a CSV export of the selected locations and returns a download URL. The export runs asynchronously — the response confirms the request was accepted, and the user is notified by email when the CSV is ready.
-
-
-        Use `selectionType` to choose between all matching locations (`ALL_ITEMS`) or an explicit set (`SELECTED_ITEMS` with `locationIds`). The `filterInput` parameter accepts the same JSON-encoded filter object as Filter locations.
-
-        </span>'
+        Use `selectionType` to choose between all matching locations (`ALL_ITEMS`) or an explicit set (`SELECTED_ITEMS` with `locationIds`). The `filterInput` parameter accepts the same JSON-encoded filter object as Filter locations.'
       operationId: downloadLocations
       tags:
       - Locations
@@ -3716,20 +3782,13 @@ paths:
     get:
       summary: Filter locations
       deprecated: false
-      description: '<br>
-
-        <span style="font-size: 14px;">
-
-
-        Returns a paginated list of locations that match the supplied filters.
+      description: 'Returns a paginated list of locations that match the supplied filters.
 
 
         The filter criteria are passed as a single JSON-encoded object in the `input` query parameter. Supported filter keys include name/store/phone search (`query`, `storeId`, `phone`), location identifiers (`ids`), package tier (`package`), `tags`, `folders`, `categories`, address filters (`postalCode`, `city`, `stateIso`), custom attributes (`customAttributes`), GBP categories (`primaryGbpSiteCategories`, `additionalGbpSiteCategories`), add-ons (`addOnIds`), Google verification status (`googleVerificationStatus`), and client account scoping (`clientIds`).
 
 
-        Results are returned as a Relay-style connection (`edges` + `pageInfo`). Use the `first`/`after` (or `last`/`before`) parameters to page through results.
-
-        </span>'
+        Results are returned as a Relay-style connection (`edges` + `pageInfo`). Use the `first`/`after` (or `last`/`before`) parameters to page through results.'
       operationId: filterLocations
       tags:
       - Locations
@@ -3878,11 +3937,7 @@ paths:
     get:
       summary: Get a list of supported countries and their states
       deprecated: false
-      description: '<span style="font-size: 14px;">
-
-        This API fetches a list of supported countries, including their database IDs, ISO codes, and states. The retrieved ISO codes should be used as input values when creating or updating locations.
-
-        </span>'
+      description: This API fetches a list of supported countries, including their database IDs, ISO codes, and states. The retrieved ISO codes should be used as input values when creating or updating locations.
       tags:
       - Locations
       parameters:
@@ -3997,17 +4052,13 @@ paths:
       x-apidog-folder: Locations
       x-apidog-status: released
       x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-13600948-run
+      operationId: getCountries
+      x-operation-id-source: derived
   /locations-by-store-codes:
     get:
       summary: Get locations by store codes
       deprecated: false
-      description: '<br>
-
-        <span style="font-size: 14px;">
-
-        This API retrieves location details based on specified store codes. Using unique store codes, allows businesses to fetch location-specific information such as name, address, contact details, business hours, and other relevant attributes.
-
-        </span>'
+      description: This API retrieves location details based on specified store codes. Using unique store codes, allows businesses to fetch location-specific information such as name, address, contact details, business hours, and other relevant attributes.
       operationId: getLocationsByStoreCodes
       tags:
       - Locations
@@ -4482,7 +4533,10 @@ paths:
     get:
       summary: Get Photos by Location IDs
       deprecated: false
-      description: "<br>\n<span style=\"font-size: 14px;\">\n\nThis API allows returns all media files of a specific location. \n\nFor more details, refer to `Photo specifications for your business location` markdown.\n\n</span>\n"
+      description: 'This API allows returns all media files of a specific location.
+
+
+        For more details, refer to `Photo specifications for your business location` markdown.'
       tags:
       - Locations
       parameters:
@@ -5457,11 +5511,20 @@ paths:
       x-apidog-folder: Locations
       x-apidog-status: developing
       x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-23089104-run
+      operationId: getLocationsByLocationIdPhotos
+      x-operation-id-source: derived
   /plan-sites:
     get:
       summary: Get Site Details for Your Plan
       deprecated: false
-      description: "<span style=\"font-size: 14px;\">\nThis API retrieves all site details associated with a specific plan, including:\n\n- Unique identifiers for each site\n- Supported countries where the plan is available\n- Site URLs for access and management \n</span>"
+      description: 'This API retrieves all site details associated with a specific plan, including:
+
+
+        - Unique identifiers for each site
+
+        - Supported countries where the plan is available
+
+        - Site URLs for access and management'
       tags:
       - Locations
       parameters:
@@ -5594,15 +5657,13 @@ paths:
       x-apidog-folder: Locations
       x-apidog-status: released
       x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-13602957-run
+      operationId: getPlanSites
+      x-operation-id-source: derived
   /sub-categories:
     get:
       summary: Get SubCategories and AdditionalCategories
       deprecated: false
-      description: '<span style="font-size: 14px;">
-
-        This API retrieves a list of the latest subcategories and additional categories available in the system.
-
-        </span>'
+      description: This API retrieves a list of the latest subcategories and additional categories available in the system.
       tags:
       - Locations
       parameters:
@@ -5701,18 +5762,13 @@ paths:
       x-apidog-folder: Locations
       x-apidog-status: released
       x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-13636558-run
+      operationId: getSubCategories
+      x-operation-id-source: derived
   /locations/google-verification-stats:
     get:
       summary: Google verification location stats
       deprecated: false
-      description: '<br>
-
-        <span style="font-size: 14px;">
-
-
-        Returns aggregated Google (Google Business Profile) verification status counts across the filtered set of locations — for example how many are verified, under review, pending verification, suspended, duplicate, or not connected. Use `filterInput`/`selectionType`/`locationIds` to scope the set, identical to Filter locations.
-
-        </span>'
+      description: Returns aggregated Google (Google Business Profile) verification status counts across the filtered set of locations — for example how many are verified, under review, pending verification, suspended, duplicate, or not connected. Use `filterInput`/`selectionType`/`locationIds` to scope the set, identical to Filter locations.
       operationId: googleVerificationLocationStats
       tags:
       - Locations
@@ -5797,9 +5853,7 @@ paths:
     get:
       summary: List Active Subscriptions
       deprecated: false
-      description: '<span style="font-size: 14px;">
-
-        This API retrieves a list of all active subscriptions or tenures associated with your account </span>'
+      description: This API retrieves a list of all active subscriptions or tenures associated with your account
       tags:
       - Locations
       parameters:
@@ -5834,11 +5888,18 @@ paths:
       x-apidog-folder: Locations
       x-apidog-status: released
       x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-13639877-run
+      operationId: getSubscriptions
+      x-operation-id-source: derived
   /locations-by-ids:
     get:
       summary: List particular locations
       deprecated: false
-      description: "<br>\n<span style=\"font-size: 14px;\">\nThis API retrieves **detailed information** for one or more **specified location IDs**. \n\nIt provides comprehensive data about each location, including its name, address, contact details, business hours, categories, nedia and other relevant attributes. \nIt support for both active and archived locations.\n</span>"
+      description: 'This API retrieves **detailed information** for one or more **specified location IDs**.
+
+
+        It provides comprehensive data about each location, including its name, address, contact details, business hours, categories, nedia and other relevant attributes.
+
+        It support for both active and archived locations.'
       operationId: getLocationsByIds
       tags:
       - Locations
@@ -6577,14 +6638,7 @@ paths:
     get:
       summary: Location add-on count
       deprecated: false
-      description: '<br>
-
-        <span style="font-size: 14px;">
-
-
-        Returns how many locations in the filtered set have the specified add-on enabled vs disabled, along with counts for other add-ons in the same product umbrella. Scope the set with `filterInput`/`selectionType`/`locationIds`, identical to Filter locations.
-
-        </span>'
+      description: Returns how many locations in the filtered set have the specified add-on enabled vs disabled, along with counts for other add-ons in the same product umbrella. Scope the set with `filterInput`/`selectionType`/`locationIds`, identical to Filter locations.
       operationId: locationAddOnCount
       tags:
       - Locations
@@ -6722,18 +6776,13 @@ paths:
       x-apidog-folder: Locations
       x-apidog-status: developing
       x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-21817244-run
+      operationId: getLocationsByLocationIdIndexingRate
+      x-operation-id-source: derived
   /locations/package-count:
     get:
       summary: Location package count
       deprecated: false
-      description: '<br>
-
-        <span style="font-size: 14px;">
-
-
-        Returns the number of locations in the filtered set by package tier — freemium vs premium. Scope the set with `filterInput`/`selectionType`/`locationIds`, identical to Filter locations.
-
-        </span>'
+      description: Returns the number of locations in the filtered set by package tier — freemium vs premium. Scope the set with `filterInput`/`selectionType`/`locationIds`, identical to Filter locations.
       operationId: locationPackageCount
       tags:
       - Locations
@@ -6839,12 +6888,7 @@ paths:
     get:
       summary: Search locations
       deprecated: false
-      description: '<br>
-
-        <span style="font-size: 14px;">
-
-
-        This API returns a list of locations that match a given keyword. The search can be performed on the following fields:
+      description: 'This API returns a list of locations that match a given keyword. The search can be performed on the following fields:
 
 
         - Location Name
@@ -6854,9 +6898,7 @@ paths:
         - Store ID
 
 
-        If no specific fields are provided, the API will search across all available fields by default.
-
-        </span>'
+        If no specific fields are provided, the API will search across all available fields by default.'
       operationId: searchLocations
       tags:
       - Locations
@@ -8763,7 +8805,21 @@ paths:
     post:
       summary: Star/Unstar Location Photos
       deprecated: false
-      description: "<span style=\"font-size: 14px;\">\nThis API allows you to star or unstar photo(s) for a specific location. A starred photo highlights its importance and increases its visibility in certain displays.\n    \n:::caution[]\n<span style=\"font-size: 14px;\">\nA location can have a maximum of 4 starred images. Attempting to star additional photos will result in an error.\nOnly additional photo types can be starred or unstarred. The logo and cover image cannot be starred. \n</span>\n:::\n\nFor more details, refer to [Manage photos for your location](https://developer.synup.com/doc-833258.md). \n\n</span>"
+      description: 'This API allows you to star or unstar photo(s) for a specific location. A starred photo highlights its importance and increases its visibility in certain displays.
+
+
+        :::caution[]
+
+
+        A location can have a maximum of 4 starred images. Attempting to star additional photos will result in an error.
+
+        Only additional photo types can be starred or unstarred. The logo and cover image cannot be starred.
+
+
+        :::
+
+
+        For more details, refer to Manage photos for your location.'
       operationId: starUnstarLocationPhotos
       tags:
       - Locations
@@ -8926,12 +8982,9 @@ paths:
       x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-13642393-run
   /locations/update:
     post:
-      summary: Update  business location
+      summary: Update business location
       deprecated: false
-      description: '<span style="font-size: 14px;">
-
-
-        ## Update Location
+      description: '## Update Location
 
 
         This API allows you to modify the attributes of an existing location within your account. It enables businesses to keep their location data up to date by updating key details such as address, contact information, business hours, categories, and other metadata.
@@ -8939,17 +8992,13 @@ paths:
 
         :::info []
 
-        <span style="font-size: 14px;">
 
         **Processing Time for Location Updates**
 
         Updates to location attributes including `enabledSiteIds` or `submissionDisabledSiteIds`, are processed asynchronously before they are accurately reflected across all publishers and within the system. Allow this time for updates to be reflected accurately.
 
-        </span>
 
-        :::
-
-        </span>'
+        :::'
       operationId: createLocation
       tags:
       - Locations
@@ -10554,7 +10603,17 @@ paths:
     post:
       summary: Upload Photos to a Location
       deprecated: false
-      description: "<br>\n<span style=\"font-size: 14px;\">\n\nThis API allows you to add photos to a specific location. Photos can be of different types, including logos, cover photos, and additional images. \n\n\n:::info[]\n <span style=\"font-size: 14px;\">Each location can only have one logo and one cover photo.</span>\n:::\n\nFor more details, refer to [Manage photos for your location](https://developer.synup.com/doc-833258.md).\n\n\n\n\n</span>\n"
+      description: 'This API allows you to add photos to a specific location. Photos can be of different types, including logos, cover photos, and additional images.
+
+
+        :::info[]
+
+        Each location can only have one logo and one cover photo.
+
+        :::
+
+
+        For more details, refer to Manage photos for your location.'
       operationId: uploadSingleLocationPhoto
       tags:
       - Locations
@@ -10879,189 +10938,6 @@ paths:
       x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-13642280-run
 components:
   schemas:
-    Subscription:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The display name of the subscription plan
-          examples:
-          - Premium plan - Monthly
-        paymentSubscriptionId:
-          type: string
-          description: Unique identifier for the subscription
-          examples:
-          - b8b5075f-35ff-4aaf-9580-44271e0dde34
-        planId:
-          type: string
-          description: Identifier for the subscription plan
-          examples:
-          - premium-1month
-        tenure:
-          type: string
-          description: The subscription period
-          examples:
-          - Monthly
-      x-apidog-orders:
-      - name
-      - paymentSubscriptionId
-      - planId
-      - tenure
-      required:
-      - name
-      - paymentSubscriptionId
-      - planId
-      - tenure
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    LocationAddOnCount:
-      type: object
-      properties:
-        enabled:
-          type: integer
-          description: Locations with the add-on enabled.
-        disabled:
-          type: integer
-          description: Locations with the add-on disabled.
-        othersEnabled:
-          type: array
-          description: Counts for other add-ons in the same product umbrella.
-          items:
-            $ref: '#/components/schemas/AddOnCount'
-      x-apidog-orders:
-      - enabled
-      - disabled
-      - othersEnabled
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    GoogleVerificationLocationStats:
-      type: object
-      properties:
-        total:
-          type: integer
-        verified:
-          type: integer
-        underReview:
-          type: integer
-        pendingVerification:
-          type: integer
-        duplicate:
-          type: integer
-        suspended:
-          type: integer
-        notVerified:
-          type: integer
-        errorWhileFetching:
-          type: integer
-        notConnected:
-          type: integer
-        listingNotPresent:
-          type: integer
-      x-apidog-orders:
-      - total
-      - verified
-      - underReview
-      - pendingVerification
-      - duplicate
-      - suspended
-      - notVerified
-      - errorWhileFetching
-      - notConnected
-      - listingNotPresent
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    PageInfo:
-      type: object
-      properties:
-        hasNextPage:
-          type: boolean
-          description: Indicates if there are more pages available
-        hasPreviousPage:
-          type: boolean
-          description: Indicates if there are previous pages available
-        totalPages:
-          type: integer
-          description: Total number of pages available
-        totalRecords:
-          type: integer
-          description: Total number of records across all pages
-      x-apidog-orders:
-      - hasNextPage
-      - hasPreviousPage
-      - totalPages
-      - totalRecords
-      x-apidog-folder: ''
-    LocationPackageCount:
-      type: object
-      properties:
-        freemiumCount:
-          type: integer
-          description: Number of freemium-tier locations.
-        premiumCount:
-          type: integer
-          description: Number of premium-tier locations.
-      x-apidog-orders:
-      - freemiumCount
-      - premiumCount
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    SubscriptionsResponse:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            activeSubscriptions:
-              type: array
-              items:
-                $ref: '#/components/schemas/Subscription'
-          x-apidog-orders:
-          - activeSubscriptions
-          required:
-          - activeSubscriptions
-          x-apidog-ignore-properties: []
-      x-apidog-orders:
-      - data
-      required:
-      - data
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    LocationSearchFilterType:
-      type: object
-      properties:
-        tags:
-          type: array
-          items:
-            type: string
-        folders:
-          type: array
-          items:
-            type: string
-        categories:
-          type: array
-          items:
-            type: string
-        additionalCategories:
-          type: array
-          items:
-            type: string
-        primaryGbpSiteCategories:
-          type: array
-          items:
-            $ref: '#/components/schemas/SitePublisherCategory'
-        additionalGbpSiteCategories:
-          type: array
-          items:
-            $ref: '#/components/schemas/SitePublisherCategory'
-      x-apidog-orders:
-      - tags
-      - folders
-      - categories
-      - additionalCategories
-      - primaryGbpSiteCategories
-      - additionalGbpSiteCategories
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
     SitePublisherCategory:
       type: object
       properties:
@@ -11080,20 +10956,6 @@ components:
       - id
       x-apidog-ignore-properties: []
       x-apidog-folder: ''
-    AddOnCount:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        count:
-          type: integer
-      x-apidog-orders:
-      - id
-      - name
-      - count
-      x-apidog-folder: ''
     DownloadLocationsInBulkType:
       type: object
       properties:
@@ -11106,46 +10968,6 @@ components:
       x-apidog-orders:
       - success
       - csvUrl
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    LocationAdvancedSearchFilterType:
-      type: object
-      properties:
-        country:
-          type: array
-          description: Countries present across the account's locations.
-          items:
-            type: object
-            x-apidog-orders: []
-            properties: {}
-            x-apidog-ignore-properties: []
-        state:
-          type: array
-          description: States present across the account's locations.
-          items:
-            type: object
-            x-apidog-orders: []
-            properties: {}
-            x-apidog-ignore-properties: []
-        city:
-          type: array
-          items:
-            type: string
-        zipcode:
-          type: array
-          items:
-            type: string
-        customAttrs:
-          type: array
-          description: Custom attribute names defined for the account.
-          items:
-            type: string
-      x-apidog-orders:
-      - country
-      - state
-      - city
-      - zipcode
-      - customAttrs
       x-apidog-ignore-properties: []
       x-apidog-folder: ''
     LocationResponseSchema:
@@ -11656,6 +11478,159 @@ components:
       - discoveredPlaceActionLinks
       x--ignore-properties: []
       x-apidog-folder: ''
+    LocationSearchFilterType:
+      type: object
+      properties:
+        tags:
+          type: array
+          items:
+            type: string
+        folders:
+          type: array
+          items:
+            type: string
+        categories:
+          type: array
+          items:
+            type: string
+        additionalCategories:
+          type: array
+          items:
+            type: string
+        primaryGbpSiteCategories:
+          type: array
+          items:
+            $ref: '#/components/schemas/SitePublisherCategory'
+        additionalGbpSiteCategories:
+          type: array
+          items:
+            $ref: '#/components/schemas/SitePublisherCategory'
+      x-apidog-orders:
+      - tags
+      - folders
+      - categories
+      - additionalCategories
+      - primaryGbpSiteCategories
+      - additionalGbpSiteCategories
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    Subscription:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The display name of the subscription plan
+          examples:
+          - Premium plan - Monthly
+        paymentSubscriptionId:
+          type: string
+          description: Unique identifier for the subscription
+          examples:
+          - b8b5075f-35ff-4aaf-9580-44271e0dde34
+        planId:
+          type: string
+          description: Identifier for the subscription plan
+          examples:
+          - premium-1month
+        tenure:
+          type: string
+          description: The subscription period
+          examples:
+          - Monthly
+      x-apidog-orders:
+      - name
+      - paymentSubscriptionId
+      - planId
+      - tenure
+      required:
+      - name
+      - paymentSubscriptionId
+      - planId
+      - tenure
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    LocationSummaryEdge:
+      type: object
+      properties:
+        cursor:
+          type: string
+        node:
+          type: string
+      x-apidog-orders:
+      - cursor
+      - node
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    LocationPackageCount:
+      type: object
+      properties:
+        freemiumCount:
+          type: integer
+          description: Number of freemium-tier locations.
+        premiumCount:
+          type: integer
+          description: Number of premium-tier locations.
+      x-apidog-orders:
+      - freemiumCount
+      - premiumCount
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    LocationAddOnCount:
+      type: object
+      properties:
+        enabled:
+          type: integer
+          description: Locations with the add-on enabled.
+        disabled:
+          type: integer
+          description: Locations with the add-on disabled.
+        othersEnabled:
+          type: array
+          description: Counts for other add-ons in the same product umbrella.
+          items:
+            $ref: '#/components/schemas/AddOnCount'
+      x-apidog-orders:
+      - enabled
+      - disabled
+      - othersEnabled
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    GoogleVerificationLocationStats:
+      type: object
+      properties:
+        total:
+          type: integer
+        verified:
+          type: integer
+        underReview:
+          type: integer
+        pendingVerification:
+          type: integer
+        duplicate:
+          type: integer
+        suspended:
+          type: integer
+        notVerified:
+          type: integer
+        errorWhileFetching:
+          type: integer
+        notConnected:
+          type: integer
+        listingNotPresent:
+          type: integer
+      x-apidog-orders:
+      - total
+      - verified
+      - underReview
+      - pendingVerification
+      - duplicate
+      - suspended
+      - notVerified
+      - errorWhileFetching
+      - notConnected
+      - listingNotPresent
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
     LocationSummaryConnectionType:
       type: object
       properties:
@@ -11679,15 +11654,99 @@ components:
       - totalCount
       x-apidog-ignore-properties: []
       x-apidog-folder: ''
-    LocationSummaryEdge:
+    SubscriptionsResponse:
       type: object
       properties:
-        cursor:
-          type: string
-        node:
-          type: string
+        data:
+          type: object
+          properties:
+            activeSubscriptions:
+              type: array
+              items:
+                $ref: '#/components/schemas/Subscription'
+          x-apidog-orders:
+          - activeSubscriptions
+          required:
+          - activeSubscriptions
+          x-apidog-ignore-properties: []
       x-apidog-orders:
-      - cursor
-      - node
+      - data
+      required:
+      - data
       x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    PageInfo:
+      type: object
+      properties:
+        hasNextPage:
+          type: boolean
+          description: Indicates if there are more pages available
+        hasPreviousPage:
+          type: boolean
+          description: Indicates if there are previous pages available
+        totalPages:
+          type: integer
+          description: Total number of pages available
+        totalRecords:
+          type: integer
+          description: Total number of records across all pages
+      x-apidog-orders:
+      - hasNextPage
+      - hasPreviousPage
+      - totalPages
+      - totalRecords
+      x-apidog-folder: ''
+    LocationAdvancedSearchFilterType:
+      type: object
+      properties:
+        country:
+          type: array
+          description: Countries present across the account's locations.
+          items:
+            type: object
+            x-apidog-orders: []
+            properties: {}
+            x-apidog-ignore-properties: []
+        state:
+          type: array
+          description: States present across the account's locations.
+          items:
+            type: object
+            x-apidog-orders: []
+            properties: {}
+            x-apidog-ignore-properties: []
+        city:
+          type: array
+          items:
+            type: string
+        zipcode:
+          type: array
+          items:
+            type: string
+        customAttrs:
+          type: array
+          description: Custom attribute names defined for the account.
+          items:
+            type: string
+      x-apidog-orders:
+      - country
+      - state
+      - city
+      - zipcode
+      - customAttrs
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    AddOnCount:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        count:
+          type: integer
+      x-apidog-orders:
+      - id
+      - name
+      - count
       x-apidog-folder: ''

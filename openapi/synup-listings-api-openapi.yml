@@ -2,10 +2,7 @@ openapi: 3.2.0
 info:
   title: Synup Listings API
   version: '4'
-  description: 'REST API v4 for the Synup local marketing platform: business locations, listing syndication to 80+ directories, review/interaction aggregation and response, review campaigns, local rank tracking and grid-rank heatmaps, local and social posts, AI post ideas, menus, connected accounts, users and profile analytics.
-
-
-    ASSEMBLED BY API EVANGELIST from the per-endpoint OpenAPI documents Synup publishes on its own documentation host (developer.synup.com, Apidog project 797384). Every operation, parameter, response, example and schema below is verbatim provider content; only the merge into a single document is ours. Source index: https://developer.synup.com/llms.txt'
+  description: 'REST API v4 for the Synup local marketing platform: business locations, listing syndication to 80+ directories, review/interaction aggregation and response, review campaigns, local rank tracking and grid-rank heatmaps, local and social posts, AI post ideas, menus, connected accounts, users and profile analytics.'
   contact:
     name: Synup Developer Documentation
     url: https://developer.synup.com/
@@ -25,7 +22,7 @@ paths:
       description: 'This API retrieves all premium listings associated with a specific location.
 
 
-        Response Includes: Business Advice ,  Visibility Score and Sites Results'
+        Response Includes: Business Advice , Visibility Score and Sites Results'
       tags:
       - Listings
       parameters:
@@ -302,17 +299,13 @@ paths:
       x-apidog-folder: Listings
       x-apidog-status: released
       x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-19356815-run
+      operationId: getLocationsByLocationIdAiListings
+      x-operation-id-source: derived
   /locations/listings/duplicates:
     get:
       summary: Get all duplicate listings for an account
       deprecated: false
-      description: '<span style="font-size: 14px;">
-
-
-        This API retrieves a paginated list of all duplicate listings detected within the account, with optional filtering
-
-
-        </span>'
+      description: This API retrieves a paginated list of all duplicate listings detected within the account, with optional filtering
       operationId: getAccountDuplicateListings
       tags:
       - Listings
@@ -551,12 +544,7 @@ paths:
     get:
       summary: Get duplicate listings for a location
       deprecated: false
-      description: '<span style="font-size: 14px;">
-
-
-        This API retrieves all duplicate listings identified for a specific location across various directories.
-
-        </span>'
+      description: This API retrieves all duplicate listings identified for a specific location across various directories.
       operationId: getDuplicateListings
       tags:
       - Listings
@@ -764,10 +752,7 @@ paths:
     get:
       summary: Get premium listings
       deprecated: false
-      description: '<span style="font-size: 14px;">
-
-
-        This API retrieves all premium listings associated with a specific location.
+      description: 'This API retrieves all premium listings associated with a specific location.
 
 
         **Response Includes:**
@@ -776,9 +761,7 @@ paths:
 
         - Display status – Shows whether the listing is live on the platform.
 
-        - Platform details – Includes directories such as Google Maps, Apple Maps, and other listing sites.
-
-        </span>'
+        - Platform details – Includes directories such as Google Maps, Apple Maps, and other listing sites.'
       operationId: getPremiumListings
       tags:
       - Listings
@@ -920,9 +903,7 @@ paths:
     get:
       summary: Get voice listings for a location
       deprecated: false
-      description: '<span style="font-size: 14px;">
-
-        This API retrieves all voice assistant listings associated with a specific location.
+      description: 'This API retrieves all voice assistant listings associated with a specific location.
 
 
         **Available Voice Assistants:**
@@ -944,9 +925,7 @@ paths:
 
         - Connection details – Provides integration status with each voice assistant.
 
-        - Potential issues – Highlights any errors preventing successful sync.
-
-        </span>'
+        - Potential issues – Highlights any errors preventing successful sync.'
       operationId: getVoiceListings
       tags:
       - Listings
@@ -1123,19 +1102,14 @@ paths:
     post:
       summary: Mark listings as duplicates
       deprecated: false
-      description: '<span style="font-size: 14px;">
-
-
-        This API flags one or more listings as duplicates for a specific location.
+      description: 'This API flags one or more listings as duplicates for a specific location.
 
 
         **Behavior:**
 
         - Identifies listings that represent the same business but appear separately across different directories.
 
-        - Helps maintain data consistency by marking duplicate entries for review or removal.
-
-        </span>'
+        - Helps maintain data consistency by marking duplicate entries for review or removal.'
       operationId: markAsDuplicate
       tags:
       - Listings
@@ -1327,19 +1301,14 @@ paths:
     post:
       summary: Mark listings as not duplicates
       deprecated: false
-      description: '<span style="font-size: 14px;">
-
-
-        This API removes the duplicate flag from one or more listings for a specific location.
+      description: 'This API removes the duplicate flag from one or more listings for a specific location.
 
 
         **Behavior:**
 
         - Allows correction of incorrectly flagged duplicates.
 
-        - Ensures that distinct business locations remain separately listed.
-
-        </span>'
+        - Ensures that distinct business locations remain separately listed.'
       operationId: markAsNotDuplicate
       tags:
       - Listings

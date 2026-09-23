@@ -2,10 +2,7 @@ openapi: 3.2.0
 info:
   title: Synup Grid Rank API
   version: '4'
-  description: 'REST API v4 for the Synup local marketing platform: business locations, listing syndication to 80+ directories, review/interaction aggregation and response, review campaigns, local rank tracking and grid-rank heatmaps, local and social posts, AI post ideas, menus, connected accounts, users and profile analytics.
-
-
-    ASSEMBLED BY API EVANGELIST from the per-endpoint OpenAPI documents Synup publishes on its own documentation host (developer.synup.com, Apidog project 797384). Every operation, parameter, response, example and schema below is verbatim provider content; only the merge into a single document is ours. Source index: https://developer.synup.com/llms.txt'
+  description: 'REST API v4 for the Synup local marketing platform: business locations, listing syndication to 80+ directories, review/interaction aggregation and response, review campaigns, local rank tracking and grid-rank heatmaps, local and social posts, AI post ideas, menus, connected accounts, users and profile analytics.'
   contact:
     name: Synup Developer Documentation
     url: https://developer.synup.com/
@@ -22,7 +19,16 @@ paths:
     post:
       summary: Create Rank Grid Report
       deprecated: false
-      description: "\n\n<span style=\"font-size: 14px;\">\nThis API generates a new rank grid report to analyze business rankings across specified keywords.\n\n**Behavior:**\n- Evaluates business rankings in a defined geographic grid.\n- Supports multiple keywords for ranking analysis.\n- The response includes report IDs, which can be used to fetch report details.\n   \n    \n</span>\n"
+      description: 'This API generates a new rank grid report to analyze business rankings across specified keywords.
+
+
+        **Behavior:**
+
+        - Evaluates business rankings in a defined geographic grid.
+
+        - Supports multiple keywords for ranking analysis.
+
+        - The response includes report IDs, which can be used to fetch report details.'
       operationId: createGridReport
       tags:
       - Grid Rank
@@ -89,7 +95,15 @@ paths:
     get:
       summary: Fetch All Grid Reports for Location
       deprecated: false
-      description: "<span style=\"font-size: 14px;\">\nThis API generates a new rank grid report to analyze business rankings for specified keywords across a grid specified by the user using grid distance and the number of grid coordinates to be analyzed.\n**Behavior:**\n- Returns a list of reports generated for the given location.\n- Includes report IDs, keywords analyzed, and timestamps.\n- Can be used to track ranking trends over time.\n   \n    \n</span>\n\n"
+      description: 'This API generates a new rank grid report to analyze business rankings for specified keywords across a grid specified by the user using grid distance and the number of grid coordinates to be analyzed.
+
+        **Behavior:**
+
+        - Returns a list of reports generated for the given location.
+
+        - Includes report IDs, keywords analyzed, and timestamps.
+
+        - Can be used to track ranking trends over time.'
       operationId: getAllGridReports
       tags:
       - Grid Rank
@@ -168,7 +182,16 @@ paths:
     get:
       summary: Fetch Rank Grid Report By ID
       deprecated: false
-      description: "\n<span style=\"font-size: 14px;\">\n    \nThis API retrieves all grid rank reports associated with a specific location.\n\n**Behaviour:**\n- Business details – It returns a list of reports generated for the given location.\n- Grid configuration – Grid size, geographic coordinates, and search parameters.\n- Ranking results – Performance across specified keywords within the grid.\n    \n</span>"
+      description: 'This API retrieves all grid rank reports associated with a specific location.
+
+
+        **Behaviour:**
+
+        - Business details – It returns a list of reports generated for the given location.
+
+        - Grid configuration – Grid size, geographic coordinates, and search parameters.
+
+        - Ranking results – Performance across specified keywords within the grid.'
       operationId: getGridReport
       tags:
       - Grid Rank
@@ -247,139 +270,6 @@ paths:
       x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-13932585-run
 components:
   schemas:
-    RankPoint:
-      type: object
-      properties:
-        rank:
-          type: number
-          description: Rank at this coordinate (-1 if not ranked)
-        latitude:
-          type: number
-          format: float
-          description: Latitude of the grid point
-        longitude:
-          type: number
-          format: float
-          description: Longitude of the grid point
-      x-apidog-orders:
-      - rank
-      - latitude
-      - longitude
-      x-apidog-folder: ''
-    GridReport:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-          description: Report ID
-        locationId:
-          type: string
-          description: Location ID
-        accountId:
-          type: string
-          description: Account ID
-        keyword:
-          type: string
-          description: Keyword used for rank analysis
-        businessName:
-          type: string
-          description: Exact name of the business in Google Maps
-        businessStreet:
-          type: string
-          description: Street address of the business
-        businessCity:
-          type: string
-          description: City of the business
-        businessState:
-          type: string
-          description: State of the business
-        businessCountry:
-          type: string
-          description: Country of the business
-        gridSize:
-          type: integer
-          enum:
-          - 3
-          - 5
-          - 7
-          description: Size of the grid used for analysis
-        gridDistance:
-          type: number
-          description: Grid distance value
-        gridDistanceUnit:
-          type: string
-          enum:
-          - mi
-          - km
-          description: Unit of grid distance measurement
-        gridDistanceInKm:
-          type: number
-          format: float
-          description: Grid distance converted to kilometers
-        ranks:
-          type: array
-          items:
-            $ref: '#/components/schemas/RankPoint'
-          description: Array of ranking results for each coordinate
-        averageRank:
-          type: number
-          format: float
-          description: Average rank across all grid points
-        topOneShare:
-          type: number
-          format: float
-          description: Percentage of coordinates with rank <= 3
-        topTwoShare:
-          type: number
-          format: float
-          description: Percentage of coordinates with rank <= 10
-        status:
-          type: string
-          enum:
-          - PROCESSING
-          - COMPLETED
-          description: Current status of the report
-        latitude:
-          type: number
-          format: float
-          description: Business latitude coordinate
-        longitude:
-          type: number
-          format: float
-          description: Business longitude coordinate
-        placeId:
-          type:
-          - string
-          - 'null'
-          description: Google Place ID of the business
-        createdAt:
-          type: string
-          description: Epoch timestamp in milliseconds
-      x-apidog-orders:
-      - id
-      - locationId
-      - accountId
-      - keyword
-      - businessName
-      - businessStreet
-      - businessCity
-      - businessState
-      - businessCountry
-      - gridSize
-      - gridDistance
-      - gridDistanceUnit
-      - gridDistanceInKm
-      - ranks
-      - averageRank
-      - topOneShare
-      - topTwoShare
-      - status
-      - latitude
-      - longitude
-      - placeId
-      - createdAt
-      x-apidog-folder: ''
     CreateGridReportResponse:
       type: object
       properties:
@@ -518,6 +408,25 @@ components:
       - gridSize
       x--ignore-properties: []
       x-apidog-folder: ''
+    RankPoint:
+      type: object
+      properties:
+        rank:
+          type: number
+          description: Rank at this coordinate (-1 if not ranked)
+        latitude:
+          type: number
+          format: float
+          description: Latitude of the grid point
+        longitude:
+          type: number
+          format: float
+          description: Longitude of the grid point
+      x-apidog-orders:
+      - rank
+      - latitude
+      - longitude
+      x-apidog-folder: ''
     GridReportResponse:
       type: object
       properties:
@@ -532,6 +441,120 @@ components:
       x-apidog-orders:
       - data
       x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    GridReport:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Report ID
+        locationId:
+          type: string
+          description: Location ID
+        accountId:
+          type: string
+          description: Account ID
+        keyword:
+          type: string
+          description: Keyword used for rank analysis
+        businessName:
+          type: string
+          description: Exact name of the business in Google Maps
+        businessStreet:
+          type: string
+          description: Street address of the business
+        businessCity:
+          type: string
+          description: City of the business
+        businessState:
+          type: string
+          description: State of the business
+        businessCountry:
+          type: string
+          description: Country of the business
+        gridSize:
+          type: integer
+          enum:
+          - 3
+          - 5
+          - 7
+          description: Size of the grid used for analysis
+        gridDistance:
+          type: number
+          description: Grid distance value
+        gridDistanceUnit:
+          type: string
+          enum:
+          - mi
+          - km
+          description: Unit of grid distance measurement
+        gridDistanceInKm:
+          type: number
+          format: float
+          description: Grid distance converted to kilometers
+        ranks:
+          type: array
+          items:
+            $ref: '#/components/schemas/RankPoint'
+          description: Array of ranking results for each coordinate
+        averageRank:
+          type: number
+          format: float
+          description: Average rank across all grid points
+        topOneShare:
+          type: number
+          format: float
+          description: Percentage of coordinates with rank <= 3
+        topTwoShare:
+          type: number
+          format: float
+          description: Percentage of coordinates with rank <= 10
+        status:
+          type: string
+          enum:
+          - PROCESSING
+          - COMPLETED
+          description: Current status of the report
+        latitude:
+          type: number
+          format: float
+          description: Business latitude coordinate
+        longitude:
+          type: number
+          format: float
+          description: Business longitude coordinate
+        placeId:
+          type:
+          - string
+          - 'null'
+          description: Google Place ID of the business
+        createdAt:
+          type: string
+          description: Epoch timestamp in milliseconds
+      x-apidog-orders:
+      - id
+      - locationId
+      - accountId
+      - keyword
+      - businessName
+      - businessStreet
+      - businessCity
+      - businessState
+      - businessCountry
+      - gridSize
+      - gridDistance
+      - gridDistanceUnit
+      - gridDistanceInKm
+      - ranks
+      - averageRank
+      - topOneShare
+      - topTwoShare
+      - status
+      - latitude
+      - longitude
+      - placeId
+      - createdAt
       x-apidog-folder: ''
     AllGridReportsResponse:
       type: object

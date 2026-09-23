@@ -1,0 +1,32 @@
+# Front Door AI Index — synup — 2026-09-17
+# AI vocabulary counted on the provider's root page. Generated; do not edit.
+# `score` is null unless ownership is `own` — see front_door_ai.py.
+front_door_ai:
+  slug: synup
+  lexicon_version: '1.0'
+  probed_at: '2026-09-17'
+  host: www.synup.com
+  final_host: synup.com
+  ownership: own
+  owner: synup
+  shares_host_with: null
+  inherited_from: null
+  verdict: scored
+  score: 39
+  host_score: 39
+  density: 24.15
+  words: 1615
+  tiers:
+    agentic: 12
+    core: 22
+    model: 5
+  ambiguous: 19
+  top_terms:
+    AI: 20
+    agent: 19
+    MCP: 7
+    ChatGPT: 4
+    AI agent: 3
+    LLMs: 2
+    inference: 2
+    Gemini: 1

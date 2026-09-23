@@ -2,10 +2,7 @@ openapi: 3.2.0
 info:
   title: Synup Menus API
   version: '4'
-  description: 'REST API v4 for the Synup local marketing platform: business locations, listing syndication to 80+ directories, review/interaction aggregation and response, review campaigns, local rank tracking and grid-rank heatmaps, local and social posts, AI post ideas, menus, connected accounts, users and profile analytics.
-
-
-    ASSEMBLED BY API EVANGELIST from the per-endpoint OpenAPI documents Synup publishes on its own documentation host (developer.synup.com, Apidog project 797384). Every operation, parameter, response, example and schema below is verbatim provider content; only the merge into a single document is ours. Source index: https://developer.synup.com/llms.txt'
+  description: 'REST API v4 for the Synup local marketing platform: business locations, listing syndication to 80+ directories, review/interaction aggregation and response, review campaigns, local rank tracking and grid-rank heatmaps, local and social posts, AI post ideas, menus, connected accounts, users and profile analytics.'
   contact:
     name: Synup Developer Documentation
     url: https://developer.synup.com/
@@ -97,6 +94,8 @@ paths:
       x-apidog-folder: Menus
       x-apidog-status: released
       x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-33169805-run
+      operationId: postMenusByMenuIdItems
+      x-operation-id-source: derived
   /menus/{menuId}/assign-location:
     post:
       summary: Assign a menu to a location
@@ -161,6 +160,8 @@ paths:
       x-apidog-folder: Menus
       x-apidog-status: released
       x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-33169811-run
+      operationId: postMenusByMenuIdAssignLocation
+      x-operation-id-source: derived
   /menus:
     post:
       summary: Create a menu
@@ -259,6 +260,8 @@ paths:
       x-apidog-folder: Menus
       x-apidog-status: released
       x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-33169800-run
+      operationId: postMenus
+      x-operation-id-source: derived
   /locations/{locationId}/menus:
     get:
       summary: Fetch menus for a location
@@ -302,6 +305,8 @@ paths:
       x-apidog-folder: Menus
       x-apidog-status: released
       x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-33169802-run
+      operationId: getLocationsByLocationIdMenus
+      x-operation-id-source: derived
   /menus/{menuId}/currency:
     put:
       summary: Update menu currency
@@ -363,3 +368,5 @@ paths:
       x-apidog-folder: Menus
       x-apidog-status: released
       x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-33169808-run
+      operationId: putMenusByMenuIdCurrency
+      x-operation-id-source: derived

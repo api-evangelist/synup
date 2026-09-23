@@ -2,10 +2,7 @@ openapi: 3.2.0
 info:
   title: Synup Social API
   version: '4'
-  description: 'REST API v4 for the Synup local marketing platform: business locations, listing syndication to 80+ directories, review/interaction aggregation and response, review campaigns, local rank tracking and grid-rank heatmaps, local and social posts, AI post ideas, menus, connected accounts, users and profile analytics.
-
-
-    ASSEMBLED BY API EVANGELIST from the per-endpoint OpenAPI documents Synup publishes on its own documentation host (developer.synup.com, Apidog project 797384). Every operation, parameter, response, example and schema below is verbatim provider content; only the merge into a single document is ours. Source index: https://developer.synup.com/llms.txt'
+  description: 'REST API v4 for the Synup local marketing platform: business locations, listing syndication to 80+ directories, review/interaction aggregation and response, review campaigns, local rank tracking and grid-rank heatmaps, local and social posts, AI post ideas, menus, connected accounts, users and profile analytics.'
   contact:
     name: Synup Developer Documentation
     url: https://developer.synup.com/
@@ -79,6 +76,8 @@ paths:
       x-apidog-folder: Social
       x-apidog-status: released
       x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-33169859-run
+      operationId: putSocialBrandsByBrandId
+      x-operation-id-source: derived
   /api/v4/social/brands/{brandId1},{brandId2},{brandId3}:
     put:
       summary: Assign multiple brands
@@ -154,6 +153,8 @@ paths:
       x-apidog-folder: Social
       x-apidog-status: released
       x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-33169860-run
+      operationId: putApiV4SocialBrandsByBrandId1},{brandId2},{brandId3
+      x-operation-id-source: derived
   /social/brands:
     post:
       summary: Create a brand
@@ -232,3 +233,5 @@ paths:
       x-apidog-folder: Social
       x-apidog-status: released
       x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-33169855-run
+      operationId: postSocialBrands
+      x-operation-id-source: derived

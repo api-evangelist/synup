@@ -2,10 +2,7 @@ openapi: 3.2.0
 info:
   title: Synup Social Post Ideas API
   version: '4'
-  description: 'REST API v4 for the Synup local marketing platform: business locations, listing syndication to 80+ directories, review/interaction aggregation and response, review campaigns, local rank tracking and grid-rank heatmaps, local and social posts, AI post ideas, menus, connected accounts, users and profile analytics.
-
-
-    ASSEMBLED BY API EVANGELIST from the per-endpoint OpenAPI documents Synup publishes on its own documentation host (developer.synup.com, Apidog project 797384). Every operation, parameter, response, example and schema below is verbatim provider content; only the merge into a single document is ours. Source index: https://developer.synup.com/llms.txt'
+  description: 'REST API v4 for the Synup local marketing platform: business locations, listing syndication to 80+ directories, review/interaction aggregation and response, review campaigns, local rank tracking and grid-rank heatmaps, local and social posts, AI post ideas, menus, connected accounts, users and profile analytics.'
   contact:
     name: Synup Developer Documentation
     url: https://developer.synup.com/
@@ -22,11 +19,7 @@ paths:
     get:
       summary: Active chat session
       deprecated: false
-      description: '<span style="font-size: 14px;">
-
-        Returns the currently active AI post-idea chat session for a brand (social profile), if one exists. Set `excludeSeries` to skip sessions that belong to a content series.
-
-        </span>'
+      description: Returns the currently active AI post-idea chat session for a brand (social profile), if one exists. Set `excludeSeries` to skip sessions that belong to a content series.
       operationId: activeChatSession
       tags:
       - Social Post Ideas
@@ -99,11 +92,7 @@ paths:
     get:
       summary: Analyze reference image
       deprecated: false
-      description: '<span style="font-size: 14px;">
-
-        Analyzes a reference image at the given URL and returns a textual description that can be used to ground social post-idea generation. Optionally pass a `category` hint to focus the analysis.
-
-        </span>'
+      description: Analyzes a reference image at the given URL and returns a textual description that can be used to ground social post-idea generation. Optionally pass a `category` hint to focus the analysis.
       operationId: analyzeReferenceImage
       tags:
       - Social Post Ideas
@@ -176,11 +165,7 @@ paths:
     post:
       summary: Archive idea
       deprecated: false
-      description: '<span style="font-size: 14px;">
-
-        Archives a social post idea so it no longer appears in active idea listings.
-
-        </span>'
+      description: Archives a social post idea so it no longer appears in active idea listings.
       operationId: archiveIdea
       tags:
       - Social Post Ideas
@@ -246,11 +231,7 @@ paths:
     post:
       summary: Archive series
       deprecated: false
-      description: '<span style="font-size: 14px;">
-
-        Archives a content series so it no longer appears in active series listings.
-
-        </span>'
+      description: Archives a content series so it no longer appears in active series listings.
       operationId: archiveSeries
       tags:
       - Social Post Ideas
@@ -316,11 +297,7 @@ paths:
     post:
       summary: Branch chat session
       deprecated: false
-      description: '<span style="font-size: 14px;">
-
-        Creates a new chat session branched from an existing one (`parentSessionId`), anchored to a subject (`subjectType` required, `subjectId` optional). Use this to explore an alternative direction without losing the original conversation.
-
-        </span>'
+      description: Creates a new chat session branched from an existing one (`parentSessionId`), anchored to a subject (`subjectType` required, `subjectId` optional). Use this to explore an alternative direction without losing the original conversation.
       operationId: branchChatSession
       tags:
       - Social Post Ideas
@@ -387,11 +364,7 @@ paths:
     get:
       summary: Brand info
       deprecated: false
-      description: '<span style="font-size: 14px;">
-
-        Returns the basic brand profile for a social profile — name, site URL, categories, and country — used to ground social post-idea generation.
-
-        </span>'
+      description: Returns the basic brand profile for a social profile — name, site URL, categories, and country — used to ground social post-idea generation.
       operationId: brandInfo
       tags:
       - Social Post Ideas
@@ -457,11 +430,7 @@ paths:
     get:
       summary: Calendar
       deprecated: false
-      description: '<span style="font-size: 14px;">
-
-        Returns the content calendar for a brand (social profile) — each day with its scheduled/suggested post ideas.
-
-        </span>'
+      description: Returns the content calendar for a brand (social profile) — each day with its scheduled/suggested post ideas.
       operationId: calendar
       tags:
       - Social Post Ideas
@@ -529,11 +498,7 @@ paths:
     get:
       summary: Chat history
       deprecated: false
-      description: '<span style="font-size: 14px;">
-
-        Returns the messages for a given AI post-idea chat session, in sequence. Use `limit` to cap the number of messages returned.
-
-        </span>'
+      description: Returns the messages for a given AI post-idea chat session, in sequence. Use `limit` to cap the number of messages returned.
       operationId: chatHistory
       tags:
       - Social Post Ideas
@@ -608,11 +573,7 @@ paths:
     get:
       summary: Chat sessions
       deprecated: false
-      description: '<span style="font-size: 14px;">
-
-        Returns the AI post-idea chat sessions for a brand (social profile), most recent first. Use `limit` to cap the number of sessions returned.
-
-        </span>'
+      description: Returns the AI post-idea chat sessions for a brand (social profile), most recent first. Use `limit` to cap the number of sessions returned.
       operationId: chatSessions
       tags:
       - Social Post Ideas
@@ -687,11 +648,7 @@ paths:
     post:
       summary: Close chat session
       deprecated: false
-      description: '<span style="font-size: 14px;">
-
-        Closes an active AI post-idea chat session. Once closed, the session is no longer returned as the active session for the brand.
-
-        </span>'
+      description: Closes an active AI post-idea chat session. Once closed, the session is no longer returned as the active session for the brand.
       operationId: closeChatSession
       tags:
       - Social Post Ideas
@@ -757,11 +714,7 @@ paths:
     get:
       summary: Content series detail
       deprecated: false
-      description: '<span style="font-size: 14px;">
-
-        Returns a single content series by ID, including its posts, theme, status, and post counts.
-
-        </span>'
+      description: Returns a single content series by ID, including its posts, theme, status, and post counts.
       operationId: contentSeriesDetail
       tags:
       - Social Post Ideas
@@ -827,11 +780,7 @@ paths:
     get:
       summary: Content series list
       deprecated: false
-      description: '<span style="font-size: 14px;">
-
-        Returns the content series for a brand (social profile) — multi-post campaigns with a shared theme, including post counts and status.
-
-        </span>'
+      description: Returns the content series for a brand (social profile) — multi-post campaigns with a shared theme, including post counts and status.
       operationId: contentSeriesList
       tags:
       - Social Post Ideas
@@ -899,11 +848,7 @@ paths:
     post:
       summary: Create content series
       deprecated: false
-      description: '<span style="font-size: 14px;">
-
-        Creates a new content series for a brand (social profile) with a name and optional theme, optionally seeded from existing post ideas (`postIdeaIds`). Returns the chat session that drives the series.
-
-        </span>'
+      description: Creates a new content series for a brand (social profile) with a name and optional theme, optionally seeded from existing post ideas (`postIdeaIds`). Returns the chat session that drives the series.
       operationId: createContentSeries
       tags:
       - Social Post Ideas
@@ -971,11 +916,7 @@ paths:
     get:
       summary: Extended brand config
       deprecated: false
-      description: '<span style="font-size: 14px;">
-
-        Returns the extended generation config for a social profile — brand tone, target customers, contact/address, brand colors and logos, and the services/products/content-rules used to ground social post-idea generation.
-
-        </span>'
+      description: Returns the extended generation config for a social profile — brand tone, target customers, contact/address, brand colors and logos, and the services/products/content-rules used to ground social post-idea generation.
       operationId: extendedBrandConfig
       tags:
       - Social Post Ideas
@@ -1041,11 +982,7 @@ paths:
     post:
       summary: Generate all series posts
       deprecated: false
-      description: '<span style="font-size: 14px;">
-
-        Generates all remaining posts for a content series in one call. Returns the number of posts generated.
-
-        </span>'
+      description: Generates all remaining posts for a content series in one call. Returns the number of posts generated.
       operationId: generateAllSeriesPosts
       tags:
       - Social Post Ideas
@@ -1112,11 +1049,7 @@ paths:
     post:
       summary: Generate calendar day
       deprecated: false
-      description: '<span style="font-size: 14px;">
-
-        Generates (or regenerates) the post idea for a specific calendar-day slot, identified by its idea ID.
-
-        </span>'
+      description: Generates (or regenerates) the post idea for a specific calendar-day slot, identified by its idea ID.
       operationId: generateCalendarDay
       tags:
       - Social Post Ideas
@@ -1182,11 +1115,7 @@ paths:
     post:
       summary: Generate holiday idea variant
       deprecated: false
-      description: '<span style="font-size: 14px;">
-
-        Generates a new post-idea variant for a given observance/holiday for a brand. Optionally steer with an `observanceDate` and `topic`.
-
-        </span>'
+      description: Generates a new post-idea variant for a given observance/holiday for a brand. Optionally steer with an `observanceDate` and `topic`.
       operationId: generateHolidayIdeaVariant
       tags:
       - Social Post Ideas
@@ -1253,11 +1182,7 @@ paths:
     post:
       summary: Generate idea visual
       deprecated: false
-      description: '<span style="font-size: 14px;">
-
-        Generates an on-demand visual (image) for a social post idea from a prompt, optionally grounded by up to two `referenceImageUrls` and a target `imageSize`.
-
-        </span>'
+      description: Generates an on-demand visual (image) for a social post idea from a prompt, optionally grounded by up to two `referenceImageUrls` and a target `imageSize`.
       operationId: generateIdeaVisual
       tags:
       - Social Post Ideas
@@ -1324,11 +1249,7 @@ paths:
     post:
       summary: Generate observance idea
       deprecated: false
-      description: '<span style="font-size: 14px;">
-
-        Generates a post idea for a given observance/holiday for a brand. Optionally steer with an `observanceDate` and a `hint`.
-
-        </span>'
+      description: Generates a post idea for a given observance/holiday for a brand. Optionally steer with an `observanceDate` and a `hint`.
       operationId: generateObservanceIdea
       tags:
       - Social Post Ideas
@@ -1395,11 +1316,7 @@ paths:
     post:
       summary: Generate series post
       deprecated: false
-      description: '<span style="font-size: 14px;">
-
-        Generates a single post for a content series at the given slot index.
-
-        </span>'
+      description: Generates a single post for a content series at the given slot index.
       operationId: generateSeriesPost
       tags:
       - Social Post Ideas
@@ -1467,11 +1384,7 @@ paths:
     get:
       summary: Holiday idea variants
       deprecated: false
-      description: '<span style="font-size: 14px;">
-
-        Returns the generated post-idea variants for a given observance/holiday for a brand. Each item is a post idea (see Post idea for the full shape).
-
-        </span>'
+      description: Returns the generated post-idea variants for a given observance/holiday for a brand. Each item is a post idea (see Post idea for the full shape).
       operationId: holidayIdeaVariants
       tags:
       - Social Post Ideas
@@ -1545,11 +1458,7 @@ paths:
     get:
       summary: Idea job status
       deprecated: false
-      description: '<span style="font-size: 14px;">
-
-        Returns the async job status for a social post idea (used to poll image generation) — the current status and, when ready, the generated image URL.
-
-        </span>'
+      description: Returns the async job status for a social post idea (used to poll image generation) — the current status and, when ready, the generated image URL.
       operationId: ideaJobStatus
       tags:
       - Social Post Ideas
@@ -1615,11 +1524,7 @@ paths:
     get:
       summary: Image credits
       deprecated: false
-      description: '<span style="font-size: 14px;">
-
-        Returns the image-generation credit status for a brand (social profile) — monthly limit, used/remaining this month, and any add-on credit pool.
-
-        </span>'
+      description: Returns the image-generation credit status for a brand (social profile) — monthly limit, used/remaining this month, and any add-on credit pool.
       operationId: imageCredits
       tags:
       - Social Post Ideas
@@ -1685,11 +1590,7 @@ paths:
     post:
       summary: Link post idea to social post
       deprecated: false
-      description: '<span style="font-size: 14px;">
-
-        Links a generated post idea to a published social post, so the idea is marked as used and tracked against the social post.
-
-        </span>'
+      description: Links a generated post idea to a published social post, so the idea is marked as used and tracked against the social post.
       operationId: linkPostIdeaToSocialPost
       tags:
       - Social Post Ideas
@@ -1756,11 +1657,7 @@ paths:
     get:
       summary: Observances
       deprecated: false
-      description: '<span style="font-size: 14px;">
-
-        Returns the observances (holidays, awareness days, etc.) for a given month, optionally scoped to a social profile and narrowed to a specific day. Each item includes whether ideas are ready and any generated post idea preview.
-
-        </span>'
+      description: Returns the observances (holidays, awareness days, etc.) for a given month, optionally scoped to a social profile and narrowed to a specific day. Each item includes whether ideas are ready and any generated post idea preview.
       operationId: observances
       tags:
       - Social Post Ideas
@@ -1842,11 +1739,7 @@ paths:
     get:
       summary: Observances with ideas
       deprecated: false
-      description: '<span style="font-size: 14px;">
-
-        Returns the observances for a month for a brand, each joined with its generated post idea (if any) — including whether ideas are ready and the idea''s title/content/image.
-
-        </span>'
+      description: Returns the observances for a month for a brand, each joined with its generated post idea (if any) — including whether ideas are ready and the idea's title/content/image.
       operationId: observancesWithIdeas
       tags:
       - Social Post Ideas
@@ -1921,11 +1814,7 @@ paths:
     get:
       summary: Pipeline status
       deprecated: false
-      description: '<span style="font-size: 14px;">
-
-        Returns the status of the post-idea generation pipeline for a brand (social profile) — current step, steps completed/remaining, and any error.
-
-        </span>'
+      description: Returns the status of the post-idea generation pipeline for a brand (social profile) — current step, steps completed/remaining, and any error.
       operationId: pipelineStatus
       tags:
       - Social Post Ideas
@@ -1991,11 +1880,7 @@ paths:
     get:
       summary: Post idea
       deprecated: false
-      description: '<span style="font-size: 14px;">
-
-        Returns a single AI social post idea by its ID, including its content, image, scheduling, call-to-action, and generation metadata.
-
-        </span>'
+      description: Returns a single AI social post idea by its ID, including its content, image, scheduling, call-to-action, and generation metadata.
       operationId: postIdea
       tags:
       - Social Post Ideas
@@ -2061,11 +1946,7 @@ paths:
     get:
       summary: Post idea counts
       deprecated: false
-      description: '<span style="font-size: 14px;">
-
-        Returns social post-idea counts for a brand, broken down by bucket: AI- generated (`ai`), user-created (`mine`), series (`series`), and the total (`all`).
-
-        </span>'
+      description: 'Returns social post-idea counts for a brand, broken down by bucket: AI- generated (`ai`), user-created (`mine`), series (`series`), and the total (`all`).'
       operationId: postIdeaCounts
       tags:
       - Social Post Ideas
@@ -2131,11 +2012,7 @@ paths:
     get:
       summary: Post ideas
       deprecated: false
-      description: '<span style="font-size: 14px;">
-
-        Returns the AI social post ideas for a brand (social profile). Filter by `bucket` (e.g. idea, calendar, series) and `filter` (e.g. ai vs mine), and page with `limit`/`offset`.
-
-        </span>'
+      description: Returns the AI social post ideas for a brand (social profile). Filter by `bucket` (e.g. idea, calendar, series) and `filter` (e.g. ai vs mine), and page with `limit`/`offset`.
       operationId: postIdeas
       tags:
       - Social Post Ideas
@@ -2231,11 +2108,7 @@ paths:
     get:
       summary: Reference images
       deprecated: false
-      description: '<span style="font-size: 14px;">
-
-        Returns the available reference image options for a brand (social profile) — images that can be used to ground social post-idea image generation.
-
-        </span>'
+      description: Returns the available reference image options for a brand (social profile) — images that can be used to ground social post-idea image generation.
       operationId: referenceImages
       tags:
       - Social Post Ideas
@@ -2303,11 +2176,7 @@ paths:
     post:
       summary: Refresh ideas
       deprecated: false
-      description: '<span style="font-size: 14px;">
-
-        Regenerates the set of AI social post ideas for a brand. Returns a pipeline ID; supply brand context (profile name, site URL, categories, hashtags, intent, content language) to steer generation.
-
-        </span>'
+      description: Regenerates the set of AI social post ideas for a brand. Returns a pipeline ID; supply brand context (profile name, site URL, categories, hashtags, intent, content language) to steer generation.
       operationId: refreshIdeas
       tags:
       - Social Post Ideas
@@ -2374,11 +2243,7 @@ paths:
     post:
       summary: Regenerate idea
       deprecated: false
-      description: '<span style="font-size: 14px;">
-
-        Regenerates an entire social post idea — both content and image. Optionally steer with a `topic` and a `referenceImageUrl`.
-
-        </span>'
+      description: Regenerates an entire social post idea — both content and image. Optionally steer with a `topic` and a `referenceImageUrl`.
       operationId: regenerateIdea
       tags:
       - Social Post Ideas
@@ -2445,11 +2310,7 @@ paths:
     post:
       summary: Regenerate idea content
       deprecated: false
-      description: '<span style="font-size: 14px;">
-
-        Regenerates the text content (title/copy) of an existing social post idea, keeping its image. Optionally steer with a `topic`.
-
-        </span>'
+      description: Regenerates the text content (title/copy) of an existing social post idea, keeping its image. Optionally steer with a `topic`.
       operationId: regenerateIdeaContent
       tags:
       - Social Post Ideas
@@ -2516,11 +2377,7 @@ paths:
     post:
       summary: Regenerate idea image
       deprecated: false
-      description: '<span style="font-size: 14px;">
-
-        Regenerates the image of an existing social post idea, keeping its text content. Optionally provide a `referenceImageUrl` to ground the new image. Image generation is asynchronous — poll the idea job status for the new image URL.
-
-        </span>'
+      description: Regenerates the image of an existing social post idea, keeping its text content. Optionally provide a `referenceImageUrl` to ground the new image. Image generation is asynchronous — poll the idea job status for the new image URL.
       operationId: regenerateIdeaImage
       tags:
       - Social Post Ideas
@@ -2586,11 +2443,7 @@ paths:
     post:
       summary: Schedule series
       deprecated: false
-      description: '<span style="font-size: 14px;">
-
-        Schedules a content series'' posts starting from a given date. Returns the scheduled posts.
-
-        </span>'
+      description: Schedules a content series' posts starting from a given date. Returns the scheduled posts.
       operationId: scheduleSeries
       tags:
       - Social Post Ideas
@@ -2657,11 +2510,7 @@ paths:
     post:
       summary: Scrape brand
       deprecated: false
-      description: '<span style="font-size: 14px;">
-
-        Triggers a scrape of the brand''s website to refresh the context used for social post-idea generation. Provide the `siteUrl` to scrape; `trigger` optionally records what initiated the scrape.
-
-        </span>'
+      description: Triggers a scrape of the brand's website to refresh the context used for social post-idea generation. Provide the `siteUrl` to scrape; `trigger` optionally records what initiated the scrape.
       operationId: scrapeBrand
       tags:
       - Social Post Ideas
@@ -2728,11 +2577,7 @@ paths:
     get:
       summary: Scraped brand context
       deprecated: false
-      description: '<span style="font-size: 14px;">
-
-        Returns the context scraped from the brand''s website that grounds social post-idea generation — business name/description, services, products, pricing, brand colors/logo, tone, and target customers.
-
-        </span>'
+      description: Returns the context scraped from the brand's website that grounds social post-idea generation — business name/description, services, products, pricing, brand colors/logo, tone, and target customers.
       operationId: scrapedBrandContext
       tags:
       - Social Post Ideas
@@ -2798,11 +2643,7 @@ paths:
     post:
       summary: Send chat message
       deprecated: false
-      description: '<span style="font-size: 14px;">
-
-        Sends a message to an AI post-idea chat session and returns the assistant''s reply. The response may include a generated post idea card (`postCard`), follow-up action chips, and a series plan when relevant. Optionally attach `referenceImageUrls` for image-grounded generation.
-
-        </span>'
+      description: Sends a message to an AI post-idea chat session and returns the assistant's reply. The response may include a generated post idea card (`postCard`), follow-up action chips, and a series plan when relevant. Optionally attach `referenceImageUrls` for image-grounded generation.
       operationId: sendChatMessage
       tags:
       - Social Post Ideas
@@ -2869,11 +2710,7 @@ paths:
     get:
       summary: Series posts
       deprecated: false
-      description: '<span style="font-size: 14px;">
-
-        Returns the posts belonging to a content series. Each item is a post idea (see Post idea for the full shape).
-
-        </span>'
+      description: Returns the posts belonging to a content series. Each item is a post idea (see Post idea for the full shape).
       operationId: seriesPosts
       tags:
       - Social Post Ideas
@@ -2947,11 +2784,7 @@ paths:
     post:
       summary: Set brand image credits
       deprecated: false
-      description: '<span style="font-size: 14px;">
-
-        Sets the monthly image-generation credit limit for a brand (social profile) and whether image-credit metering is active.
-
-        </span>'
+      description: Sets the monthly image-generation credit limit for a brand (social profile) and whether image-credit metering is active.
       operationId: setBrandImageCredits
       tags:
       - Social Post Ideas
@@ -3019,11 +2852,7 @@ paths:
     post:
       summary: Start chat session
       deprecated: false
-      description: '<span style="font-size: 14px;">
-
-        Starts a new AI post-idea chat session for a brand (social profile). Optionally seed with an `intent`, a `mode`, and a subject (`subjectType`/`subjectId`) to anchor the conversation.
-
-        </span>'
+      description: Starts a new AI post-idea chat session for a brand (social profile). Optionally seed with an `intent`, a `mode`, and a subject (`subjectType`/`subjectId`) to anchor the conversation.
       operationId: startChatSession
       tags:
       - Social Post Ideas
@@ -3091,11 +2920,7 @@ paths:
     post:
       summary: Suggest posts for date
       deprecated: false
-      description: '<span style="font-size: 14px;">
-
-        Generates suggested social post ideas for a brand on a specific date. Returns the generated ideas and a pipeline ID.
-
-        </span>'
+      description: Generates suggested social post ideas for a brand on a specific date. Returns the generated ideas and a pipeline ID.
       operationId: suggestPostsForDate
       tags:
       - Social Post Ideas
@@ -3162,11 +2987,7 @@ paths:
     post:
       summary: Switch chat mode
       deprecated: false
-      description: '<span style="font-size: 14px;">
-
-        Switches the generation mode of an existing AI post-idea chat session.
-
-        </span>'
+      description: Switches the generation mode of an existing AI post-idea chat session.
       operationId: switchChatMode
       tags:
       - Social Post Ideas
@@ -3233,11 +3054,7 @@ paths:
     post:
       summary: Trigger pipeline
       deprecated: false
-      description: '<span style="font-size: 14px;">
-
-        Triggers the full social post-idea generation pipeline for a brand. Returns a pipeline ID; supply brand context (profile name, site URL, categories, hashtags, intent, content language) to steer generation.
-
-        </span>'
+      description: Triggers the full social post-idea generation pipeline for a brand. Returns a pipeline ID; supply brand context (profile name, site URL, categories, hashtags, intent, content language) to steer generation.
       operationId: triggerPipeline
       tags:
       - Social Post Ideas
@@ -3304,11 +3121,7 @@ paths:
     post:
       summary: Update extended brand config
       deprecated: false
-      description: '<span style="font-size: 14px;">
-
-        Creates or updates the extended generation config for a social profile — brand tone, target customers, contact/address, brand colors and logos, and the services/products/content-rules that ground social post-idea generation. Only the fields you send are changed. `services`, `products`, and `contentRules` are JSON values.
-
-        </span>'
+      description: Creates or updates the extended generation config for a social profile — brand tone, target customers, contact/address, brand colors and logos, and the services/products/content-rules that ground social post-idea generation. Only the fields you send are changed. `services`, `products`, and `contentRules` are JSON values.
       operationId: updateExtendedBrandConfig
       tags:
       - Social Post Ideas
@@ -3376,11 +3189,7 @@ paths:
     post:
       summary: Update idea
       deprecated: false
-      description: '<span style="font-size: 14px;">
-
-        Updates an existing social post idea''s editable fields — title, content, status, call-to-action, scheduling, bucket, note, and target platforms. Only the fields you send are changed.
-
-        </span>'
+      description: Updates an existing social post idea's editable fields — title, content, status, call-to-action, scheduling, bucket, note, and target platforms. Only the fields you send are changed.
       operationId: updateIdea
       tags:
       - Social Post Ideas
@@ -3446,84 +3255,266 @@ paths:
       x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40140804-run
 components:
   schemas:
-    RegenerateIdeaContentRequest:
+    ReferenceImageAnalysis:
+      type: object
+      properties:
+        description:
+          type: string
+          description: Textual description of the analyzed image.
+      x-apidog-orders:
+      - description
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    IdeaJobStatus:
+      type: object
+      properties:
+        status:
+          type: string
+        imageUrl:
+          type: string
+      x-apidog-orders:
+      - status
+      - imageUrl
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    GenerateIdeaVisualRequest:
       type: object
       required:
       - ideaId
       properties:
         ideaId:
           type: string
-        topic:
+        prompt:
+          type: string
+        referenceImageUrls:
+          type: array
+          items:
+            type: string
+        imageSize:
           type: string
       x-apidog-orders:
       - ideaId
-      - topic
+      - prompt
+      - referenceImageUrls
+      - imageSize
       x-apidog-ignore-properties: []
       x-apidog-folder: ''
-    ReferenceImageOption:
+    ActionChip:
       type: object
       properties:
-        url:
+        label:
           type: string
-        category:
+        emoji:
+          type: string
+        action:
           type: string
       x-apidog-orders:
-      - url
-      - category
+      - label
+      - emoji
+      - action
+      x-apidog-folder: ''
+    ChatSessionResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        session:
+          $ref: '#/components/schemas/ChatSession'
+        suggestions:
+          type: array
+          items:
+            type: string
+        error:
+          $ref: '#/components/schemas/Error'
+      x-apidog-orders:
+      - success
+      - session
+      - suggestions
+      - error
       x-apidog-ignore-properties: []
       x-apidog-folder: ''
-    Observance:
+    ScrapeBrandRequest:
+      type: object
+      required:
+      - socialProfileId
+      - siteUrl
+      properties:
+        socialProfileId:
+          type: string
+        siteUrl:
+          type: string
+        trigger:
+          type: string
+      x-apidog-orders:
+      - socialProfileId
+      - siteUrl
+      - trigger
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    TriggerPipelineRequest:
+      type: object
+      required:
+      - socialProfileId
+      - profileName
+      properties:
+        socialProfileId:
+          type: string
+        profileName:
+          type: string
+        siteUrl:
+          type: string
+        categories:
+          type: array
+          items:
+            type: string
+        brandHashtags:
+          type: array
+          items:
+            type: string
+        businessIntent:
+          type: string
+        contentPreferredLanguage:
+          type: string
+      x-apidog-orders:
+      - socialProfileId
+      - profileName
+      - siteUrl
+      - categories
+      - brandHashtags
+      - businessIntent
+      - contentPreferredLanguage
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    ChatSession:
       type: object
       properties:
         id:
+          type: string
+        socialProfileId:
+          type: string
+        mode:
+          type: string
+        status:
+          type: string
+        messageCount:
           type: integer
         title:
           type: string
-        description:
-          type: string
-        date:
-          type: string
-        imageUrl:
-          type: string
-        isMonthLong:
-          type: boolean
-        isRelevant:
-          type: boolean
-        ideasReady:
-          type: boolean
-        postIdeaId:
-          type: string
-        postImageUrl:
-          type: string
-        postTitle:
-          type: string
-        postType:
-          type: string
-        postContent:
-          type: string
-        postImagePrompt:
+        createdAt:
           type: string
       x-apidog-orders:
       - id
+      - socialProfileId
+      - mode
+      - status
+      - messageCount
       - title
-      - description
-      - date
-      - imageUrl
-      - isMonthLong
-      - isRelevant
-      - ideasReady
-      - postIdeaId
-      - postImageUrl
-      - postTitle
-      - postType
-      - postContent
-      - postImagePrompt
+      - createdAt
+      x-apidog-ignore-properties: []
       x-apidog-folder: ''
-    ExtendedBrandConfig:
+    RefreshIdeasRequest:
+      type: object
+      required:
+      - socialProfileId
+      - profileName
+      properties:
+        socialProfileId:
+          type: string
+        profileName:
+          type: string
+        siteUrl:
+          type: string
+        categories:
+          type: array
+          items:
+            type: string
+        brandHashtags:
+          type: array
+          items:
+            type: string
+        businessIntent:
+          type: string
+        contentPreferredLanguage:
+          type: string
+      x-apidog-orders:
+      - socialProfileId
+      - profileName
+      - siteUrl
+      - categories
+      - brandHashtags
+      - businessIntent
+      - contentPreferredLanguage
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    PostIdeaCounts:
       type: object
       properties:
-        id:
+        ai:
+          type: integer
+        mine:
+          type: integer
+        series:
+          type: integer
+        all:
+          type: integer
+      x-apidog-orders:
+      - ai
+      - mine
+      - series
+      - all
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    CloseChatSessionRequest:
+      type: object
+      required:
+      - sessionId
+      properties:
+        sessionId:
           type: string
+      x-apidog-orders:
+      - sessionId
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    GenerateAllSeriesPostsRequest:
+      type: object
+      required:
+      - seriesId
+      - socialProfileId
+      properties:
+        seriesId:
+          type: string
+        socialProfileId:
+          type: string
+      x-apidog-orders:
+      - seriesId
+      - socialProfileId
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    SendChatMessageRequest:
+      type: object
+      required:
+      - sessionId
+      - message
+      properties:
+        sessionId:
+          type: string
+        message:
+          type: string
+        referenceImageUrls:
+          type: array
+          items:
+            type: string
+      x-apidog-orders:
+      - sessionId
+      - message
+      - referenceImageUrls
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    UpdateExtendedBrandConfigRequest:
+      type: object
+      required:
+      - socialProfileId
+      properties:
         socialProfileId:
           type: string
         tone:
@@ -3548,32 +3539,25 @@ components:
           type: string
         services:
           type: object
-          description: Free-form JSON.
+          description: Free-form JSON describing services.
           x-apidog-orders: []
           properties: {}
           x-apidog-ignore-properties: []
         products:
           type: object
-          description: Free-form JSON.
+          description: Free-form JSON describing products.
           x-apidog-orders: []
           properties: {}
           x-apidog-ignore-properties: []
         contentRules:
           type: object
-          description: Free-form JSON.
+          description: Free-form JSON content rules.
           x-apidog-orders: []
           properties: {}
           x-apidog-ignore-properties: []
         additionalContext:
           type: string
-        insights:
-          type: object
-          description: Free-form JSON.
-          x-apidog-orders: []
-          properties: {}
-          x-apidog-ignore-properties: []
       x-apidog-orders:
-      - id
       - socialProfileId
       - tone
       - targetCustomers
@@ -3589,13 +3573,58 @@ components:
       - products
       - contentRules
       - additionalContext
-      - insights
       x-apidog-ignore-properties: []
       x-apidog-folder: ''
-    SetBrandImageCreditsRequest:
+    ContentSeries:
       type: object
-      required:
+      properties:
+        id:
+          type: string
+        socialProfileId:
+          type: string
+        name:
+          type: string
+        theme:
+          type: string
+        status:
+          type: string
+        postCount:
+          type: integer
+        publishedCount:
+          type: integer
+        unpublishedCount:
+          type: integer
+        posts:
+          type: array
+          description: Posts in the series (see Post idea for the full shape).
+          items:
+            type: object
+            x-apidog-orders: []
+            properties: {}
+            x-apidog-ignore-properties: []
+        chatSessionId:
+          type: string
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+      x-apidog-orders:
+      - id
       - socialProfileId
+      - name
+      - theme
+      - status
+      - postCount
+      - publishedCount
+      - unpublishedCount
+      - posts
+      - chatSessionId
+      - createdAt
+      - updatedAt
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    ImageCredits:
+      type: object
       properties:
         socialProfileId:
           type: string
@@ -3603,10 +3632,43 @@ components:
           type: integer
         isActive:
           type: boolean
+        usedThisMonth:
+          type: integer
+        remainingThisMonth:
+          type: integer
+        addonPurchased:
+          type: integer
+        addonConsumed:
+          type: integer
+        addonRemaining:
+          type: integer
       x-apidog-orders:
       - socialProfileId
       - monthlyLimit
       - isActive
+      - usedThisMonth
+      - remainingThisMonth
+      - addonPurchased
+      - addonConsumed
+      - addonRemaining
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    BranchChatSessionRequest:
+      type: object
+      required:
+      - parentSessionId
+      - subjectType
+      properties:
+        parentSessionId:
+          type: string
+        subjectType:
+          type: string
+        subjectId:
+          type: string
+      x-apidog-orders:
+      - parentSessionId
+      - subjectType
+      - subjectId
       x-apidog-ignore-properties: []
       x-apidog-folder: ''
     ScrapedBrandContext:
@@ -3714,35 +3776,413 @@ components:
       - visualContext
       x-apidog-ignore-properties: []
       x-apidog-folder: ''
-    CloseChatSessionRequest:
+    RegenerateResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        idea:
+          type: object
+          description: The updated post idea (see Post idea for the full shape).
+          x-apidog-orders: []
+          properties: {}
+          x-apidog-ignore-properties: []
+        error:
+          $ref: '#/components/schemas/Error'
+      x-apidog-orders:
+      - success
+      - idea
+      - error
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    SuggestPostsForDateRequest:
+      type: object
+      required:
+      - socialProfileId
+      - date
+      properties:
+        socialProfileId:
+          type: string
+        date:
+          type: string
+          description: Target date (YYYY-MM-DD).
+      x-apidog-orders:
+      - socialProfileId
+      - date
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    GenerateObservanceIdeaRequest:
+      type: object
+      required:
+      - socialProfileId
+      - observanceName
+      properties:
+        socialProfileId:
+          type: string
+        observanceName:
+          type: string
+        observanceDate:
+          type: string
+        hint:
+          type: string
+      x-apidog-orders:
+      - socialProfileId
+      - observanceName
+      - observanceDate
+      - hint
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    ReferenceImageOption:
+      type: object
+      properties:
+        url:
+          type: string
+        category:
+          type: string
+      x-apidog-orders:
+      - url
+      - category
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    PipelineStatus:
+      type: object
+      properties:
+        id:
+          type: string
+        socialProfileId:
+          type: string
+        pipelineType:
+          type: string
+        status:
+          type: string
+        currentStep:
+          type: string
+        stepsCompleted:
+          type: array
+          items:
+            type: string
+        stepsRemaining:
+          type: array
+          items:
+            type: string
+        errorMessage:
+          type: string
+        startedAt:
+          type: string
+        completedAt:
+          type: string
+      x-apidog-orders:
+      - id
+      - socialProfileId
+      - pipelineType
+      - status
+      - currentStep
+      - stepsCompleted
+      - stepsRemaining
+      - errorMessage
+      - startedAt
+      - completedAt
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    ExtendedBrandConfig:
+      type: object
+      properties:
+        id:
+          type: string
+        socialProfileId:
+          type: string
+        tone:
+          type: string
+        targetCustomers:
+          type: string
+        country:
+          type: string
+        phone:
+          type: string
+        address:
+          type: string
+        location:
+          type: string
+        primaryColor:
+          type: string
+        secondaryColor:
+          type: string
+        logoLight:
+          type: string
+        logoDark:
+          type: string
+        services:
+          type: object
+          description: Free-form JSON.
+          x-apidog-orders: []
+          properties: {}
+          x-apidog-ignore-properties: []
+        products:
+          type: object
+          description: Free-form JSON.
+          x-apidog-orders: []
+          properties: {}
+          x-apidog-ignore-properties: []
+        contentRules:
+          type: object
+          description: Free-form JSON.
+          x-apidog-orders: []
+          properties: {}
+          x-apidog-ignore-properties: []
+        additionalContext:
+          type: string
+        insights:
+          type: object
+          description: Free-form JSON.
+          x-apidog-orders: []
+          properties: {}
+          x-apidog-ignore-properties: []
+      x-apidog-orders:
+      - id
+      - socialProfileId
+      - tone
+      - targetCustomers
+      - country
+      - phone
+      - address
+      - location
+      - primaryColor
+      - secondaryColor
+      - logoLight
+      - logoDark
+      - services
+      - products
+      - contentRules
+      - additionalContext
+      - insights
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    ArchiveSeriesRequest:
+      type: object
+      required:
+      - seriesId
+      properties:
+        seriesId:
+          type: string
+      x-apidog-orders:
+      - seriesId
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    Observance:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        description:
+          type: string
+        date:
+          type: string
+        imageUrl:
+          type: string
+        isMonthLong:
+          type: boolean
+        isRelevant:
+          type: boolean
+        ideasReady:
+          type: boolean
+        postIdeaId:
+          type: string
+        postImageUrl:
+          type: string
+        postTitle:
+          type: string
+        postType:
+          type: string
+        postContent:
+          type: string
+        postImagePrompt:
+          type: string
+      x-apidog-orders:
+      - id
+      - title
+      - description
+      - date
+      - imageUrl
+      - isMonthLong
+      - isRelevant
+      - ideasReady
+      - postIdeaId
+      - postImageUrl
+      - postTitle
+      - postType
+      - postContent
+      - postImagePrompt
+      x-apidog-folder: ''
+    GenerateSeriesPostRequest:
+      type: object
+      required:
+      - seriesId
+      - slotIndex
+      - socialProfileId
+      properties:
+        seriesId:
+          type: string
+        slotIndex:
+          type: integer
+        socialProfileId:
+          type: string
+      x-apidog-orders:
+      - seriesId
+      - slotIndex
+      - socialProfileId
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    SwitchChatModeRequest:
       type: object
       required:
       - sessionId
+      - mode
       properties:
         sessionId:
+          type: string
+        mode:
           type: string
       x-apidog-orders:
       - sessionId
+      - mode
       x-apidog-ignore-properties: []
       x-apidog-folder: ''
-    SendChatMessageRequest:
+    GenerateAllSeriesPostsResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        generatedCount:
+          type: integer
+        error:
+          $ref: '#/components/schemas/Error'
+      x-apidog-orders:
+      - success
+      - generatedCount
+      - error
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    CreateContentSeriesRequest:
       type: object
       required:
-      - sessionId
-      - message
+      - socialProfileId
+      - name
       properties:
-        sessionId:
+        socialProfileId:
           type: string
-        message:
+        name:
           type: string
-        referenceImageUrls:
+        theme:
+          type: string
+        postIdeaIds:
           type: array
           items:
             type: string
       x-apidog-orders:
-      - sessionId
-      - message
-      - referenceImageUrls
+      - socialProfileId
+      - name
+      - theme
+      - postIdeaIds
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    SetBrandImageCreditsRequest:
+      type: object
+      required:
+      - socialProfileId
+      properties:
+        socialProfileId:
+          type: string
+        monthlyLimit:
+          type: integer
+        isActive:
+          type: boolean
+      x-apidog-orders:
+      - socialProfileId
+      - monthlyLimit
+      - isActive
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    LinkPostIdeaToSocialPostResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        error:
+          $ref: '#/components/schemas/Error'
+      x-apidog-orders:
+      - success
+      - error
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    RegenerateIdeaContentRequest:
+      type: object
+      required:
+      - ideaId
+      properties:
+        ideaId:
+          type: string
+        topic:
+          type: string
+      x-apidog-orders:
+      - ideaId
+      - topic
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    RegenerateIdeaImageRequest:
+      type: object
+      required:
+      - ideaId
+      properties:
+        ideaId:
+          type: string
+        referenceImageUrl:
+          type: string
+      x-apidog-orders:
+      - ideaId
+      - referenceImageUrl
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    MutationResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        error:
+          $ref: '#/components/schemas/Error'
+      x-apidog-orders:
+      - success
+      - error
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    GenerateCalendarDayRequest:
+      type: object
+      required:
+      - ideaId
+      properties:
+        ideaId:
+          type: string
+      x-apidog-orders:
+      - ideaId
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    CalendarDay:
+      type: object
+      properties:
+        day:
+          type: integer
+        posts:
+          type: array
+          description: Post ideas for the day (see Post idea for the full shape).
+          items:
+            type: object
+            x-apidog-orders: []
+            properties: {}
+            x-apidog-ignore-properties: []
+      x-apidog-orders:
+      - day
+      - posts
       x-apidog-ignore-properties: []
       x-apidog-folder: ''
     GenerateHolidayIdeaVariantRequest:
@@ -3766,185 +4206,6 @@ components:
       - topic
       x-apidog-ignore-properties: []
       x-apidog-folder: ''
-    RefreshIdeasRequest:
-      type: object
-      required:
-      - socialProfileId
-      - profileName
-      properties:
-        socialProfileId:
-          type: string
-        profileName:
-          type: string
-        siteUrl:
-          type: string
-        categories:
-          type: array
-          items:
-            type: string
-        brandHashtags:
-          type: array
-          items:
-            type: string
-        businessIntent:
-          type: string
-        contentPreferredLanguage:
-          type: string
-      x-apidog-orders:
-      - socialProfileId
-      - profileName
-      - siteUrl
-      - categories
-      - brandHashtags
-      - businessIntent
-      - contentPreferredLanguage
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-        contextInfo:
-          type: array
-          items:
-            type: object
-            properties:
-              key:
-                type: string
-              value:
-                type: string
-            x-apidog-orders:
-            - key
-            - value
-            x-apidog-ignore-properties: []
-      x-apidog-orders:
-      - message
-      - code
-      - contextInfo
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    RegenerateResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        idea:
-          type: object
-          description: The updated post idea (see Post idea for the full shape).
-          x-apidog-orders: []
-          properties: {}
-          x-apidog-ignore-properties: []
-        error:
-          $ref: '#/components/schemas/Error'
-      x-apidog-orders:
-      - success
-      - idea
-      - error
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    TriggerPipelineResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        pipelineId:
-          type: string
-        error:
-          $ref: '#/components/schemas/Error'
-      x-apidog-orders:
-      - success
-      - pipelineId
-      - error
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    LinkPostIdeaToSocialPostRequest:
-      type: object
-      required:
-      - postIdeaId
-      - socialPostId
-      properties:
-        postIdeaId:
-          type: string
-        socialPostId:
-          type: string
-      x-apidog-orders:
-      - postIdeaId
-      - socialPostId
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    GenerateIdeaVisualRequest:
-      type: object
-      required:
-      - ideaId
-      properties:
-        ideaId:
-          type: string
-        prompt:
-          type: string
-        referenceImageUrls:
-          type: array
-          items:
-            type: string
-        imageSize:
-          type: string
-      x-apidog-orders:
-      - ideaId
-      - prompt
-      - referenceImageUrls
-      - imageSize
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    ImageCredits:
-      type: object
-      properties:
-        socialProfileId:
-          type: string
-        monthlyLimit:
-          type: integer
-        isActive:
-          type: boolean
-        usedThisMonth:
-          type: integer
-        remainingThisMonth:
-          type: integer
-        addonPurchased:
-          type: integer
-        addonConsumed:
-          type: integer
-        addonRemaining:
-          type: integer
-      x-apidog-orders:
-      - socialProfileId
-      - monthlyLimit
-      - isActive
-      - usedThisMonth
-      - remainingThisMonth
-      - addonPurchased
-      - addonConsumed
-      - addonRemaining
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    ScrapeBrandRequest:
-      type: object
-      required:
-      - socialProfileId
-      - siteUrl
-      properties:
-        socialProfileId:
-          type: string
-        siteUrl:
-          type: string
-        trigger:
-          type: string
-      x-apidog-orders:
-      - socialProfileId
-      - siteUrl
-      - trigger
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
     RegenerateIdeaRequest:
       type: object
       required:
@@ -3962,19 +4223,68 @@ components:
       - referenceImageUrl
       x-apidog-ignore-properties: []
       x-apidog-folder: ''
-    GenerateAllSeriesPostsResponse:
+    GenerateIdeasResponse:
       type: object
       properties:
         success:
           type: boolean
-        generatedCount:
-          type: integer
+        ideas:
+          type: array
+          description: Generated post ideas (see Post idea for the full shape).
+          items:
+            type: object
+            x-apidog-orders: []
+        pipelineId:
+          type: string
         error:
           $ref: '#/components/schemas/Error'
       x-apidog-orders:
       - success
-      - generatedCount
+      - ideas
+      - pipelineId
       - error
+      x-apidog-folder: ''
+    UpdateIdeaRequest:
+      type: object
+      required:
+      - ideaId
+      properties:
+        ideaId:
+          type: string
+        title:
+          type: string
+        content:
+          type: string
+        status:
+          type: string
+        ctaText:
+          type: string
+        ctaUrl:
+          type: string
+        scheduledDate:
+          type: string
+        scheduledTime:
+          type: string
+        bucket:
+          type: string
+        note:
+          type: string
+        platforms:
+          type: array
+          items:
+            type: string
+      x-apidog-orders:
+      - ideaId
+      - title
+      - content
+      - status
+      - ctaText
+      - ctaUrl
+      - scheduledDate
+      - scheduledTime
+      - bucket
+      - note
+      - platforms
       x-apidog-ignore-properties: []
       x-apidog-folder: ''
     ChatMessageResponse:
@@ -4005,6 +4315,106 @@ components:
       - seriesPlan
       - actionChips
       - error
+      x-apidog-folder: ''
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+        contextInfo:
+          type: array
+          items:
+            type: object
+            properties:
+              key:
+                type: string
+              value:
+                type: string
+            x-apidog-orders:
+            - key
+            - value
+            x-apidog-ignore-properties: []
+      x-apidog-orders:
+      - message
+      - code
+      - contextInfo
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    LinkPostIdeaToSocialPostRequest:
+      type: object
+      required:
+      - postIdeaId
+      - socialPostId
+      properties:
+        postIdeaId:
+          type: string
+        socialPostId:
+          type: string
+      x-apidog-orders:
+      - postIdeaId
+      - socialPostId
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    BrandInfo:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        siteUrl:
+          type: string
+        categories:
+          type: array
+          items:
+            type: string
+        country:
+          type: string
+      x-apidog-orders:
+      - id
+      - name
+      - siteUrl
+      - categories
+      - country
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    ScheduleSeriesResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        scheduledPosts:
+          type: array
+          description: The scheduled posts (see Post idea for the full shape).
+          items:
+            type: object
+            x-apidog-orders: []
+            properties: {}
+            x-apidog-ignore-properties: []
+        error:
+          $ref: '#/components/schemas/Error'
+      x-apidog-orders:
+      - success
+      - scheduledPosts
+      - error
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    TriggerPipelineResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        pipelineId:
+          type: string
+        error:
+          $ref: '#/components/schemas/Error'
+      x-apidog-orders:
+      - success
+      - pipelineId
+      - error
+      x-apidog-ignore-properties: []
       x-apidog-folder: ''
     PostIdea:
       type: object
@@ -4095,19 +4505,85 @@ components:
       - updatedAt
       x-apidog-ignore-properties: []
       x-apidog-folder: ''
-    ActionChip:
+    ScheduleSeriesRequest:
       type: object
+      required:
+      - seriesId
+      - startDate
       properties:
-        label:
+        seriesId:
           type: string
-        emoji:
+        startDate:
           type: string
-        action:
+          description: Series start date (YYYY-MM-DD).
+      x-apidog-orders:
+      - seriesId
+      - startDate
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    ArchiveIdeaRequest:
+      type: object
+      required:
+      - ideaId
+      properties:
+        ideaId:
           type: string
       x-apidog-orders:
-      - label
-      - emoji
-      - action
+      - ideaId
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    ChatMessage:
+      type: object
+      properties:
+        id:
+          type: string
+        role:
+          type: string
+        content:
+          type: string
+        messageType:
+          type: string
+        metadata:
+          type: object
+          x-apidog-orders: []
+          properties: {}
+          x-apidog-ignore-properties: []
+        sequence:
+          type: integer
+        createdAt:
+          type: string
+      x-apidog-orders:
+      - id
+      - role
+      - content
+      - messageType
+      - metadata
+      - sequence
+      - createdAt
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    StartChatSessionRequest:
+      type: object
+      required:
+      - socialProfileId
+      properties:
+        socialProfileId:
+          type: string
+        intent:
+          type: string
+        mode:
+          type: string
+        subjectType:
+          type: string
+        subjectId:
+          type: string
+      x-apidog-orders:
+      - socialProfileId
+      - intent
+      - mode
+      - subjectType
+      - subjectId
+      x-apidog-ignore-properties: []
       x-apidog-folder: ''
     ObservanceWithIdea:
       type: object
@@ -4152,672 +4628,5 @@ components:
       - postType
       - postContent
       - postImagePrompt
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    GenerateCalendarDayRequest:
-      type: object
-      required:
-      - ideaId
-      properties:
-        ideaId:
-          type: string
-      x-apidog-orders:
-      - ideaId
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    ChatSession:
-      type: object
-      properties:
-        id:
-          type: string
-        socialProfileId:
-          type: string
-        mode:
-          type: string
-        status:
-          type: string
-        messageCount:
-          type: integer
-        title:
-          type: string
-        createdAt:
-          type: string
-      x-apidog-orders:
-      - id
-      - socialProfileId
-      - mode
-      - status
-      - messageCount
-      - title
-      - createdAt
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    PipelineStatus:
-      type: object
-      properties:
-        id:
-          type: string
-        socialProfileId:
-          type: string
-        pipelineType:
-          type: string
-        status:
-          type: string
-        currentStep:
-          type: string
-        stepsCompleted:
-          type: array
-          items:
-            type: string
-        stepsRemaining:
-          type: array
-          items:
-            type: string
-        errorMessage:
-          type: string
-        startedAt:
-          type: string
-        completedAt:
-          type: string
-      x-apidog-orders:
-      - id
-      - socialProfileId
-      - pipelineType
-      - status
-      - currentStep
-      - stepsCompleted
-      - stepsRemaining
-      - errorMessage
-      - startedAt
-      - completedAt
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    ContentSeries:
-      type: object
-      properties:
-        id:
-          type: string
-        socialProfileId:
-          type: string
-        name:
-          type: string
-        theme:
-          type: string
-        status:
-          type: string
-        postCount:
-          type: integer
-        publishedCount:
-          type: integer
-        unpublishedCount:
-          type: integer
-        posts:
-          type: array
-          description: Posts in the series (see Post idea for the full shape).
-          items:
-            type: object
-            x-apidog-orders: []
-            properties: {}
-            x-apidog-ignore-properties: []
-        chatSessionId:
-          type: string
-        createdAt:
-          type: string
-        updatedAt:
-          type: string
-      x-apidog-orders:
-      - id
-      - socialProfileId
-      - name
-      - theme
-      - status
-      - postCount
-      - publishedCount
-      - unpublishedCount
-      - posts
-      - chatSessionId
-      - createdAt
-      - updatedAt
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    UpdateExtendedBrandConfigRequest:
-      type: object
-      required:
-      - socialProfileId
-      properties:
-        socialProfileId:
-          type: string
-        tone:
-          type: string
-        targetCustomers:
-          type: string
-        country:
-          type: string
-        phone:
-          type: string
-        address:
-          type: string
-        location:
-          type: string
-        primaryColor:
-          type: string
-        secondaryColor:
-          type: string
-        logoLight:
-          type: string
-        logoDark:
-          type: string
-        services:
-          type: object
-          description: Free-form JSON describing services.
-          x-apidog-orders: []
-          properties: {}
-          x-apidog-ignore-properties: []
-        products:
-          type: object
-          description: Free-form JSON describing products.
-          x-apidog-orders: []
-          properties: {}
-          x-apidog-ignore-properties: []
-        contentRules:
-          type: object
-          description: Free-form JSON content rules.
-          x-apidog-orders: []
-          properties: {}
-          x-apidog-ignore-properties: []
-        additionalContext:
-          type: string
-      x-apidog-orders:
-      - socialProfileId
-      - tone
-      - targetCustomers
-      - country
-      - phone
-      - address
-      - location
-      - primaryColor
-      - secondaryColor
-      - logoLight
-      - logoDark
-      - services
-      - products
-      - contentRules
-      - additionalContext
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    LinkPostIdeaToSocialPostResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        error:
-          $ref: '#/components/schemas/Error'
-      x-apidog-orders:
-      - success
-      - error
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    MutationResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        error:
-          $ref: '#/components/schemas/Error'
-      x-apidog-orders:
-      - success
-      - error
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    ChatSessionResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        session:
-          $ref: '#/components/schemas/ChatSession'
-        suggestions:
-          type: array
-          items:
-            type: string
-        error:
-          $ref: '#/components/schemas/Error'
-      x-apidog-orders:
-      - success
-      - session
-      - suggestions
-      - error
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    ReferenceImageAnalysis:
-      type: object
-      properties:
-        description:
-          type: string
-          description: Textual description of the analyzed image.
-      x-apidog-orders:
-      - description
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    PostIdeaCounts:
-      type: object
-      properties:
-        ai:
-          type: integer
-        mine:
-          type: integer
-        series:
-          type: integer
-        all:
-          type: integer
-      x-apidog-orders:
-      - ai
-      - mine
-      - series
-      - all
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    GenerateObservanceIdeaRequest:
-      type: object
-      required:
-      - socialProfileId
-      - observanceName
-      properties:
-        socialProfileId:
-          type: string
-        observanceName:
-          type: string
-        observanceDate:
-          type: string
-        hint:
-          type: string
-      x-apidog-orders:
-      - socialProfileId
-      - observanceName
-      - observanceDate
-      - hint
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    StartChatSessionRequest:
-      type: object
-      required:
-      - socialProfileId
-      properties:
-        socialProfileId:
-          type: string
-        intent:
-          type: string
-        mode:
-          type: string
-        subjectType:
-          type: string
-        subjectId:
-          type: string
-      x-apidog-orders:
-      - socialProfileId
-      - intent
-      - mode
-      - subjectType
-      - subjectId
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    TriggerPipelineRequest:
-      type: object
-      required:
-      - socialProfileId
-      - profileName
-      properties:
-        socialProfileId:
-          type: string
-        profileName:
-          type: string
-        siteUrl:
-          type: string
-        categories:
-          type: array
-          items:
-            type: string
-        brandHashtags:
-          type: array
-          items:
-            type: string
-        businessIntent:
-          type: string
-        contentPreferredLanguage:
-          type: string
-      x-apidog-orders:
-      - socialProfileId
-      - profileName
-      - siteUrl
-      - categories
-      - brandHashtags
-      - businessIntent
-      - contentPreferredLanguage
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    SuggestPostsForDateRequest:
-      type: object
-      required:
-      - socialProfileId
-      - date
-      properties:
-        socialProfileId:
-          type: string
-        date:
-          type: string
-          description: Target date (YYYY-MM-DD).
-      x-apidog-orders:
-      - socialProfileId
-      - date
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    GenerateAllSeriesPostsRequest:
-      type: object
-      required:
-      - seriesId
-      - socialProfileId
-      properties:
-        seriesId:
-          type: string
-        socialProfileId:
-          type: string
-      x-apidog-orders:
-      - seriesId
-      - socialProfileId
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    BranchChatSessionRequest:
-      type: object
-      required:
-      - parentSessionId
-      - subjectType
-      properties:
-        parentSessionId:
-          type: string
-        subjectType:
-          type: string
-        subjectId:
-          type: string
-      x-apidog-orders:
-      - parentSessionId
-      - subjectType
-      - subjectId
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    ScheduleSeriesRequest:
-      type: object
-      required:
-      - seriesId
-      - startDate
-      properties:
-        seriesId:
-          type: string
-        startDate:
-          type: string
-          description: Series start date (YYYY-MM-DD).
-      x-apidog-orders:
-      - seriesId
-      - startDate
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    GenerateSeriesPostRequest:
-      type: object
-      required:
-      - seriesId
-      - slotIndex
-      - socialProfileId
-      properties:
-        seriesId:
-          type: string
-        slotIndex:
-          type: integer
-        socialProfileId:
-          type: string
-      x-apidog-orders:
-      - seriesId
-      - slotIndex
-      - socialProfileId
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    ArchiveSeriesRequest:
-      type: object
-      required:
-      - seriesId
-      properties:
-        seriesId:
-          type: string
-      x-apidog-orders:
-      - seriesId
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    BrandInfo:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        siteUrl:
-          type: string
-        categories:
-          type: array
-          items:
-            type: string
-        country:
-          type: string
-      x-apidog-orders:
-      - id
-      - name
-      - siteUrl
-      - categories
-      - country
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    GenerateIdeasResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        ideas:
-          type: array
-          description: Generated post ideas (see Post idea for the full shape).
-          items:
-            type: object
-            x-apidog-orders: []
-        pipelineId:
-          type: string
-        error:
-          $ref: '#/components/schemas/Error'
-      x-apidog-orders:
-      - success
-      - ideas
-      - pipelineId
-      - error
-      x-apidog-folder: ''
-    UpdateIdeaRequest:
-      type: object
-      required:
-      - ideaId
-      properties:
-        ideaId:
-          type: string
-        title:
-          type: string
-        content:
-          type: string
-        status:
-          type: string
-        ctaText:
-          type: string
-        ctaUrl:
-          type: string
-        scheduledDate:
-          type: string
-        scheduledTime:
-          type: string
-        bucket:
-          type: string
-        note:
-          type: string
-        platforms:
-          type: array
-          items:
-            type: string
-      x-apidog-orders:
-      - ideaId
-      - title
-      - content
-      - status
-      - ctaText
-      - ctaUrl
-      - scheduledDate
-      - scheduledTime
-      - bucket
-      - note
-      - platforms
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    ChatMessage:
-      type: object
-      properties:
-        id:
-          type: string
-        role:
-          type: string
-        content:
-          type: string
-        messageType:
-          type: string
-        metadata:
-          type: object
-          x-apidog-orders: []
-          properties: {}
-          x-apidog-ignore-properties: []
-        sequence:
-          type: integer
-        createdAt:
-          type: string
-      x-apidog-orders:
-      - id
-      - role
-      - content
-      - messageType
-      - metadata
-      - sequence
-      - createdAt
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    ArchiveIdeaRequest:
-      type: object
-      required:
-      - ideaId
-      properties:
-        ideaId:
-          type: string
-      x-apidog-orders:
-      - ideaId
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    RegenerateIdeaImageRequest:
-      type: object
-      required:
-      - ideaId
-      properties:
-        ideaId:
-          type: string
-        referenceImageUrl:
-          type: string
-      x-apidog-orders:
-      - ideaId
-      - referenceImageUrl
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    IdeaJobStatus:
-      type: object
-      properties:
-        status:
-          type: string
-        imageUrl:
-          type: string
-      x-apidog-orders:
-      - status
-      - imageUrl
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    CreateContentSeriesRequest:
-      type: object
-      required:
-      - socialProfileId
-      - name
-      properties:
-        socialProfileId:
-          type: string
-        name:
-          type: string
-        theme:
-          type: string
-        postIdeaIds:
-          type: array
-          items:
-            type: string
-      x-apidog-orders:
-      - socialProfileId
-      - name
-      - theme
-      - postIdeaIds
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    ScheduleSeriesResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        scheduledPosts:
-          type: array
-          description: The scheduled posts (see Post idea for the full shape).
-          items:
-            type: object
-            x-apidog-orders: []
-            properties: {}
-            x-apidog-ignore-properties: []
-        error:
-          $ref: '#/components/schemas/Error'
-      x-apidog-orders:
-      - success
-      - scheduledPosts
-      - error
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    CalendarDay:
-      type: object
-      properties:
-        day:
-          type: integer
-        posts:
-          type: array
-          description: Post ideas for the day (see Post idea for the full shape).
-          items:
-            type: object
-            x-apidog-orders: []
-            properties: {}
-            x-apidog-ignore-properties: []
-      x-apidog-orders:
-      - day
-      - posts
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    SwitchChatModeRequest:
-      type: object
-      required:
-      - sessionId
-      - mode
-      properties:
-        sessionId:
-          type: string
-        mode:
-          type: string
-      x-apidog-orders:
-      - sessionId
-      - mode
       x-apidog-ignore-properties: []
       x-apidog-folder: ''

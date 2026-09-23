@@ -2,10 +2,7 @@ openapi: 3.2.0
 info:
   title: Synup Reviews/Review Sources API
   version: '4'
-  description: 'REST API v4 for the Synup local marketing platform: business locations, listing syndication to 80+ directories, review/interaction aggregation and response, review campaigns, local rank tracking and grid-rank heatmaps, local and social posts, AI post ideas, menus, connected accounts, users and profile analytics.
-
-
-    ASSEMBLED BY API EVANGELIST from the per-endpoint OpenAPI documents Synup publishes on its own documentation host (developer.synup.com, Apidog project 797384). Every operation, parameter, response, example and schema below is verbatim provider content; only the merge into a single document is ours. Source index: https://developer.synup.com/llms.txt'
+  description: 'REST API v4 for the Synup local marketing platform: business locations, listing syndication to 80+ directories, review/interaction aggregation and response, review campaigns, local rank tracking and grid-rank heatmaps, local and social posts, AI post ideas, menus, connected accounts, users and profile analytics.'
   contact:
     name: Synup Developer Documentation
     url: https://developer.synup.com/
@@ -22,20 +19,12 @@ paths:
     get:
       summary: Add / Edit interaction source
       deprecated: false
-      description: '<span style="font-size: 14px;">
-
-        Use this endpoint to add a new interaction source URL.
+      description: 'Use this endpoint to add a new interaction source URL.
 
         The body of the request must contain the locationId and a siteUrls array.
 
 
-
-        <TipInfo>Interaction sources for connected Google and Facebook accounts cannot be modified/added to. These interaction sources are automatically added when you connect your Google and Facebook accounts.</TipInfo>
-
-
-
-
-        </span>'
+        Interaction sources for connected Google and Facebook accounts cannot be modified/added to. These interaction sources are automatically added when you connect your Google and Facebook accounts.'
       tags:
       - Reviews/Review Sources
       parameters:
@@ -230,15 +219,13 @@ paths:
       x-apidog-folder: Reviews/Review Sources
       x-apidog-status: released
       x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-19357403-run
+      operationId: getLocationsReviewsSettingsEdit
+      x-operation-id-source: derived
   /reviews/site-config:
     get:
       summary: Get a list of interaction sources for account
       deprecated: false
-      description: '<span style="font-size: 14px;">
-
-        Use this endpoint to list the interaction sources for a particular account as per the account''s subscription.
-
-        </span>'
+      description: Use this endpoint to list the interaction sources for a particular account as per the account's subscription.
       tags:
       - Reviews/Review Sources
       parameters:
@@ -316,21 +303,16 @@ paths:
       x-apidog-folder: Reviews/Review Sources
       x-apidog-status: released
       x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-19357376-run
+      operationId: getReviewsSiteConfig
+      x-operation-id-source: derived
   /locations/{location_id}/reviews/settings:
     get:
       summary: Get a list of interaction sources for location
       deprecated: false
-      description: '<span style="font-size: 14px;">
-
-        Review sources are used to pull in reviews from the supported review partners. Each interaction source should have an associated valid URL to pull in reviews from.
+      description: 'Review sources are used to pull in reviews from the supported review partners. Each interaction source should have an associated valid URL to pull in reviews from.
 
 
-        Use this endpoint to list the interaction sources for a particular location. This API will return the interaction sources and the associated URL for each source. If the URL is present it means its connected to the location, if the URL is null it means its not connected to the location. It will also return the eligible interaction sources for the location as per the account''s subscription.
-
-
-
-
-        </span>'
+        Use this endpoint to list the interaction sources for a particular location. This API will return the interaction sources and the associated URL for each source. If the URL is present it means its connected to the location, if the URL is null it means its not connected to the location. It will also return the eligible interaction sources for the location as per the account''s subscription.'
       tags:
       - Reviews/Review Sources
       parameters:
@@ -434,3 +416,5 @@ paths:
       x-apidog-folder: Reviews/Review Sources
       x-apidog-status: released
       x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-19357317-run
+      operationId: getLocationsByLocationIdReviewsSettings
+      x-operation-id-source: derived

@@ -2,10 +2,7 @@ openapi: 3.2.0
 info:
   title: Synup Posts API
   version: '4'
-  description: 'REST API v4 for the Synup local marketing platform: business locations, listing syndication to 80+ directories, review/interaction aggregation and response, review campaigns, local rank tracking and grid-rank heatmaps, local and social posts, AI post ideas, menus, connected accounts, users and profile analytics.
-
-
-    ASSEMBLED BY API EVANGELIST from the per-endpoint OpenAPI documents Synup publishes on its own documentation host (developer.synup.com, Apidog project 797384). Every operation, parameter, response, example and schema below is verbatim provider content; only the merge into a single document is ours. Source index: https://developer.synup.com/llms.txt'
+  description: 'REST API v4 for the Synup local marketing platform: business locations, listing syndication to 80+ directories, review/interaction aggregation and response, review campaigns, local rank tracking and grid-rank heatmaps, local and social posts, AI post ideas, menus, connected accounts, users and profile analytics.'
   contact:
     name: Synup Developer Documentation
     url: https://developer.synup.com/
@@ -104,6 +101,8 @@ paths:
       x-apidog-folder: Posts
       x-apidog-status: released
       x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-33169612-run
+      operationId: postBulkPosts
+      x-operation-id-source: derived
   /posts:
     post:
       summary: Create an Announcement post
@@ -189,6 +188,8 @@ paths:
       x-apidog-folder: Posts
       x-apidog-status: released
       x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-33169275-run
+      operationId: postPosts
+      x-operation-id-source: derived
   /posts/{postId}:
     delete:
       summary: Delete a post
@@ -225,6 +226,8 @@ paths:
       x-apidog-folder: Posts
       x-apidog-status: released
       x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-33169611-run
+      operationId: deletePostsByPostId
+      x-operation-id-source: derived
     get:
       summary: Get a single post
       deprecated: false
@@ -260,6 +263,8 @@ paths:
       x-apidog-folder: Posts
       x-apidog-status: released
       x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-33169610-run
+      operationId: getPostsByPostId
+      x-operation-id-source: derived
   /bulk-posts/{bulkPostId}:
     get:
       summary: Fetch a bulk post by ID
@@ -296,6 +301,8 @@ paths:
       x-apidog-folder: Posts
       x-apidog-status: released
       x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-33169732-run
+      operationId: getBulkPostsByBulkPostId
+      x-operation-id-source: derived
   /locations/{locationId}/bulk-posts:
     get:
       summary: Fetch bulk posts for a location
@@ -353,6 +360,8 @@ paths:
       x-apidog-folder: Posts
       x-apidog-status: released
       x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-33169760-run
+      operationId: getLocationsByLocationIdBulkPosts
+      x-operation-id-source: derived
   /locations/{locationId}/posts:
     get:
       summary: Fetch posts for a location
@@ -410,3 +419,5 @@ paths:
       x-apidog-folder: Posts
       x-apidog-status: released
       x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-33169608-run
+      operationId: getLocationsByLocationIdPosts
+      x-operation-id-source: derived

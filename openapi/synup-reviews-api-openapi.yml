@@ -2,10 +2,7 @@ openapi: 3.2.0
 info:
   title: Synup Reviews API
   version: '4'
-  description: 'REST API v4 for the Synup local marketing platform: business locations, listing syndication to 80+ directories, review/interaction aggregation and response, review campaigns, local rank tracking and grid-rank heatmaps, local and social posts, AI post ideas, menus, connected accounts, users and profile analytics.
-
-
-    ASSEMBLED BY API EVANGELIST from the per-endpoint OpenAPI documents Synup publishes on its own documentation host (developer.synup.com, Apidog project 797384). Every operation, parameter, response, example and schema below is verbatim provider content; only the merge into a single document is ours. Source index: https://developer.synup.com/llms.txt'
+  description: 'REST API v4 for the Synup local marketing platform: business locations, listing syndication to 80+ directories, review/interaction aggregation and response, review campaigns, local rank tracking and grid-rank heatmaps, local and social posts, AI post ideas, menus, connected accounts, users and profile analytics.'
   contact:
     name: Synup Developer Documentation
     url: https://developer.synup.com/
@@ -146,15 +143,13 @@ paths:
       x-apidog-folder: Reviews
       x-apidog-status: developing
       x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-20127692-run
+      operationId: postReviewWidgetAdd
+      x-operation-id-source: derived
   /locations/reviews/respond/archive:
     post:
       summary: Archive Response for Interaction
       deprecated: false
-      description: '<span style="font-size: 14px;">
-
-        Archive any response provided for any existing Interaction
-
-        </span>'
+      description: Archive any response provided for any existing Interaction
       operationId: respondToInteraction
       tags:
       - Reviews
@@ -215,11 +210,7 @@ paths:
     post:
       summary: Edit Response for Interaction
       deprecated: false
-      description: '<span style="font-size: 14px;">
-
-        Edit the existing response provided any Interaction
-
-        </span>'
+      description: Edit the existing response provided any Interaction
       operationId: respondToInteraction
       tags:
       - Reviews
@@ -475,11 +466,28 @@ paths:
       x-apidog-folder: Reviews
       x-apidog-status: developing
       x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-20127698-run
+      operationId: postReviewWidgetEdit
+      x-operation-id-source: derived
   /locations/{locationId}/reviews:
     get:
       summary: Fetch all interactions
       deprecated: false
-      description: "<span style=\"font-size: 14px;\">\nThis API retrieves interactions for a specific location, supporting multiple filters to refine results.\n    \n    \n **Filtering Options:**\n- Date Range – Fetch interactions within a specified time frame.\n- Interaction Type – Filter by reviews, social engagements, or directory interactions.\n- Platform – Retrieve interactions from specific sources (e.g., Google, Facebook, Yelp).\n- Response Status – Show only responded or unresponded interactions.\n- Rating – Filter reviews by star ratings (if applicable).\n - Keyword – Filter reviews whose content matches a search keyword.\n</span>\n"
+      description: 'This API retrieves interactions for a specific location, supporting multiple filters to refine results.
+
+
+        **Filtering Options:**
+
+        - Date Range – Fetch interactions within a specified time frame.
+
+        - Interaction Type – Filter by reviews, social engagements, or directory interactions.
+
+        - Platform – Retrieve interactions from specific sources (e.g., Google, Facebook, Yelp).
+
+        - Response Status – Show only responded or unresponded interactions.
+
+        - Rating – Filter reviews by star ratings (if applicable).
+
+        - Keyword – Filter reviews whose content matches a search keyword.'
       tags:
       - Reviews
       parameters:
@@ -610,11 +618,22 @@ paths:
       x-apidog-folder: Reviews
       x-apidog-status: released
       x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-13932709-run
+      operationId: getLocationsByLocationIdReviews
+      x-operation-id-source: derived
   /locations/{locationId}/{type}:
     get:
       summary: Get Interaction Analytics
       deprecated: false
-      description: "<span style=\"font-size: 14px;\">\nThis API retrieves interaction analytics data based on the requested analytics type.\n\n**Available Analytics Types:**\n- `review-analytics-overview` – Provides overall statistics, including total interactions, average ratings, and response rates.\n- `review-analytics-timeline` – Returns time-based analytics, showing interaction trends over a selected period.\n- `review-analytics-sites-stats` – Provides site-wise breakdown, showing performance across platforms like Google, Facebook, and Yelp.\n\n </span>"
+      description: 'This API retrieves interaction analytics data based on the requested analytics type.
+
+
+        **Available Analytics Types:**
+
+        - `review-analytics-overview` – Provides overall statistics, including total interactions, average ratings, and response rates.
+
+        - `review-analytics-timeline` – Returns time-based analytics, showing interaction trends over a selected period.
+
+        - `review-analytics-sites-stats` – Provides site-wise breakdown, showing performance across platforms like Google, Facebook, and Yelp.'
       operationId: getAnalytics
       tags:
       - Reviews
@@ -747,9 +766,7 @@ paths:
     get:
       summary: List Interactions by IDs
       deprecated: false
-      description: '<span style="font-size: 14px;">
-
-        This API retrieves multiple interactions using their unique identifiers in a single request.
+      description: 'This API retrieves multiple interactions using their unique identifiers in a single request.
 
 
         **Behavior:**
@@ -758,10 +775,7 @@ paths:
 
         - Ensures only valid interaction IDs return data.
 
-        - Returns full interaction details, including content, platform, timestamp, and response status.
-
-
-        </span>'
+        - Returns full interaction details, including content, platform, timestamp, and response status.'
       operationId: listInteractionsByIds
       tags:
       - Reviews
@@ -833,7 +847,18 @@ paths:
     post:
       summary: Respond to an Interaction
       deprecated: false
-      description: "<span style=\"font-size: 14px;\">\n  This API posts a response to a specific interaction on the respective partner site (e.g., Google, Facebook, Yelp).\n    \n    **Behavior:**\n- The response is posted directly to the platform where the interaction originated.\n- Some platforms may have moderation policies that affect response visibility.\n- Supports text-based responses; some platforms may allow limited formatting.\n- Ensures responses comply with platform-specific guidelines.\n    \n</span>"
+      description: 'This API posts a response to a specific interaction on the respective partner site (e.g., Google, Facebook, Yelp).
+
+
+        **Behavior:**
+
+        - The response is posted directly to the platform where the interaction originated.
+
+        - Some platforms may have moderation policies that affect response visibility.
+
+        - Supports text-based responses; some platforms may allow limited formatting.
+
+        - Ensures responses comply with platform-specific guidelines.'
       operationId: respondToInteraction
       tags:
       - Reviews
@@ -1044,120 +1069,10 @@ paths:
       x-apidog-folder: Reviews
       x-apidog-status: developing
       x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-20430521-run
+      operationId: getRollupInteractions
+      x-operation-id-source: derived
 components:
   schemas:
-    ResponseInteraction:
-      type: object
-      properties:
-        interactionId:
-          type: string
-          format: uuid
-          description: Parent interaction ID for the response
-        source:
-          type: string
-          description: URL of the interaction site
-        content:
-          type: string
-          description: Interaction response content
-        authorName:
-          type:
-          - string
-          - 'null'
-          description: Name of person who responded
-        authorAvatar:
-          type:
-          - string
-          - 'null'
-          description: URL of response author's image
-        authorUrl:
-          type:
-          - string
-          - 'null'
-          description: URL of response author's profile
-        date:
-          type: string
-          format: date-time
-          description: Response timestamp
-        interactionStatus:
-          type: string
-          enum:
-          - Created
-          - Completed
-          - Confirmed
-          - Failed
-          description: 'Status of the response:
-
-            * Created - Initial creation
-
-            * Completed - Posted to partner site
-
-            * Confirmed - Verified on partner site
-
-            * Failed - Response posting failed
-
-            '
-      x-apidog-orders:
-      - interactionId
-      - source
-      - content
-      - authorName
-      - authorAvatar
-      - authorUrl
-      - date
-      - interactionStatus
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    InteractionsResponse:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            interactions:
-              type: object
-              properties:
-                pageInfo:
-                  $ref: '#/components/schemas/PageInfo'
-                edges:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/InteractionEdge'
-                totalCount:
-                  type: integer
-                  description: Total number of interactions matching the filters
-              x-apidog-orders:
-              - pageInfo
-              - edges
-              - totalCount
-              x-apidog-ignore-properties: []
-          x-apidog-orders:
-          - interactions
-          x-apidog-ignore-properties: []
-      x-apidog-orders:
-      - data
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    PageInfo:
-      type: object
-      properties:
-        hasNextPage:
-          type: boolean
-          description: Indicates if there are more pages available
-        hasPreviousPage:
-          type: boolean
-          description: Indicates if there are previous pages available
-        totalPages:
-          type: integer
-          description: Total number of pages available
-        totalRecords:
-          type: integer
-          description: Total number of records across all pages
-      x-apidog-orders:
-      - hasNextPage
-      - hasPreviousPage
-      - totalPages
-      - totalRecords
-      x-apidog-folder: ''
     Interaction:
       type: object
       properties:
@@ -1276,5 +1191,117 @@ components:
       x-apidog-orders:
       - node
       - cursor
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    ResponseInteraction:
+      type: object
+      properties:
+        interactionId:
+          type: string
+          format: uuid
+          description: Parent interaction ID for the response
+        source:
+          type: string
+          description: URL of the interaction site
+        content:
+          type: string
+          description: Interaction response content
+        authorName:
+          type:
+          - string
+          - 'null'
+          description: Name of person who responded
+        authorAvatar:
+          type:
+          - string
+          - 'null'
+          description: URL of response author's image
+        authorUrl:
+          type:
+          - string
+          - 'null'
+          description: URL of response author's profile
+        date:
+          type: string
+          format: date-time
+          description: Response timestamp
+        interactionStatus:
+          type: string
+          enum:
+          - Created
+          - Completed
+          - Confirmed
+          - Failed
+          description: 'Status of the response:
+
+            * Created - Initial creation
+
+            * Completed - Posted to partner site
+
+            * Confirmed - Verified on partner site
+
+            * Failed - Response posting failed
+
+            '
+      x-apidog-orders:
+      - interactionId
+      - source
+      - content
+      - authorName
+      - authorAvatar
+      - authorUrl
+      - date
+      - interactionStatus
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    PageInfo:
+      type: object
+      properties:
+        hasNextPage:
+          type: boolean
+          description: Indicates if there are more pages available
+        hasPreviousPage:
+          type: boolean
+          description: Indicates if there are previous pages available
+        totalPages:
+          type: integer
+          description: Total number of pages available
+        totalRecords:
+          type: integer
+          description: Total number of records across all pages
+      x-apidog-orders:
+      - hasNextPage
+      - hasPreviousPage
+      - totalPages
+      - totalRecords
+      x-apidog-folder: ''
+    InteractionsResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            interactions:
+              type: object
+              properties:
+                pageInfo:
+                  $ref: '#/components/schemas/PageInfo'
+                edges:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/InteractionEdge'
+                totalCount:
+                  type: integer
+                  description: Total number of interactions matching the filters
+              x-apidog-orders:
+              - pageInfo
+              - edges
+              - totalCount
+              x-apidog-ignore-properties: []
+          x-apidog-orders:
+          - interactions
+          x-apidog-ignore-properties: []
+      x-apidog-orders:
+      - data
       x-apidog-ignore-properties: []
       x-apidog-folder: ''

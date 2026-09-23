@@ -2,10 +2,7 @@ openapi: 3.2.0
 info:
   title: Synup Webhooks API
   version: 1.0.0
-  description: 'Synup account webhook events. A single account-level HTTPS Webhooks URL receives every event; there is no per-event subscription. Every delivery is signed with X-Synup-Signature: sha256=base64(HMAC-SHA256(signing_secret, raw_request_body)), and deliveries only start after the endpoint.verification challenge-response handshake passes.
-
-
-    ASSEMBLED BY API EVANGELIST from the per-event OpenAPI 3.1 documents Synup publishes at developer.synup.com; the webhook payload schemas are verbatim provider content. Guide: https://developer.synup.com/synup-webhooks-doc-2259000'
+  description: Synup account webhook events.
   contact:
     name: Synup Webhooks Guide
     url: https://developer.synup.com/synup-webhooks-doc-2259000
@@ -17,16 +14,10 @@ webhooks:
     post:
       summary: Endpoint verification handshake
       deprecated: false
-      description: '<span style="font-size: 14px;">
+      description: '**Event name:** `endpoint.verification`
 
 
-        **Event name:** `endpoint.verification`
-
-
-        Endpoint-verification handshake. Sent when a customer saves or clicks "Verify" on a Webhooks URL. Your endpoint must reply HTTP 200 with the lowercase hex HMAC-SHA256 of the nonce, keyed by your signing secret: hex(HMAC-SHA256(signing_secret, nonce)). Synup accepts the URL only if the returned digest matches. This request carries no location_id and no data object.
-
-
-        </span>'
+        Endpoint-verification handshake. Sent when a customer saves or clicks "Verify" on a Webhooks URL. Your endpoint must reply HTTP 200 with the lowercase hex HMAC-SHA256 of the nonce, keyed by your signing secret: hex(HMAC-SHA256(signing_secret, nonce)). Synup accepts the URL only if the returned digest matches. This request carries no location_id and no data object.'
       tags:
       - Webhooks
       parameters:
