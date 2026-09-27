@@ -270,52 +270,6 @@ paths:
       x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-13932585-run
 components:
   schemas:
-    CreateGridReportResponse:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            createGridrankReport:
-              type: object
-              properties:
-                data:
-                  type: object
-                  properties:
-                    reportIds:
-                      type: array
-                      items:
-                        type: string
-                        format: uuid
-                      description: Array of created report IDs
-                  x-apidog-orders:
-                  - reportIds
-                  x--orders:
-                  - reportIds
-                  x--ignore-properties: []
-                errors:
-                  type:
-                  - string
-                  - 'null'
-                  description: Error message if request failed
-              x-apidog-orders:
-              - data
-              - errors
-              x--orders:
-              - data
-              - errors
-              x--ignore-properties: []
-          x-apidog-orders:
-          - createGridrankReport
-          x--orders:
-          - createGridrankReport
-          x--ignore-properties: []
-      x-apidog-orders:
-      - data
-      x--orders:
-      - data
-      x--ignore-properties: []
-      x-apidog-folder: ''
     CreateGridReportInput:
       type: object
       required:
@@ -408,6 +362,21 @@ components:
       - gridSize
       x--ignore-properties: []
       x-apidog-folder: ''
+    GridReportResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            gridrankReportById:
+              $ref: '#/components/schemas/GridReport'
+          x-apidog-orders:
+          - gridrankReportById
+          x-apidog-ignore-properties: []
+      x-apidog-orders:
+      - data
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
     RankPoint:
       type: object
       properties:
@@ -426,21 +395,6 @@ components:
       - rank
       - latitude
       - longitude
-      x-apidog-folder: ''
-    GridReportResponse:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            gridrankReportById:
-              $ref: '#/components/schemas/GridReport'
-          x-apidog-orders:
-          - gridrankReportById
-          x-apidog-ignore-properties: []
-      x-apidog-orders:
-      - data
-      x-apidog-ignore-properties: []
       x-apidog-folder: ''
     GridReport:
       type: object
@@ -555,6 +509,52 @@ components:
       - longitude
       - placeId
       - createdAt
+      x-apidog-folder: ''
+    CreateGridReportResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            createGridrankReport:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    reportIds:
+                      type: array
+                      items:
+                        type: string
+                        format: uuid
+                      description: Array of created report IDs
+                  x-apidog-orders:
+                  - reportIds
+                  x--orders:
+                  - reportIds
+                  x--ignore-properties: []
+                errors:
+                  type:
+                  - string
+                  - 'null'
+                  description: Error message if request failed
+              x-apidog-orders:
+              - data
+              - errors
+              x--orders:
+              - data
+              - errors
+              x--ignore-properties: []
+          x-apidog-orders:
+          - createGridrankReport
+          x--orders:
+          - createGridrankReport
+          x--ignore-properties: []
+      x-apidog-orders:
+      - data
+      x--orders:
+      - data
+      x--ignore-properties: []
       x-apidog-folder: ''
     AllGridReportsResponse:
       type: object

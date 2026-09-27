@@ -909,6 +909,48 @@ paths:
       x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-13695476-run
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+        contextInfo:
+          type: array
+          items:
+            type: object
+            properties:
+              key:
+                type: string
+              value:
+                type: string
+            x-apidog-orders:
+            - key
+            - value
+            x-apidog-ignore-properties: []
+      x-apidog-orders:
+      - message
+      - code
+      - contextInfo
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    Keyword:
+      type: object
+      required:
+      - id
+      - name
+      properties:
+        id:
+          type: string
+          description: The unique ID attached to the keyword
+        name:
+          type: string
+          description: The text value of the keyword
+      x-apidog-orders:
+      - id
+      - name
+      x-apidog-folder: ''
     BadRequestError:
       type: object
       properties:
@@ -935,48 +977,6 @@ components:
       x-apidog-orders:
       - data
       - errors
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    Keyword:
-      type: object
-      required:
-      - id
-      - name
-      properties:
-        id:
-          type: string
-          description: The unique ID attached to the keyword
-        name:
-          type: string
-          description: The text value of the keyword
-      x-apidog-orders:
-      - id
-      - name
-      x-apidog-folder: ''
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-        contextInfo:
-          type: array
-          items:
-            type: object
-            properties:
-              key:
-                type: string
-              value:
-                type: string
-            x-apidog-orders:
-            - key
-            - value
-            x-apidog-ignore-properties: []
-      x-apidog-orders:
-      - message
-      - code
-      - contextInfo
       x-apidog-ignore-properties: []
       x-apidog-folder: ''
     UnauthorizedError:

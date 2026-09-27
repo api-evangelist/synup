@@ -43,7 +43,7 @@ tags:
 - Reputation Management
 - Local SEO
 - Reviews
-- Social-Media
+- Social Media
 - Analytics
 - Business Listings
 - Review Management
@@ -59,6 +59,7 @@ tags_raw:
 - Business Listings
 - Review Management
 - Agency Software
+- Social-Media
 apis:
 - aid: synup:synup-mcp
   name: Synup MCP Server

@@ -211,7 +211,7 @@ paths:
       summary: Edit Response for Interaction
       deprecated: false
       description: Edit the existing response provided any Interaction
-      operationId: respondToInteraction
+      operationId: postLocationsReviewsRespondEdit
       tags:
       - Reviews
       parameters:
@@ -296,6 +296,8 @@ paths:
       x-apidog-folder: Reviews
       x-apidog-status: released
       x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-19356956-run
+      x-operation-id-source: normalized
+      x-operation-id-original: respondToInteraction
   /review_widget/edit:
     post:
       summary: Edit Review Widget
@@ -859,7 +861,7 @@ paths:
         - Supports text-based responses; some platforms may allow limited formatting.
 
         - Ensures responses comply with platform-specific guidelines.'
-      operationId: respondToInteraction
+      operationId: postLocationsReviewsRespond
       tags:
       - Reviews
       parameters:
@@ -936,6 +938,8 @@ paths:
       x-apidog-folder: Reviews
       x-apidog-status: released
       x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-13932713-run
+      x-operation-id-source: normalized
+      x-operation-id-original: respondToInteraction
   /rollup_interactions:
     get:
       summary: Rollup Review API
@@ -1073,6 +1077,67 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    ResponseInteraction:
+      type: object
+      properties:
+        interactionId:
+          type: string
+          format: uuid
+          description: Parent interaction ID for the response
+        source:
+          type: string
+          description: URL of the interaction site
+        content:
+          type: string
+          description: Interaction response content
+        authorName:
+          type:
+          - string
+          - 'null'
+          description: Name of person who responded
+        authorAvatar:
+          type:
+          - string
+          - 'null'
+          description: URL of response author's image
+        authorUrl:
+          type:
+          - string
+          - 'null'
+          description: URL of response author's profile
+        date:
+          type: string
+          format: date-time
+          description: Response timestamp
+        interactionStatus:
+          type: string
+          enum:
+          - Created
+          - Completed
+          - Confirmed
+          - Failed
+          description: 'Status of the response:
+
+            * Created - Initial creation
+
+            * Completed - Posted to partner site
+
+            * Confirmed - Verified on partner site
+
+            * Failed - Response posting failed
+
+            '
+      x-apidog-orders:
+      - interactionId
+      - source
+      - content
+      - authorName
+      - authorAvatar
+      - authorUrl
+      - date
+      - interactionStatus
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
     Interaction:
       type: object
       properties:
@@ -1180,80 +1245,6 @@ components:
       - totalResponses
       x-apidog-ignore-properties: []
       x-apidog-folder: ''
-    InteractionEdge:
-      type: object
-      properties:
-        node:
-          $ref: '#/components/schemas/Interaction'
-        cursor:
-          type: string
-          description: Cursor for pagination
-      x-apidog-orders:
-      - node
-      - cursor
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    ResponseInteraction:
-      type: object
-      properties:
-        interactionId:
-          type: string
-          format: uuid
-          description: Parent interaction ID for the response
-        source:
-          type: string
-          description: URL of the interaction site
-        content:
-          type: string
-          description: Interaction response content
-        authorName:
-          type:
-          - string
-          - 'null'
-          description: Name of person who responded
-        authorAvatar:
-          type:
-          - string
-          - 'null'
-          description: URL of response author's image
-        authorUrl:
-          type:
-          - string
-          - 'null'
-          description: URL of response author's profile
-        date:
-          type: string
-          format: date-time
-          description: Response timestamp
-        interactionStatus:
-          type: string
-          enum:
-          - Created
-          - Completed
-          - Confirmed
-          - Failed
-          description: 'Status of the response:
-
-            * Created - Initial creation
-
-            * Completed - Posted to partner site
-
-            * Confirmed - Verified on partner site
-
-            * Failed - Response posting failed
-
-            '
-      x-apidog-orders:
-      - interactionId
-      - source
-      - content
-      - authorName
-      - authorAvatar
-      - authorUrl
-      - date
-      - interactionStatus
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
     PageInfo:
       type: object
       properties:
@@ -1303,5 +1294,18 @@ components:
           x-apidog-ignore-properties: []
       x-apidog-orders:
       - data
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    InteractionEdge:
+      type: object
+      properties:
+        node:
+          $ref: '#/components/schemas/Interaction'
+        cursor:
+          type: string
+          description: Cursor for pagination
+      x-apidog-orders:
+      - node
+      - cursor
       x-apidog-ignore-properties: []
       x-apidog-folder: ''

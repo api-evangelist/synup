@@ -369,6 +369,34 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    NotFoundError:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            bingInsights:
+              type: null
+          x-apidog-orders:
+          - bingInsights
+          x-apidog-ignore-properties: []
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+                examples:
+                - Location not found
+            x-apidog-orders:
+            - message
+            x-apidog-ignore-properties: []
+      x-apidog-orders:
+      - data
+      - errors
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
     InsightMetric:
       type: object
       properties:
@@ -408,34 +436,6 @@ components:
                 type: string
                 examples:
                 - 'SY90001: Not authorized to access this resource'
-            x-apidog-orders:
-            - message
-            x-apidog-ignore-properties: []
-      x-apidog-orders:
-      - data
-      - errors
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    NotFoundError:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            bingInsights:
-              type: null
-          x-apidog-orders:
-          - bingInsights
-          x-apidog-ignore-properties: []
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              message:
-                type: string
-                examples:
-                - Location not found
             x-apidog-orders:
             - message
             x-apidog-ignore-properties: []

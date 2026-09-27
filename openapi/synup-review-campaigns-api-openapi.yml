@@ -273,22 +273,17 @@ paths:
       x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-14026077-run
 components:
   schemas:
-    CustomerInput:
+    ReviewSite:
       type: object
-      required:
-      - name
       properties:
         name:
           type: string
-        email:
+        url:
           type: string
-          format: email
-        phone:
-          type: string
+          description: URL for connected sites (maps.google.com, facebook.com, foursquare.com) or custom sites
       x-apidog-orders:
       - name
-      - email
-      - phone
+      - url
       x-apidog-ignore-properties: []
       x-apidog-folder: ''
     ReviewCampaign:
@@ -352,20 +347,20 @@ components:
       - numberOfFeedbacks
       x-apidog-ignore-properties: []
       x-apidog-folder: ''
-    SMSTemplate:
+    LandingPageTemplate:
       type: object
       properties:
         content:
+          type: string
+        heading:
           type: string
         reviewSiteHash:
           type: array
           items:
             $ref: '#/components/schemas/ReviewSite'
-          description: 'Max 1 for smsTemplate
-
-            Not required when screening is true'
       x-apidog-orders:
       - content
+      - heading
       - reviewSiteHash
       x-apidog-ignore-properties: []
       x-apidog-folder: ''
@@ -386,17 +381,36 @@ components:
       - name
       - value
       x-apidog-folder: ''
-    ReviewSite:
+    CustomerInput:
       type: object
+      required:
+      - name
       properties:
         name:
           type: string
-        url:
+        email:
           type: string
-          description: URL for connected sites (maps.google.com, facebook.com, foursquare.com) or custom sites
+          format: email
+        phone:
+          type: string
       x-apidog-orders:
       - name
-      - url
+      - email
+      - phone
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    SmsTemplate:
+      type: object
+      properties:
+        content:
+          type: string
+        reviewSiteHash:
+          type: array
+          items:
+            type: string
+      x-apidog-orders:
+      - content
+      - reviewSiteHash
       x-apidog-ignore-properties: []
       x-apidog-folder: ''
     CreateReviewCampaignRequest:
@@ -472,6 +486,46 @@ components:
       - input
       x-apidog-ignore-properties: []
       x-apidog-folder: ''
+    ReviewCampaignsResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            listReviewCampaigns:
+              type: object
+              properties:
+                reviewCampaigns:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/ReviewCampaign'
+              x-apidog-orders:
+              - reviewCampaigns
+              x-apidog-ignore-properties: []
+          x-apidog-orders:
+          - listReviewCampaigns
+          x-apidog-ignore-properties: []
+      x-apidog-orders:
+      - data
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    SMSTemplate:
+      type: object
+      properties:
+        content:
+          type: string
+        reviewSiteHash:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReviewSite'
+          description: 'Max 1 for smsTemplate
+
+            Not required when screening is true'
+      x-apidog-orders:
+      - content
+      - reviewSiteHash
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
     EmailTemplate:
       type: object
       properties:
@@ -512,46 +566,6 @@ components:
       - data
       x-apidog-ignore-properties: []
       x-apidog-folder: ''
-    ReviewCampaignsResponse:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            listReviewCampaigns:
-              type: object
-              properties:
-                reviewCampaigns:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/ReviewCampaign'
-              x-apidog-orders:
-              - reviewCampaigns
-              x-apidog-ignore-properties: []
-          x-apidog-orders:
-          - listReviewCampaigns
-          x-apidog-ignore-properties: []
-      x-apidog-orders:
-      - data
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    LandingPageTemplate:
-      type: object
-      properties:
-        content:
-          type: string
-        heading:
-          type: string
-        reviewSiteHash:
-          type: array
-          items:
-            $ref: '#/components/schemas/ReviewSite'
-      x-apidog-orders:
-      - content
-      - heading
-      - reviewSiteHash
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
     ReviewCampaignInfo:
       type: object
       properties:
@@ -565,20 +579,6 @@ components:
       x-apidog-orders:
       - campaignName
       - reviewCampaignCustomers
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    SmsTemplate:
-      type: object
-      properties:
-        content:
-          type: string
-        reviewSiteHash:
-          type: array
-          items:
-            type: string
-      x-apidog-orders:
-      - content
-      - reviewSiteHash
       x-apidog-ignore-properties: []
       x-apidog-folder: ''
     ReviewCampaignCustomer:

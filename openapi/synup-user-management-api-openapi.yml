@@ -1329,118 +1329,50 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    UserRole:
+    AddLocationsInput:
       type: object
-      properties:
-        id:
-          type: string
-          description: Base64 encoded unique identifier for the role
-        name:
-          type: string
-          description: Name of the role
-        createdAt:
-          type: string
-          format: date-time
-          description: Role creation timestamp
-        updatedAt:
-          type: string
-          format: date-time
-          description: Role last update timestamp
       required:
-      - id
-      - name
-      - createdAt
-      - updatedAt
-      x-apidog-orders:
-      - id
-      - name
-      - createdAt
-      - updatedAt
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    AddLocationsResponse:
-      type: object
+      - userId
+      - locationIds
       properties:
-        data:
-          type: object
-          properties:
-            addLocationsForUser:
-              type: object
-              properties:
-                status:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/LocationAddStatus'
-              x-apidog-orders:
-              - status
-              x-apidog-ignore-properties: []
-          x-apidog-orders:
-          - addLocationsForUser
-          x-apidog-ignore-properties: []
-      x-apidog-orders:
-      - data
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    UserEdge:
-      type: object
-      properties:
-        cursor:
+        userId:
           type: string
-          description: Unique cursor for this user record
-        node:
-          $ref: '#/components/schemas/User'
+          description: ID of the user to associate locations with
+          examples:
+          - VXNlcjoxMjMyMDE=
+        locationIds:
+          type: array
+          items:
+            type: string
+          description: Array of location IDs to associate with the user
+          examples:
+          - - TG9jYXRpb246MTE3NjE5NQ==
+            - TG9jYXRpb246MTE0NzgxNA==
       x-apidog-orders:
-      - cursor
-      - node
+      - userId
+      - locationIds
       x-apidog-ignore-properties: []
       x-apidog-folder: ''
-    UsersByIdsResponse:
+    Pagination:
       type: object
       properties:
-        data:
-          type: object
-          properties:
-            usersByIds:
-              type: array
-              items:
-                $ref: '#/components/schemas/UserDetail'
-          x-apidog-orders:
-          - usersByIds
-          x-apidog-ignore-properties: []
+        total:
+          type: integer
+          description: Total number of items
+        page:
+          type: integer
+          description: Current page number
+        limit:
+          type: integer
+          description: Items per page
+        total_pages:
+          type: integer
+          description: Total number of pages
       x-apidog-orders:
-      - data
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    CreateUserResponse:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            addUser:
-              type: object
-              properties:
-                success:
-                  type: boolean
-                  description: Indicates if the user creation was successful
-                errors:
-                  type: array
-                  items:
-                    type: string
-                  description: Array of error messages if any
-                user:
-                  $ref: '#/components/schemas/CreatedUser'
-              x-apidog-orders:
-              - success
-              - errors
-              - user
-              x-apidog-ignore-properties: []
-          x-apidog-orders:
-          - addUser
-          x-apidog-ignore-properties: []
-      x-apidog-orders:
-      - data
-      x-apidog-ignore-properties: []
+      - total
+      - page
+      - limit
+      - total_pages
       x-apidog-folder: ''
     User:
       type: object
@@ -1506,26 +1438,239 @@ components:
       - inviteStatus
       x-apidog-ignore-properties: []
       x-apidog-folder: ''
-    Pagination:
+    LocationAddStatus:
       type: object
       properties:
-        total:
-          type: integer
-          description: Total number of items
-        page:
-          type: integer
-          description: Current page number
-        limit:
-          type: integer
-          description: Items per page
-        total_pages:
-          type: integer
-          description: Total number of pages
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: Array of error messages if any occurred
+        locationId:
+          type: string
+          description: ID of the location being added
+        success:
+          type: boolean
+          description: Indicates if the location was successfully added
       x-apidog-orders:
-      - total
-      - page
-      - limit
-      - total_pages
+      - errors
+      - locationId
+      - success
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    CreateUserResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            addUser:
+              type: object
+              properties:
+                success:
+                  type: boolean
+                  description: Indicates if the user creation was successful
+                errors:
+                  type: array
+                  items:
+                    type: string
+                  description: Array of error messages if any
+                user:
+                  $ref: '#/components/schemas/CreatedUser'
+              x-apidog-orders:
+              - success
+              - errors
+              - user
+              x-apidog-ignore-properties: []
+          x-apidog-orders:
+          - addUser
+          x-apidog-ignore-properties: []
+      x-apidog-orders:
+      - data
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    UserRole:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Base64 encoded unique identifier for the role
+        name:
+          type: string
+          description: Name of the role
+        createdAt:
+          type: string
+          format: date-time
+          description: Role creation timestamp
+        updatedAt:
+          type: string
+          format: date-time
+          description: Role last update timestamp
+      required:
+      - id
+      - name
+      - createdAt
+      - updatedAt
+      x-apidog-orders:
+      - id
+      - name
+      - createdAt
+      - updatedAt
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    CreateUserInput:
+      type: object
+      required:
+      - email
+      - roleId
+      - firstName
+      - directCustomer
+      properties:
+        email:
+          type: string
+          format: email
+          description: User's email address
+        roleId:
+          type: string
+          description: ID of the role to assign to the user
+        firstName:
+          type: string
+          description: User's first name
+        directCustomer:
+          type: boolean
+          description: Indicates if the user is a direct customer
+      x-apidog-orders:
+      - email
+      - roleId
+      - firstName
+      - directCustomer
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    PageInfo:
+      type: object
+      properties:
+        hasNextPage:
+          type: boolean
+          description: Indicates if there are more pages available
+        hasPreviousPage:
+          type: boolean
+          description: Indicates if there are previous pages available
+        totalPages:
+          type: integer
+          description: Total number of pages available
+        totalRecords:
+          type: integer
+          description: Total number of records across all pages
+      x-apidog-orders:
+      - hasNextPage
+      - hasPreviousPage
+      - totalPages
+      - totalRecords
+      x-apidog-folder: ''
+    UsersByIdsResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            usersByIds:
+              type: array
+              items:
+                $ref: '#/components/schemas/UserDetail'
+          x-apidog-orders:
+          - usersByIds
+          x-apidog-ignore-properties: []
+      x-apidog-orders:
+      - data
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    UserDetail:
+      type: object
+      required:
+      - id
+      - firstName
+      - email
+      - customRole
+      - directCustomer
+      - createdAt
+      - inviteStatus
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the user
+        firstName:
+          type: string
+          description: User's first name
+        lastName:
+          type:
+          - string
+          - 'null'
+          description: User's last name
+        email:
+          type: string
+          format: email
+          description: User's email address
+        customRole:
+          type: object
+          properties:
+            id:
+              type: string
+              description: Role identifier
+            name:
+              type: string
+              description: Role name
+          x-apidog-orders:
+          - id
+          - name
+          x-apidog-ignore-properties: []
+        directCustomer:
+          type: boolean
+          description: Indicates if the user is a direct customer
+        createdAt:
+          type: string
+          format: date-time
+          description: Timestamp when the user was created
+        inviteStatus:
+          type: string
+          enum:
+          - ACTIVE
+          - INVITE_SENT
+          - RESEND_INVITE
+          description: Current status of the user's invitation
+        preferences:
+          type: object
+          properties:
+            locale:
+              type: string
+              description: User's locale preference
+            dateFormat:
+              type:
+              - string
+              - 'null'
+              description: User's preferred date format
+            timezone:
+              type:
+              - string
+              - 'null'
+              description: User's timezone preference
+          x-apidog-orders:
+          - locale
+          - dateFormat
+          - timezone
+          x-apidog-ignore-properties: []
+      x-apidog-orders:
+      - id
+      - firstName
+      - lastName
+      - email
+      - customRole
+      - directCustomer
+      - createdAt
+      - inviteStatus
+      - preferences
+      x-apidog-ignore-properties: []
       x-apidog-folder: ''
     UsersResponse:
       type: object
@@ -1552,6 +1697,42 @@ components:
               x-apidog-ignore-properties: []
           x-apidog-orders:
           - users
+          x-apidog-ignore-properties: []
+      x-apidog-orders:
+      - data
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    UserEdge:
+      type: object
+      properties:
+        cursor:
+          type: string
+          description: Unique cursor for this user record
+        node:
+          $ref: '#/components/schemas/User'
+      x-apidog-orders:
+      - cursor
+      - node
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    AddLocationsResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            addLocationsForUser:
+              type: object
+              properties:
+                status:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/LocationAddStatus'
+              x-apidog-orders:
+              - status
+              x-apidog-ignore-properties: []
+          x-apidog-orders:
+          - addLocationsForUser
           x-apidog-ignore-properties: []
       x-apidog-orders:
       - data
@@ -1643,186 +1824,5 @@ components:
       - customRole
       - accountId
       - preferences
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    PageInfo:
-      type: object
-      properties:
-        hasNextPage:
-          type: boolean
-          description: Indicates if there are more pages available
-        hasPreviousPage:
-          type: boolean
-          description: Indicates if there are previous pages available
-        totalPages:
-          type: integer
-          description: Total number of pages available
-        totalRecords:
-          type: integer
-          description: Total number of records across all pages
-      x-apidog-orders:
-      - hasNextPage
-      - hasPreviousPage
-      - totalPages
-      - totalRecords
-      x-apidog-folder: ''
-    AddLocationsInput:
-      type: object
-      required:
-      - userId
-      - locationIds
-      properties:
-        userId:
-          type: string
-          description: ID of the user to associate locations with
-          examples:
-          - VXNlcjoxMjMyMDE=
-        locationIds:
-          type: array
-          items:
-            type: string
-          description: Array of location IDs to associate with the user
-          examples:
-          - - TG9jYXRpb246MTE3NjE5NQ==
-            - TG9jYXRpb246MTE0NzgxNA==
-      x-apidog-orders:
-      - userId
-      - locationIds
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    LocationAddStatus:
-      type: object
-      properties:
-        errors:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-          description: Array of error messages if any occurred
-        locationId:
-          type: string
-          description: ID of the location being added
-        success:
-          type: boolean
-          description: Indicates if the location was successfully added
-      x-apidog-orders:
-      - errors
-      - locationId
-      - success
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    UserDetail:
-      type: object
-      required:
-      - id
-      - firstName
-      - email
-      - customRole
-      - directCustomer
-      - createdAt
-      - inviteStatus
-      properties:
-        id:
-          type: string
-          description: Unique identifier for the user
-        firstName:
-          type: string
-          description: User's first name
-        lastName:
-          type:
-          - string
-          - 'null'
-          description: User's last name
-        email:
-          type: string
-          format: email
-          description: User's email address
-        customRole:
-          type: object
-          properties:
-            id:
-              type: string
-              description: Role identifier
-            name:
-              type: string
-              description: Role name
-          x-apidog-orders:
-          - id
-          - name
-          x-apidog-ignore-properties: []
-        directCustomer:
-          type: boolean
-          description: Indicates if the user is a direct customer
-        createdAt:
-          type: string
-          format: date-time
-          description: Timestamp when the user was created
-        inviteStatus:
-          type: string
-          enum:
-          - ACTIVE
-          - INVITE_SENT
-          - RESEND_INVITE
-          description: Current status of the user's invitation
-        preferences:
-          type: object
-          properties:
-            locale:
-              type: string
-              description: User's locale preference
-            dateFormat:
-              type:
-              - string
-              - 'null'
-              description: User's preferred date format
-            timezone:
-              type:
-              - string
-              - 'null'
-              description: User's timezone preference
-          x-apidog-orders:
-          - locale
-          - dateFormat
-          - timezone
-          x-apidog-ignore-properties: []
-      x-apidog-orders:
-      - id
-      - firstName
-      - lastName
-      - email
-      - customRole
-      - directCustomer
-      - createdAt
-      - inviteStatus
-      - preferences
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    CreateUserInput:
-      type: object
-      required:
-      - email
-      - roleId
-      - firstName
-      - directCustomer
-      properties:
-        email:
-          type: string
-          format: email
-          description: User's email address
-        roleId:
-          type: string
-          description: ID of the role to assign to the user
-        firstName:
-          type: string
-          description: User's first name
-        directCustomer:
-          type: boolean
-          description: Indicates if the user is a direct customer
-      x-apidog-orders:
-      - email
-      - roleId
-      - firstName
-      - directCustomer
       x-apidog-ignore-properties: []
       x-apidog-folder: ''

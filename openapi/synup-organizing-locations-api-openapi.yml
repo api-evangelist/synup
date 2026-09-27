@@ -1674,44 +1674,158 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    Error:
+    ListFoldersResponse:
       type: object
       properties:
-        message:
-          type: string
-        code:
-          type: string
-        contextInfo:
-          type: array
-          items:
-            type: object
-            properties:
-              key:
-                type: string
-              value:
-                type: string
-            x-apidog-orders:
-            - key
-            - value
-            x-apidog-ignore-properties: []
+        data:
+          type: object
+          properties:
+            getUserFolders:
+              type: array
+              items:
+                $ref: '#/components/schemas/FolderInfo'
+          x-apidog-orders:
+          - getUserFolders
+          x-apidog-ignore-properties: []
       x-apidog-orders:
-      - message
-      - code
-      - contextInfo
+      - data
       x-apidog-ignore-properties: []
       x-apidog-folder: ''
-    DefaultFolderType:
+    CreateFolderRequest:
+      type: object
+      required:
+      - input
+      properties:
+        input:
+          type: object
+          required:
+          - name
+          properties:
+            name:
+              type: string
+              description: Unique name for the folder
+            parentFolderName:
+              type: string
+              description: Name of the parent folder (optional)
+            parentFolder:
+              type: string
+              description: UUID of the parent folder (optional)
+          x-apidog-orders:
+          - name
+          - parentFolderName
+          - parentFolder
+          x-apidog-ignore-properties: []
+      x-apidog-orders:
+      - input
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    FolderInfo:
       type: object
       properties:
         id:
           type: string
-          description: Default folder ID.
+          format: uuid
+          description: Unique identifier of the folder
         name:
           type: string
-          description: Default folder name.
+          description: Name of the folder
+        level:
+          type: integer
+          description: Hierarchical level of the folder (0 for root)
+          minimum: 0
+        locationCount:
+          type: integer
+          description: Number of locations in this folder
+          minimum: 0
+        parentFolderId:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          description: ID of the parent folder (null for root folder)
+        parentFolderName:
+          type:
+          - string
+          - 'null'
+          description: Name of the parent folder (null for root folder)
       x-apidog-orders:
       - id
       - name
+      - level
+      - locationCount
+      - parentFolderId
+      - parentFolderName
+      x-apidog-folder: ''
+    Folder:
+      type: object
+      properties:
+        accountId:
+          type: integer
+          description: ID of the account owning this folder
+        archived:
+          type: boolean
+          description: Whether the folder is archived
+        createdAt:
+          type: string
+          description: UTC timestamp of folder creation
+        id:
+          type: string
+          description: Unique identifier (UUID) of the folder
+        locationCount:
+          type:
+          - integer
+          - 'null'
+          description: Number of locations in this folder
+        name:
+          type: string
+          description: Name of the folder
+        root:
+          type: boolean
+          description: Whether this is the root folder
+      x-apidog-orders:
+      - accountId
+      - archived
+      - createdAt
+      - id
+      - locationCount
+      - name
+      - root
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    CreateFolderResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            createFolder:
+              type: object
+              properties:
+                clientMutationId:
+                  type:
+                  - string
+                  - 'null'
+                errors:
+                  type:
+                  - array
+                  - 'null'
+                  items:
+                    $ref: '#/components/schemas/Error'
+                folder:
+                  $ref: '#/components/schemas/Folder'
+                success:
+                  type: boolean
+              x-apidog-orders:
+              - clientMutationId
+              - errors
+              - folder
+              - success
+              x-apidog-ignore-properties: []
+          x-apidog-orders:
+          - createFolder
+          x-apidog-ignore-properties: []
+      x-apidog-orders:
+      - data
       x-apidog-ignore-properties: []
       x-apidog-folder: ''
     FolderNode:
@@ -1758,157 +1872,43 @@ components:
       - locationCount
       - subFolders
       x-apidog-folder: ''
-    CreateFolderRequest:
-      type: object
-      required:
-      - input
-      properties:
-        input:
-          type: object
-          required:
-          - name
-          properties:
-            name:
-              type: string
-              description: Unique name for the folder
-            parentFolderName:
-              type: string
-              description: Name of the parent folder (optional)
-            parentFolder:
-              type: string
-              description: UUID of the parent folder (optional)
-          x-apidog-orders:
-          - name
-          - parentFolderName
-          - parentFolder
-          x-apidog-ignore-properties: []
-      x-apidog-orders:
-      - input
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    Folder:
+    Error:
       type: object
       properties:
-        accountId:
-          type: integer
-          description: ID of the account owning this folder
-        archived:
-          type: boolean
-          description: Whether the folder is archived
-        createdAt:
+        message:
           type: string
-          description: UTC timestamp of folder creation
-        id:
+        code:
           type: string
-          description: Unique identifier (UUID) of the folder
-        locationCount:
-          type:
-          - integer
-          - 'null'
-          description: Number of locations in this folder
-        name:
-          type: string
-          description: Name of the folder
-        root:
-          type: boolean
-          description: Whether this is the root folder
+        contextInfo:
+          type: array
+          items:
+            type: object
+            properties:
+              key:
+                type: string
+              value:
+                type: string
+            x-apidog-orders:
+            - key
+            - value
+            x-apidog-ignore-properties: []
       x-apidog-orders:
-      - accountId
-      - archived
-      - createdAt
-      - id
-      - locationCount
-      - name
-      - root
+      - message
+      - code
+      - contextInfo
       x-apidog-ignore-properties: []
       x-apidog-folder: ''
-    ListFoldersResponse:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            getUserFolders:
-              type: array
-              items:
-                $ref: '#/components/schemas/FolderInfo'
-          x-apidog-orders:
-          - getUserFolders
-          x-apidog-ignore-properties: []
-      x-apidog-orders:
-      - data
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    FolderInfo:
+    DefaultFolderType:
       type: object
       properties:
         id:
           type: string
-          format: uuid
-          description: Unique identifier of the folder
+          description: Default folder ID.
         name:
           type: string
-          description: Name of the folder
-        level:
-          type: integer
-          description: Hierarchical level of the folder (0 for root)
-          minimum: 0
-        locationCount:
-          type: integer
-          description: Number of locations in this folder
-          minimum: 0
-        parentFolderId:
-          type:
-          - string
-          - 'null'
-          format: uuid
-          description: ID of the parent folder (null for root folder)
-        parentFolderName:
-          type:
-          - string
-          - 'null'
-          description: Name of the parent folder (null for root folder)
+          description: Default folder name.
       x-apidog-orders:
       - id
       - name
-      - level
-      - locationCount
-      - parentFolderId
-      - parentFolderName
-      x-apidog-folder: ''
-    CreateFolderResponse:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            createFolder:
-              type: object
-              properties:
-                clientMutationId:
-                  type:
-                  - string
-                  - 'null'
-                errors:
-                  type:
-                  - array
-                  - 'null'
-                  items:
-                    $ref: '#/components/schemas/Error'
-                folder:
-                  $ref: '#/components/schemas/Folder'
-                success:
-                  type: boolean
-              x-apidog-orders:
-              - clientMutationId
-              - errors
-              - folder
-              - success
-              x-apidog-ignore-properties: []
-          x-apidog-orders:
-          - createFolder
-          x-apidog-ignore-properties: []
-      x-apidog-orders:
-      - data
       x-apidog-ignore-properties: []
       x-apidog-folder: ''

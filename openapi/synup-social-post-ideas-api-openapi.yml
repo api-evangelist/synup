@@ -3255,422 +3255,6 @@ paths:
       x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40140804-run
 components:
   schemas:
-    ReferenceImageAnalysis:
-      type: object
-      properties:
-        description:
-          type: string
-          description: Textual description of the analyzed image.
-      x-apidog-orders:
-      - description
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    IdeaJobStatus:
-      type: object
-      properties:
-        status:
-          type: string
-        imageUrl:
-          type: string
-      x-apidog-orders:
-      - status
-      - imageUrl
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    GenerateIdeaVisualRequest:
-      type: object
-      required:
-      - ideaId
-      properties:
-        ideaId:
-          type: string
-        prompt:
-          type: string
-        referenceImageUrls:
-          type: array
-          items:
-            type: string
-        imageSize:
-          type: string
-      x-apidog-orders:
-      - ideaId
-      - prompt
-      - referenceImageUrls
-      - imageSize
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    ActionChip:
-      type: object
-      properties:
-        label:
-          type: string
-        emoji:
-          type: string
-        action:
-          type: string
-      x-apidog-orders:
-      - label
-      - emoji
-      - action
-      x-apidog-folder: ''
-    ChatSessionResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        session:
-          $ref: '#/components/schemas/ChatSession'
-        suggestions:
-          type: array
-          items:
-            type: string
-        error:
-          $ref: '#/components/schemas/Error'
-      x-apidog-orders:
-      - success
-      - session
-      - suggestions
-      - error
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    ScrapeBrandRequest:
-      type: object
-      required:
-      - socialProfileId
-      - siteUrl
-      properties:
-        socialProfileId:
-          type: string
-        siteUrl:
-          type: string
-        trigger:
-          type: string
-      x-apidog-orders:
-      - socialProfileId
-      - siteUrl
-      - trigger
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    TriggerPipelineRequest:
-      type: object
-      required:
-      - socialProfileId
-      - profileName
-      properties:
-        socialProfileId:
-          type: string
-        profileName:
-          type: string
-        siteUrl:
-          type: string
-        categories:
-          type: array
-          items:
-            type: string
-        brandHashtags:
-          type: array
-          items:
-            type: string
-        businessIntent:
-          type: string
-        contentPreferredLanguage:
-          type: string
-      x-apidog-orders:
-      - socialProfileId
-      - profileName
-      - siteUrl
-      - categories
-      - brandHashtags
-      - businessIntent
-      - contentPreferredLanguage
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    ChatSession:
-      type: object
-      properties:
-        id:
-          type: string
-        socialProfileId:
-          type: string
-        mode:
-          type: string
-        status:
-          type: string
-        messageCount:
-          type: integer
-        title:
-          type: string
-        createdAt:
-          type: string
-      x-apidog-orders:
-      - id
-      - socialProfileId
-      - mode
-      - status
-      - messageCount
-      - title
-      - createdAt
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    RefreshIdeasRequest:
-      type: object
-      required:
-      - socialProfileId
-      - profileName
-      properties:
-        socialProfileId:
-          type: string
-        profileName:
-          type: string
-        siteUrl:
-          type: string
-        categories:
-          type: array
-          items:
-            type: string
-        brandHashtags:
-          type: array
-          items:
-            type: string
-        businessIntent:
-          type: string
-        contentPreferredLanguage:
-          type: string
-      x-apidog-orders:
-      - socialProfileId
-      - profileName
-      - siteUrl
-      - categories
-      - brandHashtags
-      - businessIntent
-      - contentPreferredLanguage
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    PostIdeaCounts:
-      type: object
-      properties:
-        ai:
-          type: integer
-        mine:
-          type: integer
-        series:
-          type: integer
-        all:
-          type: integer
-      x-apidog-orders:
-      - ai
-      - mine
-      - series
-      - all
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    CloseChatSessionRequest:
-      type: object
-      required:
-      - sessionId
-      properties:
-        sessionId:
-          type: string
-      x-apidog-orders:
-      - sessionId
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    GenerateAllSeriesPostsRequest:
-      type: object
-      required:
-      - seriesId
-      - socialProfileId
-      properties:
-        seriesId:
-          type: string
-        socialProfileId:
-          type: string
-      x-apidog-orders:
-      - seriesId
-      - socialProfileId
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    SendChatMessageRequest:
-      type: object
-      required:
-      - sessionId
-      - message
-      properties:
-        sessionId:
-          type: string
-        message:
-          type: string
-        referenceImageUrls:
-          type: array
-          items:
-            type: string
-      x-apidog-orders:
-      - sessionId
-      - message
-      - referenceImageUrls
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    UpdateExtendedBrandConfigRequest:
-      type: object
-      required:
-      - socialProfileId
-      properties:
-        socialProfileId:
-          type: string
-        tone:
-          type: string
-        targetCustomers:
-          type: string
-        country:
-          type: string
-        phone:
-          type: string
-        address:
-          type: string
-        location:
-          type: string
-        primaryColor:
-          type: string
-        secondaryColor:
-          type: string
-        logoLight:
-          type: string
-        logoDark:
-          type: string
-        services:
-          type: object
-          description: Free-form JSON describing services.
-          x-apidog-orders: []
-          properties: {}
-          x-apidog-ignore-properties: []
-        products:
-          type: object
-          description: Free-form JSON describing products.
-          x-apidog-orders: []
-          properties: {}
-          x-apidog-ignore-properties: []
-        contentRules:
-          type: object
-          description: Free-form JSON content rules.
-          x-apidog-orders: []
-          properties: {}
-          x-apidog-ignore-properties: []
-        additionalContext:
-          type: string
-      x-apidog-orders:
-      - socialProfileId
-      - tone
-      - targetCustomers
-      - country
-      - phone
-      - address
-      - location
-      - primaryColor
-      - secondaryColor
-      - logoLight
-      - logoDark
-      - services
-      - products
-      - contentRules
-      - additionalContext
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    ContentSeries:
-      type: object
-      properties:
-        id:
-          type: string
-        socialProfileId:
-          type: string
-        name:
-          type: string
-        theme:
-          type: string
-        status:
-          type: string
-        postCount:
-          type: integer
-        publishedCount:
-          type: integer
-        unpublishedCount:
-          type: integer
-        posts:
-          type: array
-          description: Posts in the series (see Post idea for the full shape).
-          items:
-            type: object
-            x-apidog-orders: []
-            properties: {}
-            x-apidog-ignore-properties: []
-        chatSessionId:
-          type: string
-        createdAt:
-          type: string
-        updatedAt:
-          type: string
-      x-apidog-orders:
-      - id
-      - socialProfileId
-      - name
-      - theme
-      - status
-      - postCount
-      - publishedCount
-      - unpublishedCount
-      - posts
-      - chatSessionId
-      - createdAt
-      - updatedAt
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    ImageCredits:
-      type: object
-      properties:
-        socialProfileId:
-          type: string
-        monthlyLimit:
-          type: integer
-        isActive:
-          type: boolean
-        usedThisMonth:
-          type: integer
-        remainingThisMonth:
-          type: integer
-        addonPurchased:
-          type: integer
-        addonConsumed:
-          type: integer
-        addonRemaining:
-          type: integer
-      x-apidog-orders:
-      - socialProfileId
-      - monthlyLimit
-      - isActive
-      - usedThisMonth
-      - remainingThisMonth
-      - addonPurchased
-      - addonConsumed
-      - addonRemaining
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    BranchChatSessionRequest:
-      type: object
-      required:
-      - parentSessionId
-      - subjectType
-      properties:
-        parentSessionId:
-          type: string
-        subjectType:
-          type: string
-        subjectId:
-          type: string
-      x-apidog-orders:
-      - parentSessionId
-      - subjectType
-      - subjectId
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
     ScrapedBrandContext:
       type: object
       properties:
@@ -3776,646 +3360,6 @@ components:
       - visualContext
       x-apidog-ignore-properties: []
       x-apidog-folder: ''
-    RegenerateResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        idea:
-          type: object
-          description: The updated post idea (see Post idea for the full shape).
-          x-apidog-orders: []
-          properties: {}
-          x-apidog-ignore-properties: []
-        error:
-          $ref: '#/components/schemas/Error'
-      x-apidog-orders:
-      - success
-      - idea
-      - error
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    SuggestPostsForDateRequest:
-      type: object
-      required:
-      - socialProfileId
-      - date
-      properties:
-        socialProfileId:
-          type: string
-        date:
-          type: string
-          description: Target date (YYYY-MM-DD).
-      x-apidog-orders:
-      - socialProfileId
-      - date
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    GenerateObservanceIdeaRequest:
-      type: object
-      required:
-      - socialProfileId
-      - observanceName
-      properties:
-        socialProfileId:
-          type: string
-        observanceName:
-          type: string
-        observanceDate:
-          type: string
-        hint:
-          type: string
-      x-apidog-orders:
-      - socialProfileId
-      - observanceName
-      - observanceDate
-      - hint
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    ReferenceImageOption:
-      type: object
-      properties:
-        url:
-          type: string
-        category:
-          type: string
-      x-apidog-orders:
-      - url
-      - category
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    PipelineStatus:
-      type: object
-      properties:
-        id:
-          type: string
-        socialProfileId:
-          type: string
-        pipelineType:
-          type: string
-        status:
-          type: string
-        currentStep:
-          type: string
-        stepsCompleted:
-          type: array
-          items:
-            type: string
-        stepsRemaining:
-          type: array
-          items:
-            type: string
-        errorMessage:
-          type: string
-        startedAt:
-          type: string
-        completedAt:
-          type: string
-      x-apidog-orders:
-      - id
-      - socialProfileId
-      - pipelineType
-      - status
-      - currentStep
-      - stepsCompleted
-      - stepsRemaining
-      - errorMessage
-      - startedAt
-      - completedAt
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    ExtendedBrandConfig:
-      type: object
-      properties:
-        id:
-          type: string
-        socialProfileId:
-          type: string
-        tone:
-          type: string
-        targetCustomers:
-          type: string
-        country:
-          type: string
-        phone:
-          type: string
-        address:
-          type: string
-        location:
-          type: string
-        primaryColor:
-          type: string
-        secondaryColor:
-          type: string
-        logoLight:
-          type: string
-        logoDark:
-          type: string
-        services:
-          type: object
-          description: Free-form JSON.
-          x-apidog-orders: []
-          properties: {}
-          x-apidog-ignore-properties: []
-        products:
-          type: object
-          description: Free-form JSON.
-          x-apidog-orders: []
-          properties: {}
-          x-apidog-ignore-properties: []
-        contentRules:
-          type: object
-          description: Free-form JSON.
-          x-apidog-orders: []
-          properties: {}
-          x-apidog-ignore-properties: []
-        additionalContext:
-          type: string
-        insights:
-          type: object
-          description: Free-form JSON.
-          x-apidog-orders: []
-          properties: {}
-          x-apidog-ignore-properties: []
-      x-apidog-orders:
-      - id
-      - socialProfileId
-      - tone
-      - targetCustomers
-      - country
-      - phone
-      - address
-      - location
-      - primaryColor
-      - secondaryColor
-      - logoLight
-      - logoDark
-      - services
-      - products
-      - contentRules
-      - additionalContext
-      - insights
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    ArchiveSeriesRequest:
-      type: object
-      required:
-      - seriesId
-      properties:
-        seriesId:
-          type: string
-      x-apidog-orders:
-      - seriesId
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    Observance:
-      type: object
-      properties:
-        id:
-          type: integer
-        title:
-          type: string
-        description:
-          type: string
-        date:
-          type: string
-        imageUrl:
-          type: string
-        isMonthLong:
-          type: boolean
-        isRelevant:
-          type: boolean
-        ideasReady:
-          type: boolean
-        postIdeaId:
-          type: string
-        postImageUrl:
-          type: string
-        postTitle:
-          type: string
-        postType:
-          type: string
-        postContent:
-          type: string
-        postImagePrompt:
-          type: string
-      x-apidog-orders:
-      - id
-      - title
-      - description
-      - date
-      - imageUrl
-      - isMonthLong
-      - isRelevant
-      - ideasReady
-      - postIdeaId
-      - postImageUrl
-      - postTitle
-      - postType
-      - postContent
-      - postImagePrompt
-      x-apidog-folder: ''
-    GenerateSeriesPostRequest:
-      type: object
-      required:
-      - seriesId
-      - slotIndex
-      - socialProfileId
-      properties:
-        seriesId:
-          type: string
-        slotIndex:
-          type: integer
-        socialProfileId:
-          type: string
-      x-apidog-orders:
-      - seriesId
-      - slotIndex
-      - socialProfileId
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    SwitchChatModeRequest:
-      type: object
-      required:
-      - sessionId
-      - mode
-      properties:
-        sessionId:
-          type: string
-        mode:
-          type: string
-      x-apidog-orders:
-      - sessionId
-      - mode
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    GenerateAllSeriesPostsResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        generatedCount:
-          type: integer
-        error:
-          $ref: '#/components/schemas/Error'
-      x-apidog-orders:
-      - success
-      - generatedCount
-      - error
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    CreateContentSeriesRequest:
-      type: object
-      required:
-      - socialProfileId
-      - name
-      properties:
-        socialProfileId:
-          type: string
-        name:
-          type: string
-        theme:
-          type: string
-        postIdeaIds:
-          type: array
-          items:
-            type: string
-      x-apidog-orders:
-      - socialProfileId
-      - name
-      - theme
-      - postIdeaIds
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    SetBrandImageCreditsRequest:
-      type: object
-      required:
-      - socialProfileId
-      properties:
-        socialProfileId:
-          type: string
-        monthlyLimit:
-          type: integer
-        isActive:
-          type: boolean
-      x-apidog-orders:
-      - socialProfileId
-      - monthlyLimit
-      - isActive
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    LinkPostIdeaToSocialPostResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        error:
-          $ref: '#/components/schemas/Error'
-      x-apidog-orders:
-      - success
-      - error
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    RegenerateIdeaContentRequest:
-      type: object
-      required:
-      - ideaId
-      properties:
-        ideaId:
-          type: string
-        topic:
-          type: string
-      x-apidog-orders:
-      - ideaId
-      - topic
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    RegenerateIdeaImageRequest:
-      type: object
-      required:
-      - ideaId
-      properties:
-        ideaId:
-          type: string
-        referenceImageUrl:
-          type: string
-      x-apidog-orders:
-      - ideaId
-      - referenceImageUrl
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    MutationResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        error:
-          $ref: '#/components/schemas/Error'
-      x-apidog-orders:
-      - success
-      - error
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    GenerateCalendarDayRequest:
-      type: object
-      required:
-      - ideaId
-      properties:
-        ideaId:
-          type: string
-      x-apidog-orders:
-      - ideaId
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    CalendarDay:
-      type: object
-      properties:
-        day:
-          type: integer
-        posts:
-          type: array
-          description: Post ideas for the day (see Post idea for the full shape).
-          items:
-            type: object
-            x-apidog-orders: []
-            properties: {}
-            x-apidog-ignore-properties: []
-      x-apidog-orders:
-      - day
-      - posts
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    GenerateHolidayIdeaVariantRequest:
-      type: object
-      required:
-      - socialProfileId
-      - observanceName
-      properties:
-        socialProfileId:
-          type: string
-        observanceName:
-          type: string
-        observanceDate:
-          type: string
-        topic:
-          type: string
-      x-apidog-orders:
-      - socialProfileId
-      - observanceName
-      - observanceDate
-      - topic
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    RegenerateIdeaRequest:
-      type: object
-      required:
-      - ideaId
-      properties:
-        ideaId:
-          type: string
-        topic:
-          type: string
-        referenceImageUrl:
-          type: string
-      x-apidog-orders:
-      - ideaId
-      - topic
-      - referenceImageUrl
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    GenerateIdeasResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        ideas:
-          type: array
-          description: Generated post ideas (see Post idea for the full shape).
-          items:
-            type: object
-            x-apidog-orders: []
-        pipelineId:
-          type: string
-        error:
-          $ref: '#/components/schemas/Error'
-      x-apidog-orders:
-      - success
-      - ideas
-      - pipelineId
-      - error
-      x-apidog-folder: ''
-    UpdateIdeaRequest:
-      type: object
-      required:
-      - ideaId
-      properties:
-        ideaId:
-          type: string
-        title:
-          type: string
-        content:
-          type: string
-        status:
-          type: string
-        ctaText:
-          type: string
-        ctaUrl:
-          type: string
-        scheduledDate:
-          type: string
-        scheduledTime:
-          type: string
-        bucket:
-          type: string
-        note:
-          type: string
-        platforms:
-          type: array
-          items:
-            type: string
-      x-apidog-orders:
-      - ideaId
-      - title
-      - content
-      - status
-      - ctaText
-      - ctaUrl
-      - scheduledDate
-      - scheduledTime
-      - bucket
-      - note
-      - platforms
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    ChatMessageResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        message:
-          $ref: '#/components/schemas/ChatMessage'
-        postCard:
-          type: object
-          description: Generated post idea card (see Post idea for the full shape), when produced.
-          x-apidog-orders: []
-        seriesPlan:
-          type: object
-          description: Content-series plan, when produced.
-          x-apidog-orders: []
-        actionChips:
-          type: array
-          items:
-            $ref: '#/components/schemas/ActionChip'
-        error:
-          $ref: '#/components/schemas/Error'
-      x-apidog-orders:
-      - success
-      - message
-      - postCard
-      - seriesPlan
-      - actionChips
-      - error
-      x-apidog-folder: ''
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-        contextInfo:
-          type: array
-          items:
-            type: object
-            properties:
-              key:
-                type: string
-              value:
-                type: string
-            x-apidog-orders:
-            - key
-            - value
-            x-apidog-ignore-properties: []
-      x-apidog-orders:
-      - message
-      - code
-      - contextInfo
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    LinkPostIdeaToSocialPostRequest:
-      type: object
-      required:
-      - postIdeaId
-      - socialPostId
-      properties:
-        postIdeaId:
-          type: string
-        socialPostId:
-          type: string
-      x-apidog-orders:
-      - postIdeaId
-      - socialPostId
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    BrandInfo:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        siteUrl:
-          type: string
-        categories:
-          type: array
-          items:
-            type: string
-        country:
-          type: string
-      x-apidog-orders:
-      - id
-      - name
-      - siteUrl
-      - categories
-      - country
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    ScheduleSeriesResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        scheduledPosts:
-          type: array
-          description: The scheduled posts (see Post idea for the full shape).
-          items:
-            type: object
-            x-apidog-orders: []
-            properties: {}
-            x-apidog-ignore-properties: []
-        error:
-          $ref: '#/components/schemas/Error'
-      x-apidog-orders:
-      - success
-      - scheduledPosts
-      - error
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    TriggerPipelineResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        pipelineId:
-          type: string
-        error:
-          $ref: '#/components/schemas/Error'
-      x-apidog-orders:
-      - success
-      - pipelineId
-      - error
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
     PostIdea:
       type: object
       properties:
@@ -4505,23 +3449,7 @@ components:
       - updatedAt
       x-apidog-ignore-properties: []
       x-apidog-folder: ''
-    ScheduleSeriesRequest:
-      type: object
-      required:
-      - seriesId
-      - startDate
-      properties:
-        seriesId:
-          type: string
-        startDate:
-          type: string
-          description: Series start date (YYYY-MM-DD).
-      x-apidog-orders:
-      - seriesId
-      - startDate
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    ArchiveIdeaRequest:
+    GenerateCalendarDayRequest:
       type: object
       required:
       - ideaId
@@ -4532,57 +3460,95 @@ components:
       - ideaId
       x-apidog-ignore-properties: []
       x-apidog-folder: ''
-    ChatMessage:
-      type: object
-      properties:
-        id:
-          type: string
-        role:
-          type: string
-        content:
-          type: string
-        messageType:
-          type: string
-        metadata:
-          type: object
-          x-apidog-orders: []
-          properties: {}
-          x-apidog-ignore-properties: []
-        sequence:
-          type: integer
-        createdAt:
-          type: string
-      x-apidog-orders:
-      - id
-      - role
-      - content
-      - messageType
-      - metadata
-      - sequence
-      - createdAt
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    StartChatSessionRequest:
+    GenerateObservanceIdeaRequest:
       type: object
       required:
       - socialProfileId
+      - observanceName
       properties:
         socialProfileId:
           type: string
-        intent:
+        observanceName:
           type: string
-        mode:
+        observanceDate:
           type: string
-        subjectType:
-          type: string
-        subjectId:
+        hint:
           type: string
       x-apidog-orders:
       - socialProfileId
-      - intent
-      - mode
-      - subjectType
-      - subjectId
+      - observanceName
+      - observanceDate
+      - hint
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    CreateContentSeriesRequest:
+      type: object
+      required:
+      - socialProfileId
+      - name
+      properties:
+        socialProfileId:
+          type: string
+        name:
+          type: string
+        theme:
+          type: string
+        postIdeaIds:
+          type: array
+          items:
+            type: string
+      x-apidog-orders:
+      - socialProfileId
+      - name
+      - theme
+      - postIdeaIds
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    CloseChatSessionRequest:
+      type: object
+      required:
+      - sessionId
+      properties:
+        sessionId:
+          type: string
+      x-apidog-orders:
+      - sessionId
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    RegenerateIdeaImageRequest:
+      type: object
+      required:
+      - ideaId
+      properties:
+        ideaId:
+          type: string
+        referenceImageUrl:
+          type: string
+      x-apidog-orders:
+      - ideaId
+      - referenceImageUrl
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    GenerateIdeaVisualRequest:
+      type: object
+      required:
+      - ideaId
+      properties:
+        ideaId:
+          type: string
+        prompt:
+          type: string
+        referenceImageUrls:
+          type: array
+          items:
+            type: string
+        imageSize:
+          type: string
+      x-apidog-orders:
+      - ideaId
+      - prompt
+      - referenceImageUrls
+      - imageSize
       x-apidog-ignore-properties: []
       x-apidog-folder: ''
     ObservanceWithIdea:
@@ -4629,4 +3595,1038 @@ components:
       - postContent
       - postImagePrompt
       x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    RegenerateIdeaRequest:
+      type: object
+      required:
+      - ideaId
+      properties:
+        ideaId:
+          type: string
+        topic:
+          type: string
+        referenceImageUrl:
+          type: string
+      x-apidog-orders:
+      - ideaId
+      - topic
+      - referenceImageUrl
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    RefreshIdeasRequest:
+      type: object
+      required:
+      - socialProfileId
+      - profileName
+      properties:
+        socialProfileId:
+          type: string
+        profileName:
+          type: string
+        siteUrl:
+          type: string
+        categories:
+          type: array
+          items:
+            type: string
+        brandHashtags:
+          type: array
+          items:
+            type: string
+        businessIntent:
+          type: string
+        contentPreferredLanguage:
+          type: string
+      x-apidog-orders:
+      - socialProfileId
+      - profileName
+      - siteUrl
+      - categories
+      - brandHashtags
+      - businessIntent
+      - contentPreferredLanguage
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    ScheduleSeriesRequest:
+      type: object
+      required:
+      - seriesId
+      - startDate
+      properties:
+        seriesId:
+          type: string
+        startDate:
+          type: string
+          description: Series start date (YYYY-MM-DD).
+      x-apidog-orders:
+      - seriesId
+      - startDate
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    ContentSeries:
+      type: object
+      properties:
+        id:
+          type: string
+        socialProfileId:
+          type: string
+        name:
+          type: string
+        theme:
+          type: string
+        status:
+          type: string
+        postCount:
+          type: integer
+        publishedCount:
+          type: integer
+        unpublishedCount:
+          type: integer
+        posts:
+          type: array
+          description: Posts in the series (see Post idea for the full shape).
+          items:
+            type: object
+            x-apidog-orders: []
+            properties: {}
+            x-apidog-ignore-properties: []
+        chatSessionId:
+          type: string
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+      x-apidog-orders:
+      - id
+      - socialProfileId
+      - name
+      - theme
+      - status
+      - postCount
+      - publishedCount
+      - unpublishedCount
+      - posts
+      - chatSessionId
+      - createdAt
+      - updatedAt
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    LinkPostIdeaToSocialPostRequest:
+      type: object
+      required:
+      - postIdeaId
+      - socialPostId
+      properties:
+        postIdeaId:
+          type: string
+        socialPostId:
+          type: string
+      x-apidog-orders:
+      - postIdeaId
+      - socialPostId
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    ScrapeBrandRequest:
+      type: object
+      required:
+      - socialProfileId
+      - siteUrl
+      properties:
+        socialProfileId:
+          type: string
+        siteUrl:
+          type: string
+        trigger:
+          type: string
+      x-apidog-orders:
+      - socialProfileId
+      - siteUrl
+      - trigger
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    MutationResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        error:
+          $ref: '#/components/schemas/Error'
+      x-apidog-orders:
+      - success
+      - error
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    SwitchChatModeRequest:
+      type: object
+      required:
+      - sessionId
+      - mode
+      properties:
+        sessionId:
+          type: string
+        mode:
+          type: string
+      x-apidog-orders:
+      - sessionId
+      - mode
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    ExtendedBrandConfig:
+      type: object
+      properties:
+        id:
+          type: string
+        socialProfileId:
+          type: string
+        tone:
+          type: string
+        targetCustomers:
+          type: string
+        country:
+          type: string
+        phone:
+          type: string
+        address:
+          type: string
+        location:
+          type: string
+        primaryColor:
+          type: string
+        secondaryColor:
+          type: string
+        logoLight:
+          type: string
+        logoDark:
+          type: string
+        services:
+          type: object
+          description: Free-form JSON.
+          x-apidog-orders: []
+          properties: {}
+          x-apidog-ignore-properties: []
+        products:
+          type: object
+          description: Free-form JSON.
+          x-apidog-orders: []
+          properties: {}
+          x-apidog-ignore-properties: []
+        contentRules:
+          type: object
+          description: Free-form JSON.
+          x-apidog-orders: []
+          properties: {}
+          x-apidog-ignore-properties: []
+        additionalContext:
+          type: string
+        insights:
+          type: object
+          description: Free-form JSON.
+          x-apidog-orders: []
+          properties: {}
+          x-apidog-ignore-properties: []
+      x-apidog-orders:
+      - id
+      - socialProfileId
+      - tone
+      - targetCustomers
+      - country
+      - phone
+      - address
+      - location
+      - primaryColor
+      - secondaryColor
+      - logoLight
+      - logoDark
+      - services
+      - products
+      - contentRules
+      - additionalContext
+      - insights
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    SetBrandImageCreditsRequest:
+      type: object
+      required:
+      - socialProfileId
+      properties:
+        socialProfileId:
+          type: string
+        monthlyLimit:
+          type: integer
+        isActive:
+          type: boolean
+      x-apidog-orders:
+      - socialProfileId
+      - monthlyLimit
+      - isActive
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    ActionChip:
+      type: object
+      properties:
+        label:
+          type: string
+        emoji:
+          type: string
+        action:
+          type: string
+      x-apidog-orders:
+      - label
+      - emoji
+      - action
+      x-apidog-folder: ''
+    ChatMessage:
+      type: object
+      properties:
+        id:
+          type: string
+        role:
+          type: string
+        content:
+          type: string
+        messageType:
+          type: string
+        metadata:
+          type: object
+          x-apidog-orders: []
+          properties: {}
+          x-apidog-ignore-properties: []
+        sequence:
+          type: integer
+        createdAt:
+          type: string
+      x-apidog-orders:
+      - id
+      - role
+      - content
+      - messageType
+      - metadata
+      - sequence
+      - createdAt
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    GenerateAllSeriesPostsRequest:
+      type: object
+      required:
+      - seriesId
+      - socialProfileId
+      properties:
+        seriesId:
+          type: string
+        socialProfileId:
+          type: string
+      x-apidog-orders:
+      - seriesId
+      - socialProfileId
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    TriggerPipelineRequest:
+      type: object
+      required:
+      - socialProfileId
+      - profileName
+      properties:
+        socialProfileId:
+          type: string
+        profileName:
+          type: string
+        siteUrl:
+          type: string
+        categories:
+          type: array
+          items:
+            type: string
+        brandHashtags:
+          type: array
+          items:
+            type: string
+        businessIntent:
+          type: string
+        contentPreferredLanguage:
+          type: string
+      x-apidog-orders:
+      - socialProfileId
+      - profileName
+      - siteUrl
+      - categories
+      - brandHashtags
+      - businessIntent
+      - contentPreferredLanguage
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    LinkPostIdeaToSocialPostResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        error:
+          $ref: '#/components/schemas/Error'
+      x-apidog-orders:
+      - success
+      - error
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    ScheduleSeriesResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        scheduledPosts:
+          type: array
+          description: The scheduled posts (see Post idea for the full shape).
+          items:
+            type: object
+            x-apidog-orders: []
+            properties: {}
+            x-apidog-ignore-properties: []
+        error:
+          $ref: '#/components/schemas/Error'
+      x-apidog-orders:
+      - success
+      - scheduledPosts
+      - error
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    GenerateAllSeriesPostsResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        generatedCount:
+          type: integer
+        error:
+          $ref: '#/components/schemas/Error'
+      x-apidog-orders:
+      - success
+      - generatedCount
+      - error
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    StartChatSessionRequest:
+      type: object
+      required:
+      - socialProfileId
+      properties:
+        socialProfileId:
+          type: string
+        intent:
+          type: string
+        mode:
+          type: string
+        subjectType:
+          type: string
+        subjectId:
+          type: string
+      x-apidog-orders:
+      - socialProfileId
+      - intent
+      - mode
+      - subjectType
+      - subjectId
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    SuggestPostsForDateRequest:
+      type: object
+      required:
+      - socialProfileId
+      - date
+      properties:
+        socialProfileId:
+          type: string
+        date:
+          type: string
+          description: Target date (YYYY-MM-DD).
+      x-apidog-orders:
+      - socialProfileId
+      - date
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    GenerateHolidayIdeaVariantRequest:
+      type: object
+      required:
+      - socialProfileId
+      - observanceName
+      properties:
+        socialProfileId:
+          type: string
+        observanceName:
+          type: string
+        observanceDate:
+          type: string
+        topic:
+          type: string
+      x-apidog-orders:
+      - socialProfileId
+      - observanceName
+      - observanceDate
+      - topic
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    PostIdeaCounts:
+      type: object
+      properties:
+        ai:
+          type: integer
+        mine:
+          type: integer
+        series:
+          type: integer
+        all:
+          type: integer
+      x-apidog-orders:
+      - ai
+      - mine
+      - series
+      - all
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    Observance:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        description:
+          type: string
+        date:
+          type: string
+        imageUrl:
+          type: string
+        isMonthLong:
+          type: boolean
+        isRelevant:
+          type: boolean
+        ideasReady:
+          type: boolean
+        postIdeaId:
+          type: string
+        postImageUrl:
+          type: string
+        postTitle:
+          type: string
+        postType:
+          type: string
+        postContent:
+          type: string
+        postImagePrompt:
+          type: string
+      x-apidog-orders:
+      - id
+      - title
+      - description
+      - date
+      - imageUrl
+      - isMonthLong
+      - isRelevant
+      - ideasReady
+      - postIdeaId
+      - postImageUrl
+      - postTitle
+      - postType
+      - postContent
+      - postImagePrompt
+      x-apidog-folder: ''
+    UpdateExtendedBrandConfigRequest:
+      type: object
+      required:
+      - socialProfileId
+      properties:
+        socialProfileId:
+          type: string
+        tone:
+          type: string
+        targetCustomers:
+          type: string
+        country:
+          type: string
+        phone:
+          type: string
+        address:
+          type: string
+        location:
+          type: string
+        primaryColor:
+          type: string
+        secondaryColor:
+          type: string
+        logoLight:
+          type: string
+        logoDark:
+          type: string
+        services:
+          type: object
+          description: Free-form JSON describing services.
+          x-apidog-orders: []
+          properties: {}
+          x-apidog-ignore-properties: []
+        products:
+          type: object
+          description: Free-form JSON describing products.
+          x-apidog-orders: []
+          properties: {}
+          x-apidog-ignore-properties: []
+        contentRules:
+          type: object
+          description: Free-form JSON content rules.
+          x-apidog-orders: []
+          properties: {}
+          x-apidog-ignore-properties: []
+        additionalContext:
+          type: string
+      x-apidog-orders:
+      - socialProfileId
+      - tone
+      - targetCustomers
+      - country
+      - phone
+      - address
+      - location
+      - primaryColor
+      - secondaryColor
+      - logoLight
+      - logoDark
+      - services
+      - products
+      - contentRules
+      - additionalContext
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    RegenerateIdeaContentRequest:
+      type: object
+      required:
+      - ideaId
+      properties:
+        ideaId:
+          type: string
+        topic:
+          type: string
+      x-apidog-orders:
+      - ideaId
+      - topic
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    ReferenceImageOption:
+      type: object
+      properties:
+        url:
+          type: string
+        category:
+          type: string
+      x-apidog-orders:
+      - url
+      - category
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    PipelineStatus:
+      type: object
+      properties:
+        id:
+          type: string
+        socialProfileId:
+          type: string
+        pipelineType:
+          type: string
+        status:
+          type: string
+        currentStep:
+          type: string
+        stepsCompleted:
+          type: array
+          items:
+            type: string
+        stepsRemaining:
+          type: array
+          items:
+            type: string
+        errorMessage:
+          type: string
+        startedAt:
+          type: string
+        completedAt:
+          type: string
+      x-apidog-orders:
+      - id
+      - socialProfileId
+      - pipelineType
+      - status
+      - currentStep
+      - stepsCompleted
+      - stepsRemaining
+      - errorMessage
+      - startedAt
+      - completedAt
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    CalendarDay:
+      type: object
+      properties:
+        day:
+          type: integer
+        posts:
+          type: array
+          description: Post ideas for the day (see Post idea for the full shape).
+          items:
+            type: object
+            x-apidog-orders: []
+            properties: {}
+            x-apidog-ignore-properties: []
+      x-apidog-orders:
+      - day
+      - posts
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    UpdateIdeaRequest:
+      type: object
+      required:
+      - ideaId
+      properties:
+        ideaId:
+          type: string
+        title:
+          type: string
+        content:
+          type: string
+        status:
+          type: string
+        ctaText:
+          type: string
+        ctaUrl:
+          type: string
+        scheduledDate:
+          type: string
+        scheduledTime:
+          type: string
+        bucket:
+          type: string
+        note:
+          type: string
+        platforms:
+          type: array
+          items:
+            type: string
+      x-apidog-orders:
+      - ideaId
+      - title
+      - content
+      - status
+      - ctaText
+      - ctaUrl
+      - scheduledDate
+      - scheduledTime
+      - bucket
+      - note
+      - platforms
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    BranchChatSessionRequest:
+      type: object
+      required:
+      - parentSessionId
+      - subjectType
+      properties:
+        parentSessionId:
+          type: string
+        subjectType:
+          type: string
+        subjectId:
+          type: string
+      x-apidog-orders:
+      - parentSessionId
+      - subjectType
+      - subjectId
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    GenerateSeriesPostRequest:
+      type: object
+      required:
+      - seriesId
+      - slotIndex
+      - socialProfileId
+      properties:
+        seriesId:
+          type: string
+        slotIndex:
+          type: integer
+        socialProfileId:
+          type: string
+      x-apidog-orders:
+      - seriesId
+      - slotIndex
+      - socialProfileId
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    TriggerPipelineResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        pipelineId:
+          type: string
+        error:
+          $ref: '#/components/schemas/Error'
+      x-apidog-orders:
+      - success
+      - pipelineId
+      - error
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    ChatSession:
+      type: object
+      properties:
+        id:
+          type: string
+        socialProfileId:
+          type: string
+        mode:
+          type: string
+        status:
+          type: string
+        messageCount:
+          type: integer
+        title:
+          type: string
+        createdAt:
+          type: string
+      x-apidog-orders:
+      - id
+      - socialProfileId
+      - mode
+      - status
+      - messageCount
+      - title
+      - createdAt
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    BrandInfo:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        siteUrl:
+          type: string
+        categories:
+          type: array
+          items:
+            type: string
+        country:
+          type: string
+      x-apidog-orders:
+      - id
+      - name
+      - siteUrl
+      - categories
+      - country
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    ArchiveSeriesRequest:
+      type: object
+      required:
+      - seriesId
+      properties:
+        seriesId:
+          type: string
+      x-apidog-orders:
+      - seriesId
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    SendChatMessageRequest:
+      type: object
+      required:
+      - sessionId
+      - message
+      properties:
+        sessionId:
+          type: string
+        message:
+          type: string
+        referenceImageUrls:
+          type: array
+          items:
+            type: string
+      x-apidog-orders:
+      - sessionId
+      - message
+      - referenceImageUrls
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    ImageCredits:
+      type: object
+      properties:
+        socialProfileId:
+          type: string
+        monthlyLimit:
+          type: integer
+        isActive:
+          type: boolean
+        usedThisMonth:
+          type: integer
+        remainingThisMonth:
+          type: integer
+        addonPurchased:
+          type: integer
+        addonConsumed:
+          type: integer
+        addonRemaining:
+          type: integer
+      x-apidog-orders:
+      - socialProfileId
+      - monthlyLimit
+      - isActive
+      - usedThisMonth
+      - remainingThisMonth
+      - addonPurchased
+      - addonConsumed
+      - addonRemaining
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    GenerateIdeasResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        ideas:
+          type: array
+          description: Generated post ideas (see Post idea for the full shape).
+          items:
+            type: object
+            x-apidog-orders: []
+        pipelineId:
+          type: string
+        error:
+          $ref: '#/components/schemas/Error'
+      x-apidog-orders:
+      - success
+      - ideas
+      - pipelineId
+      - error
+      x-apidog-folder: ''
+    ArchiveIdeaRequest:
+      type: object
+      required:
+      - ideaId
+      properties:
+        ideaId:
+          type: string
+      x-apidog-orders:
+      - ideaId
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    ChatSessionResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        session:
+          $ref: '#/components/schemas/ChatSession'
+        suggestions:
+          type: array
+          items:
+            type: string
+        error:
+          $ref: '#/components/schemas/Error'
+      x-apidog-orders:
+      - success
+      - session
+      - suggestions
+      - error
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    IdeaJobStatus:
+      type: object
+      properties:
+        status:
+          type: string
+        imageUrl:
+          type: string
+      x-apidog-orders:
+      - status
+      - imageUrl
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+        contextInfo:
+          type: array
+          items:
+            type: object
+            properties:
+              key:
+                type: string
+              value:
+                type: string
+            x-apidog-orders:
+            - key
+            - value
+            x-apidog-ignore-properties: []
+      x-apidog-orders:
+      - message
+      - code
+      - contextInfo
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    RegenerateResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        idea:
+          type: object
+          description: The updated post idea (see Post idea for the full shape).
+          x-apidog-orders: []
+          properties: {}
+          x-apidog-ignore-properties: []
+        error:
+          $ref: '#/components/schemas/Error'
+      x-apidog-orders:
+      - success
+      - idea
+      - error
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    ReferenceImageAnalysis:
+      type: object
+      properties:
+        description:
+          type: string
+          description: Textual description of the analyzed image.
+      x-apidog-orders:
+      - description
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    ChatMessageResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          $ref: '#/components/schemas/ChatMessage'
+        postCard:
+          type: object
+          description: Generated post idea card (see Post idea for the full shape), when produced.
+          x-apidog-orders: []
+        seriesPlan:
+          type: object
+          description: Content-series plan, when produced.
+          x-apidog-orders: []
+        actionChips:
+          type: array
+          items:
+            $ref: '#/components/schemas/ActionChip'
+        error:
+          $ref: '#/components/schemas/Error'
+      x-apidog-orders:
+      - success
+      - message
+      - postCard
+      - seriesPlan
+      - actionChips
+      - error
       x-apidog-folder: ''

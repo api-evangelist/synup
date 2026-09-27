@@ -923,7 +923,7 @@ paths:
         Background worker processes additional tasks (connection records, etc.)
 
         Location becomes available for management and submission'
-      operationId: connectGoogleAccount
+      operationId: postConnectedAccountsCreateLocationFromListing
       tags:
       - Connected Accounts
       parameters:
@@ -1030,6 +1030,8 @@ paths:
       x-apidog-folder: Connected Accounts
       x-apidog-status: released
       x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-25157498-run
+      x-operation-id-source: normalized
+      x-operation-id-original: connectGoogleAccount
   /connected-accounts/disconnect-facebook:
     post:
       summary: Disconnect Facebook Account
@@ -1164,7 +1166,7 @@ paths:
       summary: Disconnect GMB Profile
       deprecated: false
       description: This API removes the connection between your account and a Google My Business (GMB) account.
-      operationId: disconnectGoogleAccount
+      operationId: postConnectedAccountsDisconnectGoogle
       tags:
       - Connected Accounts
       parameters:
@@ -1270,6 +1272,8 @@ paths:
       x-apidog-folder: Connected Accounts
       x-apidog-status: released
       x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-13678474-run
+      x-operation-id-source: normalized
+      x-operation-id-original: disconnectGoogleAccount
   /connected-accounts/disconnect-listing:
     post:
       summary: Disconnect Location from Listing
@@ -2272,7 +2276,7 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    ConnectListingRequest:
+    TriggerMatchesRequest:
       type: object
       required:
       - input
@@ -2280,164 +2284,67 @@ components:
         input:
           type: object
           required:
-          - locationId
-          - connectedAccountId
-          - connectedAccountListingId
+          - connectedAccountIds
           properties:
-            locationId:
-              type: string
-              description: Base64 encoded location ID
-              pattern: ^[A-Za-z0-9+/=]+$
-              examples:
-              - TG9jYXRpb246NzM5MzM=
-            connectedAccountId:
-              type: string
-              format: uuid
-              description: ID of the connected account
-              examples:
-              - 3db66afa-151d-4212-a8b7-949f9fe9aaf9
-            connectedAccountListingId:
-              type: string
-              description: 'ID of the listing from the fetch listings API response.
-
-                This is typically a base64 encoded string.
-
-                '
-              pattern: ^[A-Za-z0-9+/=]+$
-              examples:
-              - R21iQnVsa0RhdGFMYWtlOmMyMWRiOWY5LTZmYTctNDE0My1hNDU2LTQzMjZkMmZiN2UwZg==
+            connectedAccountIds:
+              type: array
+              description: List of connected account IDs to process
+              minItems: 1
+              items:
+                type: string
+                format: uuid
+                examples:
+                - 6eb312f7-df32-4d76-ad8a-26bcfeab601e
           x-apidog-orders:
-          - locationId
-          - connectedAccountId
-          - connectedAccountListingId
+          - connectedAccountIds
           x-apidog-ignore-properties: []
       x-apidog-orders:
       - input
       x-apidog-ignore-properties: []
       x-apidog-folder: ''
-    SuggestedLocationInfo:
+    FetchListingsRequest:
       type: object
+      required:
+      - connectedAccountId
       properties:
-        liveLink:
-          type:
-          - string
-          - 'null'
-          description: Live link to the location profile
-        locationInfo:
-          type: object
-          properties:
-            city:
-              type: string
-            country:
-              type: string
-            name:
-              type: string
-            phone:
-              type: string
-            postalCode:
-              type: string
-            state:
-              type: string
-            street:
-              type: string
-          x-apidog-orders:
-          - city
-          - country
-          - name
-          - phone
-          - postalCode
-          - state
-          - street
-        mainAccount:
-          type: string
-          description: Name of the main account
-        mainAccountId:
-          type:
-          - string
-          - 'null'
-          description: ID of the main account
-        storeCode:
-          type:
-          - string
-          - 'null'
-        subAccount:
-          type:
-          - string
-          - 'null'
-        ownerRole:
-          type:
-          - string
-          - 'null'
-          description: GBP role of the connecting/importing user on this listing (e.g. PRIMARY_OWNER, OWNER, MANAGER, SITE_MANAGER). Google (GMB) only; null when Google exposes no matching admin or for non-Google listings.
-      x-apidog-orders:
-      - liveLink
-      - locationInfo
-      - mainAccount
-      - mainAccountId
-      - storeCode
-      - subAccount
-      - ownerRole
-      x-apidog-folder: ''
-    ConnectionSuggestionsResponse:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            connectionSuggestionsForAccount:
-              type: object
-              properties:
-                pageInfo:
-                  $ref: '#/components/schemas/PageInfo'
-                records:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/ConnectionSuggestion'
-              x-apidog-orders:
-              - pageInfo
-              - records
-          x-apidog-orders:
-          - connectionSuggestionsForAccount
-      x-apidog-orders:
-      - data
-      x-apidog-folder: ''
-    ConnectionSuggestion:
-      type: object
-      properties:
-        accountEmail:
-          type: string
-          format: email
-          description: Email of the user for the connected account
-        accountType:
-          type: string
-          enum:
-          - GMB
-          - FB
-          description: Type of the connected account (GMB for Google My Business, FB for Facebook)
         connectedAccountId:
           type: string
           format: uuid
-          description: ID of the connected account
-        locationId:
-          type: string
-          description: ID of the location
+          description: ID of the connected account to fetch listings for
         locationInfo:
-          $ref: '#/components/schemas/LocationInfo'
-        matchedDataDatabaseId:
           type: string
-          description: ID of the suggestion record, used for confirming the match
-        suggestedLocationInfo:
-          $ref: '#/components/schemas/SuggestedLocationInfo'
+          description: 'Optional filter string to search across location fields:
+
+            - Street address
+
+            - Postal code
+
+            - City
+
+            - Phone number
+
+            - Business name
+
+            '
+        page:
+          type: integer
+          minimum: 1
+          default: 1
+          description: Page number for pagination
+        perPage:
+          type: integer
+          minimum: 1
+          maximum: 500
+          default: 20
+          description: Number of records per page (maximum 500)
       x-apidog-orders:
-      - accountEmail
-      - accountType
       - connectedAccountId
-      - locationId
       - locationInfo
-      - matchedDataDatabaseId
-      - suggestedLocationInfo
+      - page
+      - perPage
+      x-apidog-ignore-properties: []
       x-apidog-folder: ''
-    AppleOauthBulkRequest:
+    AppleRenewOauthRequest:
       type: object
       required:
       - input
@@ -2446,240 +2353,45 @@ components:
           type: object
           required:
           - successUrl
-          - errorUrl
           properties:
+            locationId:
+              type: string
+              description: Relay-encoded location ID of the connection to renew.
+            connectedAccountId:
+              type: string
+              description: ID of the connected Apple account to renew (alternative to locationId).
             successUrl:
               type: string
-              description: Redirect URL on successful authorization.
-            errorUrl:
-              type: string
-              description: Redirect URL on failed authorization.
-            platform:
-              type: string
-              description: '`local` (default) or `social`.'
-            entityId:
-              type: string
-              description: Brand ID when platform is `social`.
-            onboarding:
-              type: boolean
+              description: Redirect URL on successful re-authorization.
             clientMutationId:
               type: string
           x-apidog-orders:
+          - locationId
+          - connectedAccountId
           - successUrl
-          - errorUrl
-          - platform
-          - entityId
-          - onboarding
           - clientMutationId
       x-apidog-orders:
       - input
       x-apidog-folder: ''
-    DisconnectListingResponse:
+    AppleOauthBulkPayload:
       type: object
       properties:
-        data:
-          type: object
-          properties:
-            disconnectConnectedAccountsLocations:
-              type: object
-              required:
-              - success
-              properties:
-                clientMutationId:
-                  type:
-                  - string
-                  - 'null'
-                  description: Client mutation identifier if provided
-                errors:
-                  type:
-                  - object
-                  - 'null'
-                  description: Hash containing any errors that occurred during disconnection
-                  x-apidog-orders: []
-                  properties: {}
-                  x-apidog-ignore-properties: []
-                success:
-                  type: boolean
-                  description: 'Indicates if the disconnection was successful.
-
-                    Returns true if the account was successfully disconnected from the location.
-
-                    '
-              x-apidog-orders:
-              - clientMutationId
-              - errors
-              - success
-              x-apidog-ignore-properties: []
-          x-apidog-orders:
-          - disconnectConnectedAccountsLocations
-          x-apidog-ignore-properties: []
-      x-apidog-orders:
-      - data
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    FbConnectedListingInfo:
-      type: object
-      description: Connected listing details when the source is Facebook
-      properties:
-        name:
-          type: string
-        street:
-          type:
-          - string
-          - 'null'
-        city:
-          type:
-          - string
-          - 'null'
-        state:
-          type:
-          - string
-          - 'null'
-        zip:
-          type:
-          - string
-          - 'null'
-        country:
-          type:
-          - string
-          - 'null'
-        phone:
-          type:
-          - string
-          - 'null'
-        storeCode:
-          type:
-          - string
-          - 'null'
-        parentPageName:
-          type:
-          - string
-          - 'null'
-        liveLink:
-          type:
-          - string
-          - 'null'
-      x-apidog-orders:
-      - name
-      - street
-      - city
-      - state
-      - zip
-      - country
-      - phone
-      - storeCode
-      - parentPageName
-      - liveLink
-      x-apidog-folder: ''
-    ConnectedAccount:
-      type: object
-      properties:
-        connectedAccountId:
-          type: string
-          description: Unique identifier of the connected account
-        connectedAccountType:
-          type: string
-          enum:
-          - GoogleAccount
-          - FacebookAccount
-          description: Type of the connected account
-        connectedLocationsCount:
-          type: integer
-          description: Number of locations connected with this account
-        connectivityIssue:
-          type:
-          - string
-          - 'null'
-          description: 'Type of connectivity issue if any:
-
-            * `CONNECTED_LOCATIONS_ISSUE` - Connected to inaccessible listings
-
-            * `CREDENTIALS_INVALIDATED` - Expired credentials
-
-            '
-        email:
-          type: string
-          format: email
-          description: Email address associated with the connected account
-        lastFetchMatchesRequestedAt:
-          type: string
-          format: date-time
-          description: Timestamp of the last matches request
-        requestMatches:
+        success:
           type: boolean
-          description: Indicates if the account can trigger matches
-        requestMatchesStatus:
+        url:
           type: string
-          description: Status of the last request matches triggered
-        status:
+          description: OAuth link to redirect the user to (1-day TTL).
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/MutationError'
+        clientMutationId:
           type: string
-          enum:
-          - CONNECTED
-          - ConnectionIssue
-          description: Current connection status
-        remarks:
-          type:
-          - string
-          - 'null'
-          description: Additional information about account status or errors
       x-apidog-orders:
-      - connectedAccountId
-      - connectedAccountType
-      - connectedLocationsCount
-      - connectivityIssue
-      - email
-      - lastFetchMatchesRequestedAt
-      - requestMatches
-      - requestMatchesStatus
-      - status
-      - remarks
-      x-apidog-folder: ''
-    LocationListing:
-      type: object
-      properties:
-        accountTypeName:
-          type: string
-          enum:
-          - Google
-          - Facebook
-          description: Publisher type of the listing
-        address:
-          type: string
-          description: Full address of the location
-        id:
-          type: string
-          description: Reference Listing ID that can be used to connect a location
-        liveLink:
-          type:
-          - string
-          - 'null'
-          description: Live link provided by Google/Facebook if available
-        locationName:
-          type: string
-          description: Name of the location
-        phone:
-          type: string
-          description: Phone number of the location
-        type:
-          type:
-          - string
-          - 'null'
-          description: Type of the listing if specified
-        ownerRole:
-          type:
-          - string
-          - 'null'
-          description: GBP role of the connecting/importing user on this listing (e.g. PRIMARY_OWNER, OWNER, MANAGER, SITE_MANAGER). Google (GMB) only; null when Google exposes no matching admin or for non-Google listings.
-      x-apidog-orders:
-      - accountTypeName
-      - address
-      - id
-      - liveLink
-      - locationName
-      - phone
-      - type
-      - ownerRole
-      x-apidog-ignore-properties: []
+      - success
+      - url
+      - errors
+      - clientMutationId
       x-apidog-folder: ''
     LocationInfo:
       type: object
@@ -2736,455 +2448,54 @@ components:
       - storeCode
       - liveLink
       x-apidog-folder: ''
-    AppleOauthBulkPayload:
+    AppleConnectedListingInfo:
       type: object
+      description: Connected listing details when the source is Apple
       properties:
-        success:
-          type: boolean
-        url:
+        name:
           type: string
-          description: OAuth link to redirect the user to (1-day TTL).
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/MutationError'
-        clientMutationId:
-          type: string
+        street:
+          type:
+          - string
+          - 'null'
+        city:
+          type:
+          - string
+          - 'null'
+        state:
+          type:
+          - string
+          - 'null'
+        zip:
+          type:
+          - string
+          - 'null'
+        country:
+          type:
+          - string
+          - 'null'
+        phone:
+          type:
+          - string
+          - 'null'
+        storeCode:
+          type:
+          - string
+          - 'null'
+        liveLink:
+          type:
+          - string
+          - 'null'
       x-apidog-orders:
-      - success
-      - url
-      - errors
-      - clientMutationId
-      x-apidog-folder: ''
-    ConfirmMatchesResponse:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            confirmConnectMatches:
-              type: object
-              required:
-              - success
-              properties:
-                success:
-                  type: boolean
-                  description: 'Indicates if all match records were confirmed successfully.
-
-                    Returns false if any match failed to confirm.
-
-                    '
-                failedIds:
-                  type: array
-                  description: 'List of original (non-encoded) match record IDs that failed to confirm.
-
-                    Only present when some matches fail.
-
-                    '
-                  items:
-                    type: string
-                    format: uuid
-                    examples:
-                    - e4fa51db-85a0-4cc2-b7f1-59ca34569aec
-              x-apidog-orders:
-              - success
-              - failedIds
-              x-apidog-ignore-properties: []
-          x-apidog-orders:
-          - confirmConnectMatches
-          x-apidog-ignore-properties: []
-      x-apidog-orders:
-      - data
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    MutationError:
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-        contextInfo:
-          type: array
-          items:
-            type: object
-            x-apidog-orders: []
-      x-apidog-orders:
-      - code
-      - message
-      - contextInfo
-      x-apidog-folder: ''
-    TriggerMatchesResponse:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            connectedAccountsTriggerMatches:
-              type: object
-              required:
-              - success
-              properties:
-                success:
-                  type: boolean
-                  description: 'Indicates if all connected accounts were processed successfully.
-
-                    Returns false if any account failed to process.
-
-                    '
-                failedIds:
-                  type: array
-                  description: List of connected account IDs that failed to process
-                  items:
-                    type: string
-                    format: uuid
-                  examples:
-                  - - 7eb3q2f7-df34-4dt6-hd88-269cfoal6m1b
-              x-apidog-orders:
-              - success
-              - failedIds
-              x-apidog-ignore-properties: []
-          x-apidog-orders:
-          - connectedAccountsTriggerMatches
-          x-apidog-ignore-properties: []
-      x-apidog-orders:
-      - data
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    FetchListingsRequest:
-      type: object
-      required:
-      - connectedAccountId
-      properties:
-        connectedAccountId:
-          type: string
-          format: uuid
-          description: ID of the connected account to fetch listings for
-        locationInfo:
-          type: string
-          description: 'Optional filter string to search across location fields:
-
-            - Street address
-
-            - Postal code
-
-            - City
-
-            - Phone number
-
-            - Business name
-
-            '
-        page:
-          type: integer
-          minimum: 1
-          default: 1
-          description: Page number for pagination
-        perPage:
-          type: integer
-          minimum: 1
-          maximum: 500
-          default: 20
-          description: Number of records per page (maximum 500)
-      x-apidog-orders:
-      - connectedAccountId
-      - locationInfo
-      - page
-      - perPage
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    AppleOauthPayload:
-      type: object
-      properties:
-        success:
-          type: boolean
-        url:
-          type: string
-          description: OAuth link to redirect the user to (1-day TTL).
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/MutationError'
-        clientMutationId:
-          type: string
-      x-apidog-orders:
-      - success
-      - url
-      - errors
-      - clientMutationId
-      x-apidog-folder: ''
-    LocationConnectionsResponse:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            locationsConnectInfo:
-              type: object
-              properties:
-                pageInfo:
-                  $ref: '#/components/schemas/PageInfo'
-                records:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/LocationConnectInfo'
-              x-apidog-orders:
-              - pageInfo
-              - records
-              x--orders:
-              - pageInfo
-              - records
-              x--ignore-properties: []
-          x-apidog-orders:
-          - locationsConnectInfo
-          x--orders:
-          - locationsConnectInfo
-          x--ignore-properties: []
-      x-apidog-orders:
-      - data
-      x--orders:
-      - data
-      x--ignore-properties: []
-      x-apidog-folder: ''
-    AppleRenewOauthPayload:
-      type: object
-      properties:
-        success:
-          type: boolean
-        url:
-          type: string
-          description: OAuth renewal link to redirect the user to (1-day TTL).
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/MutationError'
-        clientMutationId:
-          type: string
-      x-apidog-orders:
-      - success
-      - url
-      - errors
-      - clientMutationId
-      x-apidog-folder: ''
-    DisconnectListingRequest:
-      type: object
-      required:
-      - input
-      properties:
-        input:
-          type: object
-          required:
-          - locationId
-          - site
-          properties:
-            locationId:
-              type: string
-              description: Base64 encoded location ID
-              pattern: ^[A-Za-z0-9+/=]+$
-              examples:
-              - TG9jYXRpb246MTM5OTg=
-            site:
-              type: string
-              description: The platform from which to disconnect the listing
-              enum:
-              - GOOGLE
-              - FACEBOOK
-              examples:
-              - GOOGLE
-          x-apidog-orders:
-          - locationId
-          - site
-          x-apidog-ignore-properties: []
-      x-apidog-orders:
-      - input
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    TriggerMatchesRequest:
-      type: object
-      required:
-      - input
-      properties:
-        input:
-          type: object
-          required:
-          - connectedAccountIds
-          properties:
-            connectedAccountIds:
-              type: array
-              description: List of connected account IDs to process
-              minItems: 1
-              items:
-                type: string
-                format: uuid
-                examples:
-                - 6eb312f7-df32-4d76-ad8a-26bcfeab601e
-          x-apidog-orders:
-          - connectedAccountIds
-          x-apidog-ignore-properties: []
-      x-apidog-orders:
-      - input
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    AppleOauthRequest:
-      type: object
-      required:
-      - input
-      properties:
-        input:
-          type: object
-          required:
-          - locationId
-          - successUrl
-          - errorUrl
-          properties:
-            locationId:
-              type: string
-              description: Relay-encoded location ID to connect.
-            successUrl:
-              type: string
-              description: Redirect URL on successful authorization.
-            errorUrl:
-              type: string
-              description: Redirect URL on failed authorization.
-            clientMutationId:
-              type: string
-          x-apidog-orders:
-          - locationId
-          - successUrl
-          - errorUrl
-          - clientMutationId
-      x-apidog-orders:
-      - input
-      x-apidog-folder: ''
-    PageInfo:
-      type: object
-      properties:
-        hasNextPage:
-          type: boolean
-          description: Indicates if there are more pages available
-        hasPreviousPage:
-          type: boolean
-          description: Indicates if there are previous pages available
-        totalPages:
-          type: integer
-          description: Total number of pages available
-        totalRecords:
-          type: integer
-          description: Total number of records across all pages
-      x-apidog-orders:
-      - hasNextPage
-      - hasPreviousPage
-      - totalPages
-      - totalRecords
-      x-apidog-folder: ''
-    AppleConfirmedMatches:
-      type: object
-      properties:
-        matches:
-          type: array
-          items:
-            $ref: '#/components/schemas/AppleConfirmedMatch'
-        matchesCount:
-          type: integer
-          description: Total number of matches.
-        pages:
-          type: integer
-          description: Total number of pages.
-      x-apidog-orders:
-      - matches
-      - matchesCount
-      - pages
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    AppleConfirmedMatch:
-      type: object
-      properties:
-        id:
-          type: string
-        appleBusinessId:
-          type: string
-        connectedAccountId:
-          type: string
-        connectedAccountLabel:
-          type: string
-        connectedAccountsLocationId:
-          type: string
-        lakeRecordId:
-          type: string
-        matchedOn:
-          type: string
-          format: date-time
-        synupLocationId:
-          type: integer
-      x-apidog-orders:
-      - id
-      - appleBusinessId
-      - connectedAccountId
-      - connectedAccountLabel
-      - connectedAccountsLocationId
-      - lakeRecordId
-      - matchedOn
-      - synupLocationId
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    ConnectedAccountsResponse:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            connectedAccountsInfo:
-              type: object
-              properties:
-                pageInfo:
-                  $ref: '#/components/schemas/PageInfo'
-                records:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/ConnectedAccount'
-              x-apidog-orders:
-              - pageInfo
-              - records
-          x-apidog-orders:
-          - connectedAccountsInfo
-      x-apidog-orders:
-      - data
-      x-apidog-folder: ''
-    ConnectListingResponse:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            connectListing:
-              type: object
-              required:
-              - success
-              properties:
-                success:
-                  type: boolean
-                  description: Indicates if the connection was successful
-                message:
-                  type:
-                  - string
-                  - 'null'
-                  description: 'Error message if the connection failed.
-
-                    Returns null on successful connection.
-
-                    '
-                  examples:
-                  - Internal System Error
-              x-apidog-orders:
-              - success
-              - message
-              x-apidog-ignore-properties: []
-          x-apidog-orders:
-          - connectListing
-          x-apidog-ignore-properties: []
-      x-apidog-orders:
-      - data
-      x-apidog-ignore-properties: []
+      - name
+      - street
+      - city
+      - state
+      - zip
+      - country
+      - phone
+      - storeCode
+      - liveLink
       x-apidog-folder: ''
     LocationConnectInfo:
       type: object
@@ -3287,64 +2598,46 @@ components:
       - connectedListingInfo
       x--ignore-properties: []
       x-apidog-folder: ''
-    AppleRenewOauthRequest:
-      type: object
-      required:
-      - input
-      properties:
-        input:
-          type: object
-          required:
-          - successUrl
-          properties:
-            locationId:
-              type: string
-              description: Relay-encoded location ID of the connection to renew.
-            connectedAccountId:
-              type: string
-              description: ID of the connected Apple account to renew (alternative to locationId).
-            successUrl:
-              type: string
-              description: Redirect URL on successful re-authorization.
-            clientMutationId:
-              type: string
-          x-apidog-orders:
-          - locationId
-          - connectedAccountId
-          - successUrl
-          - clientMutationId
-      x-apidog-orders:
-      - input
-      x-apidog-folder: ''
-    FetchListingsResponse:
+    TriggerMatchesResponse:
       type: object
       properties:
         data:
           type: object
           properties:
-            connectedAccountListings:
+            connectedAccountsTriggerMatches:
               type: object
+              required:
+              - success
               properties:
-                pageInfo:
-                  $ref: '#/components/schemas/PageInfo'
-                records:
+                success:
+                  type: boolean
+                  description: 'Indicates if all connected accounts were processed successfully.
+
+                    Returns false if any account failed to process.
+
+                    '
+                failedIds:
                   type: array
+                  description: List of connected account IDs that failed to process
                   items:
-                    $ref: '#/components/schemas/LocationListing'
+                    type: string
+                    format: uuid
+                  examples:
+                  - - 7eb3q2f7-df34-4dt6-hd88-269cfoal6m1b
               x-apidog-orders:
-              - pageInfo
-              - records
+              - success
+              - failedIds
               x-apidog-ignore-properties: []
           x-apidog-orders:
-          - connectedAccountListings
+          - connectedAccountsTriggerMatches
           x-apidog-ignore-properties: []
       x-apidog-orders:
       - data
       x-apidog-ignore-properties: []
       x-apidog-folder: ''
-    AppleConnectedListingInfo:
+    FbConnectedListingInfo:
       type: object
-      description: Connected listing details when the source is Apple
+      description: Connected listing details when the source is Facebook
       properties:
         name:
           type: string
@@ -3376,6 +2669,10 @@ components:
           type:
           - string
           - 'null'
+        parentPageName:
+          type:
+          - string
+          - 'null'
         liveLink:
           type:
           - string
@@ -3389,6 +2686,606 @@ components:
       - country
       - phone
       - storeCode
+      - parentPageName
+      - liveLink
+      x-apidog-folder: ''
+    MutationError:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        contextInfo:
+          type: array
+          items:
+            type: object
+            x-apidog-orders: []
+      x-apidog-orders:
+      - code
+      - message
+      - contextInfo
+      x-apidog-folder: ''
+    SuggestedLocationInfo:
+      type: object
+      properties:
+        liveLink:
+          type:
+          - string
+          - 'null'
+          description: Live link to the location profile
+        locationInfo:
+          type: object
+          properties:
+            city:
+              type: string
+            country:
+              type: string
+            name:
+              type: string
+            phone:
+              type: string
+            postalCode:
+              type: string
+            state:
+              type: string
+            street:
+              type: string
+          x-apidog-orders:
+          - city
+          - country
+          - name
+          - phone
+          - postalCode
+          - state
+          - street
+        mainAccount:
+          type: string
+          description: Name of the main account
+        mainAccountId:
+          type:
+          - string
+          - 'null'
+          description: ID of the main account
+        storeCode:
+          type:
+          - string
+          - 'null'
+        subAccount:
+          type:
+          - string
+          - 'null'
+        ownerRole:
+          type:
+          - string
+          - 'null'
+          description: GBP role of the connecting/importing user on this listing (e.g. PRIMARY_OWNER, OWNER, MANAGER, SITE_MANAGER). Google (GMB) only; null when Google exposes no matching admin or for non-Google listings.
+      x-apidog-orders:
+      - liveLink
+      - locationInfo
+      - mainAccount
+      - mainAccountId
+      - storeCode
+      - subAccount
+      - ownerRole
+      x-apidog-folder: ''
+    LocationListing:
+      type: object
+      properties:
+        accountTypeName:
+          type: string
+          enum:
+          - Google
+          - Facebook
+          description: Publisher type of the listing
+        address:
+          type: string
+          description: Full address of the location
+        id:
+          type: string
+          description: Reference Listing ID that can be used to connect a location
+        liveLink:
+          type:
+          - string
+          - 'null'
+          description: Live link provided by Google/Facebook if available
+        locationName:
+          type: string
+          description: Name of the location
+        phone:
+          type: string
+          description: Phone number of the location
+        type:
+          type:
+          - string
+          - 'null'
+          description: Type of the listing if specified
+        ownerRole:
+          type:
+          - string
+          - 'null'
+          description: GBP role of the connecting/importing user on this listing (e.g. PRIMARY_OWNER, OWNER, MANAGER, SITE_MANAGER). Google (GMB) only; null when Google exposes no matching admin or for non-Google listings.
+      x-apidog-orders:
+      - accountTypeName
+      - address
+      - id
+      - liveLink
+      - locationName
+      - phone
+      - type
+      - ownerRole
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    PageInfo:
+      type: object
+      properties:
+        hasNextPage:
+          type: boolean
+          description: Indicates if there are more pages available
+        hasPreviousPage:
+          type: boolean
+          description: Indicates if there are previous pages available
+        totalPages:
+          type: integer
+          description: Total number of pages available
+        totalRecords:
+          type: integer
+          description: Total number of records across all pages
+      x-apidog-orders:
+      - hasNextPage
+      - hasPreviousPage
+      - totalPages
+      - totalRecords
+      x-apidog-folder: ''
+    LocationConnectionsResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            locationsConnectInfo:
+              type: object
+              properties:
+                pageInfo:
+                  $ref: '#/components/schemas/PageInfo'
+                records:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/LocationConnectInfo'
+              x-apidog-orders:
+              - pageInfo
+              - records
+              x--orders:
+              - pageInfo
+              - records
+              x--ignore-properties: []
+          x-apidog-orders:
+          - locationsConnectInfo
+          x--orders:
+          - locationsConnectInfo
+          x--ignore-properties: []
+      x-apidog-orders:
+      - data
+      x--orders:
+      - data
+      x--ignore-properties: []
+      x-apidog-folder: ''
+    AppleRenewOauthPayload:
+      type: object
+      properties:
+        success:
+          type: boolean
+        url:
+          type: string
+          description: OAuth renewal link to redirect the user to (1-day TTL).
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/MutationError'
+        clientMutationId:
+          type: string
+      x-apidog-orders:
+      - success
+      - url
+      - errors
+      - clientMutationId
+      x-apidog-folder: ''
+    AppleOauthRequest:
+      type: object
+      required:
+      - input
+      properties:
+        input:
+          type: object
+          required:
+          - locationId
+          - successUrl
+          - errorUrl
+          properties:
+            locationId:
+              type: string
+              description: Relay-encoded location ID to connect.
+            successUrl:
+              type: string
+              description: Redirect URL on successful authorization.
+            errorUrl:
+              type: string
+              description: Redirect URL on failed authorization.
+            clientMutationId:
+              type: string
+          x-apidog-orders:
+          - locationId
+          - successUrl
+          - errorUrl
+          - clientMutationId
+      x-apidog-orders:
+      - input
+      x-apidog-folder: ''
+    ConnectedAccount:
+      type: object
+      properties:
+        connectedAccountId:
+          type: string
+          description: Unique identifier of the connected account
+        connectedAccountType:
+          type: string
+          enum:
+          - GoogleAccount
+          - FacebookAccount
+          description: Type of the connected account
+        connectedLocationsCount:
+          type: integer
+          description: Number of locations connected with this account
+        connectivityIssue:
+          type:
+          - string
+          - 'null'
+          description: 'Type of connectivity issue if any:
+
+            * `CONNECTED_LOCATIONS_ISSUE` - Connected to inaccessible listings
+
+            * `CREDENTIALS_INVALIDATED` - Expired credentials
+
+            '
+        email:
+          type: string
+          format: email
+          description: Email address associated with the connected account
+        lastFetchMatchesRequestedAt:
+          type: string
+          format: date-time
+          description: Timestamp of the last matches request
+        requestMatches:
+          type: boolean
+          description: Indicates if the account can trigger matches
+        requestMatchesStatus:
+          type: string
+          description: Status of the last request matches triggered
+        status:
+          type: string
+          enum:
+          - CONNECTED
+          - ConnectionIssue
+          description: Current connection status
+        remarks:
+          type:
+          - string
+          - 'null'
+          description: Additional information about account status or errors
+      x-apidog-orders:
+      - connectedAccountId
+      - connectedAccountType
+      - connectedLocationsCount
+      - connectivityIssue
+      - email
+      - lastFetchMatchesRequestedAt
+      - requestMatches
+      - requestMatchesStatus
+      - status
+      - remarks
+      x-apidog-folder: ''
+    ConnectionSuggestion:
+      type: object
+      properties:
+        accountEmail:
+          type: string
+          format: email
+          description: Email of the user for the connected account
+        accountType:
+          type: string
+          enum:
+          - GMB
+          - FB
+          description: Type of the connected account (GMB for Google My Business, FB for Facebook)
+        connectedAccountId:
+          type: string
+          format: uuid
+          description: ID of the connected account
+        locationId:
+          type: string
+          description: ID of the location
+        locationInfo:
+          $ref: '#/components/schemas/LocationInfo'
+        matchedDataDatabaseId:
+          type: string
+          description: ID of the suggestion record, used for confirming the match
+        suggestedLocationInfo:
+          $ref: '#/components/schemas/SuggestedLocationInfo'
+      x-apidog-orders:
+      - accountEmail
+      - accountType
+      - connectedAccountId
+      - locationId
+      - locationInfo
+      - matchedDataDatabaseId
+      - suggestedLocationInfo
+      x-apidog-folder: ''
+    FetchListingsResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            connectedAccountListings:
+              type: object
+              properties:
+                pageInfo:
+                  $ref: '#/components/schemas/PageInfo'
+                records:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/LocationListing'
+              x-apidog-orders:
+              - pageInfo
+              - records
+              x-apidog-ignore-properties: []
+          x-apidog-orders:
+          - connectedAccountListings
+          x-apidog-ignore-properties: []
+      x-apidog-orders:
+      - data
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    ConnectListingResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            connectListing:
+              type: object
+              required:
+              - success
+              properties:
+                success:
+                  type: boolean
+                  description: Indicates if the connection was successful
+                message:
+                  type:
+                  - string
+                  - 'null'
+                  description: 'Error message if the connection failed.
+
+                    Returns null on successful connection.
+
+                    '
+                  examples:
+                  - Internal System Error
+              x-apidog-orders:
+              - success
+              - message
+              x-apidog-ignore-properties: []
+          x-apidog-orders:
+          - connectListing
+          x-apidog-ignore-properties: []
+      x-apidog-orders:
+      - data
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    ConnectListingRequest:
+      type: object
+      required:
+      - input
+      properties:
+        input:
+          type: object
+          required:
+          - locationId
+          - connectedAccountId
+          - connectedAccountListingId
+          properties:
+            locationId:
+              type: string
+              description: Base64 encoded location ID
+              pattern: ^[A-Za-z0-9+/=]+$
+              examples:
+              - TG9jYXRpb246NzM5MzM=
+            connectedAccountId:
+              type: string
+              format: uuid
+              description: ID of the connected account
+              examples:
+              - 3db66afa-151d-4212-a8b7-949f9fe9aaf9
+            connectedAccountListingId:
+              type: string
+              description: 'ID of the listing from the fetch listings API response.
+
+                This is typically a base64 encoded string.
+
+                '
+              pattern: ^[A-Za-z0-9+/=]+$
+              examples:
+              - R21iQnVsa0RhdGFMYWtlOmMyMWRiOWY5LTZmYTctNDE0My1hNDU2LTQzMjZkMmZiN2UwZg==
+          x-apidog-orders:
+          - locationId
+          - connectedAccountId
+          - connectedAccountListingId
+          x-apidog-ignore-properties: []
+      x-apidog-orders:
+      - input
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    DisconnectListingResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            disconnectConnectedAccountsLocations:
+              type: object
+              required:
+              - success
+              properties:
+                clientMutationId:
+                  type:
+                  - string
+                  - 'null'
+                  description: Client mutation identifier if provided
+                errors:
+                  type:
+                  - object
+                  - 'null'
+                  description: Hash containing any errors that occurred during disconnection
+                  x-apidog-orders: []
+                  properties: {}
+                  x-apidog-ignore-properties: []
+                success:
+                  type: boolean
+                  description: 'Indicates if the disconnection was successful.
+
+                    Returns true if the account was successfully disconnected from the location.
+
+                    '
+              x-apidog-orders:
+              - clientMutationId
+              - errors
+              - success
+              x-apidog-ignore-properties: []
+          x-apidog-orders:
+          - disconnectConnectedAccountsLocations
+          x-apidog-ignore-properties: []
+      x-apidog-orders:
+      - data
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    AppleConfirmedMatches:
+      type: object
+      properties:
+        matches:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppleConfirmedMatch'
+        matchesCount:
+          type: integer
+          description: Total number of matches.
+        pages:
+          type: integer
+          description: Total number of pages.
+      x-apidog-orders:
+      - matches
+      - matchesCount
+      - pages
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    AppleOauthBulkRequest:
+      type: object
+      required:
+      - input
+      properties:
+        input:
+          type: object
+          required:
+          - successUrl
+          - errorUrl
+          properties:
+            successUrl:
+              type: string
+              description: Redirect URL on successful authorization.
+            errorUrl:
+              type: string
+              description: Redirect URL on failed authorization.
+            platform:
+              type: string
+              description: '`local` (default) or `social`.'
+            entityId:
+              type: string
+              description: Brand ID when platform is `social`.
+            onboarding:
+              type: boolean
+            clientMutationId:
+              type: string
+          x-apidog-orders:
+          - successUrl
+          - errorUrl
+          - platform
+          - entityId
+          - onboarding
+          - clientMutationId
+      x-apidog-orders:
+      - input
+      x-apidog-folder: ''
+    GmbConnectedListingInfo:
+      type: object
+      description: Connected listing details when the source is Google (GMB)
+      properties:
+        name:
+          type: string
+        addressLines:
+          type: array
+          items:
+            type: string
+        administrativeArea:
+          type:
+          - string
+          - 'null'
+        locality:
+          type:
+          - string
+          - 'null'
+        regionCode:
+          type:
+          - string
+          - 'null'
+        postalCode:
+          type:
+          - string
+          - 'null'
+        phone:
+          type:
+          - string
+          - 'null'
+        storeCode:
+          type:
+          - string
+          - 'null'
+        gmbAccountNumber:
+          type:
+          - string
+          - 'null'
+        gmbGroup:
+          type:
+          - string
+          - 'null'
+        suspended:
+          type:
+          - boolean
+          - 'null'
+        liveLink:
+          type:
+          - string
+          - 'null'
+      x-apidog-orders:
+      - name
+      - addressLines
+      - administrativeArea
+      - locality
+      - regionCode
+      - postalCode
+      - phone
+      - storeCode
+      - gmbAccountNumber
+      - gmbGroup
+      - suspended
       - liveLink
       x-apidog-folder: ''
     ConfirmMatchesRequest:
@@ -3418,6 +3315,80 @@ components:
                 - R21iTG9jYXRpb25NYXRjaGVkRGF0YTplNGZhNTFkYi04NWEwLTRjYzItYjdmMS01OWNhMzQ1NjlhZWM=
           x-apidog-orders:
           - matchRecordIds
+          x-apidog-ignore-properties: []
+      x-apidog-orders:
+      - input
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    ConfirmMatchesResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            confirmConnectMatches:
+              type: object
+              required:
+              - success
+              properties:
+                success:
+                  type: boolean
+                  description: 'Indicates if all match records were confirmed successfully.
+
+                    Returns false if any match failed to confirm.
+
+                    '
+                failedIds:
+                  type: array
+                  description: 'List of original (non-encoded) match record IDs that failed to confirm.
+
+                    Only present when some matches fail.
+
+                    '
+                  items:
+                    type: string
+                    format: uuid
+                    examples:
+                    - e4fa51db-85a0-4cc2-b7f1-59ca34569aec
+              x-apidog-orders:
+              - success
+              - failedIds
+              x-apidog-ignore-properties: []
+          x-apidog-orders:
+          - confirmConnectMatches
+          x-apidog-ignore-properties: []
+      x-apidog-orders:
+      - data
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    DisconnectListingRequest:
+      type: object
+      required:
+      - input
+      properties:
+        input:
+          type: object
+          required:
+          - locationId
+          - site
+          properties:
+            locationId:
+              type: string
+              description: Base64 encoded location ID
+              pattern: ^[A-Za-z0-9+/=]+$
+              examples:
+              - TG9jYXRpb246MTM5OTg=
+            site:
+              type: string
+              description: The platform from which to disconnect the listing
+              enum:
+              - GOOGLE
+              - FACEBOOK
+              examples:
+              - GOOGLE
+          x-apidog-orders:
+          - locationId
+          - site
           x-apidog-ignore-properties: []
       x-apidog-orders:
       - input
@@ -3508,67 +3479,100 @@ components:
       x-apidog-orders:
       - data
       x-apidog-folder: ''
-    GmbConnectedListingInfo:
+    ConnectedAccountsResponse:
       type: object
-      description: Connected listing details when the source is Google (GMB)
       properties:
-        name:
+        data:
+          type: object
+          properties:
+            connectedAccountsInfo:
+              type: object
+              properties:
+                pageInfo:
+                  $ref: '#/components/schemas/PageInfo'
+                records:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/ConnectedAccount'
+              x-apidog-orders:
+              - pageInfo
+              - records
+          x-apidog-orders:
+          - connectedAccountsInfo
+      x-apidog-orders:
+      - data
+      x-apidog-folder: ''
+    ConnectionSuggestionsResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            connectionSuggestionsForAccount:
+              type: object
+              properties:
+                pageInfo:
+                  $ref: '#/components/schemas/PageInfo'
+                records:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/ConnectionSuggestion'
+              x-apidog-orders:
+              - pageInfo
+              - records
+          x-apidog-orders:
+          - connectionSuggestionsForAccount
+      x-apidog-orders:
+      - data
+      x-apidog-folder: ''
+    AppleConfirmedMatch:
+      type: object
+      properties:
+        id:
           type: string
-        addressLines:
+        appleBusinessId:
+          type: string
+        connectedAccountId:
+          type: string
+        connectedAccountLabel:
+          type: string
+        connectedAccountsLocationId:
+          type: string
+        lakeRecordId:
+          type: string
+        matchedOn:
+          type: string
+          format: date-time
+        synupLocationId:
+          type: integer
+      x-apidog-orders:
+      - id
+      - appleBusinessId
+      - connectedAccountId
+      - connectedAccountLabel
+      - connectedAccountsLocationId
+      - lakeRecordId
+      - matchedOn
+      - synupLocationId
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    AppleOauthPayload:
+      type: object
+      properties:
+        success:
+          type: boolean
+        url:
+          type: string
+          description: OAuth link to redirect the user to (1-day TTL).
+        errors:
           type: array
           items:
-            type: string
-        administrativeArea:
-          type:
-          - string
-          - 'null'
-        locality:
-          type:
-          - string
-          - 'null'
-        regionCode:
-          type:
-          - string
-          - 'null'
-        postalCode:
-          type:
-          - string
-          - 'null'
-        phone:
-          type:
-          - string
-          - 'null'
-        storeCode:
-          type:
-          - string
-          - 'null'
-        gmbAccountNumber:
-          type:
-          - string
-          - 'null'
-        gmbGroup:
-          type:
-          - string
-          - 'null'
-        suspended:
-          type:
-          - boolean
-          - 'null'
-        liveLink:
-          type:
-          - string
-          - 'null'
+            $ref: '#/components/schemas/MutationError'
+        clientMutationId:
+          type: string
       x-apidog-orders:
-      - name
-      - addressLines
-      - administrativeArea
-      - locality
-      - regionCode
-      - postalCode
-      - phone
-      - storeCode
-      - gmbAccountNumber
-      - gmbGroup
-      - suspended
-      - liveLink
+      - success
+      - url
+      - errors
+      - clientMutationId
       x-apidog-folder: ''
