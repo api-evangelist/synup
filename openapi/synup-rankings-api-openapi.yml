@@ -909,6 +909,34 @@ paths:
       x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-13695476-run
 components:
   schemas:
+    UnauthorizedError:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            archiveKeyword:
+              type: null
+          x-apidog-orders:
+          - archiveKeyword
+          x-apidog-ignore-properties: []
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+                examples:
+                - 'SY90001: Not authorized to access this resource'
+            x-apidog-orders:
+            - message
+            x-apidog-ignore-properties: []
+      x-apidog-orders:
+      - data
+      - errors
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
     Error:
       type: object
       properties:
@@ -934,22 +962,6 @@ components:
       - code
       - contextInfo
       x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    Keyword:
-      type: object
-      required:
-      - id
-      - name
-      properties:
-        id:
-          type: string
-          description: The unique ID attached to the keyword
-        name:
-          type: string
-          description: The text value of the keyword
-      x-apidog-orders:
-      - id
-      - name
       x-apidog-folder: ''
     BadRequestError:
       type: object
@@ -979,31 +991,19 @@ components:
       - errors
       x-apidog-ignore-properties: []
       x-apidog-folder: ''
-    UnauthorizedError:
+    Keyword:
       type: object
+      required:
+      - id
+      - name
       properties:
-        data:
-          type: object
-          properties:
-            archiveKeyword:
-              type: null
-          x-apidog-orders:
-          - archiveKeyword
-          x-apidog-ignore-properties: []
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              message:
-                type: string
-                examples:
-                - 'SY90001: Not authorized to access this resource'
-            x-apidog-orders:
-            - message
-            x-apidog-ignore-properties: []
+        id:
+          type: string
+          description: The unique ID attached to the keyword
+        name:
+          type: string
+          description: The text value of the keyword
       x-apidog-orders:
-      - data
-      - errors
-      x-apidog-ignore-properties: []
+      - id
+      - name
       x-apidog-folder: ''

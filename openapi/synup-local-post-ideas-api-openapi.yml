@@ -2857,112 +2857,6 @@ paths:
       x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-40053377-run
 components:
   schemas:
-    LocalChatSession:
-      type: object
-      properties:
-        id:
-          type: string
-        locationId:
-          type: integer
-        mode:
-          type: string
-        status:
-          type: string
-        messageCount:
-          type: integer
-        title:
-          type: string
-        subjectType:
-          type: string
-        subjectId:
-          type: string
-        createdAt:
-          type: string
-        updatedAt:
-          type: string
-      x-apidog-orders:
-      - id
-      - locationId
-      - mode
-      - status
-      - messageCount
-      - title
-      - subjectType
-      - subjectId
-      - createdAt
-      - updatedAt
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    LocalScheduleSeriesResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        scheduledPosts:
-          type: array
-          description: The scheduled posts (see Local post idea for the full shape).
-          items:
-            type: object
-            x-apidog-orders: []
-        error:
-          $ref: '#/components/schemas/LocalError'
-      x-apidog-orders:
-      - success
-      - scheduledPosts
-      - error
-      x-apidog-folder: ''
-    ScheduleLocalSeriesRequest:
-      type: object
-      required:
-      - seriesId
-      - startDate
-      properties:
-        seriesId:
-          type: string
-        startDate:
-          type: string
-          description: Series start date (YYYY-MM-DD).
-      x-apidog-orders:
-      - seriesId
-      - startDate
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    LocalRegenerateResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        idea:
-          type: object
-          description: The updated post idea (see Local post idea for the full shape).
-          x-apidog-orders: []
-          properties: {}
-          x-apidog-ignore-properties: []
-        error:
-          $ref: '#/components/schemas/LocalError'
-      x-apidog-orders:
-      - success
-      - idea
-      - error
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    BranchLocalChatSessionRequest:
-      type: object
-      required:
-      - parentSessionId
-      properties:
-        parentSessionId:
-          type: string
-        subjectType:
-          type: string
-        subjectId:
-          type: string
-      x-apidog-orders:
-      - parentSessionId
-      - subjectType
-      - subjectId
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
     SendLocalChatMessageRequest:
       type: object
       required:
@@ -2983,6 +2877,261 @@ components:
       - referenceImageUrls
       x-apidog-ignore-properties: []
       x-apidog-folder: ''
+    ArchiveLocalSeriesRequest:
+      type: object
+      required:
+      - seriesId
+      properties:
+        seriesId:
+          type: string
+      x-apidog-orders:
+      - seriesId
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    LocalPipelineStatus:
+      type: object
+      properties:
+        id:
+          type: string
+        locationId:
+          type: integer
+        pipelineType:
+          type: string
+        status:
+          type: string
+        currentStep:
+          type: string
+        stepsCompleted:
+          type: array
+          items:
+            type: string
+        stepsRemaining:
+          type: array
+          items:
+            type: string
+        errorMessage:
+          type: string
+        startedAt:
+          type: string
+        completedAt:
+          type: string
+      x-apidog-orders:
+      - id
+      - locationId
+      - pipelineType
+      - status
+      - currentStep
+      - stepsCompleted
+      - stepsRemaining
+      - errorMessage
+      - startedAt
+      - completedAt
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    RegenerateLocalIdeaContentRequest:
+      type: object
+      required:
+      - ideaId
+      properties:
+        ideaId:
+          type: string
+        topic:
+          type: string
+      x-apidog-orders:
+      - ideaId
+      - topic
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    LocalGenerateIdeasResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        ideas:
+          type: array
+          description: Generated post ideas (see Local post idea for the full shape).
+          items:
+            type: object
+            x-apidog-orders: []
+            properties: {}
+            x-apidog-ignore-properties: []
+        pipelineId:
+          type: string
+        generatedCount:
+          type: integer
+        error:
+          $ref: '#/components/schemas/LocalError'
+      x-apidog-orders:
+      - success
+      - ideas
+      - pipelineId
+      - generatedCount
+      - error
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    GenerateAllLocalSeriesPostsRequest:
+      type: object
+      required:
+      - locationId
+      - seriesId
+      properties:
+        locationId:
+          type: string
+        seriesId:
+          type: string
+      x-apidog-orders:
+      - locationId
+      - seriesId
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    CloseLocalChatSessionRequest:
+      type: object
+      required:
+      - sessionId
+      properties:
+        sessionId:
+          type: string
+      x-apidog-orders:
+      - sessionId
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    PostIdeaCounts:
+      type: object
+      properties:
+        ai:
+          type: integer
+        mine:
+          type: integer
+        series:
+          type: integer
+        all:
+          type: integer
+      x-apidog-orders:
+      - ai
+      - mine
+      - series
+      - all
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    ActionChip:
+      type: object
+      properties:
+        label:
+          type: string
+        emoji:
+          type: string
+        action:
+          type: string
+      x-apidog-orders:
+      - label
+      - emoji
+      - action
+      x-apidog-folder: ''
+    ScrapedLocationContext:
+      type: object
+      properties:
+        id:
+          type: string
+        locationId:
+          type: integer
+        businessName:
+          type: string
+        category:
+          type: string
+        businessDescription:
+          type: string
+        location:
+          type: string
+        services:
+          type: object
+          description: Free-form JSON.
+          x-apidog-orders: []
+          properties: {}
+          x-apidog-ignore-properties: []
+        products:
+          type: object
+          description: Free-form JSON.
+          x-apidog-orders: []
+          properties: {}
+          x-apidog-ignore-properties: []
+        subcategories:
+          type: object
+          description: Free-form JSON.
+          x-apidog-orders: []
+          properties: {}
+          x-apidog-ignore-properties: []
+        pricing:
+          type: object
+          description: Free-form JSON.
+          x-apidog-orders: []
+          properties: {}
+          x-apidog-ignore-properties: []
+        availability:
+          type: object
+          description: Free-form JSON.
+          x-apidog-orders: []
+          properties: {}
+          x-apidog-ignore-properties: []
+        uniqueSellingPoints:
+          type: object
+          description: Free-form JSON.
+          x-apidog-orders: []
+          properties: {}
+          x-apidog-ignore-properties: []
+        tone:
+          type: string
+        targetCustomers:
+          type: string
+        scrapedImages:
+          type: object
+          description: Free-form JSON.
+          x-apidog-orders: []
+          properties: {}
+          x-apidog-ignore-properties: []
+        insights:
+          type: object
+          description: Free-form JSON.
+          x-apidog-orders: []
+          properties: {}
+          x-apidog-ignore-properties: []
+        brandPrimaryColor:
+          type: string
+        brandSecondaryColor:
+          type: string
+        brandLogoUrl:
+          type: string
+        scrapedContext:
+          type: string
+        visualContext:
+          type: object
+          description: Free-form JSON.
+          x-apidog-orders: []
+          properties: {}
+          x-apidog-ignore-properties: []
+      x-apidog-orders:
+      - id
+      - locationId
+      - businessName
+      - category
+      - businessDescription
+      - location
+      - services
+      - products
+      - subcategories
+      - pricing
+      - availability
+      - uniqueSellingPoints
+      - tone
+      - targetCustomers
+      - scrapedImages
+      - insights
+      - brandPrimaryColor
+      - brandSecondaryColor
+      - brandLogoUrl
+      - scrapedContext
+      - visualContext
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
     LocalMutationResponse:
       type: object
       properties:
@@ -2995,30 +3144,23 @@ components:
       - error
       x-apidog-ignore-properties: []
       x-apidog-folder: ''
-    StartLocalChatSessionRequest:
+    LocalRegenerateResponse:
       type: object
-      required:
-      - locationId
       properties:
-        locationId:
-          type: string
-          description: Relay-encoded location ID.
-        intent:
-          type: string
-          description: Conversation intent (e.g. idea).
-        mode:
-          type: string
-          description: Generation mode (e.g. fast).
-        subjectType:
-          type: string
-        subjectId:
-          type: string
+        success:
+          type: boolean
+        idea:
+          type: object
+          description: The updated post idea (see Local post idea for the full shape).
+          x-apidog-orders: []
+          properties: {}
+          x-apidog-ignore-properties: []
+        error:
+          $ref: '#/components/schemas/LocalError'
       x-apidog-orders:
-      - locationId
-      - intent
-      - mode
-      - subjectType
-      - subjectId
+      - success
+      - idea
+      - error
       x-apidog-ignore-properties: []
       x-apidog-folder: ''
     GenerateLocalHolidayIdeaVariantRequest:
@@ -3041,6 +3183,135 @@ components:
       - observanceDate
       - topic
       x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    ArchiveLocalIdeaRequest:
+      type: object
+      required:
+      - ideaId
+      properties:
+        ideaId:
+          type: string
+      x-apidog-orders:
+      - ideaId
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    LocalChatMessage:
+      type: object
+      properties:
+        id:
+          type: string
+        role:
+          type: string
+        content:
+          type: string
+        messageType:
+          type: string
+        metadata:
+          type: object
+          x-apidog-orders: []
+          properties: {}
+          x-apidog-ignore-properties: []
+        sequence:
+          type: integer
+        createdAt:
+          type: string
+      x-apidog-orders:
+      - id
+      - role
+      - content
+      - messageType
+      - metadata
+      - sequence
+      - createdAt
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    ScrapeLocationRequest:
+      type: object
+      required:
+      - locationId
+      - siteUrl
+      properties:
+        locationId:
+          type: string
+        siteUrl:
+          type: string
+        trigger:
+          type: string
+      x-apidog-orders:
+      - locationId
+      - siteUrl
+      - trigger
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    GenerateLocalSeriesPostRequest:
+      type: object
+      required:
+      - seriesId
+      - slotIndex
+      properties:
+        seriesId:
+          type: string
+        slotIndex:
+          type: string
+      x-apidog-orders:
+      - seriesId
+      - slotIndex
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    UpdateLocalIdeaRequest:
+      type: object
+      required:
+      - ideaId
+      properties:
+        ideaId:
+          type: string
+        title:
+          type: string
+        content:
+          type: string
+        status:
+          type: string
+        ctaText:
+          type: string
+        ctaUrl:
+          type: string
+        scheduledDate:
+          type: string
+        scheduledTime:
+          type: string
+        bucket:
+          type: string
+        note:
+          type: string
+        platforms:
+          type: array
+          items:
+            type: string
+      x-apidog-orders:
+      - ideaId
+      - title
+      - content
+      - status
+      - ctaText
+      - ctaUrl
+      - scheduledDate
+      - scheduledTime
+      - bucket
+      - note
+      - platforms
+      x--orders:
+      - ideaId
+      - title
+      - content
+      - status
+      - ctaText
+      - ctaUrl
+      - scheduledDate
+      - scheduledTime
+      - bucket
+      - note
+      - platforms
+      x--ignore-properties: []
       x-apidog-folder: ''
     LocalImageCredits:
       type: object
@@ -3071,169 +3342,6 @@ components:
       - addonConsumed
       - addonRemaining
       x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    ActionChip:
-      type: object
-      properties:
-        label:
-          type: string
-        emoji:
-          type: string
-        action:
-          type: string
-      x-apidog-orders:
-      - label
-      - emoji
-      - action
-      x-apidog-folder: ''
-    SuggestLocalPostsForDateRequest:
-      type: object
-      required:
-      - locationId
-      - date
-      properties:
-        locationId:
-          type: string
-        date:
-          type: string
-          description: Target date (YYYY-MM-DD).
-      x-apidog-orders:
-      - locationId
-      - date
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    LocalObservanceWithIdea:
-      type: object
-      properties:
-        id:
-          type: integer
-        title:
-          type: string
-        description:
-          type: string
-        date:
-          type: string
-        imageUrl:
-          type: string
-        isMonthLong:
-          type: boolean
-        ideasReady:
-          type: boolean
-        isRelevant:
-          type: boolean
-        postIdeaId:
-          type: string
-        postImageUrl:
-          type: string
-        postTitle:
-          type: string
-        postType:
-          type: string
-        postContent:
-          type: string
-        postImagePrompt:
-          type: string
-      x-apidog-orders:
-      - id
-      - title
-      - description
-      - date
-      - imageUrl
-      - isMonthLong
-      - ideasReady
-      - isRelevant
-      - postIdeaId
-      - postImageUrl
-      - postTitle
-      - postType
-      - postContent
-      - postImagePrompt
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    GenerateAllLocalSeriesPostsRequest:
-      type: object
-      required:
-      - locationId
-      - seriesId
-      properties:
-        locationId:
-          type: string
-        seriesId:
-          type: string
-      x-apidog-orders:
-      - locationId
-      - seriesId
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    LocalObservance:
-      type: object
-      properties:
-        id:
-          type: integer
-        title:
-          type: string
-        description:
-          type: string
-        date:
-          type: string
-        imageUrl:
-          type: string
-        isMonthLong:
-          type: boolean
-      x-apidog-orders:
-      - id
-      - title
-      - description
-      - date
-      - imageUrl
-      - isMonthLong
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    SetLocationImageCreditsRequest:
-      type: object
-      required:
-      - locationId
-      properties:
-        locationId:
-          type: string
-        monthlyLimit:
-          type: integer
-        isActive:
-          type: boolean
-      x-apidog-orders:
-      - locationId
-      - monthlyLimit
-      - isActive
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    LocalChatMessageResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        message:
-          $ref: '#/components/schemas/LocalChatMessage'
-        postCard:
-          type: object
-          description: Generated post idea card (see Local post ideas), when produced.
-          x-apidog-orders: []
-        seriesPlan:
-          type: object
-          description: Content-series plan, when produced.
-          x-apidog-orders: []
-        actionChips:
-          type: array
-          items:
-            $ref: '#/components/schemas/ActionChip'
-        error:
-          $ref: '#/components/schemas/LocalError'
-      x-apidog-orders:
-      - success
-      - message
-      - postCard
-      - seriesPlan
-      - actionChips
-      - error
       x-apidog-folder: ''
     LocalPostIdea:
       type: object
@@ -3341,296 +3449,83 @@ components:
       - generationJobId
       x-apidog-ignore-properties: []
       x-apidog-folder: ''
-    PostIdeaCounts:
-      type: object
-      properties:
-        ai:
-          type: integer
-        mine:
-          type: integer
-        series:
-          type: integer
-        all:
-          type: integer
-      x-apidog-orders:
-      - ai
-      - mine
-      - series
-      - all
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    LocalLocationInfo:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        siteUrl:
-          type: string
-        primaryCategory:
-          type: string
-        categories:
-          type: array
-          items:
-            type: string
-        country:
-          type: string
-        phone:
-          type: string
-        address:
-          type: string
-        city:
-          type: string
-        state:
-          type: string
-      x-apidog-orders:
-      - id
-      - name
-      - siteUrl
-      - primaryCategory
-      - categories
-      - country
-      - phone
-      - address
-      - city
-      - state
-      x--orders:
-      - id
-      - name
-      - siteUrl
-      - primaryCategory
-      - categories
-      - country
-      - phone
-      - address
-      - city
-      - state
-      x--ignore-properties: []
-      x-apidog-folder: ''
-    UpdateLocalIdeaRequest:
+    RegenerateLocalIdeaImageRequest:
       type: object
       required:
       - ideaId
       properties:
         ideaId:
           type: string
-        title:
-          type: string
-        content:
-          type: string
-        status:
-          type: string
-        ctaText:
-          type: string
-        ctaUrl:
-          type: string
-        scheduledDate:
-          type: string
-        scheduledTime:
-          type: string
-        bucket:
-          type: string
-        note:
-          type: string
-        platforms:
-          type: array
-          items:
-            type: string
       x-apidog-orders:
       - ideaId
-      - title
-      - content
-      - status
-      - ctaText
-      - ctaUrl
-      - scheduledDate
-      - scheduledTime
-      - bucket
-      - note
-      - platforms
-      x--orders:
-      - ideaId
-      - title
-      - content
-      - status
-      - ctaText
-      - ctaUrl
-      - scheduledDate
-      - scheduledTime
-      - bucket
-      - note
-      - platforms
-      x--ignore-properties: []
-      x-apidog-folder: ''
-    ReferenceImageOption:
-      type: object
-      properties:
-        url:
-          type: string
-        category:
-          type: string
-      x-apidog-orders:
-      - url
-      - category
       x-apidog-ignore-properties: []
       x-apidog-folder: ''
-    LocalPipelineStatus:
-      type: object
-      properties:
-        id:
-          type: string
-        locationId:
-          type: integer
-        pipelineType:
-          type: string
-        status:
-          type: string
-        currentStep:
-          type: string
-        stepsCompleted:
-          type: array
-          items:
-            type: string
-        stepsRemaining:
-          type: array
-          items:
-            type: string
-        errorMessage:
-          type: string
-        startedAt:
-          type: string
-        completedAt:
-          type: string
-      x-apidog-orders:
-      - id
-      - locationId
-      - pipelineType
-      - status
-      - currentStep
-      - stepsCompleted
-      - stepsRemaining
-      - errorMessage
-      - startedAt
-      - completedAt
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    ScrapeLocationRequest:
+    SuggestLocalPostsForDateRequest:
       type: object
       required:
       - locationId
-      - siteUrl
+      - date
       properties:
         locationId:
           type: string
-        siteUrl:
+        date:
           type: string
-        trigger:
+          description: Target date (YYYY-MM-DD).
+      x-apidog-orders:
+      - locationId
+      - date
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    TriggerLocalPipelineRequest:
+      type: object
+      required:
+      - locationId
+      properties:
+        locationId:
           type: string
       x-apidog-orders:
       - locationId
-      - siteUrl
-      - trigger
       x-apidog-ignore-properties: []
       x-apidog-folder: ''
-    RegenerateLocalIdeaContentRequest:
-      type: object
-      required:
-      - ideaId
-      properties:
-        ideaId:
-          type: string
-        topic:
-          type: string
-      x-apidog-orders:
-      - ideaId
-      - topic
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    LocalGenerateIdeasResponse:
+    LocalChatMessageResponse:
       type: object
       properties:
         success:
           type: boolean
-        ideas:
+        message:
+          $ref: '#/components/schemas/LocalChatMessage'
+        postCard:
+          type: object
+          description: Generated post idea card (see Local post ideas), when produced.
+          x-apidog-orders: []
+        seriesPlan:
+          type: object
+          description: Content-series plan, when produced.
+          x-apidog-orders: []
+        actionChips:
           type: array
-          description: Generated post ideas (see Local post idea for the full shape).
           items:
-            type: object
-            x-apidog-orders: []
-            properties: {}
-            x-apidog-ignore-properties: []
-        pipelineId:
-          type: string
-        generatedCount:
-          type: integer
+            $ref: '#/components/schemas/ActionChip'
         error:
           $ref: '#/components/schemas/LocalError'
       x-apidog-orders:
       - success
-      - ideas
-      - pipelineId
-      - generatedCount
+      - message
+      - postCard
+      - seriesPlan
+      - actionChips
       - error
-      x-apidog-ignore-properties: []
       x-apidog-folder: ''
-    LocalCalendarDay:
+    LocalIdeaJobStatus:
       type: object
       properties:
-        day:
-          type: integer
-        posts:
-          type: array
-          description: Post ideas for the day (see Local post idea for the full shape).
-          items:
-            type: object
-            x-apidog-orders: []
-            x--orders: []
-            properties: {}
-            x--ignore-properties: []
-      x-apidog-orders:
-      - day
-      - posts
-      x--orders:
-      - day
-      - posts
-      x--ignore-properties: []
-      x-apidog-folder: ''
-    ArchiveLocalIdeaRequest:
-      type: object
-      required:
-      - ideaId
-      properties:
-        ideaId:
+        status:
+          type: string
+        imageUrl:
           type: string
       x-apidog-orders:
-      - ideaId
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    GenerateLocalSeriesPostRequest:
-      type: object
-      required:
-      - seriesId
-      - slotIndex
-      properties:
-        seriesId:
-          type: string
-        slotIndex:
-          type: string
-      x-apidog-orders:
-      - seriesId
-      - slotIndex
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    RefreshLocalIdeasRequest:
-      type: object
-      required:
-      - locationId
-      properties:
-        locationId:
-          type: string
-      x-apidog-orders:
-      - locationId
+      - status
+      - imageUrl
       x-apidog-ignore-properties: []
       x-apidog-folder: ''
     UpsertExtendedLocationConfigRequest:
@@ -3698,66 +3593,49 @@ components:
       - additionalContext
       x-apidog-ignore-properties: []
       x-apidog-folder: ''
-    ArchiveLocalSeriesRequest:
+    ReferenceImageOption:
       type: object
-      required:
-      - seriesId
       properties:
-        seriesId:
+        url:
+          type: string
+        category:
           type: string
       x-apidog-orders:
-      - seriesId
+      - url
+      - category
       x-apidog-ignore-properties: []
       x-apidog-folder: ''
-    SwitchLocalChatModeRequest:
+    LocalCalendarDay:
+      type: object
+      properties:
+        day:
+          type: integer
+        posts:
+          type: array
+          description: Post ideas for the day (see Local post idea for the full shape).
+          items:
+            type: object
+            x-apidog-orders: []
+            x--orders: []
+            properties: {}
+            x--ignore-properties: []
+      x-apidog-orders:
+      - day
+      - posts
+      x--orders:
+      - day
+      - posts
+      x--ignore-properties: []
+      x-apidog-folder: ''
+    RefreshLocalIdeasRequest:
       type: object
       required:
-      - sessionId
-      - mode
+      - locationId
       properties:
-        sessionId:
-          type: string
-        mode:
+        locationId:
           type: string
       x-apidog-orders:
-      - sessionId
-      - mode
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    LocalTriggerPipelineResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        pipelineId:
-          type: string
-        error:
-          $ref: '#/components/schemas/LocalError'
-      x-apidog-orders:
-      - success
-      - pipelineId
-      - error
-      x-apidog-folder: ''
-    RegenerateLocalIdeaImageRequest:
-      type: object
-      required:
-      - ideaId
-      properties:
-        ideaId:
-          type: string
-      x-apidog-orders:
-      - ideaId
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    CloseLocalChatSessionRequest:
-      type: object
-      required:
-      - sessionId
-      properties:
-        sessionId:
-          type: string
-      x-apidog-orders:
-      - sessionId
+      - locationId
       x-apidog-ignore-properties: []
       x-apidog-folder: ''
     ExtendedLocationConfig:
@@ -3824,6 +3702,22 @@ components:
       - additionalContext
       - insights
       x-apidog-folder: ''
+    ScheduleLocalSeriesRequest:
+      type: object
+      required:
+      - seriesId
+      - startDate
+      properties:
+        seriesId:
+          type: string
+        startDate:
+          type: string
+          description: Series start date (YYYY-MM-DD).
+      x-apidog-orders:
+      - seriesId
+      - startDate
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
     LocalError:
       type: object
       properties:
@@ -3850,69 +3744,180 @@ components:
       - contextInfo
       x-apidog-ignore-properties: []
       x-apidog-folder: ''
-    RegenerateLocalIdeaRequest:
-      type: object
-      required:
-      - ideaId
-      properties:
-        ideaId:
-          type: string
-        topic:
-          type: string
-      x-apidog-orders:
-      - ideaId
-      - topic
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    TriggerLocalPipelineRequest:
+    StartLocalChatSessionRequest:
       type: object
       required:
       - locationId
       properties:
         locationId:
           type: string
+          description: Relay-encoded location ID.
+        intent:
+          type: string
+          description: Conversation intent (e.g. idea).
+        mode:
+          type: string
+          description: Generation mode (e.g. fast).
+        subjectType:
+          type: string
+        subjectId:
+          type: string
       x-apidog-orders:
       - locationId
+      - intent
+      - mode
+      - subjectType
+      - subjectId
       x-apidog-ignore-properties: []
       x-apidog-folder: ''
-    ReferenceImageAnalysis:
+    SwitchLocalChatModeRequest:
+      type: object
+      required:
+      - sessionId
+      - mode
+      properties:
+        sessionId:
+          type: string
+        mode:
+          type: string
+      x-apidog-orders:
+      - sessionId
+      - mode
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    LocalScheduleSeriesResponse:
       type: object
       properties:
-        description:
-          type: string
-          description: Textual description of the analyzed image.
+        success:
+          type: boolean
+        scheduledPosts:
+          type: array
+          description: The scheduled posts (see Local post idea for the full shape).
+          items:
+            type: object
+            x-apidog-orders: []
+        error:
+          $ref: '#/components/schemas/LocalError'
       x-apidog-orders:
-      - description
-      x-apidog-ignore-properties: []
+      - success
+      - scheduledPosts
+      - error
       x-apidog-folder: ''
-    LocalChatMessage:
+    LocalLocationInfo:
       type: object
       properties:
         id:
           type: string
-        role:
+        name:
           type: string
-        content:
+        siteUrl:
           type: string
-        messageType:
+        primaryCategory:
           type: string
-        metadata:
-          type: object
-          x-apidog-orders: []
-          properties: {}
-          x-apidog-ignore-properties: []
-        sequence:
-          type: integer
-        createdAt:
+        categories:
+          type: array
+          items:
+            type: string
+        country:
+          type: string
+        phone:
+          type: string
+        address:
+          type: string
+        city:
+          type: string
+        state:
           type: string
       x-apidog-orders:
       - id
-      - role
-      - content
-      - messageType
-      - metadata
-      - sequence
-      - createdAt
+      - name
+      - siteUrl
+      - primaryCategory
+      - categories
+      - country
+      - phone
+      - address
+      - city
+      - state
+      x--orders:
+      - id
+      - name
+      - siteUrl
+      - primaryCategory
+      - categories
+      - country
+      - phone
+      - address
+      - city
+      - state
+      x--ignore-properties: []
+      x-apidog-folder: ''
+    LocalObservanceWithIdea:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        description:
+          type: string
+        date:
+          type: string
+        imageUrl:
+          type: string
+        isMonthLong:
+          type: boolean
+        ideasReady:
+          type: boolean
+        isRelevant:
+          type: boolean
+        postIdeaId:
+          type: string
+        postImageUrl:
+          type: string
+        postTitle:
+          type: string
+        postType:
+          type: string
+        postContent:
+          type: string
+        postImagePrompt:
+          type: string
+      x-apidog-orders:
+      - id
+      - title
+      - description
+      - date
+      - imageUrl
+      - isMonthLong
+      - ideasReady
+      - isRelevant
+      - postIdeaId
+      - postImageUrl
+      - postTitle
+      - postType
+      - postContent
+      - postImagePrompt
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    LocalChatSessionResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        session:
+          $ref: '#/components/schemas/LocalChatSession'
+        suggestions:
+          type: array
+          items:
+            type: string
+        error:
+          $ref: '#/components/schemas/LocalError'
+      x-apidog-orders:
+      - success
+      - session
+      - suggestions
+      - error
       x-apidog-ignore-properties: []
       x-apidog-folder: ''
     LocalContentSeries:
@@ -3963,140 +3968,135 @@ components:
       - updatedAt
       x-apidog-ignore-properties: []
       x-apidog-folder: ''
-    ScrapedLocationContext:
+    RegenerateLocalIdeaRequest:
+      type: object
+      required:
+      - ideaId
+      properties:
+        ideaId:
+          type: string
+        topic:
+          type: string
+      x-apidog-orders:
+      - ideaId
+      - topic
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    BranchLocalChatSessionRequest:
+      type: object
+      required:
+      - parentSessionId
+      properties:
+        parentSessionId:
+          type: string
+        subjectType:
+          type: string
+        subjectId:
+          type: string
+      x-apidog-orders:
+      - parentSessionId
+      - subjectType
+      - subjectId
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    LocalChatSession:
       type: object
       properties:
         id:
           type: string
         locationId:
           type: integer
-        businessName:
+        mode:
           type: string
-        category:
+        status:
           type: string
-        businessDescription:
+        messageCount:
+          type: integer
+        title:
           type: string
-        location:
+        subjectType:
           type: string
-        services:
-          type: object
-          description: Free-form JSON.
-          x-apidog-orders: []
-          properties: {}
-          x-apidog-ignore-properties: []
-        products:
-          type: object
-          description: Free-form JSON.
-          x-apidog-orders: []
-          properties: {}
-          x-apidog-ignore-properties: []
-        subcategories:
-          type: object
-          description: Free-form JSON.
-          x-apidog-orders: []
-          properties: {}
-          x-apidog-ignore-properties: []
-        pricing:
-          type: object
-          description: Free-form JSON.
-          x-apidog-orders: []
-          properties: {}
-          x-apidog-ignore-properties: []
-        availability:
-          type: object
-          description: Free-form JSON.
-          x-apidog-orders: []
-          properties: {}
-          x-apidog-ignore-properties: []
-        uniqueSellingPoints:
-          type: object
-          description: Free-form JSON.
-          x-apidog-orders: []
-          properties: {}
-          x-apidog-ignore-properties: []
-        tone:
+        subjectId:
           type: string
-        targetCustomers:
+        createdAt:
           type: string
-        scrapedImages:
-          type: object
-          description: Free-form JSON.
-          x-apidog-orders: []
-          properties: {}
-          x-apidog-ignore-properties: []
-        insights:
-          type: object
-          description: Free-form JSON.
-          x-apidog-orders: []
-          properties: {}
-          x-apidog-ignore-properties: []
-        brandPrimaryColor:
+        updatedAt:
           type: string
-        brandSecondaryColor:
-          type: string
-        brandLogoUrl:
-          type: string
-        scrapedContext:
-          type: string
-        visualContext:
-          type: object
-          description: Free-form JSON.
-          x-apidog-orders: []
-          properties: {}
-          x-apidog-ignore-properties: []
       x-apidog-orders:
       - id
       - locationId
-      - businessName
-      - category
-      - businessDescription
-      - location
-      - services
-      - products
-      - subcategories
-      - pricing
-      - availability
-      - uniqueSellingPoints
-      - tone
-      - targetCustomers
-      - scrapedImages
-      - insights
-      - brandPrimaryColor
-      - brandSecondaryColor
-      - brandLogoUrl
-      - scrapedContext
-      - visualContext
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    LocalIdeaJobStatus:
-      type: object
-      properties:
-        status:
-          type: string
-        imageUrl:
-          type: string
-      x-apidog-orders:
+      - mode
       - status
-      - imageUrl
+      - messageCount
+      - title
+      - subjectType
+      - subjectId
+      - createdAt
+      - updatedAt
       x-apidog-ignore-properties: []
       x-apidog-folder: ''
-    LocalChatSessionResponse:
+    LocalTriggerPipelineResponse:
       type: object
       properties:
         success:
           type: boolean
-        session:
-          $ref: '#/components/schemas/LocalChatSession'
-        suggestions:
-          type: array
-          items:
-            type: string
+        pipelineId:
+          type: string
         error:
           $ref: '#/components/schemas/LocalError'
       x-apidog-orders:
       - success
-      - session
-      - suggestions
+      - pipelineId
       - error
+      x-apidog-folder: ''
+    ReferenceImageAnalysis:
+      type: object
+      properties:
+        description:
+          type: string
+          description: Textual description of the analyzed image.
+      x-apidog-orders:
+      - description
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    SetLocationImageCreditsRequest:
+      type: object
+      required:
+      - locationId
+      properties:
+        locationId:
+          type: string
+        monthlyLimit:
+          type: integer
+        isActive:
+          type: boolean
+      x-apidog-orders:
+      - locationId
+      - monthlyLimit
+      - isActive
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    LocalObservance:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        description:
+          type: string
+        date:
+          type: string
+        imageUrl:
+          type: string
+        isMonthLong:
+          type: boolean
+      x-apidog-orders:
+      - id
+      - title
+      - description
+      - date
+      - imageUrl
+      - isMonthLong
       x-apidog-ignore-properties: []
       x-apidog-folder: ''
