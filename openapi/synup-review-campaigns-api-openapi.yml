@@ -273,38 +273,6 @@ paths:
       x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-14026077-run
 components:
   schemas:
-    CampaignStat:
-      type: object
-      properties:
-        name:
-          type: string
-          enum:
-          - emails_sent
-          - sms_sent
-          - invite_open_rate
-          - clicks_rate
-          - customer_exp_score
-        value:
-          type: string
-      x-apidog-orders:
-      - name
-      - value
-      x-apidog-folder: ''
-    ReviewCampaignCustomersResponse:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            reviewCampaignInfo:
-              $ref: '#/components/schemas/ReviewCampaignInfo'
-          x-apidog-orders:
-          - reviewCampaignInfo
-          x-apidog-ignore-properties: []
-      x-apidog-orders:
-      - data
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
     EmailTemplate:
       type: object
       properties:
@@ -330,109 +298,22 @@ components:
       - reviewSiteHash
       x-apidog-ignore-properties: []
       x-apidog-folder: ''
-    AddCustomersRequest:
+    CustomerInput:
       type: object
       required:
-      - input
+      - name
       properties:
-        input:
-          type: object
-          required:
-          - reviewCampaignId
-          - locationCustomers
-          properties:
-            reviewCampaignId:
-              type: string
-            locationCustomers:
-              type: array
-              items:
-                $ref: '#/components/schemas/CustomerInput'
-          x-apidog-orders:
-          - reviewCampaignId
-          - locationCustomers
-          x-apidog-ignore-properties: []
-      x-apidog-orders:
-      - input
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    ReviewCampaignInfo:
-      type: object
-      properties:
-        campaignName:
+        name:
           type: string
-          description: Name of the review campaign
-        reviewCampaignCustomers:
-          type: array
-          items:
-            $ref: '#/components/schemas/ReviewCampaignCustomer'
-      x-apidog-orders:
-      - campaignName
-      - reviewCampaignCustomers
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    SMSTemplate:
-      type: object
-      properties:
-        content:
+        email:
           type: string
-        reviewSiteHash:
-          type: array
-          items:
-            $ref: '#/components/schemas/ReviewSite'
-          description: 'Max 1 for smsTemplate
-
-            Not required when screening is true'
+          format: email
+        phone:
+          type: string
       x-apidog-orders:
-      - content
-      - reviewSiteHash
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    CreateReviewCampaignRequest:
-      type: object
-      required:
-      - input
-      properties:
-        input:
-          type: object
-          required:
-          - locationId
-          - name
-          - locationCustomers
-          properties:
-            locationId:
-              type: string
-              description: Encoded Location ID
-            name:
-              type: string
-              description: Review Campaign Name
-            locationCustomers:
-              type: array
-              items:
-                $ref: '#/components/schemas/CustomerInput'
-              description: "Campaign customers to create\t"
-            screening:
-              type: boolean
-              description: Flag for screening enabled/disabled
-            landingPageTemplate:
-              $ref: '#/components/schemas/LandingPageTemplate'
-              description: "Landing page template(Use only when screening = true).\t"
-            openingEmailTemplate:
-              $ref: '#/components/schemas/EmailTemplate'
-              description: "Template for the very first email sent out.\t"
-            smsTemplate:
-              $ref: '#/components/schemas/SMSTemplate'
-              description: "Template for the very first SMS sent out.\t"
-          x-apidog-orders:
-          - locationId
-          - name
-          - locationCustomers
-          - screening
-          - landingPageTemplate
-          - openingEmailTemplate
-          - smsTemplate
-          x-apidog-ignore-properties: []
-      x-apidog-orders:
-      - input
+      - name
+      - email
+      - phone
       x-apidog-ignore-properties: []
       x-apidog-folder: ''
     ReviewCampaign:
@@ -496,6 +377,19 @@ components:
       - numberOfFeedbacks
       x-apidog-ignore-properties: []
       x-apidog-folder: ''
+    ReviewSite:
+      type: object
+      properties:
+        name:
+          type: string
+        url:
+          type: string
+          description: URL for connected sites (maps.google.com, facebook.com, foursquare.com) or custom sites
+      x-apidog-orders:
+      - name
+      - url
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
     SmsTemplate:
       type: object
       properties:
@@ -510,27 +404,21 @@ components:
       - reviewSiteHash
       x-apidog-ignore-properties: []
       x-apidog-folder: ''
-    ReviewCampaignsResponse:
+    SMSTemplate:
       type: object
       properties:
-        data:
-          type: object
-          properties:
-            listReviewCampaigns:
-              type: object
-              properties:
-                reviewCampaigns:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/ReviewCampaign'
-              x-apidog-orders:
-              - reviewCampaigns
-              x-apidog-ignore-properties: []
-          x-apidog-orders:
-          - listReviewCampaigns
-          x-apidog-ignore-properties: []
+        content:
+          type: string
+        reviewSiteHash:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReviewSite'
+          description: 'Max 1 for smsTemplate
+
+            Not required when screening is true'
       x-apidog-orders:
-      - data
+      - content
+      - reviewSiteHash
       x-apidog-ignore-properties: []
       x-apidog-folder: ''
     LandingPageTemplate:
@@ -550,17 +438,94 @@ components:
       - reviewSiteHash
       x-apidog-ignore-properties: []
       x-apidog-folder: ''
-    ReviewSite:
+    CampaignStat:
       type: object
       properties:
         name:
           type: string
-        url:
+          enum:
+          - emails_sent
+          - sms_sent
+          - invite_open_rate
+          - clicks_rate
+          - customer_exp_score
+        value:
           type: string
-          description: URL for connected sites (maps.google.com, facebook.com, foursquare.com) or custom sites
       x-apidog-orders:
       - name
-      - url
+      - value
+      x-apidog-folder: ''
+    CreateReviewCampaignRequest:
+      type: object
+      required:
+      - input
+      properties:
+        input:
+          type: object
+          required:
+          - locationId
+          - name
+          - locationCustomers
+          properties:
+            locationId:
+              type: string
+              description: Encoded Location ID
+            name:
+              type: string
+              description: Review Campaign Name
+            locationCustomers:
+              type: array
+              items:
+                $ref: '#/components/schemas/CustomerInput'
+              description: "Campaign customers to create\t"
+            screening:
+              type: boolean
+              description: Flag for screening enabled/disabled
+            landingPageTemplate:
+              $ref: '#/components/schemas/LandingPageTemplate'
+              description: "Landing page template(Use only when screening = true).\t"
+            openingEmailTemplate:
+              $ref: '#/components/schemas/EmailTemplate'
+              description: "Template for the very first email sent out.\t"
+            smsTemplate:
+              $ref: '#/components/schemas/SMSTemplate'
+              description: "Template for the very first SMS sent out.\t"
+          x-apidog-orders:
+          - locationId
+          - name
+          - locationCustomers
+          - screening
+          - landingPageTemplate
+          - openingEmailTemplate
+          - smsTemplate
+          x-apidog-ignore-properties: []
+      x-apidog-orders:
+      - input
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    AddCustomersRequest:
+      type: object
+      required:
+      - input
+      properties:
+        input:
+          type: object
+          required:
+          - reviewCampaignId
+          - locationCustomers
+          properties:
+            reviewCampaignId:
+              type: string
+            locationCustomers:
+              type: array
+              items:
+                $ref: '#/components/schemas/CustomerInput'
+          x-apidog-orders:
+          - reviewCampaignId
+          - locationCustomers
+          x-apidog-ignore-properties: []
+      x-apidog-orders:
+      - input
       x-apidog-ignore-properties: []
       x-apidog-folder: ''
     ReviewCampaignCustomer:
@@ -646,21 +611,56 @@ components:
       - secondFollowUpDeliveredAt
       x-apidog-ignore-properties: []
       x-apidog-folder: ''
-    CustomerInput:
+    ReviewCampaignInfo:
       type: object
-      required:
-      - name
       properties:
-        name:
+        campaignName:
           type: string
-        email:
-          type: string
-          format: email
-        phone:
-          type: string
+          description: Name of the review campaign
+        reviewCampaignCustomers:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReviewCampaignCustomer'
       x-apidog-orders:
-      - name
-      - email
-      - phone
+      - campaignName
+      - reviewCampaignCustomers
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    ReviewCampaignsResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            listReviewCampaigns:
+              type: object
+              properties:
+                reviewCampaigns:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/ReviewCampaign'
+              x-apidog-orders:
+              - reviewCampaigns
+              x-apidog-ignore-properties: []
+          x-apidog-orders:
+          - listReviewCampaigns
+          x-apidog-ignore-properties: []
+      x-apidog-orders:
+      - data
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    ReviewCampaignCustomersResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            reviewCampaignInfo:
+              $ref: '#/components/schemas/ReviewCampaignInfo'
+          x-apidog-orders:
+          - reviewCampaignInfo
+          x-apidog-ignore-properties: []
+      x-apidog-orders:
+      - data
       x-apidog-ignore-properties: []
       x-apidog-folder: ''

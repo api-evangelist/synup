@@ -963,6 +963,22 @@ components:
       - contextInfo
       x-apidog-ignore-properties: []
       x-apidog-folder: ''
+    Keyword:
+      type: object
+      required:
+      - id
+      - name
+      properties:
+        id:
+          type: string
+          description: The unique ID attached to the keyword
+        name:
+          type: string
+          description: The text value of the keyword
+      x-apidog-orders:
+      - id
+      - name
+      x-apidog-folder: ''
     BadRequestError:
       type: object
       properties:
@@ -990,20 +1006,4 @@ components:
       - data
       - errors
       x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    Keyword:
-      type: object
-      required:
-      - id
-      - name
-      properties:
-        id:
-          type: string
-          description: The unique ID attached to the keyword
-        name:
-          type: string
-          description: The text value of the keyword
-      x-apidog-orders:
-      - id
-      - name
       x-apidog-folder: ''

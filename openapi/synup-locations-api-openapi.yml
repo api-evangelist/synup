@@ -10940,41 +10940,40 @@ paths:
       x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-13642280-run
 components:
   schemas:
-    LocationSummaryConnectionType:
+    LocationSearchFilterType:
       type: object
       properties:
-        edges:
-          type: array
-          items:
-            $ref: '#/components/schemas/LocationSummaryEdge'
-        nodes:
+        tags:
           type: array
           items:
             type: string
-        pageInfo:
-          $ref: '#/components/schemas/PageInfo'
-        totalCount:
-          type: integer
-          description: Total number of records matching the filter.
+        folders:
+          type: array
+          items:
+            type: string
+        categories:
+          type: array
+          items:
+            type: string
+        additionalCategories:
+          type: array
+          items:
+            type: string
+        primaryGbpSiteCategories:
+          type: array
+          items:
+            $ref: '#/components/schemas/SitePublisherCategory'
+        additionalGbpSiteCategories:
+          type: array
+          items:
+            $ref: '#/components/schemas/SitePublisherCategory'
       x-apidog-orders:
-      - edges
-      - nodes
-      - pageInfo
-      - totalCount
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    DownloadLocationsInBulkType:
-      type: object
-      properties:
-        success:
-          type: boolean
-          description: Whether the export request was accepted.
-        csvUrl:
-          type: string
-          description: URL of the CSV file (populated when the export completes).
-      x-apidog-orders:
-      - success
-      - csvUrl
+      - tags
+      - folders
+      - categories
+      - additionalCategories
+      - primaryGbpSiteCategories
+      - additionalGbpSiteCategories
       x-apidog-ignore-properties: []
       x-apidog-folder: ''
     GoogleVerificationLocationStats:
@@ -11011,6 +11010,224 @@ components:
       - errorWhileFetching
       - notConnected
       - listingNotPresent
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    LocationAdvancedSearchFilterType:
+      type: object
+      properties:
+        country:
+          type: array
+          description: Countries present across the account's locations.
+          items:
+            type: object
+            x-apidog-orders: []
+            properties: {}
+            x-apidog-ignore-properties: []
+        state:
+          type: array
+          description: States present across the account's locations.
+          items:
+            type: object
+            x-apidog-orders: []
+            properties: {}
+            x-apidog-ignore-properties: []
+        city:
+          type: array
+          items:
+            type: string
+        zipcode:
+          type: array
+          items:
+            type: string
+        customAttrs:
+          type: array
+          description: Custom attribute names defined for the account.
+          items:
+            type: string
+      x-apidog-orders:
+      - country
+      - state
+      - city
+      - zipcode
+      - customAttrs
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    LocationAddOnCount:
+      type: object
+      properties:
+        enabled:
+          type: integer
+          description: Locations with the add-on enabled.
+        disabled:
+          type: integer
+          description: Locations with the add-on disabled.
+        othersEnabled:
+          type: array
+          description: Counts for other add-ons in the same product umbrella.
+          items:
+            $ref: '#/components/schemas/AddOnCount'
+      x-apidog-orders:
+      - enabled
+      - disabled
+      - othersEnabled
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    LocationPackageCount:
+      type: object
+      properties:
+        freemiumCount:
+          type: integer
+          description: Number of freemium-tier locations.
+        premiumCount:
+          type: integer
+          description: Number of premium-tier locations.
+      x-apidog-orders:
+      - freemiumCount
+      - premiumCount
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    LocationSummaryConnectionType:
+      type: object
+      properties:
+        edges:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationSummaryEdge'
+        nodes:
+          type: array
+          items:
+            type: string
+        pageInfo:
+          $ref: '#/components/schemas/PageInfo'
+        totalCount:
+          type: integer
+          description: Total number of records matching the filter.
+      x-apidog-orders:
+      - edges
+      - nodes
+      - pageInfo
+      - totalCount
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    LocationSummaryEdge:
+      type: object
+      properties:
+        cursor:
+          type: string
+        node:
+          type: string
+      x-apidog-orders:
+      - cursor
+      - node
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    Subscription:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The display name of the subscription plan
+          examples:
+          - Premium plan - Monthly
+        paymentSubscriptionId:
+          type: string
+          description: Unique identifier for the subscription
+          examples:
+          - b8b5075f-35ff-4aaf-9580-44271e0dde34
+        planId:
+          type: string
+          description: Identifier for the subscription plan
+          examples:
+          - premium-1month
+        tenure:
+          type: string
+          description: The subscription period
+          examples:
+          - Monthly
+      x-apidog-orders:
+      - name
+      - paymentSubscriptionId
+      - planId
+      - tenure
+      required:
+      - name
+      - paymentSubscriptionId
+      - planId
+      - tenure
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    PageInfo:
+      type: object
+      properties:
+        hasNextPage:
+          type: boolean
+          description: Indicates if there are more pages available
+        hasPreviousPage:
+          type: boolean
+          description: Indicates if there are previous pages available
+        totalPages:
+          type: integer
+          description: Total number of pages available
+        totalRecords:
+          type: integer
+          description: Total number of records across all pages
+      x-apidog-orders:
+      - hasNextPage
+      - hasPreviousPage
+      - totalPages
+      - totalRecords
+      x-apidog-folder: ''
+    SitePublisherCategory:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the category.
+        value:
+          type: integer
+          description: Internal numeric identifier of the category.
+        id:
+          type: string
+          description: GBP site category identifier.
+      x-apidog-orders:
+      - name
+      - value
+      - id
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    SubscriptionsResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            activeSubscriptions:
+              type: array
+              items:
+                $ref: '#/components/schemas/Subscription'
+          x-apidog-orders:
+          - activeSubscriptions
+          required:
+          - activeSubscriptions
+          x-apidog-ignore-properties: []
+      x-apidog-orders:
+      - data
+      required:
+      - data
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    DownloadLocationsInBulkType:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Whether the export request was accepted.
+        csvUrl:
+          type: string
+          description: URL of the CSV file (populated when the export completes).
+      x-apidog-orders:
+      - success
+      - csvUrl
       x-apidog-ignore-properties: []
       x-apidog-folder: ''
     LocationResponseSchema:
@@ -11521,161 +11738,6 @@ components:
       - discoveredPlaceActionLinks
       x--ignore-properties: []
       x-apidog-folder: ''
-    LocationAdvancedSearchFilterType:
-      type: object
-      properties:
-        country:
-          type: array
-          description: Countries present across the account's locations.
-          items:
-            type: object
-            x-apidog-orders: []
-            properties: {}
-            x-apidog-ignore-properties: []
-        state:
-          type: array
-          description: States present across the account's locations.
-          items:
-            type: object
-            x-apidog-orders: []
-            properties: {}
-            x-apidog-ignore-properties: []
-        city:
-          type: array
-          items:
-            type: string
-        zipcode:
-          type: array
-          items:
-            type: string
-        customAttrs:
-          type: array
-          description: Custom attribute names defined for the account.
-          items:
-            type: string
-      x-apidog-orders:
-      - country
-      - state
-      - city
-      - zipcode
-      - customAttrs
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    Subscription:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The display name of the subscription plan
-          examples:
-          - Premium plan - Monthly
-        paymentSubscriptionId:
-          type: string
-          description: Unique identifier for the subscription
-          examples:
-          - b8b5075f-35ff-4aaf-9580-44271e0dde34
-        planId:
-          type: string
-          description: Identifier for the subscription plan
-          examples:
-          - premium-1month
-        tenure:
-          type: string
-          description: The subscription period
-          examples:
-          - Monthly
-      x-apidog-orders:
-      - name
-      - paymentSubscriptionId
-      - planId
-      - tenure
-      required:
-      - name
-      - paymentSubscriptionId
-      - planId
-      - tenure
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    LocationSearchFilterType:
-      type: object
-      properties:
-        tags:
-          type: array
-          items:
-            type: string
-        folders:
-          type: array
-          items:
-            type: string
-        categories:
-          type: array
-          items:
-            type: string
-        additionalCategories:
-          type: array
-          items:
-            type: string
-        primaryGbpSiteCategories:
-          type: array
-          items:
-            $ref: '#/components/schemas/SitePublisherCategory'
-        additionalGbpSiteCategories:
-          type: array
-          items:
-            $ref: '#/components/schemas/SitePublisherCategory'
-      x-apidog-orders:
-      - tags
-      - folders
-      - categories
-      - additionalCategories
-      - primaryGbpSiteCategories
-      - additionalGbpSiteCategories
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    LocationPackageCount:
-      type: object
-      properties:
-        freemiumCount:
-          type: integer
-          description: Number of freemium-tier locations.
-        premiumCount:
-          type: integer
-          description: Number of premium-tier locations.
-      x-apidog-orders:
-      - freemiumCount
-      - premiumCount
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    LocationSummaryEdge:
-      type: object
-      properties:
-        cursor:
-          type: string
-        node:
-          type: string
-      x-apidog-orders:
-      - cursor
-      - node
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    SitePublisherCategory:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Name of the category.
-        value:
-          type: integer
-          description: Internal numeric identifier of the category.
-        id:
-          type: string
-          description: GBP site category identifier.
-      x-apidog-orders:
-      - name
-      - value
-      - id
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
     AddOnCount:
       type: object
       properties:
@@ -11689,66 +11751,4 @@ components:
       - id
       - name
       - count
-      x-apidog-folder: ''
-    SubscriptionsResponse:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            activeSubscriptions:
-              type: array
-              items:
-                $ref: '#/components/schemas/Subscription'
-          x-apidog-orders:
-          - activeSubscriptions
-          required:
-          - activeSubscriptions
-          x-apidog-ignore-properties: []
-      x-apidog-orders:
-      - data
-      required:
-      - data
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    LocationAddOnCount:
-      type: object
-      properties:
-        enabled:
-          type: integer
-          description: Locations with the add-on enabled.
-        disabled:
-          type: integer
-          description: Locations with the add-on disabled.
-        othersEnabled:
-          type: array
-          description: Counts for other add-ons in the same product umbrella.
-          items:
-            $ref: '#/components/schemas/AddOnCount'
-      x-apidog-orders:
-      - enabled
-      - disabled
-      - othersEnabled
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    PageInfo:
-      type: object
-      properties:
-        hasNextPage:
-          type: boolean
-          description: Indicates if there are more pages available
-        hasPreviousPage:
-          type: boolean
-          description: Indicates if there are previous pages available
-        totalPages:
-          type: integer
-          description: Total number of pages available
-        totalRecords:
-          type: integer
-          description: Total number of records across all pages
-      x-apidog-orders:
-      - hasNextPage
-      - hasPreviousPage
-      - totalPages
-      - totalRecords
       x-apidog-folder: ''

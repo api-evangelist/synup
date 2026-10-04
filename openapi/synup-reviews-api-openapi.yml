@@ -1077,6 +1077,131 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    ResponseInteraction:
+      type: object
+      properties:
+        interactionId:
+          type: string
+          format: uuid
+          description: Parent interaction ID for the response
+        source:
+          type: string
+          description: URL of the interaction site
+        content:
+          type: string
+          description: Interaction response content
+        authorName:
+          type:
+          - string
+          - 'null'
+          description: Name of person who responded
+        authorAvatar:
+          type:
+          - string
+          - 'null'
+          description: URL of response author's image
+        authorUrl:
+          type:
+          - string
+          - 'null'
+          description: URL of response author's profile
+        date:
+          type: string
+          format: date-time
+          description: Response timestamp
+        interactionStatus:
+          type: string
+          enum:
+          - Created
+          - Completed
+          - Confirmed
+          - Failed
+          description: 'Status of the response:
+
+            * Created - Initial creation
+
+            * Completed - Posted to partner site
+
+            * Confirmed - Verified on partner site
+
+            * Failed - Response posting failed
+
+            '
+      x-apidog-orders:
+      - interactionId
+      - source
+      - content
+      - authorName
+      - authorAvatar
+      - authorUrl
+      - date
+      - interactionStatus
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    InteractionsResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            interactions:
+              type: object
+              properties:
+                pageInfo:
+                  $ref: '#/components/schemas/PageInfo'
+                edges:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/InteractionEdge'
+                totalCount:
+                  type: integer
+                  description: Total number of interactions matching the filters
+              x-apidog-orders:
+              - pageInfo
+              - edges
+              - totalCount
+              x-apidog-ignore-properties: []
+          x-apidog-orders:
+          - interactions
+          x-apidog-ignore-properties: []
+      x-apidog-orders:
+      - data
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    InteractionEdge:
+      type: object
+      properties:
+        node:
+          $ref: '#/components/schemas/Interaction'
+        cursor:
+          type: string
+          description: Cursor for pagination
+      x-apidog-orders:
+      - node
+      - cursor
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    PageInfo:
+      type: object
+      properties:
+        hasNextPage:
+          type: boolean
+          description: Indicates if there are more pages available
+        hasPreviousPage:
+          type: boolean
+          description: Indicates if there are previous pages available
+        totalPages:
+          type: integer
+          description: Total number of pages available
+        totalRecords:
+          type: integer
+          description: Total number of records across all pages
+      x-apidog-orders:
+      - hasNextPage
+      - hasPreviousPage
+      - totalPages
+      - totalRecords
+      x-apidog-folder: ''
     Interaction:
       type: object
       properties:
@@ -1183,129 +1308,4 @@ components:
       - canRespond
       - totalResponses
       x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    InteractionsResponse:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            interactions:
-              type: object
-              properties:
-                pageInfo:
-                  $ref: '#/components/schemas/PageInfo'
-                edges:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/InteractionEdge'
-                totalCount:
-                  type: integer
-                  description: Total number of interactions matching the filters
-              x-apidog-orders:
-              - pageInfo
-              - edges
-              - totalCount
-              x-apidog-ignore-properties: []
-          x-apidog-orders:
-          - interactions
-          x-apidog-ignore-properties: []
-      x-apidog-orders:
-      - data
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    InteractionEdge:
-      type: object
-      properties:
-        node:
-          $ref: '#/components/schemas/Interaction'
-        cursor:
-          type: string
-          description: Cursor for pagination
-      x-apidog-orders:
-      - node
-      - cursor
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    ResponseInteraction:
-      type: object
-      properties:
-        interactionId:
-          type: string
-          format: uuid
-          description: Parent interaction ID for the response
-        source:
-          type: string
-          description: URL of the interaction site
-        content:
-          type: string
-          description: Interaction response content
-        authorName:
-          type:
-          - string
-          - 'null'
-          description: Name of person who responded
-        authorAvatar:
-          type:
-          - string
-          - 'null'
-          description: URL of response author's image
-        authorUrl:
-          type:
-          - string
-          - 'null'
-          description: URL of response author's profile
-        date:
-          type: string
-          format: date-time
-          description: Response timestamp
-        interactionStatus:
-          type: string
-          enum:
-          - Created
-          - Completed
-          - Confirmed
-          - Failed
-          description: 'Status of the response:
-
-            * Created - Initial creation
-
-            * Completed - Posted to partner site
-
-            * Confirmed - Verified on partner site
-
-            * Failed - Response posting failed
-
-            '
-      x-apidog-orders:
-      - interactionId
-      - source
-      - content
-      - authorName
-      - authorAvatar
-      - authorUrl
-      - date
-      - interactionStatus
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    PageInfo:
-      type: object
-      properties:
-        hasNextPage:
-          type: boolean
-          description: Indicates if there are more pages available
-        hasPreviousPage:
-          type: boolean
-          description: Indicates if there are previous pages available
-        totalPages:
-          type: integer
-          description: Total number of pages available
-        totalRecords:
-          type: integer
-          description: Total number of records across all pages
-      x-apidog-orders:
-      - hasNextPage
-      - hasPreviousPage
-      - totalPages
-      - totalRecords
       x-apidog-folder: ''

@@ -388,34 +388,6 @@ components:
       - value
       x-apidog-ignore-properties: []
       x-apidog-folder: ''
-    UnauthorizedError:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            archiveKeyword:
-              type: null
-          x-apidog-orders:
-          - archiveKeyword
-          x-apidog-ignore-properties: []
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              message:
-                type: string
-                examples:
-                - 'SY90001: Not authorized to access this resource'
-            x-apidog-orders:
-            - message
-            x-apidog-ignore-properties: []
-      x-apidog-orders:
-      - data
-      - errors
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
     NotFoundError:
       type: object
       properties:
@@ -436,6 +408,34 @@ components:
                 type: string
                 examples:
                 - Location not found
+            x-apidog-orders:
+            - message
+            x-apidog-ignore-properties: []
+      x-apidog-orders:
+      - data
+      - errors
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    UnauthorizedError:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            archiveKeyword:
+              type: null
+          x-apidog-orders:
+          - archiveKeyword
+          x-apidog-ignore-properties: []
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+                examples:
+                - 'SY90001: Not authorized to access this resource'
             x-apidog-orders:
             - message
             x-apidog-ignore-properties: []
