@@ -34,7 +34,7 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/synup.png
 url: https://raw.githubusercontent.com/api-evangelist/synup/refs/heads/main/apis.yml
 created: '2026-06-13'
-modified: '2026-09-16'
+modified: '2026-10-06'
 specificationVersion: '0.23'
 type: Index
 tags:
@@ -510,6 +510,10 @@ apis:
   - type: Webhooks
     url: openapi/_original/synup-webhooks-openapi.yml
 common:
+- url: https://synup.com/blog
+  type: Blog
+- url: https://synup.com/blog/rss.xml
+  type: BlogRSS
 - type: CapabilityMap
   url: capabilities/synup-capability-edges.yml
   name: Synup Business Capability Map
