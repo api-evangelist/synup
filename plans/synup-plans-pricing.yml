@@ -100,3 +100,32 @@ notes:
 - API access is included on every Synup OS tier; API and MCP access for custom workflows is called out
   on Scale.
 - Add-ons are priced per location per month (per connection for Social Pro) on top of the Synup OS tier.
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - subscription
+  units:
+  - period
+  plans:
+  - name: Synup OS Startup
+    access: other
+    model: subscription
+    model_how: derived
+    units:
+    - period
+    periods: []
+  - name: Synup OS Agency
+    access: other
+    model: subscription
+    model_how: derived
+    units:
+    - period
+    periods: []
+  - name: Synup OS Scale
+    access: other
+    model: subscription
+    model_how: derived
+    units:
+    - period
+    periods: []
