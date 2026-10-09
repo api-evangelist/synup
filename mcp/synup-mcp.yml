@@ -536,3 +536,19 @@ tools:
   friendly: Indexing Not Supported Sites
   description: Get sites that do not support indexation checks
 crosswalk: mcp/synup-tool-crosswalk.yml
+rfc9728:
+  endpoint: https://mcp-agent.synup.com/mcp
+  metadata_url: https://mcp-agent.synup.com/mcp/.well-known/oauth-protected-resource
+  discovered_via: WWW-Authenticate resource_metadata on an anonymous POST initialize
+  fetched: '2026-09-25'
+  http_status: 200
+  content_type: application/json
+  document:
+    resource: https://mcp-agent.synup.com/mcp
+    authorization_servers:
+    - https://mcp-agent.synup.com
+    scopes_supported:
+    - mcp:read
+    - mcp:write
+    bearer_methods_supported:
+    - header
