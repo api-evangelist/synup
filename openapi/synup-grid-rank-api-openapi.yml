@@ -285,20 +285,116 @@ components:
       - data
       x-apidog-ignore-properties: []
       x-apidog-folder: ''
-    AllGridReportsResponse:
+    RankPoint:
       type: object
       properties:
-        data:
-          type: object
-          properties:
-            gridrankReportsByLocationId:
-              type: array
-              items:
-                $ref: '#/components/schemas/GridReport'
-          x-apidog-orders:
-          - gridrankReportsByLocationId
+        rank:
+          type: number
+          description: Rank at this coordinate (-1 if not ranked)
+        latitude:
+          type: number
+          format: float
+          description: Latitude of the grid point
+        longitude:
+          type: number
+          format: float
+          description: Longitude of the grid point
       x-apidog-orders:
-      - data
+      - rank
+      - latitude
+      - longitude
+      x-apidog-folder: ''
+    CreateGridReportInput:
+      type: object
+      required:
+      - locationId
+      - keywords
+      - businessName
+      - businessStreet
+      - businessCity
+      - businessState
+      - businessCountry
+      - latitude
+      - longitude
+      - distance
+      - distanceUnit
+      - gridSize
+      properties:
+        locationId:
+          type: string
+          description: Base64 encoded location ID
+        keywords:
+          type: array
+          items:
+            type: string
+          maxItems: 25
+          description: Keywords for analysis of rank for the business (maximum 25)
+        businessName:
+          type: string
+          description: Exact name of the business in Google Maps
+        businessStreet:
+          type: string
+          description: Street address of the business
+        businessCity:
+          type: string
+          description: City of the business
+        businessState:
+          type: string
+          description: State of the business
+        businessCountry:
+          type: string
+          description: Country of the business
+        latitude:
+          type: number
+          format: float
+          description: Latitude coordinate of the business
+        longitude:
+          type: number
+          format: float
+          description: Longitude coordinate of the business
+        distance:
+          type: number
+          description: Grid Distance
+        distanceUnit:
+          type: string
+          enum:
+          - mi
+          - km
+          description: Distance unit (mi for Miles, km for Kilometers)
+        gridSize:
+          type: integer
+          enum:
+          - 3
+          - 5
+          - 7
+          description: Size of the grid for analysis
+      x-apidog-orders:
+      - locationId
+      - keywords
+      - businessName
+      - businessStreet
+      - businessCity
+      - businessState
+      - businessCountry
+      - latitude
+      - longitude
+      - distance
+      - distanceUnit
+      - gridSize
+      x--orders:
+      - locationId
+      - keywords
+      - businessName
+      - businessStreet
+      - businessCity
+      - businessState
+      - businessCountry
+      - latitude
+      - longitude
+      - distance
+      - distanceUnit
+      - gridSize
+      x--ignore-properties: []
       x-apidog-folder: ''
     GridReport:
       type: object
@@ -414,117 +510,6 @@ components:
       - placeId
       - createdAt
       x-apidog-folder: ''
-    CreateGridReportInput:
-      type: object
-      required:
-      - locationId
-      - keywords
-      - businessName
-      - businessStreet
-      - businessCity
-      - businessState
-      - businessCountry
-      - latitude
-      - longitude
-      - distance
-      - distanceUnit
-      - gridSize
-      properties:
-        locationId:
-          type: string
-          description: Base64 encoded location ID
-        keywords:
-          type: array
-          items:
-            type: string
-          maxItems: 25
-          description: Keywords for analysis of rank for the business (maximum 25)
-        businessName:
-          type: string
-          description: Exact name of the business in Google Maps
-        businessStreet:
-          type: string
-          description: Street address of the business
-        businessCity:
-          type: string
-          description: City of the business
-        businessState:
-          type: string
-          description: State of the business
-        businessCountry:
-          type: string
-          description: Country of the business
-        latitude:
-          type: number
-          format: float
-          description: Latitude coordinate of the business
-        longitude:
-          type: number
-          format: float
-          description: Longitude coordinate of the business
-        distance:
-          type: number
-          description: Grid Distance
-        distanceUnit:
-          type: string
-          enum:
-          - mi
-          - km
-          description: Distance unit (mi for Miles, km for Kilometers)
-        gridSize:
-          type: integer
-          enum:
-          - 3
-          - 5
-          - 7
-          description: Size of the grid for analysis
-      x-apidog-orders:
-      - locationId
-      - keywords
-      - businessName
-      - businessStreet
-      - businessCity
-      - businessState
-      - businessCountry
-      - latitude
-      - longitude
-      - distance
-      - distanceUnit
-      - gridSize
-      x--orders:
-      - locationId
-      - keywords
-      - businessName
-      - businessStreet
-      - businessCity
-      - businessState
-      - businessCountry
-      - latitude
-      - longitude
-      - distance
-      - distanceUnit
-      - gridSize
-      x--ignore-properties: []
-      x-apidog-folder: ''
-    RankPoint:
-      type: object
-      properties:
-        rank:
-          type: number
-          description: Rank at this coordinate (-1 if not ranked)
-        latitude:
-          type: number
-          format: float
-          description: Latitude of the grid point
-        longitude:
-          type: number
-          format: float
-          description: Longitude of the grid point
-      x-apidog-orders:
-      - rank
-      - latitude
-      - longitude
-      x-apidog-folder: ''
     CreateGridReportResponse:
       type: object
       properties:
@@ -570,4 +555,19 @@ components:
       x--orders:
       - data
       x--ignore-properties: []
+      x-apidog-folder: ''
+    AllGridReportsResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            gridrankReportsByLocationId:
+              type: array
+              items:
+                $ref: '#/components/schemas/GridReport'
+          x-apidog-orders:
+          - gridrankReportsByLocationId
+      x-apidog-orders:
+      - data
       x-apidog-folder: ''

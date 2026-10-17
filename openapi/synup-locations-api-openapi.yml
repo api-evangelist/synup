@@ -10940,78 +10940,6 @@ paths:
       x-run-in-apidog: https://app.apidog.com/web/project/797384/apis/api-13642280-run
 components:
   schemas:
-    LocationSearchFilterType:
-      type: object
-      properties:
-        tags:
-          type: array
-          items:
-            type: string
-        folders:
-          type: array
-          items:
-            type: string
-        categories:
-          type: array
-          items:
-            type: string
-        additionalCategories:
-          type: array
-          items:
-            type: string
-        primaryGbpSiteCategories:
-          type: array
-          items:
-            $ref: '#/components/schemas/SitePublisherCategory'
-        additionalGbpSiteCategories:
-          type: array
-          items:
-            $ref: '#/components/schemas/SitePublisherCategory'
-      x-apidog-orders:
-      - tags
-      - folders
-      - categories
-      - additionalCategories
-      - primaryGbpSiteCategories
-      - additionalGbpSiteCategories
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    GoogleVerificationLocationStats:
-      type: object
-      properties:
-        total:
-          type: integer
-        verified:
-          type: integer
-        underReview:
-          type: integer
-        pendingVerification:
-          type: integer
-        duplicate:
-          type: integer
-        suspended:
-          type: integer
-        notVerified:
-          type: integer
-        errorWhileFetching:
-          type: integer
-        notConnected:
-          type: integer
-        listingNotPresent:
-          type: integer
-      x-apidog-orders:
-      - total
-      - verified
-      - underReview
-      - pendingVerification
-      - duplicate
-      - suspended
-      - notVerified
-      - errorWhileFetching
-      - notConnected
-      - listingNotPresent
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
     LocationAdvancedSearchFilterType:
       type: object
       properties:
@@ -11052,6 +10980,48 @@ components:
       - customAttrs
       x-apidog-ignore-properties: []
       x-apidog-folder: ''
+    LocationPackageCount:
+      type: object
+      properties:
+        freemiumCount:
+          type: integer
+          description: Number of freemium-tier locations.
+        premiumCount:
+          type: integer
+          description: Number of premium-tier locations.
+      x-apidog-orders:
+      - freemiumCount
+      - premiumCount
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    AddOnCount:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        count:
+          type: integer
+      x-apidog-orders:
+      - id
+      - name
+      - count
+      x-apidog-folder: ''
+    DownloadLocationsInBulkType:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Whether the export request was accepted.
+        csvUrl:
+          type: string
+          description: URL of the CSV file (populated when the export completes).
+      x-apidog-orders:
+      - success
+      - csvUrl
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
     LocationAddOnCount:
       type: object
       properties:
@@ -11072,18 +11042,40 @@ components:
       - othersEnabled
       x-apidog-ignore-properties: []
       x-apidog-folder: ''
-    LocationPackageCount:
+    GoogleVerificationLocationStats:
       type: object
       properties:
-        freemiumCount:
+        total:
           type: integer
-          description: Number of freemium-tier locations.
-        premiumCount:
+        verified:
           type: integer
-          description: Number of premium-tier locations.
+        underReview:
+          type: integer
+        pendingVerification:
+          type: integer
+        duplicate:
+          type: integer
+        suspended:
+          type: integer
+        notVerified:
+          type: integer
+        errorWhileFetching:
+          type: integer
+        notConnected:
+          type: integer
+        listingNotPresent:
+          type: integer
       x-apidog-orders:
-      - freemiumCount
-      - premiumCount
+      - total
+      - verified
+      - underReview
+      - pendingVerification
+      - duplicate
+      - suspended
+      - notVerified
+      - errorWhileFetching
+      - notConnected
+      - listingNotPresent
       x-apidog-ignore-properties: []
       x-apidog-folder: ''
     LocationSummaryConnectionType:
@@ -11109,16 +11101,25 @@ components:
       - totalCount
       x-apidog-ignore-properties: []
       x-apidog-folder: ''
-    LocationSummaryEdge:
+    SubscriptionsResponse:
       type: object
       properties:
-        cursor:
-          type: string
-        node:
-          type: string
+        data:
+          type: object
+          properties:
+            activeSubscriptions:
+              type: array
+              items:
+                $ref: '#/components/schemas/Subscription'
+          x-apidog-orders:
+          - activeSubscriptions
+          required:
+          - activeSubscriptions
+          x-apidog-ignore-properties: []
       x-apidog-orders:
-      - cursor
-      - node
+      - data
+      required:
+      - data
       x-apidog-ignore-properties: []
       x-apidog-folder: ''
     Subscription:
@@ -11154,6 +11155,54 @@ components:
       - paymentSubscriptionId
       - planId
       - tenure
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    LocationSummaryEdge:
+      type: object
+      properties:
+        cursor:
+          type: string
+        node:
+          type: string
+      x-apidog-orders:
+      - cursor
+      - node
+      x-apidog-ignore-properties: []
+      x-apidog-folder: ''
+    LocationSearchFilterType:
+      type: object
+      properties:
+        tags:
+          type: array
+          items:
+            type: string
+        folders:
+          type: array
+          items:
+            type: string
+        categories:
+          type: array
+          items:
+            type: string
+        additionalCategories:
+          type: array
+          items:
+            type: string
+        primaryGbpSiteCategories:
+          type: array
+          items:
+            $ref: '#/components/schemas/SitePublisherCategory'
+        additionalGbpSiteCategories:
+          type: array
+          items:
+            $ref: '#/components/schemas/SitePublisherCategory'
+      x-apidog-orders:
+      - tags
+      - folders
+      - categories
+      - additionalCategories
+      - primaryGbpSiteCategories
+      - additionalGbpSiteCategories
       x-apidog-ignore-properties: []
       x-apidog-folder: ''
     PageInfo:
@@ -11193,41 +11242,6 @@ components:
       - name
       - value
       - id
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    SubscriptionsResponse:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            activeSubscriptions:
-              type: array
-              items:
-                $ref: '#/components/schemas/Subscription'
-          x-apidog-orders:
-          - activeSubscriptions
-          required:
-          - activeSubscriptions
-          x-apidog-ignore-properties: []
-      x-apidog-orders:
-      - data
-      required:
-      - data
-      x-apidog-ignore-properties: []
-      x-apidog-folder: ''
-    DownloadLocationsInBulkType:
-      type: object
-      properties:
-        success:
-          type: boolean
-          description: Whether the export request was accepted.
-        csvUrl:
-          type: string
-          description: URL of the CSV file (populated when the export completes).
-      x-apidog-orders:
-      - success
-      - csvUrl
       x-apidog-ignore-properties: []
       x-apidog-folder: ''
     LocationResponseSchema:
@@ -11737,18 +11751,4 @@ components:
       - placeActionLinks
       - discoveredPlaceActionLinks
       x--ignore-properties: []
-      x-apidog-folder: ''
-    AddOnCount:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        count:
-          type: integer
-      x-apidog-orders:
-      - id
-      - name
-      - count
       x-apidog-folder: ''
