@@ -12,7 +12,7 @@
       "source": "https://synup.com/blog",
       "feed_url": "https://synup.com/blog/rss.xml",
       "title": "",
-      "saved": 1,
+      "saved": 0,
       "method": "discovered"
     },
     {
@@ -44,7 +44,7 @@
       "method": "none"
     }
   ],
-  "post_count": 1,
-  "fetched": "2026-10-10T13:15:00Z",
+  "post_count": 3,
+  "fetched": "2026-10-17T14:53:57Z",
   "note": "2026-08-13: https://www.synup.com/blog/ now 404s; Synup moved its content library to /en/learn."
 }
