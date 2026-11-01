@@ -64,13 +64,175 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Synup is a local marketing platform providing a REST API for managing business listings, syndicating location data to 80+ directories, tracking and responding to reviews, and monitoring local search performance. The platform serves marketing agencies with white-label tools covering listings sync, reputation management, social media, SEO, and analytics.
+Synup is a local marketing platform for agencies and multi-location brands, providing a REST API (v4) for managing business locations, syndicating listing data to 80+ directories including Google, Apple, Bing and Facebook, aggregating and responding to reviews across every connected platform, running SMS and email review campaigns, tracking local search rankings with grid-rank heatmaps, publishing local and social posts, and pulling unified profile analytics. The platform serves marketing agencies with white-label tooling covering listings sync, reputation management, social media, local SEO and reporting, and ships a first-party remote MCP server so AI agents can drive the same surface as the dashboard.
 
-- **Website:** https://www.synup.com/
-- **Developer Portal:** https://developer.synup.com/
-- **Pricing:** https://www.synup.com/en/pricing
-- **Status:** https://status.synup.com/
-- **Blog:** https://www.synup.com/blog/
-- **GitHub:** https://github.com/synup
-- **LinkedIn:** https://www.linkedin.com/company/synup
-- **X:** https://x.com/synupinc
+**Areas:** Local Marketing · Listings Management · Reputation Management · Local SEO · Reviews · Social Media · Analytics · Business Listings · Review Management · Agency Software
+
+## Synup on APIs.io
+
+Everything profiled for Synup is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/synup/](https://apis.io/providers/synup/)** — or go straight to one of the APIs or properties below.
+
+### APIs (20)
+
+- [Synup MCP Server](https://apis.io/apis/synup/synup-mcp/) — First-party remote Model Context Protocol server enumerating 126 tools in its published tool table across six surfaces (Locations, Listings, Reviews,…
+- [Synup Automations API](https://apis.io/apis/synup/synup-automations-api/) — The Automations API from Synup — 1 operation(s) for automations.
+- [Synup Connected Accounts API](https://apis.io/apis/synup/synup-connected-accounts-api/) — The Connected Accounts API from Synup — 20 operation(s) for connected accounts.
+- [Synup Grid Rank API](https://apis.io/apis/synup/synup-grid-rank-api/) — The Grid Rank API from Synup — 3 operation(s) for grid rank.
+- [Synup Listings API](https://apis.io/apis/synup/synup-listings-api/) — The Listings API from Synup — 7 operation(s) for listings.
+- [Synup Local Post Ideas API](https://apis.io/apis/synup/synup-local-post-ideas-api/) — The Local Post Ideas API from Synup — 41 operation(s) for local post ideas.
+- [Synup Locations API](https://apis.io/apis/synup/synup-locations-api/) — The Locations API from Synup — 25 operation(s) for locations.
+- [Synup Menus API](https://apis.io/apis/synup/synup-menus-api/) — The Menus API from Synup — 5 operation(s) for menus.
+- [Synup Organizing locations API](https://apis.io/apis/synup/synup-organizing-locations-api/) — The Organizing locations API from Synup — 14 operation(s) for organizing locations.
+- [Synup Posts API](https://apis.io/apis/synup/synup-posts-api/) — The Posts API from Synup — 6 operation(s) for posts.
+- [Synup Profile Analytics API](https://apis.io/apis/synup/synup-profile-analytics-api/) — The Profile Analytics API from Synup — 3 operation(s) for profile analytics.
+- [Synup Rankings API](https://apis.io/apis/synup/synup-rankings-api/) — The Rankings API from Synup — 6 operation(s) for rankings.
+- [Synup Review Campaigns API](https://apis.io/apis/synup/synup-review-campaigns-api/) — The Review Campaigns API from Synup — 4 operation(s) for review campaigns.
+- [Synup Reviews API](https://apis.io/apis/synup/synup-reviews-api/) — The Reviews API from Synup — 9 operation(s) for reviews.
+- [Synup Reviews/Review Sources API](https://apis.io/apis/synup/synup-reviews-review-sources-api/) — The Reviews/Review Sources API from Synup — 3 operation(s) for reviews/review sources.
+- [Synup Social API](https://apis.io/apis/synup/synup-social-api/) — The Social API from Synup — 3 operation(s) for social.
+- [Synup Social Post Ideas API](https://apis.io/apis/synup/synup-social-post-ideas-api/) — The Social Post Ideas API from Synup — 47 operation(s) for social post ideas.
+- [Synup User Management API](https://apis.io/apis/synup/synup-user-management-api/) — The User Management API from Synup — 11 operation(s) for user management.
+- [Synup Webhooks API](https://apis.io/apis/synup/synup-webhooks-api/) — The Webhooks API from Synup — 0 operation(s) for webhooks.
+- [Synup Webhooks/Webhooks API](https://apis.io/apis/synup/synup-webhooks-webhooks-api/) — The Webhooks/Webhooks API from Synup — 0 operation(s) for webhooks/webhooks.
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### AsyncAPI (1)
+
+Event-driven and webhook contracts.
+
+- [Synup Webhooks](https://apis.io/asyncapis/synup/synup-webhooks/)
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [Synup MCP Server](https://apis.io/servers/synup/synup-mcp-server/)
+
+#### JSON Schema (1)
+
+The data models the API reads and writes.
+
+- [Synup API v4 component schemas](https://apis.io/schemas/synup/synup-schemas/)
+
+#### JSON-LD (1)
+
+Linked-data contexts for the provider's vocabulary.
+
+- [Synup Context](https://apis.io/jsonld/synup/synup-context/)
+
+#### Vocabulary (1)
+
+The provider's domain terms, defined.
+
+- [Synup API Vocabulary](https://apis.io/vocabularies/synup/synup-vocabulary/)
+
+#### Overlays (1)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Synup Api Overlay](https://apis.io/overlays/synup/synup-api-overlay/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Synup Authentication](https://apis.io/security/synup/synup-authentication/)
+- [Synup Domain Security](https://apis.io/security/synup/synup-domain-security/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [Synup Scopes](https://apis.io/scopes/synup/synup-scopes/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Synup Plans Pricing](https://apis.io/plans/synup/synup-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Synup Rate Limits](https://apis.io/rate-limits/synup/synup-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Synup Finops](https://apis.io/finops/synup/synup-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.synup.com/)
+- [Documentation](https://developer.synup.com/)
+- [Getting started](https://developer.synup.com/synup-local-seo-api-getting-started-doc-824500)
+- [API reference](https://developer.synup.com/)
+- [Pricing](https://www.synup.com/en/pricing)
+- [Support](https://help.synup.com/)
+- [Changelog](https://www.synup.com/en/changelog)
+- [Blog](https://synup.com/blog)
+- [Terms of service](https://www.synup.com/en/terms-and-conditions)
+- [Privacy policy](https://www.synup.com/en/privacy-policy)
+- [GitHub](https://github.com/synup)
+
+## API Evangelist rating
+
+**Kin Score 62.2** — strong · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 75.0 |
+| Contract quality | 70.0 |
+| Contract governance | 18.2 |
+| Operational transparency | 26.3 |
+| Developer ergonomics | 66.1 |
+| Access clarity | 69.7 |
+
+**Agent readiness 61.4** — agent-ready (gated down from agent-native)
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | verified |
+| Auth Clarity | served (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | yes |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | served (partial credit) |
+| Protected Resource Metadata | verified |
+| Dynamic Client Registration | yes |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 34.3** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/synup/](https://apis.io/providers/synup/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Synup: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/synup/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
